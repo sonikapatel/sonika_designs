@@ -1,0 +1,184 @@
+/* Uses Apply.css for page/header/card layout.
+   This file only styles the verification-specific UI. */
+
+   .applyVerifyCard {
+    /* keep consistent with Apply card; just add some structure */
+  }
+  
+  .applyVerifyBack {
+    border: none;
+    background: transparent;
+    padding: 0;
+    cursor: pointer;
+    margin-bottom: 8px;
+    opacity: 0.8;
+    font-size: 14px;
+    text-align: left;
+  }
+  
+  .applyVerifyBack:hover {
+    opacity: 1;
+  }
+  
+  .applyVerifyError {
+    margin-top: 10px;
+    border-radius: 12px;
+    background: rgba(176, 0, 32, 0.08);
+    color: #b00020;
+    padding: 12px;
+  }
+  
+  .applyVerifyError pre {
+    margin: 0;
+    white-space: pre-wrap;
+    font-family: inherit;
+    font-size: 13px;
+    line-height: 1.4;
+  }
+  
+  .applyVerifyForm {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.2);;
+    border-radius: 8px;
+    padding: 16px;
+  }
+  
+  .applyVerifyLabel {
+    display: block;
+    font-weight: 600;
+    margin-top: 4px;
+    margin: 0;                 /* remove default label spacing */
+  line-height: 1;  
+  }
+
+  .verifiedHeaderRow{
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .applyVerifyInput {
+    padding: 12px;
+    width: 200px;
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    background: rgba(255, 255, 255, 0.75);
+    outline: none;
+  }
+  
+  .applyVerifyInput:focus {
+    border-color: rgba(0, 0, 0, 0.35);
+  }
+  
+  .applyVerifyPrimaryBtn {
+    width: fit-content;
+    height: 44px;
+    border-radius: 10px;
+    border: none;
+    margin-left: 16px;
+    cursor: pointer;
+    background: #1d1b55;
+    color: #fff;
+    font-weight: 600;
+    padding: 1em;
+    font-size: 15px;
+    box-shadow: 0 10px 24px rgba(29, 27, 85, 0.22);
+  }
+  
+  .applyVerifyPrimaryBtn:disabled {
+    opacity: 0.7;
+    cursor: default;
+  }
+  
+  
+  .applyVerifySecondaryBtn {
+    width: fit-content;
+    height: 44px;
+    border-radius: 10px;
+    border: none;
+    margin-left: 16px;
+    cursor: pointer;
+    background: #1d1b55;
+    color: #fff;
+    font-weight: 600;
+    padding: 1em;
+    font-size: 15px;
+    box-shadow: 0 10px 24px rgba(29, 27, 85, 0.22);
+  }
+
+  .verifyHeaderRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* pushes right */
+    width: 100%;                   /* THIS is what you're missing */
+  }
+  .applyVerifyTertiaryBtn {
+    width: fit-content;
+    height: 44px;
+    border-radius: 10px;
+    border: none;
+    margin-left: 16px;
+    cursor: pointer;
+    background: none;
+    color: #1d1b55;
+    font-weight: 600;
+    padding: 1em;
+    font-size: 15px;
+  }
+
+  .verifiedBadge{
+    display: inline-flex;      /* makes icon + text sit in a row */
+  align-items: center;       /* vertical center */
+  justify-content: center;   /* center contents */
+  gap: 8px;                  /* 👈 SPACE between icon + text */
+  padding: 6px 12px;
+
+  border-radius: 999px;      /* pill shape */
+  background: #dff3e6;
+  color: #1f5131;
+  font-weight: 600;
+  font-size: 14px;
+  }
+  
+  .applyVerifySecondaryBtn:disabled {
+    opacity: 0.6;
+    cursor: default;
+  }
+  
+  .applyVerifyDebug {
+    margin-top: 8px;
+    font-size: 12px;
+    opacity: 0.7;
+  }
+
+  .verifyHint {
+    margin-top: 10px;
+    font-size: 13px;
+    opacity: 0.75;
+  }
+  
+  .applyVerifySuccess {
+    margin-top: 6px;
+    padding: 16px;
+    border-radius: 12px;
+    background: #d2e7d8;
+  }
+  
+  .applyVerifySuccessTitle {
+    margin: 0 0 6px 0;
+  }
+  
+  .applyVerifySuccessText {
+    margin: 0 0 12px 0;
+    opacity: 0.85;
+  }
+  
+  /* Mobile polish */
+  @media (max-width: 640px) {
+    .applyVerifyBack {
+      font-size: 13px;
+    }
+  }
+  
