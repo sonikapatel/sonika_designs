@@ -15,7 +15,7 @@ export default function Home() {
         {/* Top Icon */}
         <div style={styles.topIconWrap} aria-hidden="true">
         </div>
-        <img src={logo} style={{width:'70px'}}/>
+        <img src={logo} style={{width:'70px'}} alt="logo"/>
         {/* Title */}
         <h1 style={styles.title}>Sonika’s</h1>
 
@@ -61,27 +61,6 @@ function ServiceItem({ icon, label }) {
 
 /* ---------------- Icons (inline SVG) ---------------- */
 
-function DollarMarkIcon() {
-  return (
-    <svg width="34" height="34" viewBox="0 0 24 24" fill="none">
-      <path
-        d="M12 2v20"
-        stroke="currentColor"
-        strokeWidth="1.7"
-        strokeLinecap="round"
-        opacity="0.85"
-      />
-      <path
-        d="M16.5 6.2c0-1.9-2-3.2-4.5-3.2S7.5 4.3 7.5 6.2c0 4.3 9 2.2 9 6.6 0 2-2.1 3.2-4.5 3.2s-4.5-1.2-4.5-3.2"
-        stroke="currentColor"
-        strokeWidth="1.7"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        opacity="0.85"
-      />
-    </svg>
-  );
-}
 
 function MonitorIcon() {
   return (
