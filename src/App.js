@@ -7,7 +7,7 @@ export default function App() {
     <Router>
       <Routes>
         <Route path="/verify" element={<Verify />} />
-        <Route path="/h" element={<ApplyFirst />} />
+        {/* <Route path="/h" element={<ApplyFirst />} /> */}
         <Route path="/" element={< Home/>} />
         <Route path="/apply" element={<Apply />} />
         <Route path="/apply/verify" element={<ApplyVerify />} />
