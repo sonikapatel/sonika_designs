@@ -9,21 +9,25 @@ const CARDS = {
       title: "Connecting creatives over coffee - Fika",
       bg: "#4B44AF",
       image: "/images/fika.png",
+      url: "https://www.figma.com/proto/hzuWug4uFhP8qjCYA4Md9N/2026-Resume--Portfolio?page-id=51%3A30&node-id=625-2415&viewport=-179%2C-1939%2C0.33&t=ipeir6F65JGpm8ue-1&scaling=contain&content-scaling=fixed&starting-point-node-id=625%3A2415&show-proto-sidebar=1",
     },
     {
       title: "AI-powered coaching for managers - Criteria",
       bg: "#16112E",
       image: "/images/criteria.png",
+      url: null,
     },
     {
       title: "E-prescription for doctors - Honeybee Health",
       bg: "#0D1917",
       image: "/images/honeybee.png",
+      url: null,
     },
     {
       title: "Credit options for small businesses - Square",
       bg: "#3D5445",
       image: "/images/square.png",
+      url: null,
     },
   ],
   Art: [],
@@ -74,9 +78,9 @@ export default function Home() {
   );
 }
 
-function ProjectCard({ title, image }) {
+function ProjectCard({ title, image, url }) {
   const [hovered, setHovered] = useState(false);
-  return (
+  const img = (
     <img
       src={image}
       alt={title}
@@ -84,11 +88,18 @@ function ProjectCard({ title, image }) {
         ...styles.cardImage,
         transform: hovered ? "scale(1.03)" : "scale(1)",
         transition: "transform 0.2s ease",
+        cursor: url ? "pointer" : "default",
       }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       onError={(e) => { e.currentTarget.style.display = "none"; }}
     />
+  );
+  if (!url) return img;
+  return (
+    <a href={url} target="_blank" rel="noopener noreferrer" style={{ display: "block" }}>
+      {img}
+    </a>
   );
 }
 
