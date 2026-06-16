@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import logo from "./assets/SPFavicon1.png";
 
-const TABS = ["Product Design", "Art", "Brands"];
+const TABS = ["Product Design", "Brands"];
 
 const CARDS = {
   "Product Design": [
@@ -15,7 +15,7 @@ const CARDS = {
       title: "AI-powered coaching for managers - Criteria",
       bg: "#16112E",
       image: "/images/criteria.png",
-      url: null,
+      url: "https://www.figma.com/proto/hzuWug4uFhP8qjCYA4Md9N/2026-Resume--Portfolio?node-id=251-232&viewport=-234%2C-1010%2C0.24&t=hhd48eQLPawk2T04-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=251%3A232&show-proto-sidebar=1&page-id=51%3A30",
     },
     {
       title: "E-prescription for doctors - Honeybee Health",
@@ -30,7 +30,6 @@ const CARDS = {
       url: null,
     },
   ],
-  Art: [],
   Brands: [],
 };
 
