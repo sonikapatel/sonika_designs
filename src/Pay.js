@@ -3,7 +3,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements, PaymentElement, useElements, useStripe } from "@stripe/react-stripe-js";
 
-const API_BASE = "https://fika-node-serverless-function-expre.vercel.app"; // or "" if same project
 const pk = process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY;
 
 // const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
