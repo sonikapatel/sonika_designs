@@ -149,6 +149,7 @@ const styles = {
     fontSize: "clamp(48px, 6vw, 72px)",
     fontWeight: 800,
     fontFamily: "IvyPresto",
+    color: '#4B4B4B',
     letterSpacing: "-0.03em",
     lineHeight: 1.05,
     color: "#111",
