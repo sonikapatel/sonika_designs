@@ -69,7 +69,7 @@ export default function Home() {
         ))}
       </div>
 
-      <div className="project-grid">
+      <div className="project-grid" style={activeTab === "Brands" ? { gridTemplateColumns: "1fr" } : undefined}>
         {CARDS[activeTab].length > 0 ? (
           activeTab === "Brands"
             ? CARDS[activeTab].map((card) => (
