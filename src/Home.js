@@ -182,7 +182,7 @@ const styles = {
   },
   heading: {
     margin: 0,
-    fontSize: 36,
+    fontSize: 48,
     fontWeight: 800,
     fontFamily: "IvyPresto",
     color: "#4B4B4B",
