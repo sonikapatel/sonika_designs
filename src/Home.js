@@ -53,7 +53,7 @@ export default function Home() {
   return (
     <div style={styles.page}>
       {/* Top two-column section */}
-      <div style={styles.topSection}>
+      <div className="top-section" style={styles.topSection}>
         {/* Left: identity + bio */}
         <div style={styles.leftCol}>
           <img src={logo} style={styles.logo} alt="Sonika Patel" />

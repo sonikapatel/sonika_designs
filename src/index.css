@@ -7,6 +7,12 @@
 @media (max-width: 600px) {
   .project-grid {
     grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .top-section {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
   }
 }
 
