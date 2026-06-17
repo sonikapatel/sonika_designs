@@ -191,7 +191,7 @@ const styles = {
   },
   tagline: {
     margin: "8px 0 28px",
-    fontSize: 14,
+    fontSize: 12,
     fontWeight: 400,
     color: "rgba(0,0,0,0.52)",
     letterSpacing: "0.01em",
