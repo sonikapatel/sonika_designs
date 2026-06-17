@@ -223,7 +223,7 @@ const styles = {
     color: "#2A2A2A",
   },
   expIndustry: {
-    fontSize: 13,
+    fontSize: 12,
     color: "rgba(0,0,0,0.42)",
     textAlign: "right",
     marginLeft: 12,
