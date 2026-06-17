@@ -1,6 +1,15 @@
 import React, { useState } from "react";
 import logo from "./assets/SPFavicon1.png";
 
+const EXPERIENCE = [
+  { company: "Fika",            industry: "Community/ Consumer tech" },
+  { company: "Criteria",        industry: "HR tech" },
+  { company: "Honeybee Health", industry: "Health tech" },
+  { company: "Square",          industry: "Fintech" },
+  { company: "Philosophie",     industry: "Fintech" },
+  { company: "USC",             industry: "Arts, Tech and Business" },
+];
+
 const TABS = ["Product Design", "Brands"];
 
 const CARDS = {
@@ -43,20 +52,35 @@ export default function Home() {
 
   return (
     <div style={styles.page}>
-      <img src={logo} style={styles.logo} alt="Sonika Patel" />
+      {/* Top two-column section */}
+      <div style={styles.topSection}>
+        {/* Left: identity + bio */}
+        <div style={styles.leftCol}>
+          <img src={logo} style={styles.logo} alt="Sonika Patel" />
+          <h1 style={styles.heading}>Sonika Patel</h1>
+          <p style={styles.tagline}>
+            0→1 product builder. designer. mini-canvas painter.
+          </p>
+          <p style={styles.bio}>
+            Hello👋 I'm Sonika (So-knee-kah), a 0→ 1 product designer who deeply
+            cares about <strong>building genuinely valuable products</strong> across
+            industries. I'm a values-driven and data-driven product person.
+          </p>
+        </div>
 
-      <h1 style={styles.heading}>Sonika Patel</h1>
-      <p style={styles.tagline}>
-        0→1 product builder. designer. mini-canvas painter.
-      </p>
+        {/* Right: experience list */}
+        <div style={styles.rightCol}>
+          <p style={styles.expLabel}>Experience</p>
+          {EXPERIENCE.map((item) => (
+            <div key={item.company} style={styles.expRow}>
+              <span style={styles.expCompany}>{item.company}</span>
+              <span style={styles.expIndustry}>{item.industry}</span>
+            </div>
+          ))}
+        </div>
+      </div>
 
-      <p style={styles.bio}>
-        Hello👋 I'm Sonika (So-knee-kah), a 0→ 1 product designer who deeply
-        cares about <strong>building genuinely valuable products</strong> across
-        B2C community products, with experience building sustainable products for
-        users across B2B healthtech, fintech, and HR tech.
-      </p>
-
+      {/* Tabs */}
       <div style={styles.tabs}>
         {TABS.map((tab) => (
           <button
@@ -69,6 +93,7 @@ export default function Home() {
         ))}
       </div>
 
+      {/* Cards grid */}
       <div className="project-grid" style={activeTab === "Brands" ? { gridTemplateColumns: "1fr" } : undefined}>
         {CARDS[activeTab].length > 0 ? (
           activeTab === "Brands"
@@ -137,6 +162,17 @@ const styles = {
     color: "#111",
     boxSizing: "border-box",
   },
+  topSection: {
+    display: "grid",
+    gridTemplateColumns: "repeat(2, 1fr)",
+    gap: 96,
+    alignItems: "end",
+    marginBottom: 48,
+  },
+  leftCol: {},
+  rightCol: {
+    paddingTop: 4,
+  },
   logo: {
     width: 42,
     height: 42,
@@ -146,26 +182,51 @@ const styles = {
   },
   heading: {
     margin: 0,
-    fontSize: "clamp(48px, 6vw, 72px)",
+    fontSize: 36,
     fontWeight: 800,
     fontFamily: "IvyPresto",
-    color: '#4B4B4B',
-    letterSpacing: "-0.03em",
+    color: "#4B4B4B",
+    letterSpacing: "-0.02em",
     lineHeight: 1.05,
   },
   tagline: {
-    margin: "8px 0 32px",
-    fontSize: 15,
+    margin: "8px 0 28px",
+    fontSize: 14,
     fontWeight: 400,
     color: "rgba(0,0,0,0.52)",
     letterSpacing: "0.01em",
   },
   bio: {
-    margin: "0 0 48px",
+    margin: 0,
     fontSize: 15,
-    lineHeight: 1.65,
+    lineHeight: 1.7,
     color: "#4E4E4E",
-    maxWidth: 480,
+  },
+  expLabel: {
+    margin: "0 0 16px",
+    fontSize: 11,
+    fontWeight: 600,
+    letterSpacing: "0.12em",
+    textTransform: "uppercase",
+    color: "rgba(0,0,0,0.38)",
+  },
+  expRow: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "baseline",
+    padding: "12px 0",
+    borderBottom: "1px solid rgba(0,0,0,0.07)",
+  },
+  expCompany: {
+    fontSize: 14,
+    fontWeight: 500,
+    color: "#2A2A2A",
+  },
+  expIndustry: {
+    fontSize: 13,
+    color: "rgba(0,0,0,0.42)",
+    textAlign: "right",
+    marginLeft: 12,
   },
   tabs: {
     display: "flex",
@@ -177,7 +238,7 @@ const styles = {
     background: "transparent",
     padding: "8px 20px",
     borderRadius: 20,
-    fontSize: 15,
+    fontSize: 14,
     fontWeight: 500,
     color: "rgba(0,0,0,0.50)",
     cursor: "pointer",
