@@ -152,7 +152,6 @@ const styles = {
     color: '#4B4B4B',
     letterSpacing: "-0.03em",
     lineHeight: 1.05,
-    color: "#111",
   },
   tagline: {
     margin: "8px 0 32px",
