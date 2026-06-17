@@ -92,7 +92,7 @@ function BrandCard({ image }) {
     <div
       style={{
         ...styles.brandCard,
-        background: hovered ? "#E8D5B7" : "transparent",
+        background: hovered ? "#F7F3EC" : "transparent",
         transition: "background 0.2s ease",
       }}
       onMouseEnter={() => setHovered(true)}
