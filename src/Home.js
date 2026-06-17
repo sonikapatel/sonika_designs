@@ -162,7 +162,7 @@ const styles = {
   },
   bio: {
     margin: "0 0 48px",
-    fontSize: 16,
+    fontSize: 15,
     lineHeight: 1.65,
     color: "#2A2A2A",
     maxWidth: 480,
