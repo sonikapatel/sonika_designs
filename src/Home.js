@@ -164,7 +164,7 @@ const styles = {
     margin: "0 0 48px",
     fontSize: 15,
     lineHeight: 1.65,
-    color: "#2A2A2A",
+    color: "#4E4E4E",
     maxWidth: 480,
   },
   tabs: {
