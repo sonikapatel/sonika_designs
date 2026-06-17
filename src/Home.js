@@ -30,7 +30,12 @@ const CARDS = {
       url: null,
     },
   ],
-  Brands: [],
+  Brands: [
+    { image: "/images/Bib1.png" },
+    { image: "/images/jaal2.png" },
+    { image: "/images/motion1.png" },
+    { image: "/images/ortho1.png" },
+  ],
 };
 
 export default function Home() {
@@ -66,13 +71,34 @@ export default function Home() {
 
       <div className="project-grid">
         {CARDS[activeTab].length > 0 ? (
-          CARDS[activeTab].map((card) => (
-            <ProjectCard key={card.title} {...card} />
-          ))
+          activeTab === "Brands"
+            ? CARDS[activeTab].map((card) => (
+                <BrandCard key={card.image} image={card.image} />
+              ))
+            : CARDS[activeTab].map((card) => (
+                <ProjectCard key={card.title} {...card} />
+              ))
         ) : (
           <p style={styles.empty}>Coming soon</p>
         )}
       </div>
+    </div>
+  );
+}
+
+function BrandCard({ image }) {
+  const [hovered, setHovered] = useState(false);
+  return (
+    <div
+      style={{
+        ...styles.brandCard,
+        background: hovered ? "#E8D5B7" : "transparent",
+        transition: "background 0.2s ease",
+      }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
+      <img src={image} alt="" style={styles.brandImage} />
     </div>
   );
 }
@@ -161,6 +187,17 @@ const styles = {
     background: "#E6E2DB",
     color: "#111",
     fontWeight: 600,
+  },
+  brandCard: {
+    borderRadius: 16,
+    padding: 24,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  brandImage: {
+    display: "block",
+    maxWidth: "100%",
   },
   cardImage: {
     display: "block",
