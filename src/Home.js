@@ -36,7 +36,7 @@ const CARDS = {
       title: "Credit options for small businesses - Square",
       bg: "#3D5445",
       image: "/images/square.png",
-      url: null,
+      url: "https://www.figma.com/proto/hzuWug4uFhP8qjCYA4Md9N/2026-Resume--Portfolio?node-id=454-337&viewport=-266%2C-859%2C0.2&t=XYzWsKb20ubPxXHt-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=454%3A337&show-proto-sidebar=1&page-id=51%3A30",
     },
   ],
   Brands: [
@@ -130,14 +130,14 @@ function BrandCard({ image }) {
 
 function ProjectCard({ title, image, url }) {
   const [hovered, setHovered] = useState(false);
+
   const img = (
     <img
       src={image}
       alt={title}
       style={{
         ...styles.cardImage,
-        transform: hovered ? "scale(1.03)" : "scale(1)",
-        transition: "transform 0.2s ease",
+        transform: hovered ? "translateY(-4px)" : "translateY(0)",
         cursor: url ? "pointer" : "default",
       }}
       onMouseEnter={() => setHovered(true)}
@@ -145,9 +145,10 @@ function ProjectCard({ title, image, url }) {
       onError={(e) => { e.currentTarget.style.display = "none"; }}
     />
   );
+
   if (!url) return img;
   return (
-    <a href={url} target="_blank" rel="noopener noreferrer" style={{ display: "block" }}>
+    <a href={url} target="_blank" rel="noopener noreferrer" style={{ display: "block", textDecoration: "none" }}>
       {img}
     </a>
   );
@@ -263,9 +264,9 @@ const styles = {
   },
   cardImage: {
     display: "block",
-    width: 337,
-    borderRadius: "24px",
-    boxShadow: "0 12px 40px rgba(0,0,0,0.35)",
+    width: "100%",
+    borderRadius: 20,
+    transition: "transform 0.2s ease",
   },
   empty: {
     color: "rgba(0,0,0,0.35)",
