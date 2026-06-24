@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import logo from "./assets/SPFavicon1.png";
 
 const EXPERIENCE = [
@@ -18,25 +19,25 @@ const CARDS = {
       title: "Connecting creatives over coffee - Fika",
       bg: "#4B44AF",
       image: "/images/fika.png",
-      url: "https://www.figma.com/proto/hzuWug4uFhP8qjCYA4Md9N/2026-Resume--Portfolio?page-id=51%3A30&node-id=625-2415&viewport=-179%2C-1939%2C0.33&t=ipeir6F65JGpm8ue-1&scaling=contain&content-scaling=fixed&starting-point-node-id=625%3A2415&show-proto-sidebar=1",
+      slug: "fika",
     },
     {
       title: "AI-powered coaching for managers - Criteria",
       bg: "#16112E",
       image: "/images/criteria.png",
-      url: "https://www.figma.com/proto/hzuWug4uFhP8qjCYA4Md9N/2026-Resume--Portfolio?node-id=251-232&viewport=-234%2C-1010%2C0.24&t=hhd48eQLPawk2T04-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=251%3A232&show-proto-sidebar=1&page-id=51%3A30",
+      slug: "criteria",
     },
     {
       title: "E-prescription for doctors - Honeybee Health",
       bg: "#0D1917",
       image: "/images/honeybee.png",
-      url: "https://www.figma.com/proto/hzuWug4uFhP8qjCYA4Md9N/2026-Resume--Portfolio?node-id=263-577&viewport=-234%2C-1010%2C0.24&t=hhd48eQLPawk2T04-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=263%3A577&page-id=51%3A30",
+      slug: "honeybee-health",
     },
     {
       title: "Credit options for small businesses - Square",
       bg: "#3D5445",
       image: "/images/square.png",
-      url: "https://www.figma.com/proto/hzuWug4uFhP8qjCYA4Md9N/2026-Resume--Portfolio?node-id=454-337&viewport=-266%2C-859%2C0.2&t=XYzWsKb20ubPxXHt-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=454%3A337&show-proto-sidebar=1&page-id=51%3A30",
+      slug: "square",
     },
   ],
   Brands: [
@@ -101,7 +102,7 @@ export default function Home() {
                 <BrandCard key={card.image} image={card.image} />
               ))
             : CARDS[activeTab].map((card) => (
-                <ProjectCard key={card.title} {...card} />
+                <ProjectCard key={card.title} title={card.title} image={card.image} slug={card.slug} />
               ))
         ) : (
           <p style={styles.empty}>Coming soon</p>
@@ -128,7 +129,7 @@ function BrandCard({ image }) {
   );
 }
 
-function ProjectCard({ title, image, url }) {
+function ProjectCard({ title, image, slug }) {
   const [hovered, setHovered] = useState(false);
 
   const img = (
@@ -138,7 +139,7 @@ function ProjectCard({ title, image, url }) {
       style={{
         ...styles.cardImage,
         transform: hovered ? "translateY(-4px)" : "translateY(0)",
-        cursor: url ? "pointer" : "default",
+        cursor: slug ? "pointer" : "default",
       }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
@@ -146,11 +147,11 @@ function ProjectCard({ title, image, url }) {
     />
   );
 
-  if (!url) return img;
+  if (!slug) return img;
   return (
-    <a href={url} target="_blank" rel="noopener noreferrer" style={{ display: "block", textDecoration: "none" }}>
+    <Link to={`/projects/${slug}`} style={{ display: "block", textDecoration: "none" }}>
       {img}
-    </a>
+    </Link>
   );
 }
 
