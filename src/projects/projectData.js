@@ -66,6 +66,7 @@ export const PROJECTS = [
     status: "Completed",
     bannerBg: "#16112E",
     bannerImage: "/images/criteria/Criteria_1.png",
+    logo: "/images/criteria/criteria_logo.png",
     problem: [
       { text: "Managers become managers without training or people management abilities.", bold: true },
       { text: " Criteria developed 'Develop', a way to give managers real-time, personalized coaching at scale - without adding headcount. I designed an AI-powered coaching experience that surfaces relevant insights and suggested actions directly in the manager's workflow." },
