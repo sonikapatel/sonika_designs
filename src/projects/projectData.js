@@ -91,7 +91,7 @@ export const PROJECTS = [
   {
     slug: "honeybee-health",
     company: "Honeybee Health",
-    title: "E-prescription for doctors",
+    title: "E-prescription and Virtual Pharmacy as a Service for doctors",
     role: "Product Designer",
     status: "2023",
     bannerBg: "#0D1917",
@@ -111,7 +111,7 @@ export const PROJECTS = [
     company: "Square",
     title: "Credit options for small businesses",
     role: "Product Designer",
-    status: "2022-23",
+    status: "2022-2023",
     bannerBg: "#14244D",
     bannerImage: "/images/creditoptions1.png",
     problem:

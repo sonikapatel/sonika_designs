@@ -435,7 +435,7 @@ const styles = {
     ...constrained,
     display: "flex",
     justifyContent: "space-between",
-    alignItems: "flex-start",
+    alignItems: "flex-end",
     padding: "28px 48px 24px",
     borderBottom: "1px solid rgba(0,0,0,0.07)",
   },
