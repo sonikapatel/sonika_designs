@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import logo from "../assets/SPFavicon1.png";
 import { PROJECTS } from "./projectData";
@@ -89,6 +89,108 @@ const modalStyles = {
     borderRadius: 8,
     cursor: "pointer",
     fontFamily: "inherit",
+  },
+};
+
+function Carousel({ images }) {
+  const [index, setIndex] = useState(0);
+
+  const next = useCallback(() => setIndex((i) => (i + 1) % images.length), [images.length]);
+  const prev = () => setIndex((i) => (i - 1 + images.length) % images.length);
+
+  useEffect(() => {
+    const id = setInterval(next, 3000);
+    return () => clearInterval(id);
+  }, [next]);
+
+  const current = images[index];
+  const src = typeof current === "string" ? current : current.src;
+  const caption = typeof current === "object" ? current.caption : null;
+
+  return (
+    <div style={carouselStyles.wrapper}>
+      <div style={carouselStyles.imageWrapper}>
+        <button style={{ ...carouselStyles.arrow, left: 16 }} onClick={prev} aria-label="Previous">‹</button>
+        <img
+          key={index}
+          src={src}
+          alt=""
+          style={carouselStyles.image}
+          onError={(e) => { e.currentTarget.style.display = "none"; }}
+        />
+        <button style={{ ...carouselStyles.arrow, right: 16 }} onClick={next} aria-label="Next">›</button>
+      </div>
+      <div style={carouselStyles.dots}>
+        {images.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setIndex(i)}
+            style={{ ...carouselStyles.dot, background: i === index ? "#111" : "rgba(0,0,0,0.18)" }}
+            aria-label={`Go to image ${i + 1}`}
+          />
+        ))}
+      </div>
+      {caption && <p style={carouselStyles.caption}>{caption}</p>}
+    </div>
+  );
+}
+
+const carouselStyles = {
+  wrapper: {
+    width: "100%",
+    userSelect: "none",
+  },
+  imageWrapper: {
+    position: "relative",
+    width: "100%",
+  },
+  image: {
+    width: "100%",
+    borderRadius: 12,
+    display: "block",
+  },
+  caption: {
+    marginTop: 16,
+    marginBottom: 0,
+    fontSize: 14,
+    lineHeight: 1.7,
+    color: "rgba(0,0,0,0.52)",
+    textAlign: "center",
+    maxWidth: 520,
+    marginLeft: "auto",
+    marginRight: "auto",
+  },
+  arrow: {
+    position: "absolute",
+    top: "50%",
+    transform: "translateY(-50%)",
+    background: "rgba(255,255,255,0.85)",
+    border: "none",
+    borderRadius: "50%",
+    width: 40,
+    height: 40,
+    fontSize: 22,
+    lineHeight: "38px",
+    textAlign: "center",
+    cursor: "pointer",
+    zIndex: 2,
+    boxShadow: "0 2px 8px rgba(0,0,0,0.12)",
+    padding: 0,
+  },
+  dots: {
+    display: "flex",
+    justifyContent: "center",
+    gap: 6,
+    marginTop: 14,
+  },
+  dot: {
+    width: 7,
+    height: 7,
+    borderRadius: "50%",
+    border: "none",
+    cursor: "pointer",
+    padding: 0,
+    transition: "background 0.2s",
   },
 };
 
@@ -208,6 +310,14 @@ export default function ProjectPage() {
               {section.caption && (
                 <p style={styles.caption}>{section.caption}</p>
               )}
+            </section>
+          );
+        }
+
+        if (section.type === "carousel") {
+          return (
+            <section key={i} className="proj-section" style={styles.contentSection}>
+              <Carousel images={section.images} />
             </section>
           );
         }

@@ -35,8 +35,7 @@ export const PROJECTS = [
             { src: "/images/fika/Fika-mobile.jpeg", maxHeight: 500 },
             { src: "/images/fika/fika_mobile2.png", maxHeight: 500 },
             { src: "/images/fika/fika_phone.png", maxHeight: 500 },
-
-          ]
+          ],
         ],
       },
       {
@@ -61,22 +60,28 @@ export const PROJECTS = [
   },
   {
     slug: "criteria",
-    company: "Criteria",
+    company: "https://www.criteriacorp.com/files/Criteria-logo-web.png",
     title: "AI-powered coaching for managers",
     role: "Product Designer",
     status: "Completed",
     bannerBg: "#16112E",
-    bannerImage: "/images/criteria.png",
+    bannerImage: "/images/criteria/Criteria_1.png",
     problem:
-      "Managers are often promoted for their individual contributor skills, not their people management abilities. Criteria needed a way to give managers real-time, personalized coaching at scale — without adding headcount. I designed an AI-powered coaching experience that surfaces relevant insights and suggested actions directly in the manager's workflow.",
-    team: [{ name: "Sonika Patel", role: "Lead Designer" }],
-    context: { label: "criteriacorp.com", url: "https://www.criteriacorp.com" },
+      "Managers become managers without training or people management abilities. Criteria developed 'Develop', a way to give managers real-time, personalized coaching at scale - without adding headcount. I designed an AI-powered coaching experience that surfaces relevant insights and suggested actions directly in the manager's workflow.",
+    team: [{ name: "Sonika Patel", role: "Lead Designer" }, { name: "Bryan", role: "Engineer" }],
+    context: { label: "criteriacorp.com", url: "https://www.criteriacorp.com/develop/weekly-manager-check-ins" },
     sections: [
       {
         type: "image",
-        src: "/images/criteria.png",
-        caption:
-          "The coaching dashboard surfaces personalized nudges for managers based on team data, helping them take timely, high-impact actions.",
+        src: "/images/criteria/CriteriaUI.png",
+      },
+      {
+        type: "carousel",
+        images: [
+          { src: "/images/criteria/Criteria_1.png", caption: "Expanded & Incomplete - Information about who receives Weekly Check-Ins." },
+          { src: "/images/criteria/Criteria2.png", caption: "Expanded and Complete - An overview of the step that was previously configured." },
+          { src: "/images/criteria/Criteria3.png", caption: "Configuring each step - Full Page View." },
+        ],
       },
     ],
   },
