@@ -5,18 +5,57 @@ export const PROJECTS = [
     title: "Connecting creatives over coffee",
     role: "Founder / Product Designer & Developer / Brand Design",
     status: "Ongoing",
-    bannerBg: "#4B44AF",
-    bannerImage: "/images/fika.png",
-    problem:
-      "Creative professionals are working in isolation. Whether they're freelancers, business owners, or remote workers, the pandemic has changed the way we interact. I designed and developed Fika – a new way to help creatives connect in a more meaningful way, whether it's a new friendship, collaborator, or opportunity. Fika connects people over coffee IRL, inspired by the Swedish ritual. The app I built features a variety of creatives, where a user can update their profile and invite someone to coffee.",
+    protected: "fika_connect",
+    logo: "/images/fika/fika logo.png",
+    bannerBg: "#244479",
+    bannerImage: "/images/fika/fika_banner.png",
+    problem: [
+      { text: "Creative professionals are working in isolation.", bold: true },
+      { text: " Whether they're freelancers, business owners, or remote workers, the pandemic has changed the way we interact and the nature of the work is usually in solitutde." },
+      { break: true },
+      { text: "I designed and developed Fika – a new way to help creatives connect in a more meaningful way, whether it's a new friendship, collaborator, or opportunity. Fika connects people over coffee IRL, inspired by the Swedish ritual. The app I built features a variety of creatives across LA/ NYC who met for coffee." },
+    ],
     team: [{ name: "Jamie Haberman", role: "co-designer" }],
     context: { label: "www.fikacreatives.co", url: "https://www.fikacreatives.co" },
     sections: [
       {
         type: "image",
-        src: "/images/fika.png",
-        caption:
-          "Fika profiles allow you to see creatives and their work near you. I refined the product experience based on user feedback, led the marketing strategy on Instagram, and hosted events throughout LA / NYC to bring creatives together.",
+        src: "/images/fika/Profile.png",
+        variant: "framed",
+      },
+      {
+        type: "text-center",
+        body: "Fika profiles allow you to see creatives and their work near you. I refined the product experience based on user feedback, led the marketing strategy on Instagram, and hosted events throughout LA / NYC to bring creatives together.",
+      },
+      {
+        type: "grid",
+        columns: 3,
+        images: [
+          [
+            { src: "/images/fika/Fika-mobile.jpeg", maxHeight: 500 },
+            { src: "/images/fika/fika_mobile2.png", maxHeight: 500 },
+            { src: "/images/fika/fika_phone.png", maxHeight: 500 },
+
+          ]
+        ],
+      },
+      {
+        type: "text-center",
+        body: "My team and I held events all throughout NYC and LA to make sure creatives can connect with one another in natural settings. See examples of coworking, happy hours, and more we hosted! ",
+      },
+      {
+        type: "image",
+        src: "/images/fika/fika_events.png",
+        variant: "framed",
+      },
+      {
+        type: "text-center",
+        body: "As the Founder and Product Designer AND Brand Designer, I designed social media assets to ensure the right creatives were aligned to Fika. Here are a few top performing Instagram posts.",
+      },
+      {
+        type: "image",
+        src: "/images/fika/ads122.png",
+        variant: "framed",
       },
     ],
   },
