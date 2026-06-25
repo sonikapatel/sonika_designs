@@ -65,7 +65,7 @@ export default function Home() {
           <p style={styles.bio}>
             Hello👋 I'm Sonika (So-knee-kah), a 0→ 1 product designer who deeply
             cares about <strong>building genuinely valuable products</strong> across
-            industries. I'm a values-driven and data-driven product person & designer.
+            industries. I'm a <strong> values-driven </strong> and <strong> data-driven </strong> product person & designer, with experience developing applications.
           </p>
         </div>
 

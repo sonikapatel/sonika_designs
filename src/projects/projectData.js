@@ -120,12 +120,7 @@ export const PROJECTS = [
     logo: "https://upload.wikimedia.org/wikipedia/commons/2/27/Square%2C_Inc_-_Square_Logo.jpg",
     context: { label: "squareup.com", url: "https://squareup.com" },
     sections: [
-      {
-        type: "image",
-        src: "/images/square.png",
-        caption:
-          "Credit options are surfaced contextually within the Square dashboard, with clear eligibility signals and a simplified application flow.",
-      },
+
     ],
   },
 ];
