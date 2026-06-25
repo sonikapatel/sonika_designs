@@ -96,7 +96,7 @@ export const PROJECTS = [
     status: "2023",
     bannerBg: "#0D1917",
     bannerImage: "/images/hbh/HBH1.png",
-    logo: "https://media.licdn.com/dms/image/v2/C560BAQEv4kv5trlreQ/company-logo_200_200/company-logo_200_200/0/1630619991909/honeybeehealth_logo?e=2147483647&v=beta&t=i2iOeMqvRAfa8v5ASaKzczGOBeV8q_qQPqyt2PEDYh8"
+    logo: "https://media.licdn.com/dms/image/v2/C560BAQEv4kv5trlreQ/company-logo_200_200/company-logo_200_200/0/1630619991909/honeybeehealth_logo?e=2147483647&v=beta&t=i2iOeMqvRAfa8v5ASaKzczGOBeV8q_qQPqyt2PEDYh8",
     problem: [
       { text: "Honeybee Health set out to simplify the e-prescription flow for independent physicians — reducing friction, optimizing for privacy, and enabling faster care.", bold: true },
       { text: " I designed an end-to-end prescribing experience tailored to the clinical context and workflow of busy practitioners." },
