@@ -16,7 +16,7 @@ const VALUES = [
     title: "Balance",
     bg: "#B8C4B2",
     textColor: "#2A2A2A",
-    description: "Not just in visual form, but in interacting with product and balancing user needs with a business.",
+    description: "Not just in visual form, but in interacting with product stakeholders and balancing user needs with a business.",
   },
   {
     title: "Think in Systems",
