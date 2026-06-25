@@ -50,71 +50,6 @@ const VALUES = [
   },
 ];
 
-// Dot-cluster icons — each a unique arrangement of filled circles
-function IconBalance({ color }) {
-  return (
-    <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
-      <circle cx="5" cy="13" r="3" fill={color} fillOpacity="0.9"/>
-      <circle cx="13" cy="5" r="3" fill={color} fillOpacity="0.6"/>
-      <circle cx="21" cy="13" r="3" fill={color} fillOpacity="0.9"/>
-      <circle cx="13" cy="21" r="3" fill={color} fillOpacity="0.4"/>
-    </svg>
-  );
-}
-function IconSystems({ color }) {
-  return (
-    <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
-      <circle cx="5" cy="5"   r="3" fill={color} fillOpacity="0.9"/>
-      <circle cx="21" cy="5"  r="3" fill={color} fillOpacity="0.6"/>
-      <circle cx="13" cy="13" r="3" fill={color} fillOpacity="0.9"/>
-      <circle cx="5" cy="21"  r="3" fill={color} fillOpacity="0.6"/>
-      <circle cx="21" cy="21" r="3" fill={color} fillOpacity="0.9"/>
-    </svg>
-  );
-}
-function IconConsistency({ color }) {
-  return (
-    <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
-      <circle cx="5"  cy="5"  r="3" fill={color} fillOpacity="0.9"/>
-      <circle cx="13" cy="5"  r="3" fill={color} fillOpacity="0.9"/>
-      <circle cx="21" cy="5"  r="3" fill={color} fillOpacity="0.9"/>
-      <circle cx="5"  cy="21" r="3" fill={color} fillOpacity="0.5"/>
-      <circle cx="13" cy="21" r="3" fill={color} fillOpacity="0.5"/>
-      <circle cx="21" cy="21" r="3" fill={color} fillOpacity="0.5"/>
-    </svg>
-  );
-}
-function IconIntentionality({ color }) {
-  return (
-    <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
-      <circle cx="13" cy="13" r="3"   fill={color} fillOpacity="0.9"/>
-      <circle cx="13" cy="13" r="7"   stroke={color} strokeOpacity="0.35" strokeWidth="1.5" fill="none"/>
-      <circle cx="13" cy="13" r="11"  stroke={color} strokeOpacity="0.18" strokeWidth="1.5" fill="none"/>
-    </svg>
-  );
-}
-function IconEmpathy({ color }) {
-  return (
-    <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
-      <circle cx="8"  cy="10" r="3.5" fill={color} fillOpacity="0.9"/>
-      <circle cx="18" cy="10" r="3.5" fill={color} fillOpacity="0.9"/>
-      <circle cx="13" cy="19" r="3.5" fill={color} fillOpacity="0.7"/>
-    </svg>
-  );
-}
-function IconCraft({ color }) {
-  return (
-    <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
-      <circle cx="13" cy="4"  r="2.5" fill={color} fillOpacity="0.9"/>
-      <circle cx="22" cy="13" r="2.5" fill={color} fillOpacity="0.7"/>
-      <circle cx="13" cy="22" r="2.5" fill={color} fillOpacity="0.9"/>
-      <circle cx="4"  cy="13" r="2.5" fill={color} fillOpacity="0.7"/>
-      <circle cx="13" cy="13" r="2.5" fill={color} fillOpacity="0.4"/>
-    </svg>
-  );
-}
-
-const VALUE_ICONS = [IconBalance, IconSystems, IconConsistency, IconIntentionality, IconEmpathy, IconCraft];
 
 function ValueCard({ title, description, bg, textColor }) {
   const [flipped, setFlipped] = useState(false);
@@ -244,12 +179,8 @@ export default function Home() {
           <strong>"When you know your why, you can endure any how."</strong>
         </p>
         <div style={styles.valuesGrid}>
-          {VALUES.map((v, i) => (
-            <ValueCard
-              key={v.title}
-              {...v}
-              Icon={VALUE_ICONS[i]}
-            />
+          {VALUES.map((v) => (
+            <ValueCard key={v.title} {...v} />
           ))}
         </div>
       </div>
