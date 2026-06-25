@@ -25,10 +25,10 @@ const VALUES = [
     description: "Products are not shipped one off. Every feature or product I've designed is considered holistically.",
   },
   {
-    title: "Consistency",
+    title: "Speed",
     bg: "#E4E4E4",
     textColor: "#2A2A2A",
-    description: "Users from a copy, visual, and product standpoint should have clear understanding of a product.",
+    description: "Never compromising on craft, I balance moments that require intuitive conviction with moments where speed, learning, and iteration lead the way.",
   },
   {
     title: "Intentionality",
