@@ -14,6 +14,10 @@
     grid-template-columns: 1fr !important;
     gap: 32px !important;
   }
+
+  .values-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
 }
 
 /* ── Project page responsive layout ── */
@@ -27,6 +31,11 @@
 
   .proj-header > div:last-child {
     align-items: flex-start !important;
+    width: 100% !important;
+  }
+
+  .proj-header > div:last-child span {
+    text-align: left !important;
   }
 
   .proj-banner {
@@ -47,8 +56,6 @@
   .proj-section {
     padding: 32px 24px !important;
   }
-
-
 
   .proj-bottom-nav {
     padding: 24px 24px 40px !important;

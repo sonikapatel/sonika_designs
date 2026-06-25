@@ -178,7 +178,7 @@ export default function Home() {
         <p style={styles.valuesQuote}>
           <strong>"When you know your why, you can endure any how."</strong>
         </p>
-        <div style={styles.valuesGrid}>
+        <div className="values-grid" style={styles.valuesGrid}>
           {VALUES.map((v) => (
             <ValueCard key={v.title} {...v} />
           ))}
