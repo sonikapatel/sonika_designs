@@ -104,6 +104,37 @@ export const PROJECTS = [
     team: [{ name: "Sonika Patel", role: "Lead Designer" }],
     context: { label: "honeybeehealth.com", url: "https://www.honeybeehealth.com" },
     sections: [
+      {
+        type: "text-center",
+        header: "Nectar: E-prescription tool for doctors",
+        body: "Nectar allows doctors to easily prescribe abortion medications directly to Honeybee Health. With abortion laws in place, many prescribers felt skeptical of existing solutions, losing trust in patient data being shared. I led the experience design for Nectar after conducting research with 7 women's health clinicians, understanding more about their workflows and using findings to inform Nectar.",
+      },
+      {
+        type: "image",
+        src: "/images/hbh/eprescribe.png",
+        variant: "framed",
+        caption: "Settings: A global settings portal for admins to easily manage favorites, their provider information, and details about bundle medications.",
+      },
+      {
+        type: "image",
+        src: "/images/hbh/eprescribe.png",
+        variant: "framed",
+        caption: "The Core UX: View patient information alongside prescribing typical gestation bundles that physicians are commonly prescribing. ",
+      },
+      {
+        type: "text-center",
+        header: "Virtual Pharmacy as a Service",
+        body: "I designed VRPH as an opportunity for our telehealth partners to have a seamless patient medication checkout experience. Virtual Pharmacy was designed with human elements in mind, from packaging to the Rx bottle patients receive, to create a welcoming experience for patients, who traditionally are checking out medications and might feel wary. ",
+      },
+      {
+        type: "video",
+        src: "/images/hbh/vrph.mov",
+      },
+      {
+        type: "text-center",
+        header: "Outcomes",
+        body: "VRPH was developed alongside engineering and tested with customers. Alongside Nectar which was developed to production, we didn't continue further pursuing the product, due to constraints with integrating e-prescription with EHR data. I introduced the team at Honeybee Health on a human-centered approach to designing products, being used to traditionally designing products from a requirements-driven waterfall approach.",
+      },
     ],
   },
   {
@@ -122,7 +153,6 @@ export const PROJECTS = [
     logo: "https://upload.wikimedia.org/wikipedia/commons/2/27/Square%2C_Inc_-_Square_Logo.jpg",
     context: { label: "squareup.com", url: "https://squareup.com" },
     sections: [
-
     ],
   },
 ];

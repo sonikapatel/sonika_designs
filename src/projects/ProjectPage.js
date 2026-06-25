@@ -325,6 +325,11 @@ export default function ProjectPage() {
         if (section.type === "text-center") {
           return (
             <section key={i} className="proj-section" style={styles.textCenterSection}>
+              {section.header && (
+                <p style={{ ...styles.textCenter, fontWeight: 600, color: "#111", marginBottom: 8 }}>
+                  {section.header}
+                </p>
+              )}
               <p style={styles.textCenter}>{section.body}</p>
             </section>
           );
@@ -379,6 +384,20 @@ export default function ProjectPage() {
               {section.caption && (
                 <p style={styles.caption}>{section.caption}</p>
               )}
+            </section>
+          );
+        }
+
+        if (section.type === "video") {
+          return (
+            <section key={i} className="proj-section" style={styles.contentSection}>
+              <video
+                src={section.src}
+                controls
+                playsInline
+                style={styles.video}
+              />
+              {section.caption && <p style={styles.caption}>{section.caption}</p>}
             </section>
           );
         }
@@ -511,15 +530,15 @@ const styles = {
     padding: "40px 48px 48px",
     borderBottom: "1px solid rgba(0,0,0,0.07)",
     display: "flex",
-    justifyContent: "center",
+    flexDirection: "column",
+    alignItems: "flex-start",
   },
   textCenter: {
     margin: 0,
     fontSize: 15,
     lineHeight: 1.75,
     color: "rgba(0,0,0,0.52)",
-    textAlign: "center",
-    maxWidth: 480,
+    textAlign: "left",
   },
   contentImage: {
     width: "100%",
@@ -538,7 +557,7 @@ const styles = {
     marginBottom: 0,
     fontSize: 14,
     lineHeight: 1.7,
-    color: "rgba(0,0,0,0.52)",
+    color: "#4E4E4E",
     textAlign: "center",
     maxWidth: 480,
     marginLeft: "auto",
@@ -548,6 +567,11 @@ const styles = {
     width: "100%",
     display: "block",
     borderRadius: 12,
+  },
+  video: {
+    width: "100%",
+    borderRadius: 16,
+    display: "block",
   },
   bodyText: { margin: 0, fontSize: 15, lineHeight: 1.75, color: "#4E4E4E" },
 
