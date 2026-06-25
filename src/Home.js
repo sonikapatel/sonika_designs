@@ -11,6 +11,163 @@ const EXPERIENCE = [
   { company: "USC",             industry: "Arts, Tech and Business" },
 ];
 
+const VALUES = [
+  {
+    title: "Balance",
+    bg: "#B8C4B2",
+    textColor: "#2A2A2A",
+    description: "Not just in visual form, but in interacting with product and balancing user needs with a business.",
+  },
+  {
+    title: "Think in Systems",
+    bg: "#FFFFFF",
+    textColor: "#2A2A2A",
+    description: "Products are not shipped one off. Every feature or product I've designed is considered holistically.",
+  },
+  {
+    title: "Consistency",
+    bg: "#E4E4E4",
+    textColor: "#2A2A2A",
+    description: "Users from a copy, visual, and product standpoint should have clear understanding of a product.",
+  },
+  {
+    title: "Intentionality",
+    bg: "#FFFFFF",
+    textColor: "#2A2A2A",
+    description: "I focus on reducing unnecessary complexity, and creating experiences that feel purposeful rather than just polished.",
+  },
+  {
+    title: "Empathy",
+    bg: "#2D2D2D",
+    textColor: "#FFFFFF",
+    description: "Great products start with understanding people. I design by listening: uncovering the behaviors, and frustrations behind user actions.",
+  },
+  {
+    title: "Craft",
+    bg: "#E4E4E4",
+    textColor: "#2A2A2A",
+    description: "Details matter. While strategy defines direction, thoughtful execution creates the moments that make products feel effortless, human, and memorable.",
+  },
+];
+
+// Dot-cluster icons — each a unique arrangement of filled circles
+function IconBalance({ color }) {
+  return (
+    <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
+      <circle cx="5" cy="13" r="3" fill={color} fillOpacity="0.9"/>
+      <circle cx="13" cy="5" r="3" fill={color} fillOpacity="0.6"/>
+      <circle cx="21" cy="13" r="3" fill={color} fillOpacity="0.9"/>
+      <circle cx="13" cy="21" r="3" fill={color} fillOpacity="0.4"/>
+    </svg>
+  );
+}
+function IconSystems({ color }) {
+  return (
+    <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
+      <circle cx="5" cy="5"   r="3" fill={color} fillOpacity="0.9"/>
+      <circle cx="21" cy="5"  r="3" fill={color} fillOpacity="0.6"/>
+      <circle cx="13" cy="13" r="3" fill={color} fillOpacity="0.9"/>
+      <circle cx="5" cy="21"  r="3" fill={color} fillOpacity="0.6"/>
+      <circle cx="21" cy="21" r="3" fill={color} fillOpacity="0.9"/>
+    </svg>
+  );
+}
+function IconConsistency({ color }) {
+  return (
+    <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
+      <circle cx="5"  cy="5"  r="3" fill={color} fillOpacity="0.9"/>
+      <circle cx="13" cy="5"  r="3" fill={color} fillOpacity="0.9"/>
+      <circle cx="21" cy="5"  r="3" fill={color} fillOpacity="0.9"/>
+      <circle cx="5"  cy="21" r="3" fill={color} fillOpacity="0.5"/>
+      <circle cx="13" cy="21" r="3" fill={color} fillOpacity="0.5"/>
+      <circle cx="21" cy="21" r="3" fill={color} fillOpacity="0.5"/>
+    </svg>
+  );
+}
+function IconIntentionality({ color }) {
+  return (
+    <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
+      <circle cx="13" cy="13" r="3"   fill={color} fillOpacity="0.9"/>
+      <circle cx="13" cy="13" r="7"   stroke={color} strokeOpacity="0.35" strokeWidth="1.5" fill="none"/>
+      <circle cx="13" cy="13" r="11"  stroke={color} strokeOpacity="0.18" strokeWidth="1.5" fill="none"/>
+    </svg>
+  );
+}
+function IconEmpathy({ color }) {
+  return (
+    <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
+      <circle cx="8"  cy="10" r="3.5" fill={color} fillOpacity="0.9"/>
+      <circle cx="18" cy="10" r="3.5" fill={color} fillOpacity="0.9"/>
+      <circle cx="13" cy="19" r="3.5" fill={color} fillOpacity="0.7"/>
+    </svg>
+  );
+}
+function IconCraft({ color }) {
+  return (
+    <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
+      <circle cx="13" cy="4"  r="2.5" fill={color} fillOpacity="0.9"/>
+      <circle cx="22" cy="13" r="2.5" fill={color} fillOpacity="0.7"/>
+      <circle cx="13" cy="22" r="2.5" fill={color} fillOpacity="0.9"/>
+      <circle cx="4"  cy="13" r="2.5" fill={color} fillOpacity="0.7"/>
+      <circle cx="13" cy="13" r="2.5" fill={color} fillOpacity="0.4"/>
+    </svg>
+  );
+}
+
+const VALUE_ICONS = [IconBalance, IconSystems, IconConsistency, IconIntentionality, IconEmpathy, IconCraft];
+
+function ValueCard({ title, description, bg, textColor, Icon }) {
+  const [flipped, setFlipped] = useState(false);
+  const needsBorder = bg === "#FFFFFF";
+  return (
+    <div
+      style={{ perspective: 800, cursor: "pointer", height: 140 }}
+      onClick={() => setFlipped(f => !f)}
+    >
+      <div style={{
+        position: "relative",
+        width: "100%",
+        height: "100%",
+        transformStyle: "preserve-3d",
+        transform: flipped ? "rotateY(180deg)" : "rotateY(0deg)",
+        transition: "transform 0.45s cubic-bezier(0.4, 0, 0.2, 1)",
+      }}>
+        {/* Front */}
+        <div style={{
+          position: "absolute", inset: 0,
+          background: bg,
+          border: needsBorder ? "1px solid rgba(0,0,0,0.09)" : "none",
+          borderRadius: 16,
+          padding: 24,
+          backfaceVisibility: "hidden",
+          WebkitBackfaceVisibility: "hidden",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between",
+        }}>
+          <Icon color={textColor} />
+          <p style={{ margin: 0, fontSize: 15, fontWeight: 600, color: textColor }}>{title}</p>
+        </div>
+        {/* Back */}
+        <div style={{
+          position: "absolute", inset: 0,
+          background: bg,
+          border: needsBorder ? "1px solid rgba(0,0,0,0.09)" : "none",
+          borderRadius: 16,
+          padding: 24,
+          backfaceVisibility: "hidden",
+          WebkitBackfaceVisibility: "hidden",
+          transform: "rotateY(180deg)",
+          display: "flex",
+          alignItems: "center",
+        }}>
+          <p style={{ margin: 0, fontSize: 13, lineHeight: 1.65, color: textColor }}>{description}</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 const TABS = ["Product Design", "Brands"];
 
 const CARDS = {
@@ -80,6 +237,26 @@ export default function Home() {
           ))}
         </div>
       </div>
+
+      {/* Values */}
+      <div style={styles.valuesSection}>
+        <p style={styles.valuesLabel}>Values</p>
+        <p style={styles.valuesQuote}>
+          <strong>"When you know your why, you can endure any how."</strong>
+        </p>
+        <div style={styles.valuesGrid}>
+          {VALUES.map((v, i) => (
+            <ValueCard
+              key={v.title}
+              {...v}
+              Icon={VALUE_ICONS[i]}
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* Work eyebrow */}
+      <p style={styles.valuesLabel}>Work</p>
 
       {/* Tabs */}
       <div style={styles.tabs}>
@@ -169,7 +346,7 @@ const styles = {
     gridTemplateColumns: "repeat(2, 1fr)",
     gap: 96,
     alignItems: "end",
-    marginBottom: 48,
+    marginBottom: 96,
   },
   leftCol: {},
   rightCol: {
@@ -229,6 +406,32 @@ const styles = {
     color: "rgba(0,0,0,0.42)",
     textAlign: "right",
     marginLeft: 12,
+  },
+  valuesSection: {
+    marginBottom: 96,
+  },
+  valuesLabel: {
+    margin: "0 0 12px",
+    fontSize: 11,
+    fontWeight: 600,
+    letterSpacing: "0.12em",
+    textTransform: "uppercase",
+    color: "rgba(0,0,0,0.38)",
+  },
+  valuesQuote: {
+    margin: "0 0 24px",
+    fontSize: 15,
+    color: "#2A2A2A",
+    lineHeight: 1.5,
+  },
+  valuesQuoteSub: {
+    color: "rgba(0,0,0,0.42)",
+    fontWeight: 400,
+  },
+  valuesGrid: {
+    display: "grid",
+    gridTemplateColumns: "repeat(3, 1fr)",
+    gap: 12,
   },
   tabs: {
     display: "flex",
