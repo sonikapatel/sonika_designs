@@ -116,7 +116,7 @@ function IconCraft({ color }) {
 
 const VALUE_ICONS = [IconBalance, IconSystems, IconConsistency, IconIntentionality, IconEmpathy, IconCraft];
 
-function ValueCard({ title, description, bg, textColor, Icon }) {
+function ValueCard({ title, description, bg, textColor }) {
   const [flipped, setFlipped] = useState(false);
   const needsBorder = bg === "#FFFFFF";
   return (
@@ -145,7 +145,6 @@ function ValueCard({ title, description, bg, textColor, Icon }) {
           flexDirection: "column",
           justifyContent: "space-between",
         }}>
-          <Icon color={textColor} />
           <p style={{ margin: 0, fontSize: 15, fontWeight: 600, color: textColor }}>{title}</p>
         </div>
         {/* Back */}
