@@ -46,7 +46,7 @@ const VALUES = [
     title: "Craft",
     bg: "#E4E4E4",
     textColor: "#2A2A2A",
-    description: "Details matter. While strategy defines direction, thoughtful execution creates the moments that make products feel effortless, human, and memorable.",
+    description: "Details matter. Craft to me means the strategy and the details of the product." ,
   },
 ];
 
