@@ -40,7 +40,7 @@ const VALUES = [
     title: "Empathy",
     bg: "#2D2D2D",
     textColor: "#FFFFFF",
-    description: "Great products start with understanding people. I design by listening: uncovering the behaviors, and frustrations behind user actions.",
+    description: "Great products start with understanding people. I design by uncovering the behaviors and frustrations behind user actions.",
   },
   {
     title: "Craft",
