@@ -63,7 +63,7 @@ export const PROJECTS = [
     company: "/images/criteria/criteria_logo.png",
     title: "AI-powered coaching for managers",
     role: "Product Designer",
-    status: "Completed",
+    status: "2025",
     bannerBg: "#16112E",
     bannerImage: "/images/criteria/Criteria_1.png",
     logo: "/images/criteria/criteria_logo.png",
@@ -95,18 +95,12 @@ export const PROJECTS = [
     role: "Product Designer",
     status: "Completed",
     bannerBg: "#0D1917",
-    bannerImage: "/images/honeybee.png",
+    bannerImage: "/images/hbh/HBH1.png",
     problem:
-      "Doctors spend more time on paperwork than patients. Honeybee Health set out to simplify the e-prescription flow for independent physicians — reducing friction, minimizing errors, and enabling faster care. I designed an end-to-end prescribing experience tailored to the clinical context and workflow of busy practitioners.",
+      "Honeybee Health set out to simplify the e-prescription flow for independent physicians — reducing friction, optimizing for privacy, and enabling faster care. I designed an end-to-end prescribing experience tailored to the clinical context and workflow of busy practitioners.",
     team: [{ name: "Sonika Patel", role: "Lead Designer" }],
     context: { label: "honeybeehealth.com", url: "https://www.honeybeehealth.com" },
     sections: [
-      {
-        type: "image",
-        src: "/images/honeybee.png",
-        caption:
-          "The streamlined prescribing flow reduces the average time to send a prescription and surfaces patient history inline to support better clinical decisions.",
-      },
     ],
   },
   {
