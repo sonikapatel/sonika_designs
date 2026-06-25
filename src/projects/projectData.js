@@ -86,6 +86,11 @@ export const PROJECTS = [
           { src: "/images/criteria/Criteria3.png", caption: "Configuring each step - Full Page View." },
         ],
       },
+      {
+        type: "text-center",
+        header: "Outcomes",
+        body: "Check-Ins was pushed to a beta of 100 customers, driving $12M in anticipated post-launch revenue.",
+      },
     ],
   },
   {
