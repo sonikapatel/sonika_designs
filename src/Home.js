@@ -46,7 +46,7 @@ const VALUES = [
     title: "Diversity",
     bg: "#E4E4E4",
     textColor: "#2A2A2A",
-    description: "The best way to grow is by exposing oneself to a variety of people and industries. Throughout my career, I've designed, developed, launched and scaled applications across industries." ,
+    description: "To grow is to be exposed to a variety of people and areas. Throughout my career, I've designed, developed, launched and scaled applications across industries." ,
   },
 ];
 
