@@ -43,10 +43,10 @@ const VALUES = [
     description: "Great products start with understanding people. I design by uncovering the behaviors and frustrations behind user actions.",
   },
   {
-    title: "Craft",
+    title: "Diversity",
     bg: "#E4E4E4",
     textColor: "#2A2A2A",
-    description: "Details matter. Craft to me means the strategy and the details of the product." ,
+    description: "The best way to grow is by exposing oneself to a variety of people and industries. Throughout my career, I've designed, developed, launched and scaled applications across industries." ,
   },
 ];
 
