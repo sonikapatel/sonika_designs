@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import logo from "./assets/SPFavicon1.png";
 
@@ -102,6 +102,26 @@ function ValueCard({ title, description, bg, textColor }) {
   );
 }
 
+function useFadeIn() {
+  const ref = useRef(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          el.classList.add("is-visible");
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+  return ref;
+}
+
 const TABS = ["Product Design", "Brands"];
 
 const CARDS = {
@@ -141,11 +161,14 @@ const CARDS = {
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState("Product Design");
+  const topRef = useFadeIn();
+  const valuesRef = useFadeIn();
+  const workRef = useFadeIn();
 
   return (
     <div style={styles.page}>
       {/* Top two-column section */}
-      <div className="top-section" style={styles.topSection}>
+      <div ref={topRef} className="top-section fade-section" style={styles.topSection}>
         {/* Left: identity + bio */}
         <div style={styles.leftCol}>
           <img src={logo} style={styles.logo} alt="Sonika Patel" />
@@ -173,7 +196,7 @@ export default function Home() {
       </div>
 
       {/* Values */}
-      <div style={styles.valuesSection}>
+      <div ref={valuesRef} className="fade-section" style={styles.valuesSection}>
         <p style={styles.valuesLabel}>Values</p>
         <p style={styles.valuesQuote}>
           <strong>"When you know your why, you can endure any how."</strong>
@@ -186,6 +209,7 @@ export default function Home() {
       </div>
 
       {/* Work eyebrow */}
+      <div ref={workRef} className="fade-section">
       <p style={styles.valuesLabel}>Work</p>
 
       {/* Tabs */}
@@ -215,18 +239,22 @@ export default function Home() {
           <p style={styles.empty}>Coming soon</p>
         )}
       </div>
+      </div>
     </div>
   );
 }
 
 function BrandCard({ image }) {
   const [hovered, setHovered] = useState(false);
+  const ref = useFadeIn();
   return (
     <div
+      ref={ref}
+      className="fade-section"
       style={{
         ...styles.brandCard,
         background: hovered ? "#F7F3EC" : "transparent",
-        transition: "background 0.2s ease",
+        transition: "background 0.2s ease, opacity 0.65s ease, transform 0.65s ease",
       }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
@@ -238,6 +266,7 @@ function BrandCard({ image }) {
 
 function ProjectCard({ title, image, slug }) {
   const [hovered, setHovered] = useState(false);
+  const ref = useFadeIn();
 
   const img = (
     <img
@@ -254,11 +283,16 @@ function ProjectCard({ title, image, slug }) {
     />
   );
 
-  if (!slug) return img;
-  return (
+  const inner = slug ? (
     <Link to={`/projects/${slug}`} style={{ display: "block", textDecoration: "none" }}>
       {img}
     </Link>
+  ) : img;
+
+  return (
+    <div ref={ref} className="fade-section">
+      {inner}
+    </div>
   );
 }
 
