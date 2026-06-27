@@ -116,7 +116,7 @@ export const PROJECTS = [
       },
       {
         type: "image",
-        src: "/images/hbh/eprescribe.png",
+        src: "/images/hbh/settings.png",
         variant: "framed",
         caption: "Settings: A global settings portal for admins to easily manage favorites, their provider information, and details about bundle medications.",
       },
