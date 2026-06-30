@@ -49,7 +49,7 @@ export const PROJECTS = [
       },
       {
         type: "text-center",
-        body: "As the Founder and Product Designer AND Brand Designer, I designed social media assets to ensure the right creatives were aligned to Fika. Here are a few top performing Instagram posts.",
+        body: "As the Founder and Product Designer & Brand Designer, I designed social media assets to ensure the right creatives were aligned to Fika. Here are a few top performing Instagram posts.",
       },
       {
         type: "image",
