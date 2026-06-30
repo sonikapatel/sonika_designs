@@ -225,6 +225,11 @@ export default function Home() {
         ))}
       </div>
 
+      {/* Brands subtitle */}
+      {activeTab === "Brands" && (
+        <p style={styles.brandsSubtitle}>I designed the brand identity &amp; logos for the following businesses.</p>
+      )}
+
       {/* Cards grid */}
       <div className="project-grid" style={activeTab === "Brands" ? { gridTemplateColumns: "1fr" } : undefined}>
         {CARDS[activeTab].length > 0 ? (
@@ -435,6 +440,12 @@ const styles = {
     width: "100%",
     borderRadius: 20,
     transition: "transform 0.2s ease",
+  },
+  brandsSubtitle: {
+    margin: "0 0 20px",
+    fontSize: 14,
+    color: "rgba(0,0,0,0.52)",
+    lineHeight: 1.6,
   },
   empty: {
     color: "rgba(0,0,0,0.35)",
