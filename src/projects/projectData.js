@@ -60,7 +60,7 @@ export const PROJECTS = [
   },
   {
     slug: "criteria",
-    company: "/images/criteria/criteria_logo.png",
+    company: "Criteria",
     title: "AI-powered coaching for managers",
     role: "Product Designer",
     status: "2025",
