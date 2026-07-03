@@ -186,6 +186,11 @@ export const PROJECTS = [
         src: "/images/square/flexloaneligibility.mov",
         caption: 'Sellers receiveed different loans product experiences, with varying loan eligibility amounts and fees, based on their processing data, which became a confusing experience for sellers.'
       },
+      {
+        type: "video",
+        src: "/images/square/customizefinancing.mov",
+        caption: "In this exploration I designed after the workshop, eligible sellers can see the differences in each loan and how it affects their business, before concluding on 1 to move forward with."
+      },
     ],
     
   },
