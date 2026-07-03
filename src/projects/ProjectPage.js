@@ -522,7 +522,7 @@ const styles = {
     maxWidth: 1200,
     marginLeft: "auto",
     marginRight: "auto",
-    padding: "0 0 4px",
+    padding: "40px 0 48px",
     borderBottom: "1px solid rgba(0,0,0,0.07)",
   },
   textCenterSection: {
