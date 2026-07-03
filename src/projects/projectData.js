@@ -78,6 +78,7 @@ export const PROJECTS = [
       {
         type: "image",
         src: "/images/criteria/CriteriaUI.png",
+        caption: 'I designed this experience with the question in mind of how do we facilitate employees to track progress during their time at a company'
       },
       {
         type: "carousel",
