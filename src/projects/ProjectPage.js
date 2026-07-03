@@ -540,8 +540,8 @@ const styles = {
   },
   bigHeader: {
     margin: 0,
-    fontSize: 36,
-    fontWeight: 700,
+    fontSize: 20,
+    fontWeight: 500,
     fontFamily: "IvyPresto",
     color: "#111",
     letterSpacing: "-0.01em",
