@@ -40,6 +40,10 @@ export const PROJECTS = [
       },
       {
         type: "text-center",
+        body: "An onboarding experience I designed after iterating based off of dropoff rates in the funnel",
+      },
+      {
+        type: "text-center",
         body: "My team and I held events all throughout NYC and LA to make sure creatives can connect with one another in natural settings. See examples of coworking, happy hours, and more we hosted! ",
       },
       {
