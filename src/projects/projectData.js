@@ -78,7 +78,12 @@ export const PROJECTS = [
       {
         type: "image",
         src: "/images/criteria/CriteriaUI.png",
-        caption: 'I designed this experience with the question in mind of how do we facilitate employees to track progress during their time at a company'
+        caption: 'I designed this experience with the question in mind of how do we facilitate employees to track progress during their time at a company.'
+      },
+      {
+        type: "text-center",
+        header: "Outcomes",
+        body: "When I joined, Weekly Check-Ins was a confusing experience for HR admins to onboard their 200+ organizations. I designed a system to ensure admins across varying organizations sizes can easily onboard their employees to begin the Check-Ins process. I prioritized education and simplicity in designing this experience. ",
       },
       {
         type: "carousel",
