@@ -78,7 +78,7 @@ export const PROJECTS = [
       {
         type: "image",
         src: "/images/criteria/CriteriaUI.png",
-        caption: 'I designed this experience with the question in mind of how do we facilitate employees to track progress during their time at a company.'
+        caption: 'I designed this experience with the question in mind of how do we facilitate employees to track progress during their time at a company? After exploring multiple blue concept directions, we concluded on this experience as a way to support growth areas for each IC type.'
       },
       {
         type: "text-center",
