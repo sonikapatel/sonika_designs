@@ -37,10 +37,7 @@ export const PROJECTS = [
             { src: "/images/fika/fika_phone.png", maxHeight: 500 },
           ],
         ],
-      },
-      {
-        type: "text-center",
-        body: "An onboarding experience I designed after iterating based off of dropoff rates in the funnel",
+        caption: "An onboarding experience I designed after iterating based off of dropoff rates in the funnel",
       },
       {
         type: "text-center",
