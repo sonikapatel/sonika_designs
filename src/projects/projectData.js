@@ -201,7 +201,11 @@ export const PROJECTS = [
         header: "Outcomes",
         body: "Term vs Flex Loan Product prototypes were presented to leadership to continue developing in the following quarter to improve seller experience.",
       },
+      {
+        type: "text-center",
+        body: "More details coming soon on a design project I led to improve seller education and loans conversion by 40%.",
+      },
     ],
-    
+
   },
 ];
