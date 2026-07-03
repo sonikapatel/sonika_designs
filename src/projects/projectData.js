@@ -179,6 +179,10 @@ export const PROJECTS = [
       },
       {
         type: "video",
+        src: "/images/square/beforeloan.mov",
+      },
+      {
+        type: "video",
         src: "/images/square/flexloaneligibility.mov",
         caption: 'Sellers receiveed different loans product experiences based on their processing data, which became confusing'
       },
