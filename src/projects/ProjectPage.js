@@ -335,6 +335,14 @@ export default function ProjectPage() {
           );
         }
 
+        if (section.type === "big-header") {
+          return (
+            <section key={i} className="proj-section" style={styles.bigHeaderSection}>
+              <p style={styles.bigHeader}>{section.text}</p>
+            </section>
+          );
+        }
+
         if (section.type === "grid") {
           const cls = section.columns === 2 ? "proj-grid-2" : "proj-grid-3";
           return (
@@ -524,6 +532,20 @@ const styles = {
     marginRight: "auto",
     padding: "40px 0 48px",
     borderBottom: "1px solid rgba(0,0,0,0.07)",
+  },
+  bigHeaderSection: {
+    ...constrained,
+    padding: "56px 48px",
+    borderBottom: "1px solid rgba(0,0,0,0.07)",
+  },
+  bigHeader: {
+    margin: 0,
+    fontSize: 36,
+    fontWeight: 700,
+    fontFamily: "IvyPresto",
+    color: "#111",
+    letterSpacing: "-0.01em",
+    lineHeight: 1.2,
   },
   textCenterSection: {
     ...constrained,

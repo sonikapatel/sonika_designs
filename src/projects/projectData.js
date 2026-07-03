@@ -117,6 +117,10 @@ export const PROJECTS = [
     context: { label: "honeybeehealth.com", url: "https://www.honeybeehealth.com" },
     sections: [
       {
+        type: "big-header",
+        text: "How might we facilitate privacy for medication abortion patients and for prescribers?",
+      },
+      {
         type: "text-center",
         header: "Nectar: E-prescription tool for doctors",
         body: "Nectar allows doctors to easily prescribe abortion medications directly to Honeybee Health. With abortion laws in place, many prescribers felt skeptical of existing solutions, losing trust in patient data being shared. I led the experience design for Nectar after conducting research with 7 women's health clinicians, understanding more about their workflows and using findings to inform Nectar.",
@@ -127,6 +131,7 @@ export const PROJECTS = [
         variant: "framed",
         caption: "Settings: A global settings portal for admins to easily manage favorites, their provider information, and details about bundle medications.",
       },
+     
       {
         type: "image",
         src: "/images/hbh/eprescribe.png",
