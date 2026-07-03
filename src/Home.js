@@ -177,7 +177,7 @@ export default function Home() {
             0→1 product builder. designer. mini-canvas painter.
           </p>
           <p style={styles.bio}>
-            Hello <span className="wave-emoji" role="img" aria-label="waving hand">👋🏼</span> I'm Sonika (So-knee-kah), a 0→1 product designer who loves turning ideas into products people genuinely find valuable. I'm driven by curiosity, strong values, and data, and I bring a technical foundation that helps me collaborate closely with engineers while designing thoughtful, impactful experiences.
+            Hello <span className="wave-emoji" role="img" aria-label="waving hand">👋🏼</span> I'm Sonika (So-knee-kah), a 0→1 product designer who loves turning ideas into products people genuinely find valuable. I'm driven by curiosity, strong values, and I bring a technical foundation that helps me collaborate, while designing thoughtful experiences.
           </p>
         </div>
 
