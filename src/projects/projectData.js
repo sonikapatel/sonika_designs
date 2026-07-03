@@ -196,6 +196,11 @@ export const PROJECTS = [
         src: "/images/square/wizard.mov",
         caption: "Sellers can feel more sense of ownership by deliberately selecting elements that go into a loan offer in this Loan Selection Wizard."
       },
+      {
+        type: "text-center",
+        header: "Outcomes",
+        body: "Term vs Flex Loan Product prototypes were presented to leadership to continue developing in the following quarter to improve seller experience.",
+      },
     ],
     
   },
