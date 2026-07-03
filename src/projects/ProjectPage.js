@@ -340,6 +340,7 @@ export default function ProjectPage() {
             <section key={i} className="proj-section" style={styles.bigHeaderSection}>
               {section.eyebrow && <p style={styles.sectionLabel}>{section.eyebrow}</p>}
               <p style={styles.bigHeader}>{section.text}</p>
+              {section.body && <p style={{ ...styles.textCenter, marginTop: 20 }}>{section.body}</p>}
             </section>
           );
         }
