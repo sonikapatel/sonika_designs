@@ -203,7 +203,7 @@ export const PROJECTS = [
       },
       {
         type: "text-center",
-        body: "More details coming soon on a design project I led to improve seller education and Terms loans conversion by 40%.",
+        body: "More details coming soon on a design project I led to improve seller education and Terms loans conversion by 40%, advocating for a seller-first education experience amongst leadership, product, and engineering teams at Square.",
       },
     ],
 
