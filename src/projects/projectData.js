@@ -165,12 +165,18 @@ export const PROJECTS = [
     bannerImage: "/images/creditoptions1.png",
     problem: [
       { text: "Small business owners need access to capital but find traditional loan applications intimidating and opaque.", bold: true },
-      { text: " At square, I led designing credit experiences that felt approachable and contextually relevant within their existing merchant dashboard. I designed a credit discovery and application experience that meets merchants where they are in their business journey." },
+      { text: " At Square, I led designing credit experiences that felt approachable and contextually relevant within their existing merchant dashboard. I designed a credit discovery and application experience that meets merchants where they are in their business journey." },
     ],
     team: [{ name: "Sonika Patel", role: "Lead Designer" }],
     logo: "https://upload.wikimedia.org/wikipedia/commons/2/27/Square%2C_Inc_-_Square_Logo.jpg",
     context: { label: "squareup.com", url: "https://squareup.com" },
     sections: [
+      {
+        type: "big-header",
+        eyebrow: "SELLERS ARE CONFUSED ABOUT THEIR LOANS",
+        text: "How might we allow more flexibility for sellers on Term and Flex loans? ",
+      },
     ],
+    
   },
 ];
