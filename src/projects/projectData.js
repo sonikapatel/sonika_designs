@@ -176,6 +176,10 @@ export const PROJECTS = [
         eyebrow: "SELLERS ARE CONFUSED ABOUT THEIR LOANS",
         text: "How might we allow more flexibility for small businesses to receive Term and Flex loans? ",
       },
+      {
+        type: "text-center",
+        body: "I led a XFN workshop with research, engineering, and writers to ideate new ways for small businesses to be 1) educated about their loans and 2) get a loan that suits their business needs best.",
+      },
     ],
     
   },
