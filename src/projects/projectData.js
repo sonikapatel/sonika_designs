@@ -191,6 +191,11 @@ export const PROJECTS = [
         src: "/images/square/customizefinancing.mov",
         caption: "In this exploration I designed after the workshop, eligible sellers can see the differences in each loan and how it affects their business, before concluding on 1 to move forward with."
       },
+      {
+        type: "video",
+        src: "/images/square/wizard.mov",
+        caption: "Sellers can feel more sense of ownership by deliberately selecting elements that go into a loan offer in this Loan Selection Wizard."
+      },
     ],
     
   },
