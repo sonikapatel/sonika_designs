@@ -81,7 +81,7 @@ export const PROJECTS = [
       {
         type: "carousel",
         images: [
-          { src: "/images/criteria/Criteria_1.png", caption: "Expanded & Incomplete - Information about who receives Weekly Check-Ins." },
+          { src: "/images/criteria/Criteria1.png", caption: "Expanded & Incomplete - Information about who receives Weekly Check-Ins." },
           { src: "/images/criteria/Criteria2.png", caption: "Expanded and Complete - An overview of the step that was previously configured." },
           { src: "/images/criteria/Criteria3.png", caption: "Configuring each step - Full Page View." },
         ],
