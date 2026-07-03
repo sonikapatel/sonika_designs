@@ -118,6 +118,7 @@ export const PROJECTS = [
     sections: [
       {
         type: "big-header",
+        eyebrow: "The CORE UX",
         text: "How might we facilitate privacy for medication abortion patients and for prescribers?",
       },
       {
