@@ -174,7 +174,7 @@ export const PROJECTS = [
       {
         type: "big-header",
         eyebrow: "SELLERS ARE CONFUSED ABOUT THEIR LOANS",
-        text: "How might we allow more flexibility for sellers on Term and Flex loans? ",
+        text: "How might we allow more flexibility for small businesses to receive Term and Flex loans? ",
       },
     ],
     
