@@ -399,14 +399,37 @@ export default function ProjectPage() {
         }
 
         if (section.type === "video") {
+          const boxed = section.height || section.bg;
           return (
             <section key={i} className="proj-section" style={styles.contentSection}>
-              <video
-                src={section.src}
-                controls
-                playsInline
-                style={styles.video}
-              />
+              {boxed ? (
+                <div
+                  style={{
+                    width: "100%",
+                    height: section.height || 400,
+                    background: section.bg || "#000",
+                    borderRadius: 16,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    overflow: "hidden",
+                  }}
+                >
+                  <video
+                    src={section.src}
+                    controls
+                    playsInline
+                    style={{ maxWidth: "100%", maxHeight: "100%", display: "block" }}
+                  />
+                </div>
+              ) : (
+                <video
+                  src={section.src}
+                  controls
+                  playsInline
+                  style={styles.video}
+                />
+              )}
               {section.caption && <p style={styles.caption}>{section.caption}</p>}
             </section>
           );
