@@ -207,18 +207,13 @@ export const PROJECTS = [
         text: "I improved the user experience of Term Loans to facilitate seller transparency, reduce cognitive overload, and improve seller loyalty to Square Loans.",
       },
       {
-        type: "text-center",
-        header: "Problem",
-        body: "Sellers are confused about 1) Loan Eligibility 2) Consent to FICO and 3) What contributes to a higher loan offer due to a confusing user experience.",
-      },
-      {
         type: "video",
         src: "/images/square/Pre-Terms.mov",
         height: 400,
         bg: "#000",
         padding: "20px 0",
         muted: true,
-        caption: "Sellers can feel more sense of ownership by deliberately selecting elements that go into a loan offer in this Loan Selection Wizard."
+        caption: "Sellers are confused about 1) Loan Eligibility 2) Consent to FICO and 3) What contributes to a higher loan offer due to a confusing user experience."
       },
       
     ],
