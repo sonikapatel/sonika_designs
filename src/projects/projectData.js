@@ -206,6 +206,12 @@ export const PROJECTS = [
         eyebrow: "Reducing seller confusion and increase the Loans conversion",
         text: "I improved the user experience of Term Loans to facilitate seller transparency, reduce cognitive overload, and improve seller loyalty to Square Loans.",
       },
+      {
+        type: "text-center",
+        header: "Problem",
+        body: "Sellers are confused about 1) Loan Eligibility 2) Consent to FICO and 3) What contributes to a higher loan offer",
+      },
+      
     ],
 
   },
