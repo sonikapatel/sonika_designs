@@ -231,8 +231,8 @@ export const PROJECTS = [
       },
       {
         type: "video",
-        src: "/images/square/3tabs.mov",
-        caption: "In this solution that was shipped, sellers can input the number of bank accounts they have to hold the experience accountable."
+        src: "/images/square/3.tabs.mov",
+        caption: "In this solution that I shipped, sellers can input the number of bank accounts they have to hold the experience accountable."
       },
       {
         type: "stats",
