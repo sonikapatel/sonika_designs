@@ -345,6 +345,23 @@ export default function ProjectPage() {
           );
         }
 
+        if (section.type === "stats") {
+          return (
+            <section key={i} className="proj-section" style={styles.contentSection}>
+              {section.eyebrow && <p style={styles.sectionLabel}>{section.eyebrow}</p>}
+              <div style={styles.statsGrid}>
+                {section.stats.map((stat, j) => (
+                  <div key={j} style={styles.statItem}>
+                    <p style={styles.statValue}>{stat.value}</p>
+                    <p style={styles.statLabel}>{stat.label}</p>
+                    {stat.caption && <p style={styles.statCaption}>{stat.caption}</p>}
+                  </div>
+                ))}
+              </div>
+            </section>
+          );
+        }
+
         if (section.type === "grid") {
           const cls = section.columns === 2 ? "proj-grid-2" : "proj-grid-3";
           const isVideoSrc = (src) => /\.(mov|mp4|webm)$/i.test(src);
@@ -591,6 +608,37 @@ const styles = {
     color: "#111",
     letterSpacing: "-0.01em",
     lineHeight: 1.2,
+  },
+  statsGrid: {
+    display: "flex",
+    flexWrap: "wrap",
+    gap: 48,
+    marginTop: 24,
+  },
+  statItem: {
+    flex: "1 1 180px",
+    minWidth: 160,
+  },
+  statValue: {
+    margin: 0,
+    fontSize: 40,
+    fontWeight: 700,
+    color: "#111",
+    letterSpacing: "-0.01em",
+    lineHeight: 1.1,
+    fontVariantNumeric: "proportional-nums",
+  },
+  statLabel: {
+    margin: "10px 0 4px",
+    fontSize: 15,
+    fontWeight: 500,
+    color: "#2A2A2A",
+  },
+  statCaption: {
+    margin: 0,
+    fontSize: 12,
+    color: "rgba(0,0,0,0.45)",
+    lineHeight: 1.5,
   },
   textCenterSection: {
     ...constrained,

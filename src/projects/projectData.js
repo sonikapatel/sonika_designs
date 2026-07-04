@@ -234,6 +234,15 @@ export const PROJECTS = [
         src: "/images/square/3tabs.mov",
         caption: "In this solution that was shipped, sellers can input the number of bank accounts they have to hold the experience accountable."
       },
+      {
+        type: "stats",
+        eyebrow: "Impact",
+        stats: [
+          { value: "45,000", label: "Eligible Term Sellers", caption: "**over 3 month period" },
+          { value: "22%", label: "Plaid Linking Conversion" },
+          { value: "$890K", label: "Loan Originations", caption: "+24% increase from original Term Loans experience" },
+        ],
+      },
     ],
 
   },
