@@ -215,7 +215,17 @@ export const PROJECTS = [
         muted: true,
         caption: "Sellers are confused about 1) Loan Eligibility 2) Consent to FICO and 3) What contributes to a higher loan offer due to a clustered original user experience."
       },
-      
+      {
+        type: "grid",
+        columns: 3,
+        images: [
+          [
+            { src: "/images/square/4.freeform.mov", caption: "An early freeform exploration of the loan builder interaction model." },
+            { src: "/images/square/1.banners.mp4", caption: "Banner concepts explored to communicate new loan terms to sellers." },
+            { src: "/images/square/2.copyasset.mp4", caption: "Copy and messaging assets tested to clarify loan eligibility for sellers." },
+          ],
+        ],
+      },
     ],
 
   },

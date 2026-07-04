@@ -347,6 +347,34 @@ export default function ProjectPage() {
 
         if (section.type === "grid") {
           const cls = section.columns === 2 ? "proj-grid-2" : "proj-grid-3";
+          const isVideoSrc = (src) => /\.(mov|mp4|webm)$/i.test(src);
+          const renderGridItem = (item, key, extraStyle) => {
+            const src = typeof item === "string" ? item : item.src;
+            const caption = typeof item === "object" ? item.caption : null;
+            const extra = typeof item === "object" && item.maxHeight ? { maxHeight: item.maxHeight, objectFit: "contain" } : {};
+            const media = isVideoSrc(src) ? (
+              <video
+                src={src}
+                controls
+                playsInline
+                muted
+                style={{ ...styles.gridImage, ...extra }}
+              />
+            ) : (
+              <img
+                src={src}
+                alt=""
+                style={{ ...styles.gridImage, ...extra }}
+                onError={(e) => { e.currentTarget.style.display = "none"; }}
+              />
+            );
+            return (
+              <div key={key} style={extraStyle}>
+                {media}
+                {caption && <p style={styles.gridCaption}>{caption}</p>}
+              </div>
+            );
+          };
           return (
             <section key={i} className="proj-section" style={styles.gridSection}>
               {section.label && <p style={styles.sectionLabel}>{section.label}</p>}
@@ -362,33 +390,11 @@ export default function ProjectPage() {
                   if (Array.isArray(entry)) {
                     return (
                       <div key={j} style={{ display: "flex", gap: 24, maxWidth: 900, margin: "0 auto", width: "100%" }}>
-                        {entry.map((item, k) => {
-                          const src = typeof item === "string" ? item : item.src;
-                          const extra = item.maxHeight ? { maxHeight: item.maxHeight, objectFit: "contain" } : {};
-                          return (
-                            <img
-                              key={k}
-                              src={src}
-                              alt=""
-                              style={{ ...styles.gridImage, flex: 1, minWidth: 0, ...extra }}
-                              onError={(e) => { e.currentTarget.style.display = "none"; }}
-                            />
-                          );
-                        })}
+                        {entry.map((item, k) => renderGridItem(item, k, { flex: 1, minWidth: 0 }))}
                       </div>
                     );
                   }
-                  const src = typeof entry === "string" ? entry : entry.src;
-                  const extra = typeof entry === "object" && entry.maxHeight ? { maxHeight: entry.maxHeight, objectFit: "contain" } : {};
-                  return (
-                    <img
-                      key={j}
-                      src={src}
-                      alt=""
-                      style={{ ...styles.gridImage, ...extra }}
-                      onError={(e) => { e.currentTarget.style.display = "none"; }}
-                    />
-                  );
+                  return renderGridItem(entry, j, {});
                 })}
               </div>
               {section.caption && (
@@ -618,6 +624,14 @@ const styles = {
     width: "100%",
     display: "block",
     borderRadius: 12,
+  },
+  gridCaption: {
+    margin: 0,
+    marginTop: 12,
+    fontSize: 13,
+    lineHeight: 1.6,
+    color: "#4E4E4E",
+    textAlign: "center",
   },
   video: {
     width: "100%",
