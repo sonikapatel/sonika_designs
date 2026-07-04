@@ -353,7 +353,7 @@ export default function ProjectPage() {
             const caption = typeof item === "object" ? item.caption : null;
             let extra = {};
             if (typeof item === "object" && item.height) {
-              extra = { height: item.height, objectFit: item.objectFit || "cover" };
+              extra = { height: item.height, objectFit: item.objectFit || (isVideoSrc(src) ? "cover" : "contain") };
             } else if (typeof item === "object" && item.maxHeight) {
               extra = { maxHeight: item.maxHeight, objectFit: "contain" };
             }
