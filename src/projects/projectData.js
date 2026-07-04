@@ -203,7 +203,7 @@ export const PROJECTS = [
       },
       {
         type: "big-header",
-        eyebrow: "Improving the UX of Term Loans to reduce seller confusion and increase the funnel conversion",
+        eyebrow: "Reducing seller confusion and increase the Loans conversion",
         text: "I improved the user experience of Term Loans to facilitate seller transparency, reduce cognitive overload, and improve seller loyalty to Square Loans.",
       },
     ],
