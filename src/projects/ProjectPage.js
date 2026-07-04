@@ -351,7 +351,12 @@ export default function ProjectPage() {
           const renderGridItem = (item, key, extraStyle) => {
             const src = typeof item === "string" ? item : item.src;
             const caption = typeof item === "object" ? item.caption : null;
-            const extra = typeof item === "object" && item.maxHeight ? { maxHeight: item.maxHeight, objectFit: "contain" } : {};
+            let extra = {};
+            if (typeof item === "object" && item.height) {
+              extra = { height: item.height, objectFit: item.objectFit || "cover" };
+            } else if (typeof item === "object" && item.maxHeight) {
+              extra = { maxHeight: item.maxHeight, objectFit: "contain" };
+            }
             const media = isVideoSrc(src) ? (
               <video
                 src={src}
