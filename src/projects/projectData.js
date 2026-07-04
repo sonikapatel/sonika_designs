@@ -209,7 +209,7 @@ export const PROJECTS = [
       {
         type: "text-center",
         header: "Problem",
-        body: "Sellers are confused about 1) Loan Eligibility 2) Consent to FICO and 3) What contributes to a higher loan offer",
+        body: "Sellers are confused about 1) Loan Eligibility 2) Consent to FICO and 3) What contributes to a higher loan offer due to a confusing user experience.",
       },
       
     ],
