@@ -218,6 +218,7 @@ export const PROJECTS = [
       {
         type: "grid",
         columns: 3,
+        eyebrow: "EXPLORATIONS",
         images: [
           [
             { src: "/images/square/4.freeform.mov", height: 240, caption: "An early freeform exploration of the loan builder interaction model." },
