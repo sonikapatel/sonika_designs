@@ -435,7 +435,31 @@ export default function ProjectPage() {
           const boxed = section.height || section.bg;
           return (
             <section key={i} className="proj-section" style={styles.contentSection}>
-              {boxed ? (
+              {section.crop ? (
+                <div
+                  style={{
+                    width: section.width || "100%",
+                    height: section.height,
+                    borderRadius: 16,
+                    overflow: "hidden",
+                    margin: section.center ? "0 auto" : undefined,
+                  }}
+                >
+                  <video
+                    src={section.src}
+                    controls
+                    playsInline
+                    muted={!!section.muted}
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                      objectPosition: section.objectPosition || "center",
+                      display: "block",
+                    }}
+                  />
+                </div>
+              ) : boxed ? (
                 <div
                   style={{
                     width: "100%",

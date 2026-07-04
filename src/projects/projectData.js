@@ -232,6 +232,11 @@ export const PROJECTS = [
       {
         type: "video",
         src: "/images/square/3.tabs.mov",
+        crop: true,
+        width: 300,
+        height: 300,
+        objectPosition: "top",
+        center: true,
         caption: "In this solution that I shipped, sellers can input the number of bank accounts they have to hold the experience accountable."
       },
       {
