@@ -202,8 +202,9 @@ export const PROJECTS = [
         body: "Term vs Flex Loan Product prototypes were presented to leadership to continue developing in the following quarter to improve seller experience.",
       },
       {
-        type: "text-center",
-        body: "More details coming soon on a design project I led to improve seller education and Terms loans conversion by 40%, advocating for a seller-first education experience amongst leadership, product, and engineering teams at Square.",
+        type: "big-header",
+        eyebrow: "Improving the UX of Term Loans to reduce seller confusion and increase the funnel conversion",
+        text: "How might we facilitate privacy for medication abortion patients and for prescribers?",
       },
     ],
 
