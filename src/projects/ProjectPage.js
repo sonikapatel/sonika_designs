@@ -381,7 +381,7 @@ export default function ProjectPage() {
             );
           };
           return (
-            <section key={i} className="proj-section" style={styles.gridSection}>
+            <section key={i} className="proj-section" style={{ ...styles.gridSection, ...(section.sectionMaxWidth ? { maxWidth: section.sectionMaxWidth } : {}) }}>
               {section.label && <p style={styles.sectionLabel}>{section.label}</p>}
               <div
                 className={cls}
@@ -394,7 +394,7 @@ export default function ProjectPage() {
                 {section.images.map((entry, j) => {
                   if (Array.isArray(entry)) {
                     return (
-                      <div key={j} style={{ display: "flex", gap: 24, maxWidth: 900, margin: "0 auto", width: "100%" }}>
+                      <div key={j} style={{ display: "flex", gap: 24, maxWidth: section.rowMaxWidth || 900, margin: "0 auto", width: "100%" }}>
                         {entry.map((item, k) => renderGridItem(item, k, { flex: 1, minWidth: 0 }))}
                       </div>
                     );
