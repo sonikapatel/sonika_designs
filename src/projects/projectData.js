@@ -211,6 +211,11 @@ export const PROJECTS = [
         header: "Problem",
         body: "Sellers are confused about 1) Loan Eligibility 2) Consent to FICO and 3) What contributes to a higher loan offer due to a confusing user experience.",
       },
+      {
+        type: "video",
+        src: "/images/square/Pre-Terms.mov",
+        caption: "Sellers can feel more sense of ownership by deliberately selecting elements that go into a loan offer in this Loan Selection Wizard."
+      },
       
     ],
 
