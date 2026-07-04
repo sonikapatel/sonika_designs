@@ -216,6 +216,8 @@ export const PROJECTS = [
         src: "/images/square/Pre-Terms.mov",
         height: 400,
         bg: "#000",
+        padding: "20px 0",
+        muted: true,
         caption: "Sellers can feel more sense of ownership by deliberately selecting elements that go into a loan offer in this Loan Selection Wizard."
       },
       

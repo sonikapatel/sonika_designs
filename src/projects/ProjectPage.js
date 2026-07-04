@@ -413,12 +413,15 @@ export default function ProjectPage() {
                     alignItems: "center",
                     justifyContent: "center",
                     overflow: "hidden",
+                    boxSizing: "border-box",
+                    padding: section.padding ?? 0,
                   }}
                 >
                   <video
                     src={section.src}
                     controls
                     playsInline
+                    muted={!!section.muted}
                     style={{ maxWidth: "100%", maxHeight: "100%", display: "block" }}
                   />
                 </div>
@@ -427,6 +430,7 @@ export default function ProjectPage() {
                   src={section.src}
                   controls
                   playsInline
+                  muted={!!section.muted}
                   style={styles.video}
                 />
               )}
