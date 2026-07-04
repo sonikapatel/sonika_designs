@@ -395,7 +395,7 @@ export default function ProjectPage() {
                   if (Array.isArray(entry)) {
                     return (
                       <div key={j} style={{ display: "flex", gap: 24, maxWidth: section.rowMaxWidth || 900, margin: "0 auto", width: "100%" }}>
-                        {entry.map((item, k) => renderGridItem(item, k, { flex: 1, minWidth: 0 }))}
+                        {entry.map((item, k) => renderGridItem(item, k, { flex: (typeof item === "object" && item.flex) || 1, minWidth: 0 }))}
                       </div>
                     );
                   }

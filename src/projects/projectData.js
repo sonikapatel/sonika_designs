@@ -224,8 +224,8 @@ export const PROJECTS = [
         images: [
           [
             { src: "/images/square/4.freeform.mov", height: 360, caption: "An early freeform exploration of the loan builder interaction model." },
-            { src: "/images/square/1.banners.mp4", height: 360, caption: "Banner concepts explored to communicate new loan terms to sellers." },
-            { src: "/images/square/2.copyasset.mp4", height: 360, caption: "Copy and messaging assets tested to clarify loan eligibility for sellers." },
+            { src: "/images/square/1.banners.mp4", height: 400, flex: 1.15, caption: "Banner concepts explored to communicate new loan terms to sellers." },
+            { src: "/images/square/2.copyasset.mp4", height: 400, flex: 1.15, caption: "Copy and messaging assets tested to clarify loan eligibility for sellers." },
           ],
         ],
       },
