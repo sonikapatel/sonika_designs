@@ -213,7 +213,7 @@ export const PROJECTS = [
         bg: "#000",
         padding: "20px 0",
         muted: true,
-        caption: "Sellers are confused about 1) Loan Eligibility 2) Consent to FICO and 3) What contributes to a higher loan offer due to a confusing user experience."
+        caption: "Sellers are confused about 1) Loan Eligibility 2) Consent to FICO and 3) What contributes to a higher loan offer due to a clustered original user experience."
       },
       
     ],
