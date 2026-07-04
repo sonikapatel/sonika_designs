@@ -383,6 +383,7 @@ export default function ProjectPage() {
           return (
             <section key={i} className="proj-section" style={{ ...styles.gridSection, ...(section.sectionMaxWidth ? { maxWidth: section.sectionMaxWidth } : {}) }}>
               {section.label && <p style={styles.sectionLabel}>{section.label}</p>}
+              {section.eyebrow && <p style={styles.sectionLabel}>{section.eyebrow}</p>}
               <div
                 className={cls}
                 style={{
