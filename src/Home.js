@@ -176,7 +176,7 @@ export default function Home() {
           <p style={styles.tagline}>
             0→1 product builder. designer. mini-canvas painter.
           </p>
-          <p style={styles.bio}>that helps me collaborate, while 
+          <p style={styles.bio}>
             Hello <span className="wave-emoji" role="img" aria-label="waving hand">👋🏼</span> I'm Sonika (So-knee-kah), a 0→1 product designer who loves turning ideas into products people genuinely find valuable. I'm driven by curiosity, strong values, and I bring a technical foundation to designing thoughtful experiences, balancing user needs and business goals.
           </p>
         </div>
