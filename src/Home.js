@@ -471,7 +471,7 @@ const styles = {
   },
   cardSubtitle: {
     margin: 0,
-    fontSize: 15,
+    fontSize: 13,
     color: "#6B6B6B",
   },
   brandsSubtitle: {
