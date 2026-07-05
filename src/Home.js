@@ -353,7 +353,7 @@ const styles = {
     margin: 0,
     fontSize: 48,
     fontWeight: 800,
-    fontFamily: "IvyPresto",
+    fontFamily: "IvyPresto-Headline",
     color: "#4B4B4B",
     letterSpacing: "-0.02em",
     lineHeight: 1.05,
@@ -466,7 +466,7 @@ const styles = {
     margin: "20px 0 6px",
     fontSize: 26,
     fontWeight: 700,
-    fontFamily: "IvyPresto",
+    fontFamily: "IvyPresto-Headline",
     color: "#1A1A1A",
   },
   cardSubtitle: {
