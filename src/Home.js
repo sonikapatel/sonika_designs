@@ -367,7 +367,7 @@ const styles = {
   },
   bio: {
     margin: 0,
-    fontSize: 15,
+    fontSize: 13,
     lineHeight: 1.7,
     color: "#4E4E4E",
   },
