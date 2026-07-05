@@ -151,7 +151,7 @@ const CARDS = {
       company: "Square",
       description: "Credit options for small businesses",
       bg: "#3D5445",
-      image: "/images/Square.png",
+      image: "/images/Square_full.png",
       slug: "square",
     },
     {
