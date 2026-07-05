@@ -80,7 +80,7 @@ function ValueCard({ title, description, bg, textColor }) {
           flexDirection: "column",
           justifyContent: "space-between",
         }}>
-          <p style={{ margin: 0, fontSize: 18, fontWeight: 500, color: textColor, fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" }}>{title}</p>
+          <p style={{ margin: 0, fontSize: 18, fontWeight: 500, color: textColor, fontFamily: "'Switzer', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" }}>{title}</p>
         </div>
         {/* Back */}
         <div style={{
@@ -327,7 +327,7 @@ const styles = {
     maxWidth: 800,
     margin: "0 auto",
     padding: "56px 40px 80px",
-    fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+    fontFamily: "'Switzer', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
     color: "#111",
     boxSizing: "border-box",
   },
