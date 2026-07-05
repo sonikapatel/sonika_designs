@@ -462,7 +462,7 @@ const styles = {
     left: 32,
     top: 32,
     margin: 0,
-    fontSize: 14,
+    fontSize: 12,
     fontWeight: 500,
     color: "#fff",
     pointerEvents: "none",
