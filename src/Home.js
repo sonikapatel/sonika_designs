@@ -154,7 +154,6 @@ const CARDS = {
       title: "Modernizing credit union software - Springboard",
       image: "/images/philosophie_dashboard.png",
       fullWidth: true,
-      showCaption: true,
     },
   ],
   Brands: [
@@ -248,7 +247,6 @@ export default function Home() {
                   image={card.image}
                   slug={card.slug}
                   fullWidth={card.fullWidth}
-                  showCaption={card.showCaption}
                 />
               ))
         ) : (
@@ -280,7 +278,7 @@ function BrandCard({ image }) {
   );
 }
 
-function ProjectCard({ title, image, slug, fullWidth, showCaption }) {
+function ProjectCard({ title, image, slug, fullWidth }) {
   const [hovered, setHovered] = useState(false);
   const ref = useFadeIn();
 
@@ -309,10 +307,9 @@ function ProjectCard({ title, image, slug, fullWidth, showCaption }) {
     <div
       ref={ref}
       className="fade-section"
-      style={{ position: "relative", ...(fullWidth ? { gridColumn: "1 / -1" } : {}) }}
+      style={fullWidth ? { gridColumn: "1 / -1" } : undefined}
     >
       {inner}
-      {showCaption && <p style={styles.cardOverlayCaption}>{title}</p>}
     </div>
   );
 }
@@ -456,16 +453,6 @@ const styles = {
     width: "100%",
     borderRadius: 16,
     transition: "transform 0.2s ease",
-  },
-  cardOverlayCaption: {
-    position: "absolute",
-    left: 32,
-    top: 32,
-    margin: 0,
-    fontSize: 12,
-    fontWeight: 500,
-    color: "#fff",
-    pointerEvents: "none",
   },
   brandsSubtitle: {
     margin: "0 0 20px",
