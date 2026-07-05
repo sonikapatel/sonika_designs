@@ -630,7 +630,6 @@ const styles = {
     fontWeight: 500,
     fontFamily: "IvyPrestoHeadline",
     color: "#111",
-    letterSpacing: "-0.01em",
     lineHeight: 1.2,
   },
   statsGrid: {
