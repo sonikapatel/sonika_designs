@@ -127,31 +127,36 @@ const TABS = ["Product Design", "Brands"];
 const CARDS = {
   "Product Design": [
     {
-      title: "Connecting creatives over coffee - Fika",
+      company: "Fika",
+      description: "Connecting creatives over coffee",
       bg: "#4B44AF",
       image: "/images/fika.png",
       slug: "fika",
     },
     {
-      title: "AI-powered coaching for managers - Criteria",
+      company: "Criteria",
+      description: "AI-powered coaching for managers",
       bg: "#16112E",
       image: "/images/criteria.png",
       slug: "criteria",
     },
     {
-      title: "E-prescription for doctors - Honeybee Health",
+      company: "Honeybee Health",
+      description: "Enabling physicians to prescribe medications with privacy",
       bg: "#0D1917",
       image: "/images/honeybee.png",
       slug: "honeybee-health",
     },
     {
-      title: "Credit options for small businesses - Square",
+      company: "Square",
+      description: "Credit options for small businesses",
       bg: "#3D5445",
       image: "/images/square.png",
       slug: "square",
     },
     {
-      title: "Modernizing credit union software - Springboard",
+      company: "Co-op Solutions",
+      description: "Modernizing Legacy Credit union software",
       image: "/images/philosophie_dashboard.png",
       fullWidth: true,
     },
@@ -242,8 +247,9 @@ export default function Home() {
               ))
             : CARDS[activeTab].map((card) => (
                 <ProjectCard
-                  key={card.title}
-                  title={card.title}
+                  key={card.company}
+                  company={card.company}
+                  description={card.description}
                   image={card.image}
                   slug={card.slug}
                   fullWidth={card.fullWidth}
@@ -278,14 +284,14 @@ function BrandCard({ image }) {
   );
 }
 
-function ProjectCard({ title, image, slug, fullWidth }) {
+function ProjectCard({ company, description, image, slug, fullWidth }) {
   const [hovered, setHovered] = useState(false);
   const ref = useFadeIn();
 
   const img = (
     <img
       src={image}
-      alt={title}
+      alt={company}
       style={{
         ...styles.cardImage,
         transform: hovered ? "translateY(-4px)" : "translateY(0)",
@@ -310,6 +316,8 @@ function ProjectCard({ title, image, slug, fullWidth }) {
       style={fullWidth ? { gridColumn: "1 / -1" } : undefined}
     >
       {inner}
+      <p style={styles.cardTitle}>{company}</p>
+      <p style={styles.cardSubtitle}>{description}</p>
     </div>
   );
 }
@@ -453,6 +461,18 @@ const styles = {
     width: "100%",
     borderRadius: 16,
     transition: "transform 0.2s ease",
+  },
+  cardTitle: {
+    margin: "20px 0 6px",
+    fontSize: 26,
+    fontWeight: 700,
+    fontFamily: "IvyPresto",
+    color: "#1A1A1A",
+  },
+  cardSubtitle: {
+    margin: 0,
+    fontSize: 15,
+    color: "#6B6B6B",
   },
   brandsSubtitle: {
     margin: "0 0 20px",
