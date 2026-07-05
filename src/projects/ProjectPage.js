@@ -628,7 +628,7 @@ const styles = {
     margin: 0,
     fontSize: 20,
     fontWeight: 500,
-    fontFamily: "IvyPrestoHeadline",
+    fontFamily: "IvyPresto",
     color: "#111",
     lineHeight: 1.2,
   },
