@@ -306,9 +306,13 @@ function ProjectCard({ title, image, slug, fullWidth, showCaption }) {
   ) : img;
 
   return (
-    <div ref={ref} className="fade-section" style={fullWidth ? { gridColumn: "1 / -1" } : undefined}>
+    <div
+      ref={ref}
+      className="fade-section"
+      style={{ position: "relative", ...(fullWidth ? { gridColumn: "1 / -1" } : {}) }}
+    >
       {inner}
-      {showCaption && <p style={styles.cardCaption}>{title}</p>}
+      {showCaption && <p style={styles.cardOverlayCaption}>{title}</p>}
     </div>
   );
 }
@@ -453,10 +457,16 @@ const styles = {
     borderRadius: 16,
     transition: "transform 0.2s ease",
   },
-  cardCaption: {
-    margin: "16px 0 0",
-    fontSize: 14,
-    color: "rgba(0,0,0,0.55)",
+  cardOverlayCaption: {
+    position: "absolute",
+    left: 28,
+    bottom: 28,
+    margin: 0,
+    fontSize: 20,
+    fontWeight: 600,
+    color: "#fff",
+    textShadow: "0 2px 10px rgba(0,0,0,0.4)",
+    pointerEvents: "none",
   },
   brandsSubtitle: {
     margin: "0 0 20px",
