@@ -152,7 +152,7 @@ const CARDS = {
     },
     {
       title: "Member account management dashboard",
-      image: "/images/philosophie-dashboard.png",
+      image: "/images/philosophie_dashboard.png",
     },
   ],
   Brands: [
