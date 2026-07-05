@@ -462,10 +462,9 @@ const styles = {
     left: 32,
     top: 32,
     margin: 0,
-    fontSize: 20,
+    fontSize: 14,
     fontWeight: 500,
     color: "#fff",
-    textShadow: "0 2px 10px rgba(0,0,0,0.35)",
     pointerEvents: "none",
   },
   brandsSubtitle: {
