@@ -459,13 +459,13 @@ const styles = {
   },
   cardOverlayCaption: {
     position: "absolute",
-    left: 28,
-    bottom: 28,
+    left: 32,
+    top: 32,
     margin: 0,
     fontSize: 20,
-    fontWeight: 600,
+    fontWeight: 500,
     color: "#fff",
-    textShadow: "0 2px 10px rgba(0,0,0,0.4)",
+    textShadow: "0 2px 10px rgba(0,0,0,0.35)",
     pointerEvents: "none",
   },
   brandsSubtitle: {
