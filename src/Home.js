@@ -151,8 +151,10 @@ const CARDS = {
       slug: "square",
     },
     {
-      title: "Member account management dashboard",
+      title: "Modernizing legacy credit union software - Springboard",
       image: "/images/philosophie_dashboard.png",
+      fullWidth: true,
+      showCaption: true,
     },
   ],
   Brands: [
@@ -240,7 +242,14 @@ export default function Home() {
                 <BrandCard key={card.image} image={card.image} />
               ))
             : CARDS[activeTab].map((card) => (
-                <ProjectCard key={card.title} title={card.title} image={card.image} slug={card.slug} />
+                <ProjectCard
+                  key={card.title}
+                  title={card.title}
+                  image={card.image}
+                  slug={card.slug}
+                  fullWidth={card.fullWidth}
+                  showCaption={card.showCaption}
+                />
               ))
         ) : (
           <p style={styles.empty}>Coming soon</p>
@@ -271,7 +280,7 @@ function BrandCard({ image }) {
   );
 }
 
-function ProjectCard({ title, image, slug }) {
+function ProjectCard({ title, image, slug, fullWidth, showCaption }) {
   const [hovered, setHovered] = useState(false);
   const ref = useFadeIn();
 
@@ -297,8 +306,9 @@ function ProjectCard({ title, image, slug }) {
   ) : img;
 
   return (
-    <div ref={ref} className="fade-section">
+    <div ref={ref} className="fade-section" style={fullWidth ? { gridColumn: "1 / -1" } : undefined}>
       {inner}
+      {showCaption && <p style={styles.cardCaption}>{title}</p>}
     </div>
   );
 }
@@ -442,6 +452,11 @@ const styles = {
     width: "100%",
     borderRadius: 16,
     transition: "transform 0.2s ease",
+  },
+  cardCaption: {
+    margin: "16px 0 0",
+    fontSize: 14,
+    color: "rgba(0,0,0,0.55)",
   },
   brandsSubtitle: {
     margin: "0 0 20px",
