@@ -464,7 +464,7 @@ const styles = {
   },
   cardTitle: {
     margin: "20px 0 6px",
-    fontSize: 26,
+    fontSize: 16,
     fontWeight: 700,
     fontFamily: "IvyPrestoHeadline",
     letterSpacing:'-0.01px',
