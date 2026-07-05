@@ -150,6 +150,10 @@ const CARDS = {
       image: "/images/square.png",
       slug: "square",
     },
+    {
+      title: "Member account management dashboard",
+      image: "/images/philosophie-dashboard.png",
+    },
   ],
   Brands: [
     { image: "/images/Bib1.png" },
@@ -436,7 +440,7 @@ const styles = {
   cardImage: {
     display: "block",
     width: "100%",
-    borderRadius: 20,
+    borderRadius: 16,
     transition: "transform 0.2s ease",
   },
   brandsSubtitle: {
