@@ -464,10 +464,10 @@ const styles = {
   },
   cardTitle: {
     margin: "20px 0 6px",
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: 700,
     fontFamily: "IvyPrestoHeadline",
-    letterSpacing:'-0.01px',
+    letterSpacing:'-0.02px',
     color: "#1A1A1A",
   },
   cardSubtitle: {
