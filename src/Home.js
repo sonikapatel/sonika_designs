@@ -151,7 +151,7 @@ const CARDS = {
       slug: "square",
     },
     {
-      title: "Modernizing legacy credit union software - Springboard",
+      title: "Modernizing credit union software - Springboard",
       image: "/images/philosophie_dashboard.png",
       fullWidth: true,
       showCaption: true,
