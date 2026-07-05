@@ -467,7 +467,7 @@ const styles = {
     fontSize: 18,
     fontWeight: 700,
     fontFamily: "IvyPrestoHeadline",
-    letterSpacing:'-0.02px',
+    letterSpacing:'-0.04px',
     color: "#1A1A1A",
   },
   cardSubtitle: {
