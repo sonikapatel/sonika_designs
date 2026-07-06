@@ -466,7 +466,7 @@ const styles = {
     margin: "20px 0 6px",
     fontSize: 18,
     fontWeight: 700,
-    fontFamily: "IvyPresto",
+    fontFamily: "IvySemibold",
     letterSpacing:'-0.08px',
     color: "#1A1A1A",
   },
