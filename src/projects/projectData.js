@@ -162,7 +162,7 @@ export const PROJECTS = [
       {
         type: "text-center",
         header: "Virtual Pharmacy as a Service",
-        body: "I designed VRPH as an opportunity for our telehealth partners to have a seamless patient medication checkout experience. Virtual Pharmacy was designed with human elements in mind, from packaging to the Rx bottle patients receive, to create a welcoming experience for patients, who traditionally are checking out medications and might feel wary. ",
+        body: "I designed VRPH as an opportunity for our telehealth partners to have a seamless patient medication checkout experience. Once a patient checks out of their intake from a telehealth partner like Hey Jane, we designed VRPH as a way to check out and prescribe medications direct to doorstep seamlessly. Virtual Pharmacy was designed with human elements in mind, from packaging to the Rx bottle patients receive, to create a welcoming experience for patients, who traditionally are checking out medications and might feel wary. ",
       },
       {
         type: "video",
