@@ -299,12 +299,19 @@ export default function ProjectPage() {
       {project.sections.map((section, i) => {
         if (section.type === "image") {
           const isFramed = section.variant === "framed";
+          const sectionStyle = section.maxWidth
+            ? { ...styles.contentSection, maxWidth: section.maxWidth }
+            : styles.contentSection;
+          const imageStyle = {
+            ...(isFramed ? styles.framedImage : styles.contentImage),
+            ...(section.borderRadius !== undefined ? { borderRadius: section.borderRadius } : {}),
+          };
           return (
-            <section key={i} className="proj-section" style={styles.contentSection}>
+            <section key={i} className="proj-section" style={sectionStyle}>
               <img
                 src={section.src}
                 alt=""
-                style={isFramed ? styles.framedImage : styles.contentImage}
+                style={imageStyle}
                 onError={(e) => { e.currentTarget.style.display = "none"; }}
               />
               {section.caption && (

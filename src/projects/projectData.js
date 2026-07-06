@@ -83,6 +83,8 @@ export const PROJECTS = [
       {
         type: "image",
         src: "/images/criteria/oldconvosummary.png",
+        maxWidth: 1000,
+        borderRadius: 0,
         caption: 'Conversation summaries were text-heavy with managers not understanding how to take action on the data. I redesigned both the conversational experience alongside the presentation of information to be easily digestible.'
       },
       {
