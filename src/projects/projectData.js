@@ -76,9 +76,19 @@ export const PROJECTS = [
     context: { label: "criteriacorp.com", url: "https://www.criteriacorp.com/develop/weekly-manager-check-ins" },
     sections: [
       {
+        type: "text-center",
+        header: "Weekly Check-Ins ",
+        body: "Weekly Check-Ins enables team members to update how they're feeling, what they completed, so Coach Bo (conversational AI) can surface conversation summaries to managers weekly.",
+      },
+      {
+        type: "image",
+        src: "/images/criteria/oldconvosummary.png",
+        caption: 'Conversation summaries were text-heavy with managers not understanding how to take action on the data.'
+      },
+      {
         type: "image",
         src: "/images/criteria/CriteriaUI.png",
-        caption: 'I designed this experience with the question in mind of how do we facilitate employees to track progress during their time at a company? After exploring multiple blue concept directions, we interviewed individual contributors and concluded on this experience as a way to support growth areas for each IC type.'
+        caption: 'I designed this experience with the question in mind: How do we facilitate employees to track progress during their time at a company? I interviewed individual contributors and concluded on this experience as a way to support growth areas for each IC type, after interviewing multiple managers and ICs.'
       },
       {
         type: "text-center",
