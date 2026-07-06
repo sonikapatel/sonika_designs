@@ -144,7 +144,7 @@ export const PROJECTS = [
       {
         type: "text-center",
         header: "Nectar: E-prescription tool for doctors",
-        body: "Nectar allows doctors to easily prescribe abortion medications directly to Honeybee Health. With abortion laws in place, many prescribers felt skeptical of existing solutions, losing trust in patient data being shared. I led the experience design for Nectar after conducting research with 7 women's health clinicians, understanding more about their workflows and using findings to inform Nectar.",
+        body: "Nectar allows doctors to easily prescribe abortion medications directly to Honeybee Health. With abortion laws in place, many prescribers felt skeptical of existing solutions, losing trust in patient data being shared. With existing solutions, doctors were concerned about privacy with applications like MDToolbox or DoseSpot. I led the experience design for Nectar after conducting research with 7 women's health clinicians, understanding more about their workflows to create a privacy-first experience.",
       },
       {
         type: "image",
