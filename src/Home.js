@@ -156,7 +156,7 @@ const CARDS = {
     },
     {
       company: "Co-op Solutions",
-      description: "Modernizing Legacy Credit union software",
+      description: "Modernizing Legacy Credit union software - Case study coming soon! ",
       image: "/images/Springboard.png",
       fullWidth: true,
     },
