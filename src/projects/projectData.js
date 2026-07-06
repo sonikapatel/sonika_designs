@@ -63,7 +63,7 @@ export const PROJECTS = [
     slug: "criteria",
     company: "Criteria",
     title: "AI-powered coaching for managers",
-    role: "Product Designer",
+    role: "Lead Product Designer",
     status: "2025",
     bannerBg: "#16112E",
     bannerImage: "/images/criteria/Criteria_1.png",
