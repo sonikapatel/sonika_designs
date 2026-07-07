@@ -704,7 +704,7 @@ const styles = {
     lineHeight: 1.7,
     color: "#4E4E4E",
     textAlign: "center",
-    maxWidth: 480,
+    maxWidth: 630,
     marginLeft: "auto",
     marginRight: "auto",
   },
