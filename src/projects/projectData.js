@@ -85,7 +85,7 @@ export const PROJECTS = [
         src: "/images/criteria/fromconvoui.png",
         maxWidth: 1000,
         borderRadius: 0,
-        caption: 'Conversation summaries were text-heavy with managers not understanding how to take action on the data. I redesigned both the conversational experience alongside the presentation of information to be easily digestible and for managers to understand how their direct reports are performing.'
+        caption: 'Conversation summaries were text-heavy with managers not understanding how to take action on the data. I redesigned both the conversational experience alongside the presentation of information to be easily digestible and for managers to understand how their direct reports are performing, using a card sorting exercise to understand the priority of elements shown.'
       },
       {
         type: "text-center",
