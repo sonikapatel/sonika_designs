@@ -82,10 +82,17 @@ export const PROJECTS = [
       },
       {
         type: "image",
-        src: "/images/criteria/fromconvoui.png",
+        src: "/images/criteria/mobile&chat.png",
         maxWidth: 1000,
         borderRadius: 0,
-        caption: 'Conversation summaries were text-heavy with managers not understanding how to take action on the data. I redesigned both the conversational experience alongside the presentation of information to be easily digestible and for managers to understand how their direct reports are performing, using a card sorting exercise to understand the priority of elements shown.'
+        caption: 'ICs were able to have a shared check-in with their manager or private check-in not shared with managers.'
+      },
+      {
+        type: "image",
+        src: "/images/criteria/full-dash.png",
+        maxWidth: 1000,
+        borderRadius: 0,
+        caption: 'Conversation summaries were text-heavy with managers not understanding how to take action on the data. I redesigned the presentation of information to be easily digestible for managers to understand how their direct reports are performing, using a card sorting exercise to understand the priority of elements shown. The red/yellow/green showcases an off-the-bat performance indicator.'
       },
       {
         type: "text-center",
