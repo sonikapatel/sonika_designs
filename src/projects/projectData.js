@@ -85,7 +85,7 @@ export const PROJECTS = [
         src: "/images/criteria/mobile&chat.png",
         maxWidth: 1000,
         borderRadius: 0,
-        caption: 'ICs were able to have a shared check-in with their manager or private check-in not shared with managers.'
+        caption: 'ICs were able to have a shared check-in with their manager or private check-in (not shared with managers). I iterated on visual styles to evidently show the type of conversation.'
       },
       {
         type: "image",
