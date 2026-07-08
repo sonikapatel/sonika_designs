@@ -28,15 +28,8 @@ export const PROJECTS = [
         body: "Fika profiles allow you to see creatives and their work near you. I refined the product experience based on user feedback, led the marketing strategy on Instagram, and hosted events throughout LA / NYC to bring creatives together.",
       },
       {
-        type: "grid",
-        columns: 3,
-        images: [
-          [
-            { src: "/images/fika/Fika-mobile.jpeg", maxHeight: 500 },
-            { src: "/images/fika/fika_mobile2.png", maxHeight: 500 },
-            { src: "/images/fika/fika_phone.png", maxHeight: 500 },
-          ],
-        ],
+        type: "image",
+        src: "/images/fika/Mobile.png",
         caption: "An onboarding experience I designed after iterating based off of dropoff rates in the funnel. Creatives can upload their work and what they're looking to gain from Fika to facilitate matchmaking.",
       },
       {
