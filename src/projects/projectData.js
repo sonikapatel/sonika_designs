@@ -232,6 +232,8 @@ export const PROJECTS = [
       {
         type: "video",
         src: "/images/square/Pre-Terms.mov",
+        width: 500,
+        center: true,
         height: 400,
         bg: "#000",
         padding: "20px 0",

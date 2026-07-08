@@ -515,7 +515,7 @@ export default function ProjectPage() {
               ) : boxed ? (
                 <div
                   style={{
-                    width: "100%",
+                    width: section.width || "100%",
                     height: section.height || 400,
                     background: section.bg || "#000",
                     borderRadius: 16,
@@ -525,6 +525,7 @@ export default function ProjectPage() {
                     overflow: "hidden",
                     boxSizing: "border-box",
                     padding: section.padding ?? 0,
+                    margin: section.center ? "0 auto" : undefined,
                   }}
                 >
                   <video
