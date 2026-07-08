@@ -246,9 +246,9 @@ export const PROJECTS = [
         rowMaxWidth: 1350,
         images: [
           [
-            { src: "/images/square/1.banners.mp4", height: 400, flex: 1.15, caption: "Banner concept after receiving initial loan offer" },
-            { src: "/images/square/4.freeform.mov", height: 400, caption: "Freeform: Experience holds users accountable for # of bank accounts" },
-            { src: "/images/square/2.copyasset.mp4", height: 400, flex: 1.15, caption: "Copy to hold the seller accountable for maximum loan" },
+            { src: "/images/square/1.banners.mp4", height: 400, flex: 1.15, caption: "Exploration 1: Banner concept after receiving initial loan offer" },
+            { src: "/images/square/4.freeform.mov", height: 400, caption: "Exploration 2: Freeform Input- Experience holds users accountable for # of bank accounts" },
+            { src: "/images/square/2.copyasset.mp4", height: 400, flex: 1.15, caption: "Exploration 3: Copy to hold the seller accountable for maximum loan" },
           ],
         ],
       },
@@ -260,7 +260,7 @@ export const PROJECTS = [
         height: 500,
         objectPosition: "top",
         center: true,
-        caption: "In this solution that I shipped, sellers can input the number of bank accounts they have to hold the experience accountable."
+        caption: "In this solution that I shipped, sellers can input the number of bank accounts they have to hold the experience accountable. This solution yielded an increased seller understanding and loan conversion."
       },
       {
         type: "stats",
