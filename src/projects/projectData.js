@@ -174,7 +174,7 @@ export const PROJECTS = [
       {
         type: "text-center",
         header: "Outcomes",
-        body: "VRPH was developed alongside engineering and tested with customers. Alongside Nectar which was developed to production, we didn't continue further pursuing the product, due to constraints with integrating e-prescription with EHR data. I introduced the team at Honeybee Health on a human-centered approach to designing products, being used to traditionally designing products from a requirements-driven waterfall approach.",
+        body: "VRPH was designed in close collaboration with engineering and validated through customer research and usability testing. Nectar ultimately was not pursued due to technical constraints integrating e-prescription workflows with EHR data. Beyond product design, I introduced Honeybee Health's team to a human-centered design process, shifting product development from a traditionally requirements-driven, waterfall approach toward one grounded in user research, iterative testing, and cross-functional collaboration.",
       },
     ],
   },
