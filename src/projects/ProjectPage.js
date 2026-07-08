@@ -159,7 +159,7 @@ const carouselStyles = {
   image: {
     width: "100%",
     height: "100%",
-    objectFit: "contain",
+    objectFit: "cover",
     borderRadius: 12,
     display: "block",
   },
