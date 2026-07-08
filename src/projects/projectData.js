@@ -30,7 +30,7 @@ export const PROJECTS = [
       },
       {
         type: "text-center",
-        body: "Fika profiles allow you to see creatives and their work near you. I refined the product experience based on user feedback, led the marketing strategy on Instagram, and hosted events throughout LA / NYC to bring creatives together.",
+        body: "Fika profiles allow you to see creatives and their work near you. I refined the product experience based on user feedback and formed partnerships with cafes to offer discounts for creatives who meet for coffees.",
       },
       {
         type: "image",
