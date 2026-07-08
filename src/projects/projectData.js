@@ -35,6 +35,7 @@ export const PROJECTS = [
       {
         type: "image",
         src: "/images/fika/Mobile.png",
+        maxWidth: 996,
         caption: "An onboarding experience I designed after iterating based off of dropoff rates in the funnel. Creatives can upload their work and what they're looking to gain from Fika to facilitate matchmaking.",
       },
       {
