@@ -94,6 +94,7 @@ const modalStyles = {
 
 function Carousel({ images }) {
   const [index, setIndex] = useState(0);
+  const [aspectRatio, setAspectRatio] = useState(null);
 
   const next = useCallback(() => setIndex((i) => (i + 1) % images.length), [images.length]);
   const prev = () => setIndex((i) => (i - 1 + images.length) % images.length);
@@ -103,13 +104,22 @@ function Carousel({ images }) {
     return () => clearInterval(id);
   }, [next]);
 
+  useEffect(() => {
+    setAspectRatio(null);
+    const firstSrc = typeof images[0] === "string" ? images[0] : images[0]?.src;
+    if (!firstSrc) return;
+    const img = new Image();
+    img.onload = () => setAspectRatio(`${img.naturalWidth} / ${img.naturalHeight}`);
+    img.src = firstSrc;
+  }, [images]);
+
   const current = images[index];
   const src = typeof current === "string" ? current : current.src;
   const caption = typeof current === "object" ? current.caption : null;
 
   return (
     <div style={carouselStyles.wrapper}>
-      <div style={carouselStyles.imageWrapper}>
+      <div style={{ ...carouselStyles.imageWrapper, ...(aspectRatio ? { aspectRatio } : {}) }}>
         <button style={{ ...carouselStyles.arrow, left: 16 }} onClick={prev} aria-label="Previous">‹</button>
         <img
           key={index}
@@ -143,9 +153,13 @@ const carouselStyles = {
   imageWrapper: {
     position: "relative",
     width: "100%",
+    overflow: "hidden",
+    borderRadius: 12,
   },
   image: {
     width: "100%",
+    height: "100%",
+    objectFit: "contain",
     borderRadius: 12,
     display: "block",
   },
