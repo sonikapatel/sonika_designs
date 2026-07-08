@@ -1,7 +1,36 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import logo from "../assets/SPFavicon1.png";
 import { PROJECTS } from "./projectData";
+
+function useFadeIn() {
+  const ref = useRef(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          el.classList.add("is-visible");
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+  return ref;
+}
+
+function FadeSection({ as: Tag = "section", className = "", style, children, ...rest }) {
+  const ref = useFadeIn();
+  return (
+    <Tag ref={ref} className={`fade-section ${className}`.trim()} style={style} {...rest}>
+      {children}
+    </Tag>
+  );
+}
 
 function PasswordModal({ onUnlock }) {
   const [value, setValue] = useState("");
@@ -262,17 +291,17 @@ export default function ProjectPage() {
       </header>
 
       {/* ── Banner — full viewport width, 500 px tall ── */}
-      <div className="proj-banner" style={{ ...styles.banner, background: project.bannerBg }}>
+      <FadeSection as="div" className="proj-banner" style={{ ...styles.banner, background: project.bannerBg }}>
         <img
           src={project.bannerImage}
           alt={project.company}
           style={styles.bannerImage}
           onError={(e) => { e.currentTarget.style.display = "none"; }}
         />
-      </div>
+      </FadeSection>
 
       {/* ── Overview ── */}
-      <section className="proj-overview" style={styles.overview}>
+      <FadeSection className="proj-overview" style={styles.overview}>
         <div style={styles.problemCol}>
           <p style={styles.sectionLabel}>Problem</p>
           <p style={styles.problemText}>
@@ -307,7 +336,7 @@ export default function ProjectPage() {
             </>
           )}
         </div>
-      </section>
+      </FadeSection>
 
       {/* ── Content Sections ── */}
       {project.sections.map((section, i) => {
@@ -321,7 +350,7 @@ export default function ProjectPage() {
             ...(section.borderRadius !== undefined ? { borderRadius: section.borderRadius } : {}),
           };
           return (
-            <section key={i} className="proj-section" style={sectionStyle}>
+            <FadeSection key={i} className="proj-section" style={sectionStyle}>
               <img
                 src={section.src}
                 alt=""
@@ -331,44 +360,44 @@ export default function ProjectPage() {
               {section.caption && (
                 <p style={styles.caption}>{section.caption}</p>
               )}
-            </section>
+            </FadeSection>
           );
         }
 
         if (section.type === "carousel") {
           return (
-            <section key={i} className="proj-section" style={styles.contentSection}>
+            <FadeSection key={i} className="proj-section" style={styles.contentSection}>
               <Carousel images={section.images} />
-            </section>
+            </FadeSection>
           );
         }
 
         if (section.type === "text-center") {
           return (
-            <section key={i} className="proj-section" style={styles.textCenterSection}>
+            <FadeSection key={i} className="proj-section" style={styles.textCenterSection}>
               {section.header && (
                 <p style={{ ...styles.textCenter, fontWeight: 600, color: "#111", marginBottom: 8 }}>
                   {section.header}
                 </p>
               )}
               <p style={styles.textCenter}>{section.body}</p>
-            </section>
+            </FadeSection>
           );
         }
 
         if (section.type === "big-header") {
           return (
-            <section key={i} className="proj-section" style={styles.bigHeaderSection}>
+            <FadeSection key={i} className="proj-section" style={styles.bigHeaderSection}>
               {section.eyebrow && <p style={styles.sectionLabel}>{section.eyebrow}</p>}
               <p style={styles.bigHeader}>{section.text}</p>
               {section.body && <p style={{ ...styles.textCenter, marginTop: 20 }}>{section.body}</p>}
-            </section>
+            </FadeSection>
           );
         }
 
         if (section.type === "stats") {
           return (
-            <section key={i} className="proj-section" style={styles.contentSection}>
+            <FadeSection key={i} className="proj-section" style={styles.contentSection}>
               {section.eyebrow && <p style={styles.sectionLabel}>{section.eyebrow}</p>}
               <div style={styles.statsGrid}>
                 {section.stats.map((stat, j) => (
@@ -379,7 +408,7 @@ export default function ProjectPage() {
                   </div>
                 ))}
               </div>
-            </section>
+            </FadeSection>
           );
         }
 
@@ -419,7 +448,7 @@ export default function ProjectPage() {
             );
           };
           return (
-            <section key={i} className="proj-section" style={{ ...styles.gridSection, ...(section.sectionMaxWidth ? { maxWidth: section.sectionMaxWidth } : {}) }}>
+            <FadeSection key={i} className="proj-section" style={{ ...styles.gridSection, ...(section.sectionMaxWidth ? { maxWidth: section.sectionMaxWidth } : {}) }}>
               {section.label && <p style={styles.sectionLabel}>{section.label}</p>}
               {section.eyebrow && (
                 <p style={{ ...styles.sectionLabel, maxWidth: section.rowMaxWidth || 900, marginLeft: "auto", marginRight: "auto" }}>
@@ -448,14 +477,14 @@ export default function ProjectPage() {
               {section.caption && (
                 <p style={styles.caption}>{section.caption}</p>
               )}
-            </section>
+            </FadeSection>
           );
         }
 
         if (section.type === "video") {
           const boxed = section.height || section.bg;
           return (
-            <section key={i} className="proj-section" style={styles.contentSection}>
+            <FadeSection key={i} className="proj-section" style={styles.contentSection}>
               {section.crop ? (
                 <div
                   style={{
@@ -513,16 +542,16 @@ export default function ProjectPage() {
                 />
               )}
               {section.caption && <p style={styles.caption}>{section.caption}</p>}
-            </section>
+            </FadeSection>
           );
         }
 
         if (section.type === "text") {
           return (
-            <section key={i} className="proj-section" style={styles.contentSection}>
+            <FadeSection key={i} className="proj-section" style={styles.contentSection}>
               {section.label && <p style={styles.sectionLabel}>{section.label}</p>}
               <p style={styles.bodyText}>{section.body}</p>
-            </section>
+            </FadeSection>
           );
         }
 
