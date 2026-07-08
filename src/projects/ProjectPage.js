@@ -184,6 +184,8 @@ const carouselStyles = {
     width: "100%",
     overflow: "hidden",
     borderRadius: 12,
+    border: "1px solid rgba(0,0,0,0.10)",
+    boxSizing: "border-box",
   },
   image: {
     width: "100%",
