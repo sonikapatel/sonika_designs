@@ -46,6 +46,7 @@ export const PROJECTS = [
         type: "image",
         src: "/images/fika/fika_events.png",
         variant: "framed",
+        maxWidth: 996,
       },
       {
         type: "text-center",
@@ -55,6 +56,7 @@ export const PROJECTS = [
         type: "image",
         src: "/images/fika/ads122.png",
         variant: "framed",
+        maxWidth: 996,
       },
     ],
   },
