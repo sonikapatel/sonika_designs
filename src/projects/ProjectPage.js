@@ -424,6 +424,9 @@ export default function ProjectPage() {
             } else if (typeof item === "object" && item.maxHeight) {
               extra = { maxHeight: item.maxHeight, objectFit: "contain" };
             }
+            if (typeof item === "object" && item.borderRadius !== undefined) {
+              extra = { ...extra, borderRadius: item.borderRadius };
+            }
             const media = isVideoSrc(src) ? (
               <video
                 src={src}

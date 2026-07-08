@@ -19,9 +19,14 @@ export const PROJECTS = [
     context: { label: "www.fikacreatives.co", url: "https://www.fikacreatives.co" },
     sections: [
       {
-        type: "image",
-        src: "/images/fika/Profile.png",
-        variant: "framed",
+        type: "grid",
+        columns: 2,
+        images: [
+          [
+            { src: "/images/fika/rewards.png", borderRadius: 16 },
+            { src: "/images/fika/web.png", borderRadius: 16 },
+          ],
+        ],
       },
       {
         type: "text-center",
