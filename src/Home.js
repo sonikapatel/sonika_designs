@@ -6,7 +6,7 @@ const EXPERIENCE = [
   { company: "Fika",            industry: "Community/ Consumer tech" },
   { company: "Criteria",        industry: "HR tech" },
   { company: "Honeybee Health", industry: "Health tech" },
-  { company: "Square",          industry: "Fintech" },
+  { company: "Square (Block)",          industry: "Fintech" },
   { company: "Philosophie",     industry: "Fintech" },
   { company: "USC",             industry: "Arts, Tech and Business" },
 ];
@@ -156,7 +156,7 @@ const CARDS = {
     },
     {
       company: "Co-op Solutions",
-      description: "Modernizing Legacy Credit union software - Case study coming soon! ",
+      description: "Modernizing legacy Credit Union software - Case study coming soon! ",
       image: "/images/Springboard.png",
       fullWidth: true,
     },
