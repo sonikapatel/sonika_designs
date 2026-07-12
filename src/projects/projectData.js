@@ -207,7 +207,7 @@ export const PROJECTS = [
       {
         type: "video",
         src: "/images/square/flexloaneligibility.mov",
-        caption: 'Sellers receiveed different loans product experiences, with varying loan eligibility amounts and fees, based on their processing data, which became a confusing experience for sellers.'
+        caption: 'Sellers received different loans product experiences, with varying loan eligibility amounts and fees, based on their processing data, which became a confusing experience for sellers.'
       },
       {
         type: "video",
