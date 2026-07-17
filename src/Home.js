@@ -323,6 +323,7 @@ function BrandCard({ image }) {
 }
 
 function ServiceCard({ title, subtitle, features }) {
+  const [buttonHovered, setButtonHovered] = useState(false);
   return (
     <div style={styles.serviceCard}>
       <div>
@@ -334,7 +335,12 @@ function ServiceCard({ title, subtitle, features }) {
           <p key={feature} style={styles.serviceFeature}>{feature}</p>
         ))}
       </div>
-      <a href="mailto:sonika2patel@gmail.com" style={styles.serviceButton}>
+      <a
+        href="mailto:sonika2patel@gmail.com"
+        style={buttonHovered ? { ...styles.serviceButton, ...styles.serviceButtonHover } : styles.serviceButton}
+        onMouseEnter={() => setButtonHovered(true)}
+        onMouseLeave={() => setButtonHovered(false)}
+      >
         Contact for more information
       </a>
     </div>
@@ -572,7 +578,7 @@ const styles = {
   serviceFeature: {
     margin: "0 0 4px",
     fontSize: 13,
-    fontWeight: 700,
+    fontWeight: 400,
     color: "#1A1A1A",
   },
   serviceButton: {
@@ -586,6 +592,10 @@ const styles = {
     borderRadius: 20,
     textDecoration: "none",
     cursor: "pointer",
+    transition: "background 0.15s ease",
+  },
+  serviceButtonHover: {
+    background: "#D8D2C6",
   },
   empty: {
     color: "rgba(0,0,0,0.35)",
