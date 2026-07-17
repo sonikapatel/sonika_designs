@@ -336,7 +336,7 @@ function ServiceCard({ title, subtitle, features }) {
         ))}
       </div>
       <a
-        href="mailto:sonika2patel@gmail.com"
+        href="mailto:sonikapateldesigns@gmail.com"
         style={buttonHovered ? { ...styles.serviceButton, ...styles.serviceButtonHover } : styles.serviceButton}
         onMouseEnter={() => setButtonHovered(true)}
         onMouseLeave={() => setButtonHovered(false)}
