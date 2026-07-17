@@ -173,7 +173,7 @@ const SERVICES = [
   {
     title: "Brand Audit",
     subtitle: "What's working on? What's not?",
-    features: ["Audit of existing experience", "1 concept direction", "logo, color palette"],
+    features: ["Audit of existing experience", "1 concept direction", "Logo/ Color palette/ Placement"],
   },
   {
     title: "Brand Conception",
