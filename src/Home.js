@@ -178,7 +178,7 @@ const SERVICES = [
   {
     title: "Brand Conception",
     subtitle: "Businesses starting out who want to elevate the presence.",
-    features: ["2 concept directions", "Brand colors", "social media assets"],
+    features: ["2 concept directions", "Brand colors", "Social Media Assets"],
   },
 ];
 
