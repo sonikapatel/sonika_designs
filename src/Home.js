@@ -169,6 +169,19 @@ const CARDS = {
   ],
 };
 
+const SERVICES = [
+  {
+    title: "Brand Audit",
+    subtitle: "What's working on? What's not?",
+    features: ["Audit of existing experience", "1 concept direction", "logo, color palette"],
+  },
+  {
+    title: "Brand Conception",
+    subtitle: "Businesses starting out who want to elevate the presence.",
+    features: ["2 concept directions", "Brand colors", "social media assets"],
+  },
+];
+
 export default function Home() {
   const [activeTab, setActiveTab] = useState("Product Design");
   const topRef = useFadeIn();
@@ -259,6 +272,15 @@ export default function Home() {
           <p style={styles.empty}>Coming soon</p>
         )}
       </div>
+
+      {/* Services */}
+      {activeTab === "Brands" && (
+        <div style={styles.servicesGrid}>
+          {SERVICES.map((service) => (
+            <ServiceCard key={service.title} {...service} />
+          ))}
+        </div>
+      )}
       </div>
 
       {/* Footer */}
@@ -296,6 +318,25 @@ function BrandCard({ image }) {
       onMouseLeave={() => setHovered(false)}
     >
       <img src={image} alt="" style={styles.brandImage} />
+    </div>
+  );
+}
+
+function ServiceCard({ title, subtitle, features }) {
+  return (
+    <div style={styles.serviceCard}>
+      <div>
+        <h3 style={styles.serviceTitle}>{title}</h3>
+        <p style={styles.serviceSubtitle}>{subtitle}</p>
+      </div>
+      <div style={styles.serviceFeatures}>
+        {features.map((feature) => (
+          <p key={feature} style={styles.serviceFeature}>{feature}</p>
+        ))}
+      </div>
+      <a href="mailto:sonika2patel@gmail.com" style={styles.serviceButton}>
+        Contact for more information
+      </a>
     </div>
   );
 }
@@ -496,6 +537,55 @@ const styles = {
     fontSize: 14,
     color: "rgba(0,0,0,0.52)",
     lineHeight: 1.6,
+  },
+  servicesGrid: {
+    display: "grid",
+    gridTemplateColumns: "repeat(2, 1fr)",
+    gap: 16,
+    marginTop: 32,
+  },
+  serviceCard: {
+    border: "1px solid rgba(0,0,0,0.1)",
+    borderRadius: 16,
+    padding: 28,
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+    minHeight: 260,
+  },
+  serviceTitle: {
+    margin: "0 0 8px",
+    fontSize: 22,
+    fontWeight: 700,
+    fontFamily: "IvyPresto",
+    color: "#2A2A2A",
+  },
+  serviceSubtitle: {
+    margin: 0,
+    fontSize: 13,
+    color: "#4E4E4E",
+    lineHeight: 1.5,
+  },
+  serviceFeatures: {
+    margin: "20px 0",
+  },
+  serviceFeature: {
+    margin: "0 0 4px",
+    fontSize: 13,
+    fontWeight: 700,
+    color: "#1A1A1A",
+  },
+  serviceButton: {
+    display: "inline-block",
+    alignSelf: "flex-start",
+    background: "#E6E2DB",
+    color: "#111",
+    fontSize: 13,
+    fontWeight: 500,
+    padding: "10px 18px",
+    borderRadius: 20,
+    textDecoration: "none",
+    cursor: "pointer",
   },
   empty: {
     color: "rgba(0,0,0,0.35)",
