@@ -341,7 +341,7 @@ function ServiceCard({ title, subtitle, features }) {
         onMouseEnter={() => setButtonHovered(true)}
         onMouseLeave={() => setButtonHovered(false)}
       >
-        Contact for pricing
+        Contact for more information
       </a>
     </div>
   );
