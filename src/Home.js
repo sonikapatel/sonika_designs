@@ -80,7 +80,7 @@ function ValueCard({ title, description, bg, textColor }) {
           flexDirection: "column",
           justifyContent: "space-between",
         }}>
-          <p style={{ margin: 0, fontSize: 16, fontWeight: 500, color: textColor, fontFamily: "'Switzer', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" }}>{title}</p>
+          <p style={{ margin: 0, fontSize: 16, fontWeight: 500, color: textColor, fontFamily: "'TT', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" }}>{title}</p>
         </div>
         {/* Back */}
         <div style={{
@@ -202,6 +202,7 @@ export default function Home() {
           <p style={styles.bio}>
             Hello <span className="wave-emoji" role="img" aria-label="waving hand">👋🏼</span> I'm Sonika (So-knee-kah), a 0→1 product designer who loves turning ideas into products people genuinely find valuable. I'm driven by curiosity, strong values, and I bring a technical foundation to designing thoughtful experiences, balancing user needs and business goals.
           </p>
+          <Link to="/about" style={styles.aboutLink}>About me ↗</Link>
         </div>
 
         {/* Right: experience list */}
@@ -390,7 +391,7 @@ const styles = {
     maxWidth: 800,
     margin: "0 auto",
     padding: "56px 40px 80px",
-    fontFamily: "'Switzer', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+    fontFamily: "'TT', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
     color: "#111",
     boxSizing: "border-box",
   },
@@ -433,6 +434,16 @@ const styles = {
     fontSize: 13,
     lineHeight: 1.7,
     color: "#4E4E4E",
+  },
+  aboutLink: {
+    display: "inline-block",
+    marginTop: 14,
+    fontSize: 11,
+    fontWeight: 600,
+    letterSpacing: "0.12em",
+    textTransform: "uppercase",
+    color: "rgba(0,0,0,0.38)",
+    textDecoration: "none",
   },
   expLabel: {
     margin: "0 0 16px",
