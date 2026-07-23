@@ -67,10 +67,10 @@ export default function About() {
 
   return (
     <div style={styles.page}>
-      <Link to="/" style={styles.backLink}>← Back home</Link>
+      <Link to="/" className="about-back-link" style={styles.backLink}>← Back home</Link>
 
-      <div style={styles.content}>
-        <div style={styles.leftCol}>
+      <div className="about-content" style={styles.content}>
+        <div className="about-left-col" style={styles.leftCol}>
           <img src={logo} style={styles.logo} alt="Sonika Patel" />
           <h1 style={styles.heading}>Sonika Patel</h1>
           <p style={styles.tagline}>
