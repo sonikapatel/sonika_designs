@@ -13,7 +13,7 @@ const HOURS = Array.from({ length: 12 }, (_, i) => i + 1);
 //
 // Everything below is defined at a 340px base size, then scaled together by SCALE
 // so the whole clock (ring, memoji, numbers, badge) grows/shrinks as one unit.
-const SCALE = 1.2;
+const SCALE = 0.9;
 const scale = (n) => Math.round(n * SCALE);
 
 const DISPLAY_SIZE = scale(340);
