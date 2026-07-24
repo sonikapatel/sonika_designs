@@ -223,7 +223,7 @@ export default function Home() {
         <p style={styles.valuesQuote}>
           <strong>"When you know your why, you can endure any how."</strong>
         </p>
-        <p style={{ ...styles.bio, marginBottom: 24 }}>Not just as a human, but when designing products.</p>
+        <p style={{ ...styles.bio, marginBottom: 24 }}>Not just as a human, but in designing products.</p>
         <div className="values-grid" style={styles.valuesGrid}>
           {VALUES.map((v) => (
             <ValueCard key={v.title} {...v} />
