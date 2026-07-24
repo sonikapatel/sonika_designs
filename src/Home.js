@@ -223,6 +223,7 @@ export default function Home() {
         <p style={styles.valuesQuote}>
           <strong>"When you know your why, you can endure any how."</strong>
         </p>
+        <p style={{ ...styles.bio, marginBottom: 24 }}>Not just as a human, but when designing products.</p>
         <div className="values-grid" style={styles.valuesGrid}>
           {VALUES.map((v) => (
             <ValueCard key={v.title} {...v} />
@@ -483,7 +484,7 @@ const styles = {
     color: "rgba(0,0,0,0.38)",
   },
   valuesQuote: {
-    margin: "0 0 24px",
+    margin: "0 0 8px",
     fontSize: 15,
     color: "#2A2A2A",
     lineHeight: 1.5,
