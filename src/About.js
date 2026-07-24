@@ -23,10 +23,10 @@ const BASE_HOUR_RADII = { 1: 127, 2: 126, 3: 128, 4: 125, 5: 122, 6: 130, 7: 127
 const HOUR_RADII = Object.fromEntries(
   Object.entries(BASE_HOUR_RADII).map(([hour, r]) => [hour, scale(r)])
 );
-const CENTER_SIZE = scale(100);
+const CENTER_SIZE = scale(130);
 const NUMBER_CIRCLE_SIZE = scale(36);
 const NUMBER_FONT_SIZE = scale(12.5);
-const BADGE_SIZE = scale(44);
+const BADGE_SIZE = scale(60.8);
 const BADGE_ANGLE = 40;
 const BADGE_RADIUS = (CENTER_SIZE / 2) * 0.82;
 
