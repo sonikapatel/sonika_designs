@@ -4,11 +4,12 @@ import logo from "./assets/SPFavicon1.png";
 
 const HOURS = Array.from({ length: 12 }, (_, i) => i + 1);
 
-// Ring image (public/clock-design.png) is 1024x1024 and slightly asymmetric; its inner
-// opening is centered near (518, 505). Each hour gets its own radius (measured from
-// that center out to the ring's inner edge at that hour's angle, minus the number
-// circle's own radius) so the numbers hug the rim's actual contour instead of sitting
-// on a uniform circle inset far from the edge everywhere.
+// Ring image (public/clock-ring.png) is 2352x2418 (near-square); its inner opening is
+// centered near (1194, 1210) in source pixels. Each hour gets its own radius (measured
+// from that center out to the ring's inner edge at that hour's angle, minus the number
+// circle's own radius, with separate x/y scale factors since the source isn't perfectly
+// square) so the numbers hug the rim's actual contour instead of sitting on a uniform
+// circle inset far from the edge everywhere.
 //
 // Everything below is defined at a 340px base size, then scaled together by SCALE
 // so the whole clock (ring, memoji, numbers, badge) grows/shrinks as one unit.
@@ -16,9 +17,9 @@ const SCALE = 1.2;
 const scale = (n) => Math.round(n * SCALE);
 
 const DISPLAY_SIZE = scale(340);
-const CENTER_X = scale(172);
-const CENTER_Y = scale(168);
-const BASE_HOUR_RADII = { 1: 100, 2: 97, 3: 98, 4: 97, 5: 96, 6: 104, 7: 100, 8: 98, 9: 98, 10: 96, 11: 98, 12: 104 };
+const CENTER_X = scale(173);
+const CENTER_Y = scale(170);
+const BASE_HOUR_RADII = { 1: 127, 2: 126, 3: 128, 4: 125, 5: 122, 6: 130, 7: 127, 8: 127, 9: 128, 10: 125, 11: 124, 12: 128 };
 const HOUR_RADII = Object.fromEntries(
   Object.entries(BASE_HOUR_RADII).map(([hour, r]) => [hour, scale(r)])
 );
@@ -84,7 +85,7 @@ export default function About() {
 
         <div style={styles.rightCol}>
           <div style={styles.clockWrap}>
-            <img src="/clock-design.png" alt="" style={styles.ringImage} />
+            <img src="/clock-ring.png" alt="" style={styles.ringImage} />
 
             <div
               style={{
