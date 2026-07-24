@@ -267,7 +267,7 @@ const styles = {
     justifyContent: "center",
     fontSize: NUMBER_FONT_SIZE,
     fontWeight: 600,
-    color: "#1A1A1A",
+    color: "#C5A35D",
     opacity: 0.8,
     transition: "background 0.15s ease",
   },
