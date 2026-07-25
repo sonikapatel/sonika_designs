@@ -126,7 +126,7 @@ export const PROJECTS = [
   {
     slug: "honeybee-health",
     company: "Honeybee Health",
-    title: "E-prescription and Virtual Pharmacy as a Service for doctors",
+    title: "E-prescription and Virtual Pharmacy-as-a-Service",
     role: "Product Designer",
     status: "2023",
     bannerBg: "#0D1917",
