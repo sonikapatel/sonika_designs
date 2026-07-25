@@ -71,7 +71,7 @@ export const PROJECTS = [
     logo: "/images/criteria/criteria_logo.png",
     problem: [
       { text: "Managers become managers without training or people management abilities.", bold: true },
-      { text: " Criteria developed 'Develop', a way to give managers real-time, personalized coaching at scale - without adding headcount. I designed an AI-powered coaching experience that surfaces relevant insights and suggested actions directly in the manager's workflow." },
+      { text: " Criteria developed 'Develop', a way to give managers real-time, personalized coaching at scale - without adding headcount. I designed an AI-powered coaching experience that surfaces relevant insights and suggested actions directly in the manager's workflow. The product we launched internally would bring in value for talent management coupled with our pre-hire bread and butter product." },
     ],
     team: [{ name: "Sonika Patel", role: "Lead Designer" }, { name: "Bryan", role: "Engineer" }],
     context: { label: "criteriacorp.com", url: "https://www.criteriacorp.com/develop/weekly-manager-check-ins" },
