@@ -128,28 +128,28 @@ const CARDS = {
   "Product Design": [
     {
       company: "Fika",
-      description: "Connecting creatives over coffee",
+      description: "Empowering creative connections through the usual routine of coffee.",
       bg: "#4B44AF",
       image: "/images/fika123.png",
       slug: "fika",
     },
     {
       company: "Criteria",
-      description: "AI-powered coaching for managers",
+      description: "Personalized AI coaching for more effective management",
       bg: "#16112E",
       image: "/images/criteria.png",
       slug: "criteria",
     },
     {
       company: "Honeybee Health",
-      description: "Enabling physicians to prescribe medications with privacy",
+      description: "Enabling physicians to prescribe medications while protecting patient privacy",
       bg: "#0D1917",
       image: "/images/HBH.png",
       slug: "honeybee-health",
     },
     {
       company: "Square",
-      description: "Credit options for small businesses",
+      description: "Empowering small businesses with flexible financing.",
       bg: "#3D5445",
       image: "/images/Square_full.png",
       slug: "square",
