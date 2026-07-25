@@ -71,14 +71,14 @@ export const PROJECTS = [
     logo: "/images/criteria/criteria_logo.png",
     problem: [
       { text: "Managers become managers without training or people management abilities.", bold: true },
-      { text: " Criteria developed 'Develop', a way to give managers real-time, personalized coaching at scale - without adding headcount. I designed an AI-powered coaching experience that surfaces relevant insights and suggested actions directly in the manager's workflow. The product we launched internally would bring in value for talent management coupled with our pre-hire bread and butter product." },
+      { text: " Criteria developed 'Develop', a way to give managers real-time, personalized coaching at scale - without adding headcount. I designed an AI-powered coaching experience that surfaces relevant insights and suggested actions directly in the manager's workflow. The product we launched internally expanded our talent management offering, complementing our core pre-hire product and delivering value across the employee lifecycle." },
     ],
     team: [{ name: "Sonika Patel", role: "Lead Designer" }, { name: "Bryan", role: "Engineer" }],
     context: { label: "criteriacorp.com", url: "https://www.criteriacorp.com/develop/weekly-manager-check-ins" },
     sections: [
       {
         type: "text-center",
-        header: "Weekly Check-Ins ",
+        header: "The Core Weekly Check-Ins Experience ",
         body: "Weekly Check-Ins enables team members to update how they're feeling, what they completed, so Coach Bo (conversational AI) can surface conversation summaries to managers weekly.",
       },
       {
@@ -93,7 +93,7 @@ export const PROJECTS = [
         src: "/images/criteria/full-dash.png",
         maxWidth: 1000,
         borderRadius: 16,
-        caption: 'Conversation summaries were text-heavy with managers not understanding how to take action on the data. I redesigned the presentation of information to be easily digestible for managers to understand how their direct reports are performing, using a card sorting exercise to understand the priority of elements shown. The red/yellow/green showcases a performance indicator for each direct report.'
+        caption: 'Conversation summaries were originally text-heavy with managers not understanding how to take action on the data. Understanding what managers cared about for 1:1s through card sorting and user research, I redesigned the presentation of information to be easily digestible for managers to understand how their direct reports are performing. The red/yellow/green showcases a performance indicator for each direct report for an easy at-the-glance overview.'
       },
       {
         type: "text-center",
