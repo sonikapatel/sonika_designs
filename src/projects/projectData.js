@@ -105,7 +105,7 @@ export const PROJECTS = [
         src: "https://vdbpbpjwtbcyhnnwynox.supabase.co/storage/v1/object/sign/landing%20page/onboarding-setup.gif?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9kZGI0MGU3NC04Nzk2LTRhZmItOTViNy0wNDQ5YzAyNWMzZjciLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJsYW5kaW5nIHBhZ2Uvb25ib2FyZGluZy1zZXR1cC5naWYiLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzg1MTE5NzkwLCJleHAiOjE4MTY2NTU3OTB9.n3LHxW4QzfzazfrVw-I0nAzC7LPP7KJTthAfLw_n6FI",
         maxWidth: 1000,
         borderRadius: 16,
-        caption: "Expanded & Incomplete, Expanded & Complete, and Full Page View - Configuring each step of the Weekly Check-Ins onboarding.",
+        caption: "A working demo of onboarding setup with different states for in progress and complete",
       },
       {
         type: "stats",
