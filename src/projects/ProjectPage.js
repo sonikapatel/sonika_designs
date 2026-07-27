@@ -347,18 +347,37 @@ export default function ProjectPage() {
           const sectionStyle = section.maxWidth
             ? { ...styles.contentSection, maxWidth: section.maxWidth }
             : styles.contentSection;
-          const imageStyle = {
-            ...(isFramed ? styles.framedImage : styles.contentImage),
-            ...(section.borderRadius !== undefined ? { borderRadius: section.borderRadius } : {}),
-          };
+          const hasContainer = !!section.bg;
+          const imageStyle = hasContainer
+            ? { width: "100%", display: "block", borderRadius: section.mediaBorderRadius ?? 12 }
+            : {
+                ...(isFramed ? styles.framedImage : styles.contentImage),
+                ...(section.borderRadius !== undefined ? { borderRadius: section.borderRadius } : {}),
+              };
+          const image = (
+            <img
+              src={section.src}
+              alt=""
+              style={imageStyle}
+              onError={(e) => { e.currentTarget.style.display = "none"; }}
+            />
+          );
           return (
             <FadeSection key={i} className="proj-section" style={sectionStyle}>
-              <img
-                src={section.src}
-                alt=""
-                style={imageStyle}
-                onError={(e) => { e.currentTarget.style.display = "none"; }}
-              />
+              {hasContainer ? (
+                <div
+                  style={{
+                    background: section.bg,
+                    padding: section.padding ?? 0,
+                    borderRadius: section.borderRadius ?? 0,
+                    boxSizing: "border-box",
+                  }}
+                >
+                  {image}
+                </div>
+              ) : (
+                image
+              )}
               {section.caption && (
                 <p style={styles.caption}>{section.caption}</p>
               )}
