@@ -74,6 +74,10 @@
   .proj-bottom-nav {
     padding: 24px 24px 40px !important;
   }
+
+  .proj-grid-row {
+    flex-direction: column !important;
+  }
 }
 
 
