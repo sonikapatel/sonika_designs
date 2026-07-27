@@ -107,7 +107,7 @@ export const PROJECTS = [
         bg: "#3B3B3B",
         padding: 24,
         borderRadius: 24,
-        caption: "A working demo of onboarding setup with different states for in progress and complete",
+        caption: "A working demo of onboarding setup with different states for in-progress and complete steps.",
       },
       {
         type: "stats",
