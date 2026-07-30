@@ -70,7 +70,7 @@ export const PROJECTS = [
     bannerImage: "/images/criteria/Criteria_1.png",
     logo: "/images/criteria/criteria_logo.png",
     problem: [
-      { text: "Managers become managers without training or people management abilities.", bold: true },
+      { text: "Managers become managers without formal training or people management abilities.", bold: true },
       { text: " Criteria developed 'Develop', a way to give managers real-time, personalized coaching at scale - without adding headcount. I designed an AI-powered coaching experience that surfaces relevant insights and suggested actions directly in the manager's workflow. The product we launched internally expanded our talent management offering, complementing our core pre-hire product and delivering value across the employee lifecycle." },
     ],
     team: [{ name: "Sonika Patel", role: "Lead Designer" }, { name: "Bryan Romero", role: "Engineer" }],
