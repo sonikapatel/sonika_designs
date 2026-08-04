@@ -13,7 +13,7 @@ export const PROJECTS = [
       { text: "Creative professionals are working in isolation.", bold: true },
       { text: " Whether they're freelancers, business owners, or remote workers, the pandemic has changed the way we interact and the nature of the work is usually in solitude." },
       { break: true },
-      { text: "I designed and developed Fika – a new way to help creatives connect in a more meaningful way, whether it's a new friendship, collaborator, or opportunity. Fika connects people over coffee IRL, inspired by the Swedish ritual. By inviting someone inspiring to coffee to matchmaking and events, I designed Fika with creatives' interests in mind." },
+      { text: "I designed and developed Fika – a new way to help creatives connect in a more meaningful way, whether it's a new friendship, collaborator, or opportunity. Fika connects people over coffee IRL, inspired by the Swedish ritual. By inviting someone inspiring to coffee to matchmaking and events, I designed Fika with creatives' interests in mind. Since launching, Fika connected ~2,500 creatives over biweekly matchmaking at cafes, the product experience, and events hosted in partner locations." },
     ],
     team: [{ name: "Jamie Haberman", role: "co-designer" }],
     context: { label: "www.fikacreatives.co", url: "https://www.fikacreatives.co" },
