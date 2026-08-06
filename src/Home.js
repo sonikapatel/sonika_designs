@@ -8,7 +8,7 @@ const EXPERIENCE = [
   { company: "Honeybee Health", industry: "Health tech" },
   { company: "Square (Block)",          industry: "Fintech" },
   { company: "Philosophie",     industry: "Fintech" },
-  { company: "USC",             industry: "Arts, Tech and Business" },
+  { company: "AT&T",             industry: "Networks and Sales Operations" },
 ];
 
 const VALUES = [
