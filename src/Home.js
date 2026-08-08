@@ -200,7 +200,7 @@ export default function Home() {
             0→1 product builder. designer. mini-canvas painter.
           </p>
           <p style={styles.bio}>
-            Hello <span className="wave-emoji" role="img" aria-label="waving hand">👋🏼</span> I'm Sonika (So-knee-kah), a 0→1 product designer who loves turning ideas into products people genuinely find valuable. I'm driven by curiosity, strong values, and I bring a technical foundation to designing thoughtful experiences, balancing user needs and business goals.
+            Hello <span className="wave-emoji" role="img" aria-label="waving hand">👋🏼</span> I'm Sonika (So-knee-kah), a 0→1 product designer who loves turning ideas into products people genuinely find valuable. I'm driven by curiosity, strong values, and I bring a technical and research foundation to designing thoughtful experiences, balancing user needs and business goals.
           </p>
           <Link to="/about" style={styles.aboutLink}>About me ↗</Link>
         </div>
