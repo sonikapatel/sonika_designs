@@ -454,7 +454,7 @@ export default function ProjectPage() {
                 controls
                 playsInline
                 muted
-                style={{ ...styles.gridImage, ...extra }}
+                style={{ ...styles.gridImage, ...extra, border: "1px solid rgba(0,0,0,0.08)", boxSizing: "border-box" }}
               />
             ) : (
               <img
@@ -530,6 +530,8 @@ export default function ProjectPage() {
                       objectFit: "cover",
                       objectPosition: section.objectPosition || "center",
                       display: "block",
+                      border: "1px solid rgba(0,0,0,0.08)",
+                      boxSizing: "border-box",
                     }}
                   />
                 </div>
@@ -539,7 +541,7 @@ export default function ProjectPage() {
                     width: section.width || "100%",
                     height: section.height || 400,
                     background: section.bg || "#000",
-                    borderRadius: 16,
+                    borderRadius: section.borderRadius ?? 16,
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
@@ -554,7 +556,7 @@ export default function ProjectPage() {
                     controls
                     playsInline
                     muted={!!section.muted}
-                    style={{ maxWidth: "100%", maxHeight: "100%", display: "block" }}
+                    style={{ maxWidth: "100%", maxHeight: "100%", display: "block", border: "1px solid rgba(0,0,0,0.08)", boxSizing: "border-box" }}
                   />
                 </div>
               ) : (

@@ -30,13 +30,23 @@ export const PROJECTS = [
       },
       {
         type: "text-center",
-        body: "Fika profiles allow you to see creatives and their work near you. I refined the product experience based on user feedback and formed partnerships with cafes to offer discounts for creatives who meet for coffees.",
+        body: "Fika profiles allow you to view creatives and their work near you. I refined the product experience based on user feedback and formed partnerships with cafes to offer discounts for creatives who meet for coffees, to incentivize wanting to meet for various reasons.",
       },
       {
         type: "image",
         src: "/images/fika/Mobile.png",
         maxWidth: 996,
         caption: "An onboarding experience I designed after iterating based off of dropoff rates in the funnel, improving onboarding by 32% with the low intent to high intent funnel. Creatives can upload their work and what they're looking to gain from Fika to facilitate matchmaking.",
+      },
+      {
+        type: "video",
+        src: "/images/fika/fikahome.mp4",
+        width: 480,
+        height: 640,
+        padding: 32,
+        bg: "#000",
+        borderRadius: 24,
+        center: true,
       },
       {
         type: "text-center",
