@@ -162,7 +162,7 @@ export const PROJECTS = [
       },
       {
         type: "text-center",
-        body: "I explored a variety of lo-fidelity directions that would build trust for scaled organizations alongside education for what happens when each high intent step is configured.",
+        body: "I explored several low-fidelity directions to build trust at scale, while helping users understand the impact of configuring each high-intent step.",
       },
       {
         type: "grid",
