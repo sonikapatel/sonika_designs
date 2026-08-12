@@ -7,7 +7,7 @@ export const PROJECTS = [
     status: "Ongoing",
     protected: "fika_connect",
     logo: "/images/fika/fika logo.png",
-    bannerBg: "#244479",
+    bannerBg: "rgb(40, 35, 111)",
     bannerImage: "/images/fika/fika_banner.png",
     problem: [
       { text: "Creative professionals are working in isolation.", bold: true },
@@ -41,7 +41,7 @@ export const PROJECTS = [
       {
         type: "grid",
         columns: 2,
-        sectionBg: "#000",
+        sectionBg: "rgb(40, 35, 111)",
         rowMaxWidth: 700,
         images: [
           [
