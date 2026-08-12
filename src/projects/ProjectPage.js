@@ -752,6 +752,7 @@ const styles = {
     lineHeight: 1.75,
     color: "rgba(0,0,0,0.52)",
     textAlign: "left",
+    whiteSpace: "pre-line",
   },
   contentImage: {
     width: "100%",
