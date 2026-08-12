@@ -39,14 +39,19 @@ export const PROJECTS = [
         caption: "An onboarding experience I designed after iterating based off of dropoff rates in the funnel, improving onboarding by 32% with the low intent to high intent funnel. Creatives can upload their work and what they're looking to gain from Fika to facilitate matchmaking.",
       },
       {
-        type: "video",
-        src: "/images/fika/fikahome.mp4",
-        width: 480,
-        height: 640,
-        padding: 32,
-        bg: "#000",
-        borderRadius: 24,
-        center: true,
+        type: "grid",
+        columns: 2,
+        rowMaxWidth: 620,
+        rowBg: "#000",
+        rowPadding: 32,
+        rowBorderRadius: 24,
+        rowAlign: "right",
+        images: [
+          [
+            { src: "/images/fika/fikahome.mp4", height: 480, objectFit: "contain", borderRadius: 24 },
+            { src: "/images/fika/upcoming_fikas.mp4", height: 480, objectFit: "contain", borderRadius: 24 },
+          ],
+        ],
       },
       {
         type: "text-center",

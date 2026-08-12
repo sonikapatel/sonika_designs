@@ -490,7 +490,19 @@ export default function ProjectPage() {
                 {section.images.map((entry, j) => {
                   if (Array.isArray(entry)) {
                     return (
-                      <div key={j} className="proj-grid-row" style={{ display: "flex", gap: 24, maxWidth: section.rowMaxWidth || 900, margin: "0 auto", width: "100%" }}>
+                      <div
+                        key={j}
+                        className="proj-grid-row"
+                        style={{
+                          display: "flex",
+                          gap: 24,
+                          maxWidth: section.rowMaxWidth || 900,
+                          margin: section.rowAlign === "right" ? "0 0 0 auto" : "0 auto",
+                          width: "100%",
+                          boxSizing: "border-box",
+                          ...(section.rowBg ? { background: section.rowBg, padding: section.rowPadding ?? 0, borderRadius: section.rowBorderRadius ?? 0 } : {}),
+                        }}
+                      >
                         {entry.map((item, k) => renderGridItem(item, k, { flex: (typeof item === "object" && item.flex) || 1, minWidth: 0 }))}
                       </div>
                     );
