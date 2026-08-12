@@ -575,7 +575,7 @@ export default function ProjectPage() {
               <FadeSection
                 key={i}
                 className="proj-section"
-                style={{ width: "100%", background: section.sectionBg, borderBottom: styles.contentSection.borderBottom }}
+                style={{ width: "100%", background: section.sectionBg }}
               >
                 <div style={{ ...constrained, padding: "48px 48px" }}>{media}</div>
               </FadeSection>
