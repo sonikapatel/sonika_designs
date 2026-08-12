@@ -41,13 +41,11 @@ export const PROJECTS = [
       {
         type: "grid",
         columns: 2,
-        rowBg: "#000",
-        rowPadding: 32,
-        rowBorderRadius: 24,
-        rowAlign: "right",
+        sectionBg: "#000",
+        rowMaxWidth: 700,
         images: [
           [
-            { src: "/images/fika/fikahome.mp4", height: 480, objectFit: "contain", borderRadius: 24, caption: 'Browse creatives nearby, and invite someone whose work you find inspiring.' },
+            { src: "/images/fika/fikahome.mp4", height: 480, objectFit: "contain", borderRadius: 24, caption: 'Browse creatives nearby, and invite someone whose work you find inspiring. Through the data, we learned 10% of creatives invited others to coffee via the home page, while a larger portion partook in biweekly matchmaking.' },
             { src: "/images/fika/upcoming_fikas.mp4", height: 480, objectFit: "contain", borderRadius: 24, caption: 'A way to view all upcoming fikas and previous fikas.' },
           ],
         ],

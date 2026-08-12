@@ -467,12 +467,16 @@ export default function ProjectPage() {
             return (
               <div key={key} style={extraStyle}>
                 {media}
-                {caption && <p style={styles.gridCaption}>{caption}</p>}
+                {caption && (
+                  <p style={{ ...styles.gridCaption, ...((section.rowBg || section.sectionBg) ? { color: "#fff" } : {}) }}>
+                    {caption}
+                  </p>
+                )}
               </div>
             );
           };
-          return (
-            <FadeSection key={i} className="proj-section" style={{ ...styles.gridSection, ...(section.sectionMaxWidth ? { maxWidth: section.sectionMaxWidth } : {}) }}>
+          const gridBody = (
+            <>
               {section.label && <p style={styles.sectionLabel}>{section.label}</p>}
               {section.eyebrow && (
                 <p style={{ ...styles.sectionLabel, maxWidth: section.rowMaxWidth || 900, marginLeft: "auto", marginRight: "auto" }}>
@@ -496,7 +500,7 @@ export default function ProjectPage() {
                         style={{
                           display: "flex",
                           gap: 24,
-                          maxWidth: section.rowMaxWidth || 900,
+                          maxWidth: section.rowMaxWidth || (section.sectionBg ? "100%" : 900),
                           margin: section.rowAlign === "right" ? "0 0 0 auto" : "0 auto",
                           width: "100%",
                           boxSizing: "border-box",
@@ -513,6 +517,20 @@ export default function ProjectPage() {
               {section.caption && (
                 <p style={styles.caption}>{section.caption}</p>
               )}
+            </>
+          );
+
+          if (section.sectionBg) {
+            return (
+              <FadeSection key={i} className="proj-section" style={{ width: "100%", background: section.sectionBg }}>
+                <div style={{ ...constrained, maxWidth: section.sectionMaxWidth || 1200, padding: "48px 48px" }}>{gridBody}</div>
+              </FadeSection>
+            );
+          }
+
+          return (
+            <FadeSection key={i} className="proj-section" style={{ ...styles.gridSection, ...(section.sectionMaxWidth ? { maxWidth: section.sectionMaxWidth } : {}) }}>
+              {gridBody}
             </FadeSection>
           );
         }
