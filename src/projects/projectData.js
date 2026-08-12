@@ -115,14 +115,6 @@ export const PROJECTS = [
         maxWidth: 900,
         borderRadius: 16
       },
-
-      {
-        type: "image",
-        src: "/images/criteria/onboarding.mov",
-        maxWidth: 1000,
-        borderRadius: 16,
-        caption: 'Conversation summaries were originally text-heavy with managers not understanding how to take action on the data. Understanding what managers cared about for 1:1s through card sorting and user research, I redesigned the presentation of information to be easily digestible for managers to understand how their direct reports are performing. The red/yellow/green showcases a performance indicator for each direct report for an easy at-the-glance overview.'
-      },
       {
         type: "text-center",
         header: "Onboarding + Admin Setup",
@@ -130,7 +122,7 @@ export const PROJECTS = [
       },
       {
         type: "image",
-        src: "https://vdbpbpjwtbcyhnnwynox.supabase.co/storage/v1/object/sign/landing%20page/onboarding-setup.gif?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9kZGI0MGU3NC04Nzk2LTRhZmItOTViNy0wNDQ5YzAyNWMzZjciLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJsYW5kaW5nIHBhZ2Uvb25ib2FyZGluZy1zZXR1cC5naWYiLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzg1MTE5NzkwLCJleHAiOjE4MTY2NTU3OTB9.n3LHxW4QzfzazfrVw-I0nAzC7LPP7KJTthAfLw_n6FI",
+        src: "/images/criteria/onboarding.mov",
         maxWidth: 1000,
         bg: "#3B3B3B",
         padding: 24,
