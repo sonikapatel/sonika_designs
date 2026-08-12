@@ -153,7 +153,7 @@ export const PROJECTS = [
       {
         type: "text-center",
         header: "Outcomes",
-        body: "Check-Ins was pushed to a beta of 100 businesses, driving $12M in anticipated post-launch revenue. The team was able to develop Check-Ins with a robust design library I designed and developed, in Figma and translated directly into code. ",
+        body: "Check-Ins was launched to an initial beta group, where we learned feedback for what information is most important to drive value to Develop customers. Check-Ins as a product was designed iteratively through manager feedback, prioritizing key functionality that would be necessary with a robust design library I designed and developed, in Figma and translated directly into scalable code comoponents. ",
       },
     ],
   },
