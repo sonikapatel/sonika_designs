@@ -79,7 +79,7 @@ export const PROJECTS = [
       {
         type: "text-center",
         header: "The Core Weekly Check-Ins Experience ",
-        body: "The core Weekly Check-Ins experience enables team members to update how they're feeling, what they completed, so Coach Bo (conversational AI) can surface conversation summaries to managers weekly, through email reports and individual-level reporting that gives insight into how each employee is performing.",
+        body: "Weekly Check-Ins is a product that we launched using pre hire information which drove significant revenue. TEAMScan is a product we previously launched with quarterly check-ins to help teams understand how their team is performing. Admins, who are HR managers, configure TEAMScan for their organizations to receive quarterly pulse of their teams. We hypothesized a new product - called Check-Ins which provides a more accurate pulse of team members. I designed a scalable pattern and design system that would accommodate onboarding for HR Admin owners. Admin needed to understand the value of each of the steps involved in setting up onboarding, what check-ins as a product delivers, how often they receive chat, and how often they receive the reports experience. Because the product is configured to orgnaizations varying from 200 employees to 10,000, scalability and trust was important in designing the product. I designed a prototype that balanced education with the action so admin understood how they’re tracking against their configuration for their organization. ",
       },
       {
         type: "image",
