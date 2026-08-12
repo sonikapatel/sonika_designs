@@ -126,6 +126,7 @@ export const PROJECTS = [
         width: 1000,
         center: true,
         sectionBg: "#F8F7EF",
+        muted: true,
         caption: "A working demo of onboarding setup with different states for in-progress and complete steps, using the visual identity across products and the design system I created.",
       },
       {
