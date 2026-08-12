@@ -129,6 +129,15 @@ export const PROJECTS = [
         borderRadius: 16
       },
       {
+        type: "video",
+        src: "/images/criteria/dashboard.mov",
+        width: 1000,
+        center: true,
+        sectionBg: "#F8F6F4",
+        muted: true,
+        caption: "A demo of the dashboard managers based off of the research I led with managers, understanding what they care about most when reviewing direct reports' information. The yellow/red/green states are based off of the synthesized mood scores from Coach Bo. In launching Check-Ins, it was important to think about the accuracy of the information shown, if an employee is actually at risk and if the data shows accuracy.",
+      },
+      {
         type: "text-center",
         header: "Onboarding + Admin Setup",
         body: "Weekly Check-Ins was a confusing experience for HR admins to onboard their 200+ people organizations. To remediate the confusion admins faced prior to Check-Ins launch, I designed a system to ensure admins across varying organizations sizes can easily onboard their employees to the experience. I prioritized education and simplicity as fundamental design principles. ",
