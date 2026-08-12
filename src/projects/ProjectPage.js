@@ -239,6 +239,73 @@ const carouselStyles = {
   },
 };
 
+/* Sticky notes that continuously reshuffle between two arrangements — used for the
+   "Product Hypothesis" scramble. Coordinates come straight from the Figma frames (px,
+   in a frameWidth × frameHeight canvas); percentage positioning + a locked aspect-ratio
+   wrapper keeps everything responsive without distorting the (square) notes. */
+function PostItScramble({ notes, frameWidth, frameHeight, noteSize, intervalMs = 2400, bg = "#16112E" }) {
+  const [phase, setPhase] = useState(0);
+
+  useEffect(() => {
+    const id = setInterval(() => setPhase((p) => (p === 0 ? 1 : 0)), intervalMs);
+    return () => clearInterval(id);
+  }, [intervalMs]);
+
+  // A little per-note rotation, seeded from index, so the shuffle reads as hand-placed
+  // rather than a mechanical swap.
+  const rotationFor = (idx, ph) => {
+    const base = ((idx * 37) % 7) - 3; // -3..3
+    return ph === 0 ? base : -base;
+  };
+
+  return (
+    <div
+      style={{
+        position: "relative",
+        width: "100%",
+        aspectRatio: `${frameWidth} / ${frameHeight}`,
+        background: bg,
+      }}
+    >
+      {notes.map((note, idx) => {
+        const pos = phase === 0 ? note.start : note.end;
+        return (
+          <div
+            key={note.label}
+            style={{
+              position: "absolute",
+              left: `${(pos.x / frameWidth) * 100}%`,
+              top: `${(pos.y / frameHeight) * 100}%`,
+              width: `${(noteSize / frameWidth) * 100}%`,
+              height: `${(noteSize / frameHeight) * 100}%`,
+              background: "#F9DE8B",
+              boxShadow: "0 6px 16px rgba(0,0,0,0.28)",
+              padding: "9% 9% 0",
+              boxSizing: "border-box",
+              transform: `rotate(${rotationFor(idx, phase)}deg)`,
+              transition: `left ${intervalMs * 0.55}ms cubic-bezier(.4,0,.2,1), top ${intervalMs * 0.55}ms cubic-bezier(.4,0,.2,1), transform ${intervalMs * 0.55}ms ease`,
+              transitionDelay: `${(idx % 5) * 60}ms`,
+            }}
+          >
+            <p
+              style={{
+                margin: 0,
+                fontSize: "clamp(9px, 1.1vw, 13px)",
+                fontWeight: 600,
+                lineHeight: 1.3,
+                color: "#3A3115",
+                fontFamily: "'TT', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+              }}
+            >
+              {note.label}
+            </p>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
 export default function ProjectPage() {
   const { slug } = useParams();
   const navigate = useNavigate();
@@ -618,6 +685,27 @@ export default function ProjectPage() {
           return (
             <FadeSection key={i} className="proj-section" style={{ ...styles.contentSection, ...divider }}>
               {media}
+            </FadeSection>
+          );
+        }
+
+        if (section.type === "postits") {
+          return (
+            <FadeSection key={i} className="proj-section" style={{ width: "100%", background: section.sectionBg || "#16112E", ...divider }}>
+              <div style={{ ...constrained, maxWidth: section.sectionMaxWidth || 1000, padding: "48px 48px" }}>
+                {section.label && <p style={{ ...styles.sectionLabel, color: "rgba(255,255,255,0.45)" }}>{section.label}</p>}
+                <PostItScramble
+                  notes={section.notes}
+                  frameWidth={section.frameWidth}
+                  frameHeight={section.frameHeight}
+                  noteSize={section.noteSize}
+                  intervalMs={section.intervalMs}
+                  bg={section.sectionBg || "#16112E"}
+                />
+                {section.caption && (
+                  <p style={{ ...styles.caption, color: "rgba(255,255,255,0.6)" }}>{section.caption}</p>
+                )}
+              </div>
             </FadeSection>
           );
         }
