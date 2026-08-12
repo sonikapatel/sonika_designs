@@ -91,7 +91,7 @@ export const PROJECTS = [
         src: "/images/criteria/coach_bo.mov",
         maxWidth: 1000,
         borderRadius: 16,
-        caption: 'ICs were able to have a shared check-in with their manager or private check-in (not shared with managers). I iterated on visual styles to evidently show the type of conversation.'
+        caption: 'ICs were able to have a shared check-in with their manager or private check-in. I iterated on visual styles for Coach Bo to synthesize each direct report responses through sentiment analysis.'
       },
       {
         type: "image",
