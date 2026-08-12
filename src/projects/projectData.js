@@ -153,7 +153,7 @@ export const PROJECTS = [
         center: true,
         sectionBg: "#F8F6F4",
         muted: true,
-        caption: "A demo of the dashboard managers based off of the research I led with managers, understanding what they care about most when reviewing direct reports' information. The yellow/red/green states are based off of the synthesized mood scores from Coach Bo. In launching Check-Ins, it was important to think about the accuracy of the information shown, if an employee is actually at risk and if the data shows accuracy.",
+        caption: "A demo of the dashboard managers based off of the research I led with managers, understanding what they care about most when reviewing direct reports' information. The yellow/red/green states are based off of the synthesized mood scores from Coach Bo. In launching Check-Ins, it was important to think about the accuracy of the information shown, if an employee is actually at risk and if the data is accurate.",
       },
       {
         type: "text-center",
