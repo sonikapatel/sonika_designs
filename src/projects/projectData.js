@@ -121,12 +121,11 @@ export const PROJECTS = [
         body: "Weekly Check-Ins was a confusing experience for HR admins to onboard their 200+ people organizations. To remediate the confusion admins faced prior to Check-Ins launch, I designed a system to ensure admins across varying organizations sizes can easily onboard their employees to the experience. I prioritized education and simplicity as fundamental design principles. ",
       },
       {
-        type: "image",
+        type: "video",
         src: "/images/criteria/onboarding.mov",
-        maxWidth: 1000,
-        bg: "#3B3B3B",
-        padding: 24,
-        borderRadius: 24,
+        width: 1000,
+        center: true,
+        sectionBg: "#F8F7EF",
         caption: "A working demo of onboarding setup with different states for in-progress and complete steps, using the visual identity across products and the design system I created.",
       },
       {
