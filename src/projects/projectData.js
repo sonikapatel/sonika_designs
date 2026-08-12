@@ -87,6 +87,17 @@ export const PROJECTS = [
         body: "Coach Bo is an AI-intelligent chat interface I designed the experience and visual interface for. Coach Bo synthesizes information from the core chat, asking 3 core questions of ‘How was last week”, ‘What did you accomplish this week’, and ‘What are you looking to accomplish next’ in a conversational and optimistic manner. \n\n After processing the information, Check-Ins provides managers reports relevant to their roles, including information about organizational health, mood/progress levels of their direct reports, using sentiment analysis. ",
       },
       {
+        type: "text-center",
+        header: "Understanding what managers need ",
+        body: "Early assumptions from interviewing management suggested that certain variables would be most important to managers during 1:1s. Rather than designing around those assumptions, I led generative research with 7 managers across different levels to understand how they actually coach their direct reports and what information helps them take action. I paired generative interviews with a card-sorting activity to uncover how managers naturally prioritized and interpreted employee signals. The research revealed which information was most meaningful in a coaching context and helped shape the initial direction of the Check-Ins experience.",
+      },
+      {
+        type: "text-center",
+        header: "Designing for trust in coaching signals ",
+        body: "One of the most important challenges surfaced during the first iteration: the sentiment-analysis scores did not always accurately reflect employee performance. For a manager making decisions about how to coach a direct report, an inaccurate signal can quickly undermine confidence in the entire experience. This shifted my design approach. Rather than treating sentiment scores as objective answers, I focused on creating an experience where managers could understand the signals, interpret them in context, and confidently decide when to act. Trust became a core design principle for Check-Ins: every coaching signal needed to feel grounded enough to inform a conversation—not simply present a score. The resulting experience was designed to help managers move from “What does this score mean?” to “What should I do with this information?”",
+      },
+
+      {
         type: "video",
         src: "/images/criteria/coach_bo.mov",
         width: 1000,
