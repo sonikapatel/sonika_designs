@@ -104,6 +104,17 @@ export const PROJECTS = [
         header: "Designing for trust in coaching signals ",
         body: "One of the most important challenges surfaced during the first iteration: the sentiment-analysis scores did not always accurately reflect employee performance. For a manager making decisions about how to coach a direct report, an inaccurate signal can quickly undermine confidence in the entire experience. This shifted my design approach. Rather than treating sentiment scores as objective answers, I focused on creating an experience where managers could understand the signals, interpret them in context, and confidently decide when to act. Trust became a core design principle for Check-Ins: every coaching signal needed to feel grounded enough to inform a conversation—not simply present a score. The resulting experience was designed to help managers move from “What does this score mean?” to “What should I do with this information?”",
       },
+      {
+        type: "text-center",
+        header: "Product Hypothesis ",
+        body: "After assessing the future of the product, I thought about the following parameters, including how to integrate role-specific variables, like ARR for Customer Success and Sales, for various employees across organizations? ",
+      },
+      {
+        type: "image",
+        src: "/images/criteria/criteria-data.png",
+        maxWidth: 900,
+        borderRadius: 16
+      },
 
       {
         type: "image",
