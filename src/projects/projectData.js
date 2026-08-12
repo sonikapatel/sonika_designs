@@ -84,7 +84,7 @@ export const PROJECTS = [
       {
         type: "text-center",
         header: "Coach Bo ",
-        body: "Coach Bo is an AI intelligent chat interface I designed alongside the PM for Develop. Coach Bo synthesizes information from the chat experience, asking 3 core questions of ‘How was last week”, ‘What did you accomplish this week’, and ‘What are you looking to accomplish next’. \n\n After processing the information, Check-Ins provides managers of different organization structures, the reports relevant to their roles, including information about organizational health, mood/progress levels of employees using sentiment analysis. ",
+        body: "Coach Bo is an AI-intelligent chat interface I designed the experience and visual interface for. Coach Bo synthesizes information from the core chat, asking 3 core questions of ‘How was last week”, ‘What did you accomplish this week’, and ‘What are you looking to accomplish next’ in a conversational and optimistic manner. \n\n After processing the information, Check-Ins provides managers reports relevant to their roles, including information about organizational health, mood/progress levels of their direct reports, using sentiment analysis. ",
       },
       {
         type: "video",
