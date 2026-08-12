@@ -41,7 +41,6 @@ export const PROJECTS = [
       {
         type: "grid",
         columns: 2,
-        rowMaxWidth: 620,
         rowBg: "#000",
         rowPadding: 32,
         rowBorderRadius: 24,
