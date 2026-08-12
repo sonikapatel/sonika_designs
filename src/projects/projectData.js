@@ -4,7 +4,7 @@ export const PROJECTS = [
     company: "Fika",
     title: "Connecting creatives over coffee",
     role: "Founder / Product Designer & Developer / Brand Design",
-    status: "Ongoing",
+    status: "2026",
     protected: "fika_connect",
     logo: "/images/fika/fika logo.png",
     bannerBg: "rgb(40, 35, 111)",
