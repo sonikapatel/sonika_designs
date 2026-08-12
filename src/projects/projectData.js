@@ -170,9 +170,9 @@ export const PROJECTS = [
         sectionMaxWidth: 1200,
         images: [
           [
-            { src: "/images/criteria/onboarding-direction-1.png", borderRadius: 12, caption: "Direction 1: An accordion-style checklist that expands each step in place, surfacing a “Why this matters” explanation inline before admins move on." },
-            { src: "/images/criteria/onboarding-direction-2.png", borderRadius: 12, caption: "Direction 2: A single-step wizard with a persistent side panel dedicated to explaining the trust and data implications of the step in view." },
-            { src: "/images/criteria/onboarding-direction-3.png", borderRadius: 12, caption: "Direction 3: An early low-fidelity skeleton pass, focused purely on step structure and pacing — content and education framing came later, once the layout itself felt right." },
+            { src: "/images/criteria/onboarding-direction-1.png", borderRadius: 12, caption: "An accordion-style checklist that expands each step in place." },
+            { src: "/images/criteria/onboarding-direction-2.png", borderRadius: 12, caption: "A single-step wizard with a persistent side panel dedicated to explaining the trust and data implications of the step." },
+            { src: "/images/criteria/onboarding-direction-3.png", borderRadius: 12, caption: "An early lo-fidelity skeleton pass, focused purely on step structure and pacing — content and education framing came later." },
           ],
         ],
       },
