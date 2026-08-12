@@ -47,8 +47,8 @@ export const PROJECTS = [
         rowAlign: "right",
         images: [
           [
-            { src: "/images/fika/fikahome.mp4", height: 480, objectFit: "contain", borderRadius: 24 },
-            { src: "/images/fika/upcoming_fikas.mp4", height: 480, objectFit: "contain", borderRadius: 24 },
+            { src: "/images/fika/fikahome.mp4", height: 480, objectFit: "contain", borderRadius: 24, caption: 'Browse creatives nearby, and invite someone whose work you find inspiring.' },
+            { src: "/images/fika/upcoming_fikas.mp4", height: 480, objectFit: "contain", borderRadius: 24, caption: 'A way to view all upcoming fikas and previous fikas.' },
           ],
         ],
       },
