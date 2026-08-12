@@ -172,7 +172,7 @@ export const PROJECTS = [
           [
             { src: "/images/criteria/onboarding-direction-1.png", borderRadius: 12, caption: "Direction 1: An accordion-style checklist that expands each step in place, surfacing a “Why this matters” explanation inline before admins move on." },
             { src: "/images/criteria/onboarding-direction-2.png", borderRadius: 12, caption: "Direction 2: A single-step wizard with a persistent side panel dedicated to explaining the trust and data implications of the step in view." },
-            { src: "/images/criteria/onboarding-direction-3.png", borderRadius: 12, caption: "Direction 3: A horizontal-stepper variation of the same wizard pattern, testing how the step progress and education panel read together." },
+            { src: "/images/criteria/onboarding-direction-3.png", borderRadius: 12, caption: "Direction 3: An early low-fidelity skeleton pass, focused purely on step structure and pacing — content and education framing came later, once the layout itself felt right." },
           ],
         ],
       },
