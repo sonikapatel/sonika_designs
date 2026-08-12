@@ -43,6 +43,7 @@ export const PROJECTS = [
         columns: 2,
         sectionBg: "rgb(40, 35, 111)",
         rowMaxWidth: 700,
+        rowGap: 64,
         images: [
           [
             { src: "/images/fika/fikahome.mp4", height: 480, objectFit: "contain", borderRadius: 24, caption: 'Browse creatives nearby, and invite someone whose work you find inspiring. Through the data, we learned 10% of creatives invited others to coffee via the home page, while a larger portion partook in biweekly matchmaking.' },
