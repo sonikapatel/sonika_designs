@@ -715,7 +715,6 @@ const styles = {
     gridTemplateColumns: "1fr 220px",
     gap: 64,
     padding: "56px 48px",
-    borderBottom: "1px solid rgba(0,0,0,0.07)",
   },
   problemCol: {},
   metaCol: { paddingTop: 2 },
