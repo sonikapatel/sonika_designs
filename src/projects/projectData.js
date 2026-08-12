@@ -91,7 +91,7 @@ export const PROJECTS = [
         src: "/images/criteria/coach_bo.mov",
         width: 1000,
         center: true,
-        sectionBg: "#F8F7EF",
+        sectionBg: "#F8F6F4",
         caption: 'All roles are required to have shared check-ins with their managers weekly to be completed by Friday. I iterated on visual styles for Coach Bo to synthesize each direct report responses through sentiment analysis.'
       },
       {
@@ -125,7 +125,7 @@ export const PROJECTS = [
         src: "/images/criteria/onboarding.mov",
         width: 1000,
         center: true,
-        sectionBg: "#F8F7EF",
+        sectionBg: "#F8F6F4",
         muted: true,
         caption: "A working demo of onboarding setup with different states for in-progress and complete steps, using the visual identity across products and the design system I created.",
       },
