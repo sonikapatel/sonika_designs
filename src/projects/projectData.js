@@ -82,8 +82,13 @@ export const PROJECTS = [
         body: "TEAMScan is a product we previously launched with quarterly check-ins to help teams understand how their team is performing. Admins, who are HR managers, configure TEAMScan for their organizations to receive quarterly pulse of their teams.\n\nWe hypothesized a new product - called Check-Ins which provides a more accurate pulse of team members. I designed a scalable pattern and design system that would accommodate onboarding for HR leaders. Organization admin needed to understand the value of each of the steps involved in setting up onboarding, what check-ins as a product delivers, who and how often they receive the chat experience, and how often they receive reports experience. Because the product is configured to organizations varying from 200 employees to 10,000, scalability and trust was important in designing the product. I designed a prototype that balanced education with the action so admin understood how they’re tracking against their configuration for their organization. After diveriging on multiple directions to set the application infrastructure coupled with the research insights I collected, I set up Check-Ins onboarding. ",
       },
       {
+        type: "text-center",
+        header: "Coach Bo ",
+        body: "Coach Bo is an AI intelligent chat interface I designed alongside the PM for Develop. Coach Bo synthesizes information from the chat experience, asking 3 core questions of ‘How was last week”, ‘What did you accomplish this week’, and ‘What are you looking to accomplish next’. \n\n After processing the information, Check-Ins provides managers of different organization structures, the reports relevant to their roles, including information about organizational health, mood/progress levels of employees using sentiment analysis. ",
+      },
+      {
         type: "image",
-        src: "/images/criteria/mobile&chat.png",
+        src: "/images/criteria/coach_bo.mov",
         maxWidth: 1000,
         borderRadius: 16,
         caption: 'ICs were able to have a shared check-in with their manager or private check-in (not shared with managers). I iterated on visual styles to evidently show the type of conversation.'
