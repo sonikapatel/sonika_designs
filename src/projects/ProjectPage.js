@@ -280,8 +280,13 @@ function PostItScramble({ notes, frameWidth, frameHeight, noteSize, intervalMs =
               height: `${(noteSize / frameHeight) * 100}%`,
               background: "#F9DE8B",
               boxShadow: "0 6px 16px rgba(0,0,0,0.28)",
-              padding: "8%",
+              // Padding percentages resolve against the containing block (the full frame),
+              // not this note's own size — so this is scaled down to read as ~8% of the note.
+              padding: `${(0.08 * noteSize / frameWidth) * 100}%`,
               boxSizing: "border-box",
+              display: "flex",
+              alignItems: "flex-start",
+              justifyContent: "flex-start",
               overflow: "hidden",
               transform: `rotate(${rotationFor(idx, phase)}deg)`,
               transition: `left ${intervalMs * 0.55}ms cubic-bezier(.4,0,.2,1), top ${intervalMs * 0.55}ms cubic-bezier(.4,0,.2,1), transform ${intervalMs * 0.55}ms ease`,
@@ -296,6 +301,7 @@ function PostItScramble({ notes, frameWidth, frameHeight, noteSize, intervalMs =
                 lineHeight: 1.25,
                 color: "#3A3115",
                 fontFamily: "'TT', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+                textAlign: "left",
               }}
             >
               {note.label}
