@@ -30,7 +30,7 @@ export const PROJECTS = [
       },
       {
         type: "text-center",
-        body: "Fika profiles allow you to view creatives and their work near you. I refined the product experience based on user feedback and formed partnerships with cafes to offer discounts for creatives who meet for coffees, to incentivize wanting to meet for various reasons.",
+        body: "Fika profiles allow creatives to view other creatives nearby and their work. I refined the product experience based on user feedback and formed partnerships with cafes to offer discounts for creatives who meet for coffees. Most creatives sought building friendships and networking, as meeting other creatives in adjacent domains was crucial for growing inspiration and landing opportunities.",
       },
       {
         type: "image",
