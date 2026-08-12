@@ -199,7 +199,7 @@ const carouselStyles = {
     marginBottom: 0,
     fontSize: 14,
     lineHeight: 1.7,
-    color: "rgba(0,0,0,0.52)",
+    color: "#4E4E4E",
     textAlign: "center",
     maxWidth: 520,
     marginLeft: "auto",
@@ -728,7 +728,7 @@ const styles = {
   },
   problemText: { margin: 0, fontSize: 15, lineHeight: 1.75, color: "#4E4E4E" },
   metaItem: { margin: "0 0 4px", fontSize: 13, color: "#2A2A2A" },
-  metaSubtitle: { color: "rgba(0,0,0,0.45)", fontWeight: 400 },
+  metaSubtitle: { color: "#4E4E4E", fontWeight: 400 },
   contextLink: { fontSize: 13, color: "#4B44AF", textDecoration: "none" },
 
   /* Content sections */
@@ -785,7 +785,7 @@ const styles = {
   statCaption: {
     margin: 0,
     fontSize: 12,
-    color: "rgba(0,0,0,0.45)",
+    color: "#4E4E4E",
     lineHeight: 1.5,
   },
   textCenterSection: {
@@ -800,7 +800,7 @@ const styles = {
     margin: 0,
     fontSize: 15,
     lineHeight: 1.75,
-    color: "rgba(0,0,0,0.52)",
+    color: "#4E4E4E",
     textAlign: "left",
     whiteSpace: "pre-line",
   },

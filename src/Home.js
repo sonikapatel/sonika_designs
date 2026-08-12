@@ -427,7 +427,7 @@ const styles = {
     margin: "8px 0 28px",
     fontSize: 12,
     fontWeight: 400,
-    color: "rgba(0,0,0,0.52)",
+    color: "#4E4E4E",
     letterSpacing: "0.01em",
   },
   bio: {
@@ -490,7 +490,7 @@ const styles = {
     lineHeight: 1.5,
   },
   valuesQuoteSub: {
-    color: "rgba(0,0,0,0.42)",
+    color: "#4E4E4E",
     fontWeight: 400,
   },
   valuesGrid: {
@@ -553,7 +553,7 @@ const styles = {
   brandsSubtitle: {
     margin: "0 0 20px",
     fontSize: 14,
-    color: "rgba(0,0,0,0.52)",
+    color: "#4E4E4E",
     lineHeight: 1.6,
   },
   servicesGrid: {
@@ -610,7 +610,7 @@ const styles = {
     background: "#D8D2C6",
   },
   empty: {
-    color: "rgba(0,0,0,0.35)",
+    color: "#4E4E4E",
     fontSize: 15,
     gridColumn: "1 / -1",
     margin: 0,

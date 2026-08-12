@@ -212,7 +212,7 @@ const styles = {
     margin: "8px 0 28px",
     fontSize: 12,
     fontWeight: 400,
-    color: "rgba(0,0,0,0.52)",
+    color: "#4E4E4E",
     letterSpacing: "0.01em",
   },
   bio: {
