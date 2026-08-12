@@ -118,7 +118,7 @@ export const PROJECTS = [
 
       {
         type: "image",
-        src: "/images/criteria/full-dash.png",
+        src: "/images/criteria/onboarding.mov",
         maxWidth: 1000,
         borderRadius: 16,
         caption: 'Conversation summaries were originally text-heavy with managers not understanding how to take action on the data. Understanding what managers cared about for 1:1s through card sorting and user research, I redesigned the presentation of information to be easily digestible for managers to understand how their direct reports are performing. The red/yellow/green showcases a performance indicator for each direct report for an easy at-the-glance overview.'
