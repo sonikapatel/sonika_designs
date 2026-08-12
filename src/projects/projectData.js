@@ -107,7 +107,7 @@ export const PROJECTS = [
       {
         type: "text-center",
         header: "Product Hypothesis ",
-        body: "After assessing the future of the product, I thought about the following parameters, including how to integrate role-specific variables, like ARR for Customer Success and Sales, for various employees across organizations? ",
+        body: "After assessing the product, I thought about the following parameters, including how to integrate role-specific variables, like ARR for Customer Success and Sales, for various employees across organizations?",
       },
       {
         type: "image",
