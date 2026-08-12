@@ -172,6 +172,8 @@ export const PROJECTS = [
       {
         type: "stats",
         eyebrow: "Impact",
+        body: "The revised Check-Ins Onboarding was launched with 5% of customers. After launching the revised experience, we saw an overall improved satisfaction with understanding how check-ins works and how it's set up.  ",
+
         stats: [
           { value: "32%", label: "Reduction in candidate support inquiries" },
           { value: "21%", label: "Increase in admin satisfaction" },
