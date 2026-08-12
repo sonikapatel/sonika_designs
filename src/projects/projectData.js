@@ -111,7 +111,7 @@ export const PROJECTS = [
       },
       {
         type: "image",
-        src: "/images/criteria/criteria-data.png",
+        src: "/images/criteria/check-indata.png",
         maxWidth: 900,
         borderRadius: 16
       },
