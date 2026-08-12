@@ -161,6 +161,22 @@ export const PROJECTS = [
         body: "Weekly Check-Ins was a confusing experience for HR admins to onboard their 200+ people organizations. To remediate the confusion admins faced prior to Check-Ins launch, I designed a system to ensure admins across varying organizations sizes can easily onboard their employees to the experience. I prioritized education and simplicity as fundamental design principles. ",
       },
       {
+        type: "text-center",
+        body: "I explored a variety of lo-fidelity directions that would build trust for scaled organizations alongside education for what happens when each high intent step is configured.",
+      },
+      {
+        type: "grid",
+        columns: 3,
+        sectionMaxWidth: 1200,
+        images: [
+          [
+            { src: "/images/criteria/onboarding-direction-1.png", borderRadius: 12, caption: "Direction 1: An accordion-style checklist that expands each step in place, surfacing a “Why this matters” explanation inline before admins move on." },
+            { src: "/images/criteria/onboarding-direction-2.png", borderRadius: 12, caption: "Direction 2: A single-step wizard with a persistent side panel dedicated to explaining the trust and data implications of the step in view." },
+            { src: "/images/criteria/onboarding-direction-3.png", borderRadius: 12, caption: "Direction 3: A horizontal-stepper variation of the same wizard pattern, testing how the step progress and education panel read together." },
+          ],
+        ],
+      },
+      {
         type: "video",
         src: "/images/criteria/onboarding.mov",
         width: 1000,
