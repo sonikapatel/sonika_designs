@@ -812,6 +812,7 @@ const styles = {
     width: "100%",
     borderRadius: 16,
     display: "block",
+    border: "1px solid rgba(0,0,0,0.08)",
   },
   bodyText: { margin: 0, fontSize: 15, lineHeight: 1.75, color: "#4E4E4E" },
 
