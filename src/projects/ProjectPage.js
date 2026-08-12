@@ -280,8 +280,9 @@ function PostItScramble({ notes, frameWidth, frameHeight, noteSize, intervalMs =
               height: `${(noteSize / frameHeight) * 100}%`,
               background: "#F9DE8B",
               boxShadow: "0 6px 16px rgba(0,0,0,0.28)",
-              padding: "9% 9% 0",
+              padding: "8%",
               boxSizing: "border-box",
+              overflow: "hidden",
               transform: `rotate(${rotationFor(idx, phase)}deg)`,
               transition: `left ${intervalMs * 0.55}ms cubic-bezier(.4,0,.2,1), top ${intervalMs * 0.55}ms cubic-bezier(.4,0,.2,1), transform ${intervalMs * 0.55}ms ease`,
               transitionDelay: `${(idx % 5) * 60}ms`,
@@ -290,11 +291,15 @@ function PostItScramble({ notes, frameWidth, frameHeight, noteSize, intervalMs =
             <p
               style={{
                 margin: 0,
-                fontSize: "clamp(9px, 1.1vw, 13px)",
+                fontSize: "clamp(8px, 0.85vw, 11px)",
                 fontWeight: 600,
-                lineHeight: 1.3,
+                lineHeight: 1.25,
                 color: "#3A3115",
                 fontFamily: "'TT', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+                display: "-webkit-box",
+                WebkitLineClamp: 4,
+                WebkitBoxOrient: "vertical",
+                overflow: "hidden",
               }}
             >
               {note.label}
