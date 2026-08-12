@@ -296,10 +296,6 @@ function PostItScramble({ notes, frameWidth, frameHeight, noteSize, intervalMs =
                 lineHeight: 1.25,
                 color: "#3A3115",
                 fontFamily: "'TT', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
-                display: "-webkit-box",
-                WebkitLineClamp: 4,
-                WebkitBoxOrient: "vertical",
-                overflow: "hidden",
               }}
             >
               {note.label}
