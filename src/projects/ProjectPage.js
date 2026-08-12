@@ -243,7 +243,7 @@ const carouselStyles = {
    "Product Hypothesis" scramble. Coordinates come straight from the Figma frames (px,
    in a frameWidth × frameHeight canvas); percentage positioning + a locked aspect-ratio
    wrapper keeps everything responsive without distorting the (square) notes. */
-function PostItScramble({ notes, frameWidth, frameHeight, noteSize, intervalMs = 2400, bg = "#16112E" }) {
+function PostItScramble({ notes, frameWidth, frameHeight, noteSize, intervalMs = 2400, bg = "transparent" }) {
   const [phase, setPhase] = useState(0);
 
   useEffect(() => {
@@ -698,19 +698,25 @@ export default function ProjectPage() {
 
         if (section.type === "postits") {
           return (
-            <FadeSection key={i} className="proj-section" style={{ width: "100%", background: section.sectionBg || "#16112E", ...divider }}>
+            <FadeSection key={i} className="proj-section" style={{ width: "100%", background: section.sectionBg || "transparent", ...divider }}>
               <div style={{ ...constrained, maxWidth: section.sectionMaxWidth || 1000, padding: "48px 48px" }}>
-                {section.label && <p style={{ ...styles.sectionLabel, color: "rgba(255,255,255,0.45)" }}>{section.label}</p>}
+                {section.label && (
+                  <p style={{ ...styles.sectionLabel, ...(section.sectionBg ? { color: "rgba(255,255,255,0.45)" } : {}) }}>
+                    {section.label}
+                  </p>
+                )}
                 <PostItScramble
                   notes={section.notes}
                   frameWidth={section.frameWidth}
                   frameHeight={section.frameHeight}
                   noteSize={section.noteSize}
                   intervalMs={section.intervalMs}
-                  bg={section.sectionBg || "#16112E"}
+                  bg={section.sectionBg || "transparent"}
                 />
                 {section.caption && (
-                  <p style={{ ...styles.caption, color: "rgba(255,255,255,0.6)" }}>{section.caption}</p>
+                  <p style={{ ...styles.caption, ...(section.sectionBg ? { color: "rgba(255,255,255,0.6)" } : {}) }}>
+                    {section.caption}
+                  </p>
                 )}
               </div>
             </FadeSection>
