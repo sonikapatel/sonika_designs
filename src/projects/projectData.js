@@ -91,6 +91,7 @@ export const PROJECTS = [
         src: "/images/criteria/coach_bo.mov",
         width: 1000,
         center: true,
+        sectionBg: "#F8F7EF",
         caption: 'ICs were able to have a shared check-in with their manager or private check-in. I iterated on visual styles for Coach Bo to synthesize each direct report responses through sentiment analysis.'
       },
       {

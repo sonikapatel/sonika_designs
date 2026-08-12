@@ -507,8 +507,8 @@ export default function ProjectPage() {
 
         if (section.type === "video") {
           const boxed = section.height || section.bg;
-          return (
-            <FadeSection key={i} className="proj-section" style={styles.contentSection}>
+          const media = (
+            <>
               {section.crop ? (
                 <div
                   style={{
@@ -567,6 +567,24 @@ export default function ProjectPage() {
                 />
               )}
               {section.caption && <p style={styles.caption}>{section.caption}</p>}
+            </>
+          );
+
+          if (section.sectionBg) {
+            return (
+              <FadeSection
+                key={i}
+                className="proj-section"
+                style={{ width: "100%", background: section.sectionBg, borderBottom: styles.contentSection.borderBottom }}
+              >
+                <div style={{ ...constrained, padding: "48px 48px" }}>{media}</div>
+              </FadeSection>
+            );
+          }
+
+          return (
+            <FadeSection key={i} className="proj-section" style={styles.contentSection}>
+              {media}
             </FadeSection>
           );
         }
