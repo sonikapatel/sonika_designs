@@ -92,7 +92,7 @@ export const PROJECTS = [
         width: 1000,
         center: true,
         sectionBg: "#F8F7EF",
-        caption: 'ICs were able to have a shared check-in with their manager or private check-in. I iterated on visual styles for Coach Bo to synthesize each direct report responses through sentiment analysis.'
+        caption: 'All roles are required to have shared check-ins with their managers weekly to be completed by Friday. I iterated on visual styles for Coach Bo to synthesize each direct report responses through sentiment analysis.'
       },
       {
         type: "image",
