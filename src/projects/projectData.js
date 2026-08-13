@@ -115,6 +115,9 @@ export const PROJECTS = [
             startAt: "36%",
             side: "right",
             maxWidth: 348,
+            // Pushed further out than the left note; 380px is the floor that still
+            // leaves a gutter at the widest viewports rather than touching the edge.
+            shift: "min(0px, calc(380px - 50vw))",
           },
         ],
         caption: 'All roles are required to have shared check-ins with their managers weekly to be completed by Friday. I iterated on visual styles for Coach Bo to synthesize each direct report responses through sentiment analysis.'

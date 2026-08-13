@@ -259,17 +259,20 @@ function VideoAnnotation({
   startAt = "10%",
   stickyOffset = 32,
   side = "left",
-  maxWidth = 259,
+  maxWidth = 300,
   // How far the note is pulled outward, past the video's own edge and into the section's
   // tinted margin. The video is 704px wide inside an 800px container, so the free space
   // on each side is (100vw - 704px) / 2 — this pushes out to all of it bar an 8px gutter,
   // and resolves to 0 once the viewport is too narrow to have any (the video goes
   // near-full-bleed there), so it can never push off-screen.
-  shift = "min(0px, calc(450px - 50vw))",
+  shift = "min(0px, calc(200px - 30vw))",
 }) {
   const isRight = side === "right";
   return (
     <div
+      // Hidden under 700px — at that size the notes would be taller than the video
+      // itself and bury the footage (see index.css).
+      className="proj-video-annotation"
       style={{
         position: "absolute",
         inset: 0,

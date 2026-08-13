@@ -92,6 +92,12 @@
   .proj-grid-row {
     flex-direction: column !important;
   }
+
+  /* Video callouts are desktop-only: at this width their fixed-size copy makes them
+     taller than the video they annotate, covering the footage entirely. */
+  .proj-video-annotation {
+    display: none !important;
+  }
 }
 
 
