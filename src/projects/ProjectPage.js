@@ -451,6 +451,14 @@ export default function ProjectPage() {
           );
           return (
             <FadeSection key={i} className="proj-section" style={sectionStyle}>
+              {section.header && (
+                <p style={{ ...styles.textCenter, fontWeight: 600, color: "#111", marginBottom: 8 }}>
+                  {section.header}
+                </p>
+              )}
+              {section.body && (
+                <p style={{ ...styles.textCenter, marginBottom: 32 }}>{section.body}</p>
+              )}
               {hasContainer ? (
                 <div
                   style={{
