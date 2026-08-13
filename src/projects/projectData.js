@@ -194,12 +194,7 @@ export const PROJECTS = [
           { value: "32%", label: "Reduction in candidate support inquiries" },
           { value: "21%", label: "Increase in admin satisfaction" },
         ],
-      },
-      {
-        type: "text-center",
-        header: "Outcomes",
-        body: "Check-Ins as a product was designed iteratively through manager feedback, prioritizing key functionality that would be necessary with a robust design library I designed and developed, in Figma and translated directly into scalable code components. ",
-      },
+      }
     ],
   },
   {
