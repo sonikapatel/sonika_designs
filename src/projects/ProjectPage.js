@@ -610,7 +610,7 @@ export default function ProjectPage() {
 
           if (section.sectionBg) {
             return (
-              <FadeSection key={i} className="proj-section" style={{ width: "100%", background: section.sectionBg }}>
+              <FadeSection key={i} className="proj-section" style={{ width: "100%", boxSizing: "border-box", background: section.sectionBg }}>
                 <div style={{ ...constrained, maxWidth: section.sectionMaxWidth || 1200, padding: "48px 48px" }}>{gridBody}</div>
               </FadeSection>
             );
@@ -631,6 +631,7 @@ export default function ProjectPage() {
                 <div
                   style={{
                     width: section.width || "100%",
+                    maxWidth: "100%",
                     height: section.height,
                     borderRadius: 16,
                     overflow: "hidden",
@@ -657,6 +658,7 @@ export default function ProjectPage() {
                 <div
                   style={{
                     width: section.width || "100%",
+                    maxWidth: "100%",
                     height: section.height || 400,
                     background: section.bg || "#000",
                     borderRadius: section.borderRadius ?? 16,
@@ -695,7 +697,7 @@ export default function ProjectPage() {
               <FadeSection
                 key={i}
                 className="proj-section"
-                style={{ width: "100%", background: section.sectionBg }}
+                style={{ width: "100%", boxSizing: "border-box", background: section.sectionBg }}
               >
                 <div style={{ ...constrained, padding: "48px 48px" }}>{media}</div>
               </FadeSection>
@@ -711,7 +713,7 @@ export default function ProjectPage() {
 
         if (section.type === "postits") {
           return (
-            <FadeSection key={i} className="proj-section" style={{ width: "100%", background: section.sectionBg || "transparent", ...divider }}>
+            <FadeSection key={i} className="proj-section" style={{ width: "100%", boxSizing: "border-box", background: section.sectionBg || "transparent", ...divider }}>
               <div style={{ ...constrained, maxWidth: section.sectionMaxWidth || 1000, padding: "48px 48px" }}>
                 {section.label && (
                   <p style={{ ...styles.sectionLabel, ...(section.sectionBg ? { color: "rgba(255,255,255,0.45)" } : {}) }}>

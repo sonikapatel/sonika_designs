@@ -1,3 +1,13 @@
+/* Without this, any element that combines width:100% with its own padding
+   (e.g. the full-bleed section backgrounds) silently overflows its parent by
+   the padding amount, since the browser default (content-box) adds padding
+   on top of the specified width instead of inside it. */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 .project-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
