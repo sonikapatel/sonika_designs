@@ -101,7 +101,7 @@ export const PROJECTS = [
       },
       {
         type: "video",
-        src: "/images/criteria/coach_bo.mov",
+        src: "/images/criteria/check_in_chat.mov",
         width: 1000,
         center: true,
         sectionBg: "#F8F6F4",
