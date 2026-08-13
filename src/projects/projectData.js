@@ -104,6 +104,19 @@ export const PROJECTS = [
         width: 1000,
         center: true,
         sectionBg: "#F8F6F4",
+        annotation: [
+          {
+            text: "Can we extract meaningful and accurate data to be used in manager reports here?",
+            startAt: "36%",
+            side: "left",
+          },
+          {
+            text: "How might we define a conversational experience where Coach Bo can incentivize employees to complete what they did for a week and look forward to the following week?",
+            startAt: "36%",
+            side: "right",
+            maxWidth: 348,
+          },
+        ],
         caption: 'All roles are required to have shared check-ins with their managers weekly to be completed by Friday. I iterated on visual styles for Coach Bo to synthesize each direct report responses through sentiment analysis.'
       },
       {

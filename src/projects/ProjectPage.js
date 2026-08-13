@@ -251,6 +251,61 @@ const carouselStyles = {
   },
 };
 
+/* Callout note overlaid on a video. Sticks to the top of the viewport while the video
+   scrolls past, and every dimension is clamp()'d so it scales down on narrow screens
+   rather than swallowing the frame. */
+function VideoAnnotation({
+  text,
+  startAt = "10%",
+  stickyOffset = 32,
+  side = "left",
+  maxWidth = 259,
+  // How far the note is pulled outward, past the video's own edge and into the section's
+  // tinted margin. The video is 704px wide inside an 800px container, so the free space
+  // on each side is (100vw - 704px) / 2 — this pushes out to all of it bar an 8px gutter,
+  // and resolves to 0 once the viewport is too narrow to have any (the video goes
+  // near-full-bleed there), so it can never push off-screen.
+  shift = "min(0px, calc(450px - 50vw))",
+}) {
+  const isRight = side === "right";
+  return (
+    <div
+      style={{
+        position: "absolute",
+        inset: 0,
+        zIndex: 2,
+        display: "flex",
+        flexDirection: "column",
+        alignItems: isRight ? "flex-end" : "flex-start",
+        // The overlay is decorative narration over the video — never let it eat the
+        // clicks meant for the player's own controls underneath.
+        pointerEvents: "none",
+      }}
+    >
+      <div style={{ flex: `0 0 ${startAt}` }} />
+      <div
+        style={{
+          position: "sticky",
+          top: stickyOffset,
+          [isRight ? "marginRight" : "marginLeft"]: shift,
+          // Sized off the viewport rather than a parent row, capped at the Figma width.
+          width: `clamp(105px, 24vw, ${maxWidth}px)`,
+          background: "#fff",
+          border: "1px solid #E1E1E1",
+          borderRadius: "clamp(6px, 0.7vw, 9px)",
+          padding: "clamp(7px, 1vw, 14px) clamp(9px, 1.3vw, 17px)",
+          fontSize: 14,
+          lineHeight: 1.2,
+          color: "#000",
+          boxSizing: "border-box",
+        }}
+      >
+        {text}
+      </div>
+    </div>
+  );
+}
+
 /* Sticky notes that continuously reshuffle between two arrangements — used for the
    "Product Hypothesis" scramble. Coordinates come straight from the Figma frames (px,
    in a frameWidth × frameHeight canvas); percentage positioning + a locked aspect-ratio
@@ -633,7 +688,7 @@ export default function ProjectPage() {
 
         if (section.type === "video") {
           const boxed = section.height || section.bg;
-          const media = (
+          const videoEl = (
             <>
               {section.crop ? (
                 <div
@@ -695,6 +750,26 @@ export default function ProjectPage() {
                   muted={!!section.muted}
                   style={styles.video}
                 />
+              )}
+            </>
+          );
+
+          // Accepts a single annotation or several (e.g. one flanking each side).
+          const annotations = section.annotation
+            ? [].concat(section.annotation)
+            : [];
+
+          const media = (
+            <>
+              {annotations.length ? (
+                <div style={{ position: "relative" }}>
+                  {videoEl}
+                  {annotations.map((a, j) => (
+                    <VideoAnnotation key={j} {...a} />
+                  ))}
+                </div>
+              ) : (
+                videoEl
               )}
               {section.caption && <p style={styles.caption}>{section.caption}</p>}
             </>
