@@ -32,7 +32,7 @@ function FadeSection({ as: Tag = "section", className = "", style, children, ...
   );
 }
 
-function PasswordModal({ onUnlock }) {
+function PasswordModal({ onUnlock, projectName }) {
   const [value, setValue] = useState("");
   const [error, setError] = useState(false);
 
@@ -40,6 +40,10 @@ function PasswordModal({ onUnlock }) {
     e.preventDefault();
     onUnlock(value, () => setError(true));
   }
+
+  const requestSubject = `Password request: ${projectName}`;
+  const requestBody = `I'm looking through your portfolio and would like to know the password for the ${projectName} project.`;
+  const requestHref = `mailto:sonika2patel@gmail.com?subject=${encodeURIComponent(requestSubject)}&body=${encodeURIComponent(requestBody)}`;
 
   return (
     <div style={modalStyles.overlay}>
@@ -56,6 +60,7 @@ function PasswordModal({ onUnlock }) {
           />
           {error && <p style={modalStyles.error}>Incorrect password. Try again.</p>}
           <button type="submit" style={modalStyles.button}>Enter</button>
+          <a href={requestHref} style={modalStyles.requestLink}>Request password</a>
         </form>
       </div>
     </div>
@@ -118,6 +123,13 @@ const modalStyles = {
     borderRadius: 8,
     cursor: "pointer",
     fontFamily: "inherit",
+  },
+  requestLink: {
+    textAlign: "center",
+    fontSize: 13,
+    color: "rgba(0,0,0,0.5)",
+    textDecoration: "none",
+    padding: "2px 0 0",
   },
 };
 
@@ -347,7 +359,7 @@ export default function ProjectPage() {
 
   return (
     <div style={styles.page}>
-      {!unlocked && <PasswordModal onUnlock={handleUnlock} />}
+      {!unlocked && <PasswordModal onUnlock={handleUnlock} projectName={project.company} />}
       {/* ── Header ── */}
       <header className="proj-header" style={styles.header}>
         <div style={styles.headerLeft}>

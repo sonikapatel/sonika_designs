@@ -109,7 +109,12 @@ export default function About() {
         </div>
 
         <div style={styles.rightCol}>
-          <div style={styles.clockWrap}>
+          <div
+            ref={clockRef}
+            style={styles.clockWrap}
+            onMouseMove={handleClockMouseMove}
+            onMouseLeave={handleClockMouseLeave}
+          >
             <img src="/clock-ring.png" alt="" style={styles.ringImage} />
 
             <div
@@ -121,12 +126,17 @@ export default function About() {
                 height: CENTER_SIZE,
                 borderRadius: "50%",
                 overflow: "hidden",
-                background: "transparent",
+                background: "#fff",
               }}
             >
-              <img
-                src="/EmojiMovie691270547_transparent.gif"
-                alt="Sonika memoji"
+              <video
+                ref={videoRef}
+                src="/memoji_clock.mp4"
+                aria-label="Sonika memoji"
+                autoPlay
+                loop
+                muted
+                playsInline
                 style={{ width: "100%", height: "100%", objectFit: "cover" }}
               />
             </div>
