@@ -317,7 +317,6 @@ export const PROJECTS = [
       {
         type: "grid",
         columns: 3,
-        eyebrow: "EXPLORATIONS",
         sectionMaxWidth: 1800,
         rowMaxWidth: 1350,
         images: [
