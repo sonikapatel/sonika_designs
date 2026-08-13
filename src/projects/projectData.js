@@ -183,7 +183,7 @@ export const PROJECTS = [
         center: true,
         sectionBg: "#F8F6F4",
         muted: true,
-        caption: "A working demo of onboarding setup with different states for in-progress and complete steps, using the visual identity across products and the design system I created.",
+        caption: "A working demo of onboarding setup with different states for in-progress and complete steps, using the visual identity across products and the design system I created in Figma, translated to Typescript components, with Storybook documentation.",
       },
       {
         type: "stats",
