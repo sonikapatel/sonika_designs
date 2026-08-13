@@ -185,10 +185,11 @@ export const PROJECTS = [
         caption: "A working demo of onboarding setup with different states for in-progress and complete steps, using the visual identity across products and the design system I created in Figma, translated to Typescript components, with Storybook documentation.",
       },
       {
-        type: "design-system",
+        type: "image",
         header: "BUILDING A SCALABLE DESIGN SYSTEM",
         body: "I leveraged existing colors within Prehire to design the core product experience for Check-Ins, defining the variables that set the precedent for the application.",
-        image: '/images/criteria/Criteria_Ds.png'
+        image: '/images/criteria/Criteria_Ds.png',
+        maxWidth: 900
       },
       {
         type: "stats",
