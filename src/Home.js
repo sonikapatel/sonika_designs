@@ -277,7 +277,7 @@ export default function Home() {
 
       {/* Services */}
       {activeTab === "Brands" && (
-        <div style={styles.servicesGrid}>
+        <div className="services-grid" style={styles.servicesGrid}>
           {SERVICES.map((service) => (
             <ServiceCard key={service.title} {...service} />
           ))}
@@ -558,7 +558,7 @@ const styles = {
   },
   servicesGrid: {
     display: "grid",
-    gridTemplateColumns: "repeat(2, 1fr)",
+    gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
     gap: 16,
     marginTop: 32,
   },
@@ -570,6 +570,8 @@ const styles = {
     flexDirection: "column",
     justifyContent: "space-between",
     minHeight: 260,
+    minWidth: 0,
+    boxSizing: "border-box",
   },
   serviceTitle: {
     margin: "0 0 8px",

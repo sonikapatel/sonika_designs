@@ -29,6 +29,10 @@
     grid-template-columns: repeat(2, 1fr) !important;
   }
 
+  .services-grid {
+    grid-template-columns: 1fr !important;
+  }
+
   .about-content {
     grid-template-columns: 1fr !important;
   }
