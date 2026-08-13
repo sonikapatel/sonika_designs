@@ -65,6 +65,31 @@ const EMOJI_IMAGE = { 7: 13 };
 
 export default function About() {
   const [hoveredHour, setHoveredHour] = useState(null);
+  const clockRef = useRef(null);
+  const videoRef = useRef(null);
+
+  // Cursor tracking: the memoji "looks" toward wherever the cursor sits around the
+  // ring by scrubbing the video to the frame whose angle (from clock center) matches
+  // the cursor's angle, instead of letting it autoplay through on its own.
+  function handleClockMouseMove(e) {
+    const video = videoRef.current;
+    const rect = clockRef.current?.getBoundingClientRect();
+    if (!video || !rect || !Number.isFinite(video.duration)) return;
+
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+    const angle = Math.atan2(mouseY - CENTER_Y, mouseX - CENTER_X) * (180 / Math.PI);
+    const normalized = (angle + 360) % 360;
+
+    if (!video.paused) video.pause();
+    video.currentTime = (normalized / 360) * video.duration;
+  }
+
+  function handleClockMouseLeave() {
+    const video = videoRef.current;
+    if (!video) return;
+    video.play().catch(() => {});
+  }
 
   return (
     <div style={styles.page}>
