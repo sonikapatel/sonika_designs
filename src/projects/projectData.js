@@ -188,7 +188,7 @@ export const PROJECTS = [
         type: "design-system",
         header: "BUILDING A SCALABLE DESIGN SYSTEM",
         body: "I leveraged existing colors within Prehire to design the core product experience for Check-Ins, defining the variables that set the precedent for the application.",
-        image: '/images/criteria/Criteria_ds.png'
+        image: '/images/criteria/Criteria_Ds.png'
       },
       {
         type: "stats",
