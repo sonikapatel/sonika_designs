@@ -87,7 +87,7 @@ export const PROJECTS = [
       { text: " Criteria developed 'Develop', a way to give managers real-time, personalized coaching at scale - without adding headcount. I designed an AI-powered coaching experience that surfaces relevant insights and suggested actions directly in the manager's workflow. The product we launched internally expanded our talent management offering, complementing our core pre-hire product and delivering value across the employee lifecycle." },
     ],
     team: [{ name: "Sonika Patel", role: "Lead Designer" }, { name: "Bryan Romero", role: "Engineer" }],
-    context: { label: "criteriacorp.com", url: "https://www.criteriacorp.com/develop/weekly-manager-check-ins" },
+    context: { label: "criteriacorp.com/weekly-manager-check-ins", url: "https://www.criteriacorp.com/develop/weekly-manager-check-ins" },
     sections: [
       {
         type: "text-center",
