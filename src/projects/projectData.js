@@ -92,8 +92,7 @@ export const PROJECTS = [
       {
         type: "text-center",
         header: "Context ",
-        body: "TEAMScan is a product we previously launched with quarterly check-ins to help teams understand how their team is performing. Admins, who are HR managers, configure TEAMScan for their organizations to receive quarterly pulse of their teams.\n\nWe hypothesized a new product - called Check-Ins which provides a more accurate pulse of team members. I designed a scalable pattern and design system that would accommodate onboarding for HR leaders. Organization admin needed to understand the value of each of the steps involved in setting up onboarding, what check-ins as a product delivers, who and how often they receive the chat experience, and how often they receive reports experience. Because the product is configured to organizations varying from 200 employees to 10,000, scalability and trust was important in designing the product. I designed a prototype that balanced education with the action, so admin understood how to set up their organization.",
-      },
+        body: "TEAMScan is a product we previously launched to help organizations understand how their teams are performing through quarterly check-ins. HR admins configure TEAMScan for their organization, enabling them to collect quarterly pulses of feedback and gain insight into team health and performance."},
       {
         type: "text-center",
         header: "Coach Bo ",
