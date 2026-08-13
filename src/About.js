@@ -126,19 +126,25 @@ export default function About() {
                 height: CENTER_SIZE,
                 borderRadius: "50%",
                 overflow: "hidden",
-                background: "#fff",
+                background: "transparent",
               }}
             >
+              {/* Two sources because no single format carries alpha everywhere: Safari
+                  needs HEVC-with-alpha (and can't do WebM alpha), while Chrome/Firefox
+                  need VP9 WebM (and can't do HEVC alpha). Chrome skips the QuickTime
+                  source outright, so each browser lands on the one it can key out. */}
               <video
                 ref={videoRef}
-                src="/memoji_clock.mp4"
                 aria-label="Sonika memoji"
                 autoPlay
                 loop
                 muted
                 playsInline
                 style={{ width: "100%", height: "100%", objectFit: "cover" }}
-              />
+              >
+                <source src="/memoji_clock_alpha.mov" type='video/quicktime; codecs="hvc1"' />
+                <source src="/memoji_clock.webm" type="video/webm" />
+              </video>
             </div>
 
             {hoveredHour && (
