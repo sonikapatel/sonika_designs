@@ -266,8 +266,25 @@ function VideoAnnotation({
   // and resolves to 0 once the viewport is too narrow to have any (the video goes
   // near-full-bleed there), so it can never push off-screen.
   shift = "min(0px, calc(200px - 30vw))",
+  // Optional accent bar colour. When set, a pill runs down the card's inward-facing
+  // edge and the copy aligns toward the video, so the pair reads as pointing at it.
+  accent,
+  borderColor = "#E1E1E1",
 }) {
   const isRight = side === "right";
+  const bar = accent ? (
+    <div
+      style={{
+        flex: "0 0 auto",
+        alignSelf: "stretch",
+        width: 4,
+        margin: "2px 0",
+        borderRadius: 100,
+        background: accent,
+      }}
+    />
+  ) : null;
+
   return (
     <div
       // Hidden under 700px — at that size the notes would be taller than the video
@@ -294,16 +311,25 @@ function VideoAnnotation({
           // Sized off the viewport rather than a parent row, capped at the Figma width.
           width: `clamp(105px, 24vw, ${maxWidth}px)`,
           background: "#fff",
-          border: "1px solid #E1E1E1",
+          border: `1px solid ${borderColor}`,
           borderRadius: "clamp(6px, 0.7vw, 9px)",
           padding: "clamp(7px, 1vw, 14px) clamp(9px, 1.3vw, 17px)",
           fontSize: 14,
           lineHeight: 1.2,
           color: "#000",
           boxSizing: "border-box",
+          ...(accent
+            ? { display: "flex", alignItems: "center", gap: 11 }
+            : {}),
         }}
       >
-        {text}
+        {/* Bar sits on whichever edge faces the video: right of the copy for a
+            left-hand card, left of the copy for a right-hand one. */}
+        {isRight ? bar : null}
+        <div style={{ minWidth: 0, textAlign: accent && !isRight ? "right" : "left" }}>
+          {text}
+        </div>
+        {isRight ? null : bar}
       </div>
     </div>
   );

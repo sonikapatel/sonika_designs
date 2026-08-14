@@ -165,6 +165,26 @@ export const PROJECTS = [
         center: true,
         sectionBg: "#F8F6F4",
         muted: true,
+        annotation: [
+          {
+            text: "Managers can view a high-level overview of their employees and their engagement with Coach Bo.",
+            startAt: "30%",
+            side: "left",
+            maxWidth: 244,
+            accent: "#009952",
+            borderColor: "#CDCDCD",
+            shift: "min(0px, calc(380px - 50vw))",
+          },
+          {
+            text: "The 1:1 preparation guides surface items managers care most about, alongside strengths and motivators for their careers, extrapolated from our prehire assessments.",
+            startAt: "30%",
+            side: "right",
+            maxWidth: 314,
+            accent: "#009952",
+            borderColor: "#CDCDCD",
+            shift: "min(0px, calc(380px - 50vw))",
+          },
+        ],
         caption: "A demo of the dashboard managers would use based off of the research, understanding what they care about most when reviewing direct reports' information. The yellow/red/green states are based off of the synthesized mood scores from Coach Bo. In launching Check-Ins, it was important to think about the accuracy of the information shown, if the data accurately conveys if an employee is 'at risk'.",
       },
       {
