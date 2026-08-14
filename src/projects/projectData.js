@@ -94,7 +94,7 @@ export const PROJECTS = [
       {
         type: "text-center",
         header: "Context ",
-        body: "TEAMScan is a product we previously launched to help organizations understand how their teams are performing through quarterly check-ins. HR admins configure TEAMScan for their organization, enabling them to collect quarterly pulses of feedback and gain insight into team health and performance. While many customers complained about not receiving more recurring feedback from their organizations, I worked with a PM and engineer to lead Weekly Check-Ins to solve that core issue."},
+        body: "TEAMScan is a product we previously launched to help organizations understand how their teams are performing through quarterly check-ins. HR admins configure TEAMScan for their organization, enabling them to collect quarterly pulses of feedback and gain insight into team health and performance. While customers consistently asked for more frequent feedback from their organizations, I partnered with a PM and engineer to lead the design of Weekly Check-Ins—an experience built to address that core need and turn recurring employee feedback into actionable insights for managers. "},
       {
         type: "text-center",
         header: "Coach Bo ",
