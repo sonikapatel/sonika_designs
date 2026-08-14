@@ -266,25 +266,9 @@ function VideoAnnotation({
   // and resolves to 0 once the viewport is too narrow to have any (the video goes
   // near-full-bleed there), so it can never push off-screen.
   shift = "min(0px, calc(200px - 30vw))",
-  // Optional accent bar colour. When set, a pill runs down the card's inward-facing
-  // edge and the copy aligns toward the video, so the pair reads as pointing at it.
-  accent,
   borderColor = "#E1E1E1",
 }) {
   const isRight = side === "right";
-  const bar = accent ? (
-    <div
-      style={{
-        flex: "0 0 auto",
-        alignSelf: "stretch",
-        width: 4,
-        margin: "2px 0",
-        borderRadius: 100,
-        background: accent,
-      }}
-    />
-  ) : null;
-
   return (
     <div
       // Hidden under 700px — at that size the notes would be taller than the video
