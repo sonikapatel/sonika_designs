@@ -169,7 +169,7 @@ export const PROJECTS = [
         muted: true,
         annotation: [
           {
-            text: "Managers can view a high-level overview of their employees mood, progress, and readiness score pertaining to WoW and engagement with Coach Bo.",
+            text: "Managers can view a high-level overview of their employees mood, progress, and readiness score pertaining to WoW and engagement with Coach Bo. Scores are extracted based on conversations with Coach Bo, with each score representing a construct.",
             startAt: "30%",
             side: "left",
             maxWidth: 244,
