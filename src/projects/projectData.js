@@ -124,11 +124,6 @@ export const PROJECTS = [
       },
       {
         type: "text-center",
-        header: "Understanding what managers need ",
-        body: "Early assumptions from interviewing management suggested that certain variables would be most important to managers during 1:1s. Rather than designing around those assumptions, I led generative research with 7 managers across different levels to understand how they actually coach their direct reports and what information helps them take action. I paired generative interviews with a card-sorting activity to uncover how managers naturally prioritized and interpreted employee signals. The research revealed which information was most meaningful in a coaching context and helped shape the initial direction of the Check-Ins experience.",
-      },
-      {
-        type: "text-center",
         header: "Designing for trust in coaching signals ",
         body: "One of the most important challenges surfaced during the first iteration: the sentiment-analysis scores did not always accurately reflect employee performance. For a manager making decisions about how to coach a direct report, an inaccurate signal can quickly undermine confidence in the entire experience. Rather than treating sentiment scores as objective answers, I focused on creating an experience where managers could understand the signals, interpret them in context, and confidently decide when to act. Trust became a core design principle for Check-Ins: every coaching signal needed to feel grounded enough to inform a conversation, not simply present a score. The resulting experience was designed to help managers move from “What does this score mean?” to “What should I do with this information? I led a generative research study alongside a  card sorting exercise with 10 managers across domains with varying levels of leadership to understand the priority of information when it comes to 1:1s with their direct reports.",
       },
