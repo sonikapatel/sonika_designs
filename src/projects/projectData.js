@@ -107,8 +107,10 @@ export const PROJECTS = [
         annotation: [
           {
             text: "Can we extract meaningful and accurate data to be used in manager reports here?",
-            startAt: "36%",
+            startAt: "38%",
             side: "left",
+            shift: "min(0px, calc(420px - 50vw))",
+
           },
           {
             text: "How might we define a conversational experience where Coach Bo can incentivize employees to complete what they did for a week and look forward to the following week?",
