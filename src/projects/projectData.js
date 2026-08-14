@@ -172,7 +172,7 @@ export const PROJECTS = [
             side: "left",
             maxWidth: 244,
             borderColor: "#CDCDCD",
-            shift: "min(0px, calc(380px - 50vw))",
+            shift: "min(0px, calc(450px - 50vw))",
           },
           {
             text: "The 1:1 preparation guides surface items managers care most about, alongside strengths and motivators for their careers, extrapolated from our prehire assessments.",
