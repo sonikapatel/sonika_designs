@@ -8,7 +8,7 @@ export const PROJECTS = [
     protected: "fika_connect",
     logo: "/images/fika/fika logo.png",
     bannerBg: "rgb(40, 35, 111)",
-    bannerImage: "/images/fika/fika_banner.png",
+    bannerImage: "/images/banner_images/Fika_Header.png",
     problem: [
       { text: "Creative professionals are working in isolation.", bold: true },
       { text: " Whether they're freelancers, business owners, or remote workers, the pandemic has changed the way we interact and the nature of the work is usually in solitude." },
@@ -80,7 +80,7 @@ export const PROJECTS = [
     role: "Lead Product Designer",
     status: "2025",
     bannerBg: "#16112E",
-    bannerImage: "/images/criteria/Criteria_1.png",
+    bannerImage: "/images/banner_images/Criteria_Header.png",
     logo: "/images/criteria/criteria_logo.png",
     problem: [
       { text: "Managers become managers without formal training or people management abilities.", bold: true },
@@ -240,7 +240,7 @@ export const PROJECTS = [
     role: "Product Designer",
     status: "2023",
     bannerBg: "#0D1917",
-    bannerImage: "/images/hbh/HBH1.png",
+    bannerImage: "/images/banner_images/HBH_Header.png",
     logo: "https://media.licdn.com/dms/image/v2/C560BAQEv4kv5trlreQ/company-logo_200_200/company-logo_200_200/0/1630619991909/honeybeehealth_logo?e=2147483647&v=beta&t=i2iOeMqvRAfa8v5ASaKzczGOBeV8q_qQPqyt2PEDYh8",
     problem: [
       { text: "Honeybee Health set out to simplify the e-prescription flow for independent physicians — reducing friction, optimizing for privacy, and enabling faster care. An opportunity to provide value to telehealth partners as a vertically integrated pharmacy.", bold: true },
