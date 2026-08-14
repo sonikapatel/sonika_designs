@@ -302,18 +302,9 @@ function VideoAnnotation({
           lineHeight: 1.2,
           color: "#000",
           boxSizing: "border-box",
-          ...(accent
-            ? { display: "flex", alignItems: "center", gap: 11 }
-            : {}),
         }}
       >
-        {/* Bar sits on whichever edge faces the video: right of the copy for a
-            left-hand card, left of the copy for a right-hand one. */}
-        {isRight ? bar : null}
-        <div style={{ minWidth: 0, textAlign: accent && !isRight ? "right" : "left" }}>
-          {text}
-        </div>
-        {isRight ? null : bar}
+        {text}
       </div>
     </div>
   );
