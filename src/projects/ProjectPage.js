@@ -460,13 +460,6 @@ export default function ProjectPage() {
                 })
               : project.problem}
           </p>
-          {project.tags && project.tags.length > 0 && (
-            <div style={styles.tagRow}>
-              {project.tags.map((tag) => (
-                <span key={tag} style={styles.tag}>{tag}</span>
-              ))}
-            </div>
-          )}
         </div>
         <div style={styles.metaCol}>
           <p style={styles.sectionLabel}>Team</p>
@@ -488,6 +481,13 @@ export default function ProjectPage() {
                 {project.context.label}
               </a>
             </>
+          )}
+          {project.tags && project.tags.length > 0 && (
+            <div style={styles.tagRow}>
+              {project.tags.map((tag) => (
+                <span key={tag} style={styles.tag}>{tag}</span>
+              ))}
+            </div>
           )}
         </div>
       </FadeSection>
