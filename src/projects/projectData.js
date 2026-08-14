@@ -227,7 +227,7 @@ export const PROJECTS = [
       {
         type: "stats",
         eyebrow: "Impact",
-        body: "The revised Check-Ins Onboarding rolled out to 5% of small-to-mid sized businesses with post-hire included. After launching the revised experience, we saw an overall improved satisfaction with a clear understanding for how check-ins works.  ",
+        body: "The revised Check-Ins Onboarding rolled out to 5% of small-to-mid sized businesses with post-hire. After launching the revised experience, we saw an overall improved satisfaction with a clear understanding for how check-ins works.  ",
 
         stats: [
           { value: "32%", label: "Reduction in candidate support inquiries" },
