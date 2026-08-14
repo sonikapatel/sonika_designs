@@ -70,8 +70,8 @@
     min-height: 200px !important;
   }
 
+  /* Banner art stays full-bleed here too — only its height comes down. */
   .proj-banner img {
-    max-width: 88% !important;
     max-height: 200px !important;
   }
 

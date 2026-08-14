@@ -295,7 +295,7 @@ export const PROJECTS = [
     role: "Product Designer",
     status: "2022-2023",
     bannerBg: "#14244D",
-    bannerImage: "/images/creditoptions1.png",
+    bannerImage: "/images/banner_images/Square_Header.png",
     problem: [
       { text: "Small business owners need access to capital but find traditional loan applications intimidating and opaque.", bold: true },
       { text: " At Square, I led designing credit experiences that felt approachable and contextually relevant within their existing merchant dashboard. I designed a credit discovery and application experience that meets merchants where they are in their business journey." },

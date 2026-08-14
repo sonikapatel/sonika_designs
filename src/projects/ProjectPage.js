@@ -905,9 +905,11 @@ const styles = {
     overflow: "hidden",
   },
   bannerImage: {
-    maxWidth: "60%",
-    maxHeight: 440,
-    objectFit: "contain",
+    // The banner art is a full-bleed composition with its own background, so it fills
+    // the whole area edge to edge rather than floating centred on bannerBg.
+    width: "100%",
+    height: "100%",
+    objectFit: "cover",
     display: "block",
   },
 
