@@ -79,7 +79,7 @@ export const PROJECTS = [
     company: "Criteria",
     title: "AI-powered coaching for managers",
     tags: ["UX Research", "Design Systems"],
-    role: "Lead Product Designer",
+    role: "Senior Product Designer",
     status: "2025",
     bannerBg: "#16112E",
     bannerImage: "/images/banner_images/Criteria_Header.png",
@@ -255,7 +255,7 @@ export const PROJECTS = [
       { text: "Honeybee Health set out to simplify the e-prescription flow for independent physicians — reducing friction, optimizing for privacy, and enabling faster care.", bold: true },
       { text: " I designed an prescribing experience prototype tailored to the clinical context and workflow of busy practitioners. From leading research with 7 clinicians, to forming hypotheses, synthesizing information and 0->1 designing Nectar and creating a design system, I led the end-to-end design processes." },
     ],
-    team: [{ name: "Sonika Patel", role: "Lead Designer" }],
+    team: [{ name: "Sonika Patel", role: "Senior Designer" }],
     context: { label: "honeybeehealth.com", url: "https://www.honeybeehealth.com" },
     sections: [
       {
