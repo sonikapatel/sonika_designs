@@ -460,6 +460,13 @@ export default function ProjectPage() {
                 })
               : project.problem}
           </p>
+          {project.tags && project.tags.length > 0 && (
+            <div style={styles.tagRow}>
+              {project.tags.map((tag) => (
+                <span key={tag} style={styles.tag}>{tag}</span>
+              ))}
+            </div>
+          )}
         </div>
         <div style={styles.metaCol}>
           <p style={styles.sectionLabel}>Team</p>
@@ -939,6 +946,23 @@ const styles = {
     color: "rgba(0,0,0,0.38)",
   },
   problemText: { margin: 0, fontSize: 15, lineHeight: 1.75, color: "#4E4E4E" },
+  tagRow: {
+    display: "flex",
+    flexWrap: "wrap",
+    gap: 8,
+    marginTop: 24,
+  },
+  tag: {
+    display: "inline-block",
+    background: "#fff",
+    border: "0.5px solid #A8A8A8",
+    borderRadius: 999,
+    padding: "6px 14px",
+    fontSize: 13,
+    lineHeight: 1.4,
+    color: "#2A2A2A",
+    whiteSpace: "nowrap",
+  },
   metaItem: { margin: "0 0 4px", fontSize: 13, color: "#2A2A2A" },
   metaSubtitle: { color: "#4E4E4E", fontWeight: 400 },
   contextLink: { fontSize: 13, color: "#4B44AF", textDecoration: "none" },
