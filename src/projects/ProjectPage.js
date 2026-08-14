@@ -868,10 +868,6 @@ const styles = {
     color: "#111",
     background: "#fff",
     minHeight: "100vh",
-    // Gutter for the whole page, so nothing — including the full-bleed banner and
-    // tinted sections — runs flush to the viewport edge.
-    padding: "0 32px",
-    boxSizing: "border-box",
   },
   notFound: { padding: 80, textAlign: "center" },
   backLink: { color: "#111", fontSize: 14 },
@@ -901,7 +897,10 @@ const styles = {
 
   /* Banner — intentionally NOT constrained */
   banner: {
-    width: "100%",
+    // Inset 32px on its own rather than via page padding, so the tinted content
+    // sections below stay full-bleed to the viewport edge.
+    width: "auto",
+    margin: "0 32px",
     height: 500,
     display: "flex",
     alignItems: "center",
