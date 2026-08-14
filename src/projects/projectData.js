@@ -190,12 +190,8 @@ export const PROJECTS = [
       },
       {
         type: "text-center",
-        body: "The original Weekly Check-Ins experience didn't have a robust framework for educating and adding value for users.",
-      },
-      {
-        type: "text-center",
         header: "Onboarding + Admin Setup",
-        body: "Weekly Check-Ins was a confusing experience for HR admins to onboard their 200+ people organizations. To remediate the confusion admins faced prior to Check-Ins launch, I designed a system to ensure admins across varying organizations sizes can easily onboard their employees to the experience. There was a lack of mental model and hierarchy within the original setup configuration.",
+        body: "Weekly Check-Ins was a confusing experience for HR admins to onboard their 200+ people organizations. There was a lack of mental model and hierarchy within the original setup configuration. To alleviate the confusion admins faced prior to Check-Ins launch, I designed a system to ensure admins across varying organizations sizes can easily onboard their employees to the experience. ",
       },
       {
         type: "image",
