@@ -3,7 +3,7 @@ export const PROJECTS = [
     slug: "fika",
     company: "Fika",
     title: "Connecting creatives over coffee",
-    tags: ["Product Development", "Marketing", "User Research"],
+    tags: ["End to End Product Development", "Marketing", "User Research"],
     role: "Founder / Product Designer & Developer / Brand Design",
     status: "2026",
     protected: "fika_connect",
@@ -85,7 +85,7 @@ export const PROJECTS = [
     bannerImage: "/images/banner_images/Criteria_Header.png",
     logo: "/images/criteria/criteria_logo.png",
     problem: [
-      { text: "Managers lack oversight into how their team is performing on a WoW basis.", bold: true },
+      { text: "Managers lack oversight into how their team is doing on a WoW basis.", bold: true },
       { text: " Criteria developed 'Develop', a way to give managers real-time, personalized coaching at scale - without adding headcount. I designed an AI-powered coaching experience that surfaces relevant insights and suggested actions directly in the manager's workflow. The product we launched internally expanded our talent management offering, complementing our core pre-hire product and delivering value across the employee lifecycle." },
     ],
     team: [{ name: "Sonika Patel", role: "Lead Designer" }, { name: "Bryan Romero", role: "Engineer" }],
