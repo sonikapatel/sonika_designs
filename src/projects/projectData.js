@@ -232,7 +232,7 @@ export const PROJECTS = [
       {
         type: "stats",
         eyebrow: "Impact",
-        body: "The revised Check-Ins onboarding shipped to 5% of SMB accounts, coaching v1 in limited beta. After launching the revised experience, we saw an overall improved satisfaction with a clear understanding for how check-ins works.  ",
+        body: "The revised Check-Ins onboarding shipped to 5% of SMB accounts, with coaching v1 in limited beta. After launching the revised experience, we saw an overall improved satisfaction with a clear understanding for how check-ins works, gauged through research and surveys.  ",
 
         stats: [
           { value: "32%", label: "Reduction in customer support inquiries" },
