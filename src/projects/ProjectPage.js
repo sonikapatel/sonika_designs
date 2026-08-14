@@ -868,6 +868,10 @@ const styles = {
     color: "#111",
     background: "#fff",
     minHeight: "100vh",
+    // Gutter for the whole page, so nothing — including the full-bleed banner and
+    // tinted sections — runs flush to the viewport edge.
+    padding: "0 32px",
+    boxSizing: "border-box",
   },
   notFound: { padding: 80, textAlign: "center" },
   backLink: { color: "#111", fontSize: 14 },
@@ -903,6 +907,9 @@ const styles = {
     alignItems: "center",
     justifyContent: "center",
     overflow: "hidden",
+    // Radius lives on the container as well as the image — the container carries
+    // bannerBg, which would otherwise square off the corners behind the art.
+    borderRadius: 40,
   },
   bannerImage: {
     // The banner art is a full-bleed composition with its own background, so it fills
@@ -911,6 +918,7 @@ const styles = {
     height: "100%",
     objectFit: "cover",
     display: "block",
+    borderRadius: 40,
   },
 
   /* Overview */

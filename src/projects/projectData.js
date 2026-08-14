@@ -117,9 +117,9 @@ export const PROJECTS = [
             startAt: "36%",
             side: "right",
             maxWidth: 348,
-            // Pushed further out than the left note; 380px is the floor that still
-            // leaves a gutter at the widest viewports rather than touching the edge.
-            shift: "min(0px, calc(380px - 50vw))",
+            // Pushed further out than the left note. 384px lands the card exactly on the
+            // page's 32px gutter; lower values push it closer to the viewport edge.
+            shift: "min(0px, calc(384px - 50vw))",
           },
         ],
         caption: 'All roles are required to have shared check-ins with their managers weekly to be completed by Friday. I iterated on visual styles for Coach Bo to synthesize each direct report responses through sentiment analysis.'
@@ -180,7 +180,8 @@ export const PROJECTS = [
             side: "right",
             maxWidth: 314,
             borderColor: "#CDCDCD",
-            shift: "min(0px, calc(380px - 50vw))",
+            // 384px lands the card exactly on the page's 32px gutter.
+            shift: "min(0px, calc(384px - 50vw))",
           },
         ],
         caption: "A demo of the dashboard managers would use based off of the research, understanding what they care about most when reviewing direct reports' information. The yellow/red/green states are based off of the synthesized mood scores from Coach Bo. In launching Check-Ins, it was important to think about the accuracy of the information shown, if the data accurately conveys if an employee is 'at risk'.",

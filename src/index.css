@@ -66,13 +66,11 @@
     text-align: left !important;
   }
 
+  /* Shorter banner on mobile. The height has to be overridden, not just min-height —
+     the container carries an inline height of 500px, which would otherwise leave the
+     art stranded in a tall block of bannerBg. */
   .proj-banner {
-    min-height: 200px !important;
-  }
-
-  /* Banner art stays full-bleed here too — only its height comes down. */
-  .proj-banner img {
-    max-height: 200px !important;
+    height: 220px !important;
   }
 
   .proj-overview {
