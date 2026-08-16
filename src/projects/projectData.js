@@ -152,7 +152,7 @@ export const PROJECTS = [
       {
         type: "text-center",
         header: "Product Hypothesis ",
-        body: "As the lead designer and product strategist, I thought about the following parameters, including how to integrate role-specific variables, like ARR for Customer Success and Sales, for various employees across various types of organizations into a meaningful coaching experience?",
+        body: "Through research, we uncovered managers cared about certain metrics their direct reports either weren't or were achieving. I thought about the following parameters, including how to integrate role-specific variables, like ARR for Customer Success and Sales, for employees across various types of organizations into a meaningful coaching experience?",
       },
       {
         type: "image",
