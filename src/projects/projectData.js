@@ -308,7 +308,7 @@ export const PROJECTS = [
     bannerImage: "/images/banner_images/Square_Header.png",
     problem: [
       { text: "Small business owners need access to capital but find traditional loan applications intimidating and opaque.", bold: true },
-      { text: " At Square, I led designing credit experiences that felt approachable and contextually relevant within their existing merchant dashboard. I designed a credit discovery and application experience that meets merchants where they are in their business journey." },
+      { text: " At Square, I led credit experiences that felt approachable and contextually relevant within sellers' existing merchant dashboard. I designed a credit discovery experience that meets merchants where they are in their business journey alongside integrating external bank account linking to yield higher loan offers." },
     ],
     team: [{ name: "Sonika Patel", role: "Lead Designer" }],
     logo: "https://upload.wikimedia.org/wikipedia/commons/2/27/Square%2C_Inc_-_Square_Logo.jpg",
