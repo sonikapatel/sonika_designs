@@ -200,7 +200,7 @@ export const PROJECTS = [
       },
       {
         type: "text-center",
-        body: "I explored several low-fidelity directions to build trust at scale, while helping users understand the impact of configuring each high-intent step.",
+        body: "I explored lo-fidelity directions to build trust at scale, while helping users understand the impact of configuring each high-intent step.",
       },
       {
         type: "grid",
