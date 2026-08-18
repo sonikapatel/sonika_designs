@@ -64,7 +64,7 @@ export const PROJECTS = [
       },
       {
         type: "text-center",
-        body: "As the holistic Brand Designer, I designed social media assets to ensure intentional creatives met IRL on Fika. Here are a few top performing Instagram posts.",
+        body: "As the holistic Brand Designer, I designed social media assets to ensure intentional creatives met IRL on Fika. Here are a few top performing Instagram posts. Check out the <a href='https://www.instagram.com/fikacreatives.co'>Fika Instagram </a> for more information ",
       },
       {
         type: "image",
