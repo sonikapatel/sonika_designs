@@ -124,7 +124,7 @@ export const PROJECTS = [
             shift: "min(0px, calc(384px - 50vw))",
           },
         ],
-        caption: 'All roles are required to check-in with their managers weekly to be completed by Friday. I iterated and prototyped  visual styles for an intelligent chat interface, connecting with Coach Bo.'
+        caption: 'All roles are required to check-in with their managers weekly. I iterated and prototyped visual styles for an intelligent chat interface, connecting with Coach Bo.'
       },
       {
         type: "text-center",
