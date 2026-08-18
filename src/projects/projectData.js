@@ -86,7 +86,7 @@ export const PROJECTS = [
     logo: "/images/criteria/criteria_logo.png",
     problem: [
       { text: "Managers lack oversight into how their team is doing on a WoW basis.", bold: true },
-      { text: " Criteria offered 'Develop', a post-hire suite of solutions offering managers a real-time, personalized coaching at scale - without adding headcount. Originally having launched with TEAMScan, I designed a new company bet, an AI-powered coaching experience that surfaces relevant insights and suggested actions directly in the manager's workflow. The product we launched internally expanded our talent management offering, complementing our core pre-hire product and delivering value across the employee lifecycle." },
+      { text: " Criteria offered 'Develop', a post-hire suite of solutions offering managers a real-time, personalized coaching at scale - without adding headcount. Originally having launched with TEAMScan, I designed a new company bet, an AI-powered coaching experience that surfaces relevant insights and suggested actions directly in the manager's workflow. The product we launched expanded our talent management offering, complementing our core pre-hire product and delivering value across the employee lifecycle." },
     ],
     team: [{ name: "Sonika Patel", role: "Lead Designer" }, { name: "Bryan Romero", role: "Engineer" }],
     context: { label: "criteriacorp.com/weekly-manager-check-ins", url: "https://www.criteriacorp.com/develop/weekly-manager-check-ins" },
@@ -94,11 +94,11 @@ export const PROJECTS = [
       {
         type: "text-center",
         header: "Context ",
-        body: "TEAMScan is a product we previously launched to help organizations understand how their teams are performing through quarterly check-ins. HR admins configure TEAMScan for their organization, enabling them to collect quarterly pulses of feedback and gain insight into team health and performance. While customers consistently asked for more frequent feedback from their organizations, I partnered with a PM and engineer to lead the design of Weekly Check-Ins—an experience built to address that core need and turn recurring employee feedback into actionable insights for managers. "},
+        body: "TEAMScan is a product we previously launched to help organizations understand how their teams are performing through quarterly check-ins. HR admins configure TEAMScan for their organization, enabling them to collect quarterly pulses of feedback and gain insight into team health and performance. While customers consistently asked for more frequent feedback from their organizations, I partnered with a PM and engineer to lead the design of Weekly Check-Ins — an experience built to address the core need and turn recurring employee feedback into actionable insights for managers. "},
       {
         type: "text-center",
         header: "Coach Bo ",
-        body: "Coach Bo is an AI-intelligent chat interface I designed the experience and visual interface for. Coach Bo synthesizes information from the core chat, asking 3 core questions of ‘How was last week”, ‘What did you accomplish this week’, and ‘What are you looking to accomplish next’ in a conversational and optimistic manner. \n\n After processing the information, Check-Ins provides managers reports relevant to their roles, including information about organizational health, mood/progress levels of their direct reports, using sentiment analysis. ",
+        body: "Coach Bo is an AI-intelligent bot, that synthesizes information from the core chat, asking 3 core questions of ‘How was last week”, ‘What did you accomplish this week’, and ‘What are you looking to accomplish next’ in a conversational and optimistic manner. \n\n After processing the information, Check-Ins provides managers reports relevant to their roles, including information about organizational health, mood/progress levels of their direct reports, using sentiment analysis. ",
       },
       {
         type: "video",
@@ -108,7 +108,7 @@ export const PROJECTS = [
         sectionBg: "#F8F6F4",
         annotation: [
           {
-            text: "Can we extract meaningful and accurate data to be used in manager reports here?",
+            text: "Surface meaningful data contextual to a manager's direct report",
             startAt: "38%",
             side: "left",
             shift: "min(0px, calc(420px - 50vw))",
@@ -124,7 +124,7 @@ export const PROJECTS = [
             shift: "min(0px, calc(384px - 50vw))",
           },
         ],
-        caption: 'All roles are required to check-in with their managers weekly. I iterated and prototyped visual styles for an intelligent chat interface, connecting with Coach Bo.'
+        caption: 'All roles are required to check-in with their managers weekly. I iterated and prototyped visual styles for an intelligent chat interface that matched our design system for Check-Ins.'
       },
       {
         type: "text-center",
@@ -152,7 +152,7 @@ export const PROJECTS = [
       {
         type: "text-center",
         header: "Product Hypothesis ",
-        body: "Through research, we uncovered managers cared about certain metrics their direct reports either weren't or were achieving. I thought about the following parameters, including how to integrate role-specific variables, like ARR for Customer Success and Sales, for employees across various types of organizations into a meaningful coaching experience?",
+        body: "Through research, we uncovered managers cared about certain metrics that their direct reports either weren't or were achieving. I thought about how to integrate role-specific variables, like ARR for Customer Success and Sales, for employees across various types of organizations into a meaningful coaching experience?",
       },
       {
         type: "image",
@@ -169,7 +169,7 @@ export const PROJECTS = [
         muted: true,
         annotation: [
           {
-            text: "Managers can view a high-level overview of their employees mood, progress, and readiness score pertaining to WoW and engagement with Coach Bo. Scores are extracted based on conversations with Coach Bo, with each score representing a construct.",
+            text: "Managers can view a high-level overview of their employees' mood, progress, and readiness score pertaining to WoW and engagement with Coach Bo. Scores are extracted based on conversations with Coach Bo, with each score representing a construct.",
             startAt: "30%",
             side: "left",
             maxWidth: 244,
@@ -186,7 +186,7 @@ export const PROJECTS = [
             shift: "min(0px, calc(384px - 50vw))",
           },
         ],
-        caption: "A demo of the dashboard managers would use based off of the research, understanding what they care about most when reviewing direct reports' information. The yellow/red/green states are based off of the synthesized mood scores from Coach Bo.",
+        caption: "A demo of the dashboard managers used, understanding what they care about most when reviewing direct reports' information. The yellow/red/green states are based off of the synthesized mood scores from Coach Bo.",
       },
       {
         type: "text-center",
