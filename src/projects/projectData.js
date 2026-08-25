@@ -279,7 +279,7 @@ export const PROJECTS = [
      
       {
         type: "image",
-        src: "/images/hbh/eprescribe.png",
+        src: "/images/hbh/HBH_Prototype.mov",
         variant: "framed",
         caption: "The Core UX: View patient information alongside prescribing typical gestation bundles that physicians are commonly prescribing. This addition reduces time spent manually prescribing each medication in a typically pre-configured bundle.",
       },
