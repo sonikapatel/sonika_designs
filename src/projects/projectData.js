@@ -282,9 +282,9 @@ export const PROJECTS = [
         src: "/images/hbh/HBH_Prototype.mov",
         variant: "framed",
         // Matches the settings.png screen above (1267x846) so both frames are the
-        // same height at every breakpoint; the wider video is cropped to fill it.
+        // same height at every breakpoint; the wider video letterboxes inside it.
         aspectRatio: "1267 / 846",
-        crop: true,
+        bg: "#F7F9FC",
         borderRadius: 12,
         caption: "The Core UX: View patient information alongside prescribing typical gestation bundles that physicians are commonly prescribing. This addition reduces time spent manually prescribing each medication in a typically pre-configured bundle.",
       },
