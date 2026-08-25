@@ -698,7 +698,7 @@ export default function ProjectPage() {
         }
 
         if (section.type === "video") {
-          const boxed = section.height || section.bg || section.aspectRatio;
+          const boxed = section.height || section.bg;
           const videoEl = (
             <>
               {section.crop ? (
@@ -733,9 +733,7 @@ export default function ProjectPage() {
                   style={{
                     width: section.width || "100%",
                     maxWidth: "100%",
-                    ...(section.aspectRatio
-                      ? { aspectRatio: section.aspectRatio }
-                      : { height: section.height || 400 }),
+                    height: section.height || 400,
                     background: section.bg || "#000",
                     borderRadius: section.borderRadius ?? 16,
                     display: "flex",
