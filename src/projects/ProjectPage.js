@@ -759,7 +759,11 @@ export default function ProjectPage() {
                   controls
                   playsInline
                   muted={!!section.muted}
-                  style={styles.video}
+                  style={
+                    section.bare
+                      ? { ...styles.video, border: "none", borderRadius: 0 }
+                      : styles.video
+                  }
                 />
               )}
             </>

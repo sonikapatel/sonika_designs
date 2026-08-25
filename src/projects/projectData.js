@@ -273,13 +273,14 @@ export const PROJECTS = [
       {
         type: "video",
         src: "/images/hbh/SettingsPage.mov",
-        variant: "framed",
+        bare: true,
         caption: "Settings: A global settings portal for admins to easily manage favorites, their provider information, and details about bundle medications.",
       },
      
       {
         type: "video",
         src: "/images/hbh/HBH_Prototype.mov",
+        bare: true,
         caption: "The Core UX: View patient information alongside prescribing typical gestation bundles that physicians are commonly prescribing. This addition reduces time spent manually prescribing each medication in a typically pre-configured bundle.",
       },
       {
