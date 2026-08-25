@@ -706,8 +706,10 @@ export default function ProjectPage() {
                   style={{
                     width: section.width || "100%",
                     maxWidth: "100%",
-                    height: section.height,
-                    borderRadius: 16,
+                    ...(section.aspectRatio
+                      ? { aspectRatio: section.aspectRatio }
+                      : { height: section.height }),
+                    borderRadius: section.borderRadius ?? 16,
                     overflow: "hidden",
                     margin: section.center ? "0 auto" : undefined,
                   }}
