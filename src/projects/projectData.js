@@ -271,7 +271,7 @@ export const PROJECTS = [
         body: "Nectar allows doctors to easily prescribe abortion medications directly to Honeybee Health. With abortion laws in place, many prescribers felt skeptical of existing solutions, losing trust in patient data being shared. With existing solutions, doctors were concerned about privacy with applications like MDToolbox or DoseSpot. Preparing for a new business opportunity to position Honeybee as a fully vertically integrated telehealth partner, I led the experience design for Nectar after conducting research with 7 women's health clinicians, understanding more about their workflows to create a privacy-first experience.",
       },
       {
-        type: "image",
+        type: "video",
         src: "/images/hbh/SettingsPage.mov",
         variant: "framed",
         caption: "Settings: A global settings portal for admins to easily manage favorites, their provider information, and details about bundle medications.",
