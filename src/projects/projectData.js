@@ -95,7 +95,7 @@ export const PROJECTS = [
       {
         type: "text-center",
         header: "Context ",
-        body: "TEAMScan is a product we previously launched to help organizations understand how their teams are performing through quarterly check-ins. HR admins configure TEAMScan for their organization, enabling them to collect quarterly pulses of feedback and gain insight into team health and performance. While customers consistently asked for more frequent feedback from their organizations, I partnered with a PM and engineer to lead the design of Weekly Check-Ins — an experience built to address the core need and turn recurring employee feedback into actionable insights for managers. "},
+        body: "TEAMScan is a product we previously launched to help organizations understand how their teams are performing through quarterly check-ins. HR admins configure TEAMScan for their organization, enabling them to collect quarterly pulses of feedback and gain insight into team health and performance. Since customers consistently sought more frequent feedback, I partnered with a PM and engineer to lead the design of Weekly Check-Ins — an experience built to address the core need and turn recurring employee feedback into actionable insights for managers. "},
         {
           type: "image",
           src: "/images/criteria/og_check-ins.png",
