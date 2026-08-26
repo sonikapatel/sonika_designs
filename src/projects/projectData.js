@@ -96,6 +96,17 @@ export const PROJECTS = [
         type: "text-center",
         header: "Context ",
         body: "TEAMScan is a product we previously launched to help organizations understand how their teams are performing through quarterly check-ins. HR admins configure TEAMScan for their organization, enabling them to collect quarterly pulses of feedback and gain insight into team health and performance. While customers consistently asked for more frequent feedback from their organizations, I partnered with a PM and engineer to lead the design of Weekly Check-Ins — an experience built to address the core need and turn recurring employee feedback into actionable insights for managers. "},
+        {
+          type: "image",
+          src: "/images/criteria/og_check-ins.png",
+          // Card spans 90% of the page rather than the usual 1200px content column.
+          maxWidth: "90%",
+          sectionPadding: "48px 0",
+          // The artwork is transparent top-right and bottom-left, so the black
+          // card shows through there.
+          bg: "#000",
+          borderRadius: 24,
+        },
       {
         type: "text-center",
         header: "Coach Bo ",
@@ -109,7 +120,7 @@ export const PROJECTS = [
         sectionBg: "#F8F6F4",
         annotation: [
           {
-            text: "Surface meaningful data contextual to a manager's direct report",
+            text: "An intuitive chat interface who helps people think through their work, recognize patterns, and understand performance.",
             startAt: "38%",
             side: "left",
             shift: "min(0px, calc(420px - 50vw))",
@@ -170,7 +181,7 @@ export const PROJECTS = [
         muted: true,
         annotation: [
           {
-            text: "Managers can view a high-level overview of their employees' mood, progress, and readiness score pertaining to WoW and engagement with Coach Bo. Scores are extracted based on conversations with Coach Bo, with each score representing a construct.",
+            text: "Managers can view a high-level overview of their employees' mood, progress, and readiness score pertaining to WoW and engagement with Coach Bo.",
             startAt: "30%",
             side: "left",
             maxWidth: 244,
@@ -192,16 +203,7 @@ export const PROJECTS = [
       {
         type: "text-center",
         header: "Onboarding + Admin Setup",
-        body: "Weekly Check-Ins was a confusing experience for HR admins to onboard their 200+ people organizations. There was a lack of mental model and hierarchy within the original setup configuration. To alleviate the confusion admins faced prior to Check-Ins launch, I designed a system to ensure admins across varying organizations sizes can easily onboard their employees to the experience. ",
-      },
-      {
-        type: "image",
-        src: "/images/criteria/original_checkins_setup.png",
-        maxWidth: 1200,
-      },
-      {
-        type: "text-center",
-        body: "I explored lo-fidelity directions to build trust at scale, while helping users understand the impact of configuring each high-intent step.",
+        body: "Weekly Check-Ins was a confusing experience for HR admins to onboard their 200+ people organizations. There was a lack of mental model and hierarchy within the original setup configuration. To alleviate the confusion admins faced prior to Check-Ins launch, I designed a system to ensure admins across varying organizations sizes can easily onboard their employees to the experience. I explored lo-fidelity directions to build trust at scale, while helping users understand the impact of configuring each high-intent step. ",
       },
       {
         type: "grid",

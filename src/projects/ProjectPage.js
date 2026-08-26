@@ -497,10 +497,14 @@ export default function ProjectPage() {
         const divider = { borderBottom: "none" };
         if (section.type === "image") {
           const isFramed = section.variant === "framed";
-          const sectionStyle = section.maxWidth
-            ? { ...styles.contentSection, maxWidth: section.maxWidth, ...divider }
-            : { ...styles.contentSection, ...divider };
+          const sectionStyle = {
+            ...styles.contentSection,
+            ...(section.maxWidth ? { maxWidth: section.maxWidth } : {}),
+            ...(section.sectionPadding ? { padding: section.sectionPadding } : {}),
+            ...divider,
+          };
           const hasContainer = !!section.bg;
+          const onDark = !!section.sectionBg;
           const imageStyle = hasContainer
             ? { width: "100%", display: "block", borderRadius: section.mediaBorderRadius ?? 12 }
             : {
@@ -515,33 +519,88 @@ export default function ProjectPage() {
               onError={(e) => { e.currentTarget.style.display = "none"; }}
             />
           );
-          return (
-            <FadeSection key={i} className="proj-section" style={sectionStyle}>
+          const boxedImage = hasContainer ? (
+            <div
+              style={{
+                background: section.bg,
+                padding: section.padding ?? 0,
+                borderRadius: section.borderRadius ?? 0,
+                boxSizing: "border-box",
+              }}
+            >
+              {image}
+            </div>
+          ) : (
+            image
+          );
+          /* Callout labels sitting on top of the artwork — used where the image has
+             transparent areas that let the section background show through. */
+          const overlays = section.overlays || [];
+          const imageBody = (
+            <>
               {section.header && (
-                <p style={{ ...styles.textCenter, fontWeight: 600, color: "#111", marginBottom: 8 }}>
+                <p style={{ ...styles.textCenter, fontWeight: 600, color: onDark ? "#fff" : "#111", marginBottom: 8 }}>
                   {section.header}
                 </p>
               )}
               {section.body && (
-                <p style={{ ...styles.textCenter, marginBottom: 32 }}>{section.body}</p>
+                <p style={{ ...styles.textCenter, marginBottom: 32, ...(onDark ? { color: "rgba(255,255,255,0.72)" } : {}) }}>
+                  {section.body}
+                </p>
               )}
-              {hasContainer ? (
-                <div
-                  style={{
-                    background: section.bg,
-                    padding: section.padding ?? 0,
-                    borderRadius: section.borderRadius ?? 0,
-                    boxSizing: "border-box",
-                  }}
-                >
-                  {image}
+              {overlays.length ? (
+                <div style={{ position: "relative" }}>
+                  {boxedImage}
+                  {overlays.map((o, j) => (
+                    <p
+                      key={j}
+                      style={{
+                        position: "absolute",
+                        margin: 0,
+                        top: o.top,
+                        left: o.left,
+                        right: o.right,
+                        bottom: o.bottom,
+                        maxWidth: o.maxWidth || "34%",
+                        color: o.color || "#fff",
+                        fontSize: o.fontSize || 15,
+                        fontWeight: 500,
+                        lineHeight: 1.3,
+                        textAlign: o.align || "left",
+                      }}
+                    >
+                      {o.text}
+                    </p>
+                  ))}
                 </div>
               ) : (
-                image
+                boxedImage
               )}
               {section.caption && (
-                <p style={styles.caption}>{section.caption}</p>
+                <p style={{ ...styles.caption, ...(onDark ? { color: "rgba(255,255,255,0.6)" } : {}) }}>
+                  {section.caption}
+                </p>
               )}
+            </>
+          );
+
+          if (section.sectionBg) {
+            return (
+              <FadeSection
+                key={i}
+                className="proj-section"
+                style={{ width: "100%", boxSizing: "border-box", background: section.sectionBg, ...divider }}
+              >
+                <div style={{ ...constrained, maxWidth: section.maxWidth || 1200, padding: "48px 48px" }}>
+                  {imageBody}
+                </div>
+              </FadeSection>
+            );
+          }
+
+          return (
+            <FadeSection key={i} className="proj-section" style={sectionStyle}>
+              {imageBody}
             </FadeSection>
           );
         }
