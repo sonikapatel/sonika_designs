@@ -127,7 +127,7 @@ export const PROJECTS = [
 
           },
           {
-            text: "How might we define a conversational experience where Coach Bo can incentivize employees to complete what they did for a week and look forward to the following week?",
+            text: "How might we apply information from Coach Bo conversational experience to incentivize employees to complete weekly check-ins?",
             startAt: "36%",
             side: "right",
             maxWidth: 348,
