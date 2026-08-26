@@ -140,3 +140,19 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* Inline links inside body copy — inline styles can't express :hover, so the
+   hover treatment lives here. */
+.proj-rich-text a,
+.proj-inline-link {
+  color: #4B44AF;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(75, 68, 175, 0.35);
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.proj-rich-text a:hover,
+.proj-inline-link:hover {
+  color: #2E2878;
+  border-bottom-color: #2E2878;
+}

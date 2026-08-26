@@ -32,6 +32,50 @@ function FadeSection({ as: Tag = "section", className = "", style, children, ...
   );
 }
 
+/* Body copy can be a plain string, a string containing inline markup (links, <strong>),
+   or an array of segments. BodyText picks the right rendering for each. */
+function BodyText({ value, style, className }) {
+  const hasMarkup = typeof value === "string" && /<[a-z][\s\S]*>/i.test(value);
+  if (hasMarkup) {
+    return (
+      <p
+        style={style}
+        className={`proj-rich-text ${className || ""}`.trim()}
+        dangerouslySetInnerHTML={{ __html: value }}
+      />
+    );
+  }
+  return (
+    <p style={style} className={className}>
+      {renderText(value)}
+    </p>
+  );
+}
+
+function renderText(value) {
+  if (!Array.isArray(value)) return value;
+  return value.map((seg, i) => {
+    if (seg.break) return <span key={i} style={{ display: "block", marginTop: "1em" }} />;
+    if (seg.url) {
+      // sameTab navigates away instead of opening a new tab.
+      const newTab = !seg.sameTab;
+      return (
+        <a
+          key={i}
+          href={seg.url}
+          target={newTab ? "_blank" : undefined}
+          rel={newTab ? "noopener noreferrer" : undefined}
+          className="proj-inline-link"
+        >
+          {seg.text}
+        </a>
+      );
+    }
+    if (seg.bold) return <strong key={i}>{seg.text}</strong>;
+    return seg.text;
+  });
+}
+
 function PasswordModal({ onUnlock, projectName }) {
   const [value, setValue] = useState("");
   const [error, setError] = useState(false);
@@ -452,13 +496,7 @@ export default function ProjectPage() {
         <div style={styles.problemCol}>
           <p style={styles.sectionLabel}>Problem</p>
           <p style={styles.problemText}>
-            {Array.isArray(project.problem)
-              ? project.problem.map((seg, i) => {
-                  if (seg.break) return <span key={i} style={{ display: "block", marginTop: "1em" }} />;
-                  if (seg.bold) return <strong key={i}>{seg.text}</strong>;
-                  return seg.text;
-                })
-              : project.problem}
+            {renderText(project.problem)}
           </p>
         </div>
         <div style={styles.metaCol}>
@@ -621,7 +659,7 @@ export default function ProjectPage() {
                   {section.header}
                 </p>
               )}
-              <p style={styles.textCenter}>{section.body}</p>
+              <BodyText value={section.body} style={styles.textCenter} />
             </FadeSection>
           );
         }
