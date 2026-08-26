@@ -163,8 +163,8 @@ export const PROJECTS = [
       },
       {
         type: "text-center",
-        header: "Product Hypothesis ",
-        body: "We uncovered managers cared primarily about certain metrics their direct reports were either achieving or not. I thought about how to integrate role-specific variables, like ARR for Customer Success and Sales, for employees across various types of organizations into a meaningful coaching experience.",
+        header: "From research to product",
+        body: "Managers, depending on their role within an organization, care about employees achieving their weekly projects, alongside certain metrics being met.  I thought about how to integrate role-specific variables, like ARR for Customer Success and Sales, for employees across various types of organizations into a meaningful coaching experience.",
       },
       {
         type: "image",
