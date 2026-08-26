@@ -64,7 +64,7 @@ export const PROJECTS = [
       },
       {
         type: "text-center",
-        body: "As the holistic Brand Designer, I designed social media assets to ensure intentional creatives met IRL on Fika. Here are a few top performing Instagram posts. Check out the <a href=\"https://www.instagram.com/fikacreatives.co\">Fika Instagram</a> for more information.",
+        body: "As the holistic Brand Designer, I designed social media assets to ensure intentional creatives met IRL on Fika. Here are a few top performing Instagram posts. Check out <a href='https://www.instagram.com/fikacreatives.co'>Fika Instagram </a> for more information ",
       },
       {
         type: "image",
@@ -120,7 +120,7 @@ export const PROJECTS = [
         sectionBg: "#F8F6F4",
         annotation: [
           {
-            text: "An intuitive chat interface who helps people think through their work, recognize patterns, and understand performance.",
+            text: "An intuitive chat interface who helps employees think through their work, recognize patterns, and understand performance.",
             startAt: "38%",
             side: "left",
             shift: "min(0px, calc(420px - 50vw))",
@@ -277,20 +277,18 @@ export const PROJECTS = [
         type: "video",
         src: "/images/hbh/HBH_Prototype.mov",
         bare: true,
-        borderRadius: 8,
         caption: "The Core UX: View patient information alongside prescribing typical gestation bundles that physicians are commonly prescribing. This addition reduces time spent manually prescribing each medication in a typically pre-configured bundle.",
       },
       {
         type: "video",
         src: "/images/hbh/SettingsPage.mov",
         bare: true,
-        borderRadius: 8,
         caption: "Settings: A global settings portal for admins to easily manage favorites, their provider information, and details about bundle medications.",
       },
       {
         type: "text-center",
         header: "Virtual Pharmacy as a Service",
-        body: "I designed VRPH as an opportunity for our telehealth partners to have a seamless patient medication checkout experience. Once a patient checks out of their intake from a telehealth partner like Hey Jane, we designed VRPH as a way to check out and prescribe medications direct to doorstep seamlessly. Virtual Pharmacy was designed with human elements in mind, from packaging to the Rx bottle patients receive, to create a welcoming experience for patients, who traditionally are checking out medications and might feel wary. ",
+        body: "I designed VRPH as an opportunity for our telehealth partners to have a seamless patient medication checkout experience. Once a patient checks out of their intake from a telehealth partner like Hey Jane, doctors can prescribe directly from their telehealth platforms, with VRPH retrieving data seamlessly. Virtual Pharmacy was designed with human elements in mind, from packaging to the Rx bottle patients receive, to create a welcoming experience for patients, who traditionally are checking out medications and might feel wary.",
       },
       {
         type: "video",
