@@ -818,11 +818,13 @@ export default function ProjectPage() {
                   controls
                   playsInline
                   muted={!!section.muted}
-                  style={
-                    section.bare
-                      ? { ...styles.video, border: "none", borderRadius: 0 }
-                      : styles.video
-                  }
+                  style={{
+                    ...styles.video,
+                    ...(section.bare ? { border: "none", borderRadius: 0 } : {}),
+                    ...(section.borderRadius !== undefined
+                      ? { borderRadius: section.borderRadius }
+                      : {}),
+                  }}
                 />
               )}
             </>

@@ -265,25 +265,27 @@ export const PROJECTS = [
       {
         type: "big-header",
         eyebrow: "The CORE UX",
-        text: "How might we facilitate privacy for medication abortion patients and for prescribers?",
+        text: "How might we protect the privacy and safety of medication abortion patients and prescribers?",
+        body: "Designing a vertically integrated e-prescription tool from telehealth partner directly to Honeybee Health.",
       },
       {
         type: "text-center",
         header: "Nectar: E-prescription tool for doctors",
-        body: "Nectar allows doctors to easily prescribe abortion medications directly to Honeybee Health. With abortion laws in place, many prescribers felt skeptical of existing solutions, losing trust in patient data being shared. With existing solutions, doctors were concerned about privacy with applications like MDToolbox or DoseSpot. Preparing for a new business opportunity to position Honeybee as a fully vertically integrated telehealth partner, I led the experience design for Nectar after conducting research with 7 women's health clinicians, understanding more about their workflows to create a privacy-first experience.",
+        body: "Nectar allows doctors to easily prescribe abortion medications directly to Honeybee Health. With abortion laws in place, many prescribers felt skeptical of existing solutions, losing trust in patient data being shared. With existing solutions, doctors were concerned about privacy with applications like MDToolbox or DoseSpot. Preparing for a new opportunity to position Honeybee as a fully vertically integrated telehealth partner, I led the experience design for Nectar after conducting research with 7 women's health clinicians, understanding more about their workflows to address privacy concerns, while providing value to recurring methods of prescription, including prescribing bundle medications.",
+      },
+      {
+        type: "video",
+        src: "/images/hbh/HBH_Prototype.mov",
+        bare: true,
+        borderRadius: 8,
+        caption: "The Core UX: View patient information alongside prescribing typical gestation bundles that physicians are commonly prescribing. This addition reduces time spent manually prescribing each medication in a typically pre-configured bundle.",
       },
       {
         type: "video",
         src: "/images/hbh/SettingsPage.mov",
         bare: true,
+        borderRadius: 8,
         caption: "Settings: A global settings portal for admins to easily manage favorites, their provider information, and details about bundle medications.",
-      },
-     
-      {
-        type: "video",
-        src: "/images/hbh/HBH_Prototype.mov",
-        bare: true,
-        caption: "The Core UX: View patient information alongside prescribing typical gestation bundles that physicians are commonly prescribing. This addition reduces time spent manually prescribing each medication in a typically pre-configured bundle.",
       },
       {
         type: "text-center",
