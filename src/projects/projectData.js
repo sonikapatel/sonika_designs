@@ -230,7 +230,7 @@ export const PROJECTS = [
         type: "image",
         header: "Building a scalable AI-native design system",
         body: "I leveraged the existing color palette from Prehire to establish semantic tokens for Check-Ins, creating a cohesive visual language that carried seamlessly from Figma into production code.",
-        src: '/images/criteria/Criteria_Ds.png',
+        src: '/images/criteria/DSWebsite.png',
       },
       {
         type: "stats",
