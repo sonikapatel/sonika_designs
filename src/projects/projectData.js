@@ -219,7 +219,7 @@ export const PROJECTS = [
       },
       {
         type: "video",
-        src: "/images/criteria/onboarding.mov",
+        src: "/images/criteria/full_proto.mov",
         width: 1000,
         center: true,
         sectionBg: "#F8F6F4",
