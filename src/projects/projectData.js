@@ -212,7 +212,7 @@ export const PROJECTS = [
         images: [
           [
             { src: "/images/criteria/onboarding-direction-1.png", borderRadius: 12, caption: "An accordion-style checklist that expands each step in place." },
-            { src: "/images/criteria/onboarding-direction-2.png", borderRadius: 12, caption: "A single-step wizard with a persistent side panel dedicated to explaining the trust and data implications of the step." },
+            { src: "/images/criteria/Lofidelity2.png", borderRadius: 12, caption: "A single-step wizard with a persistent side panel dedicated to explaining the trust and data implications of the step." },
             { src: "/images/criteria/onboarding-direction-3.png", borderRadius: 12, caption: "An early lo-fidelity skeleton pass, focused purely on step structure and pacing — content and education framing came later." },
           ],
         ],
