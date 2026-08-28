@@ -679,6 +679,7 @@ export default function ProjectPage() {
             <FadeSection key={i} className="proj-section" style={{ ...styles.contentSection, ...divider }}>
               {section.eyebrow && <p style={styles.sectionLabel}>{section.eyebrow}</p>}
               {section.body && <p style={styles.textCenter}>{section.body}</p>}
+              {section.stats?.length > 0 && (
               <div style={styles.statsGrid}>
                 {section.stats.map((stat, j) => (
                   <div key={j} style={styles.statItem}>
@@ -688,6 +689,7 @@ export default function ProjectPage() {
                   </div>
                 ))}
               </div>
+              )}
             </FadeSection>
           );
         }
