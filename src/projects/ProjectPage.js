@@ -64,7 +64,9 @@ function renderText(value) {
           key={i}
           href={seg.url}
           target={newTab ? "_blank" : undefined}
-          rel={newTab ? "noopener noreferrer" : undefined}
+          // Written as a literal (not a ternary) so eslint's jsx-no-target-blank
+          // can see it; harmless on same-tab links.
+          rel="noopener noreferrer"
           className="proj-inline-link"
         >
           {seg.text}
