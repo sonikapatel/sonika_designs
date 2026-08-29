@@ -224,7 +224,7 @@ export const PROJECTS = [
         center: true,
         sectionBg: "#F8F6F4",
         muted: true,
-        caption: "A working demo of onboarding setup with different states for in-progress and complete steps, using the visual identity across products and the design system I created in Figma, translated to Typescript components, with Storybook documentation.",
+        caption: "A working demo of onboarding setup with different states for in-progress and complete steps, using the visual identity across products and the design system I created in Figma, translated to Typescript components.",
       },
       {
         type: "image",
@@ -235,7 +235,7 @@ export const PROJECTS = [
       {
         type: "stats",
         eyebrow: "Impact",
-        body: "The revised Check-Ins onboarding shipped to 5% of SMB accounts, with coaching v1 in limited beta. After launching the revised experience, we saw an overall improved satisfaction with a clear understanding for how check-ins works, gauged through usability testing with customers. The work enabled Criteria to introduce Check-Ins to larger organizations, and established a scalable onboarding foundation, leveraging existing design patterns and introducing a modern component library, while supporting varying organization hierarchies.",
+        body: "The revised Check-Ins onboarding shipped to 5% of SMB accounts, with coaching v1 in limited beta. After launching the revised experience, customers had a clear understanding for how check-ins works, gauged through usability testing with customers. The work enabled Criteria to introduce Check-Ins to larger organizations, and established a scalable onboarding foundation, leveraging existing design patterns and introducing a modern component library, while supporting varying organization hierarchies.",
       }
     ],
   },
