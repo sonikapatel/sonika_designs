@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useRef } from "react";
+import React, { useState, useEffect, useLayoutEffect, useCallback, useRef } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import logo from "../assets/SPFavicon1.png";
 import { PROJECTS } from "./projectData";
@@ -297,6 +297,63 @@ const carouselStyles = {
   },
 };
 
+/* Pulls a wrapping text box in to the width of its longest rendered line.
+
+   CSS can't express this: `width: fit-content` measures the *unwrapped* string, so once
+   the copy is longer than the cap the box just sits at the cap — 300px of box around
+   224px of text, with the leftover showing as a dead strip down one side. The only way
+   to know where the lines actually broke is to ask the layout after the fact, so we
+   measure the line boxes and set the width from the widest one. */
+function useHuggedWidth(deps) {
+  const ref = useRef(null);
+
+  useLayoutEffect(() => {
+    const el = ref.current;
+    if (!el) return undefined;
+
+    const hug = () => {
+      // Let it fall back to the CSS cap first, otherwise each pass would measure the
+      // width the previous pass set and ratchet the box narrower on every resize.
+      el.style.width = "";
+      // Hidden at narrow widths (see .proj-video-annotation in index.css) — nothing to
+      // measure, and forcing a width now would stick once it comes back.
+      if (!el.offsetParent && getComputedStyle(el).position !== "fixed") return;
+
+      const range = document.createRange();
+      range.selectNodeContents(el);
+      const lines = Array.from(range.getClientRects());
+      if (!lines.length) return;
+
+      const widest = Math.max(...lines.map((r) => r.width));
+      const cs = getComputedStyle(el);
+      // box-sizing is border-box, so the frame has to be added back on.
+      const frame =
+        parseFloat(cs.paddingLeft) +
+        parseFloat(cs.paddingRight) +
+        parseFloat(cs.borderLeftWidth) +
+        parseFloat(cs.borderRightWidth);
+      el.style.width = `${Math.ceil(widest + frame)}px`;
+    };
+
+    hug();
+    // The webfont lands after first paint and remeasures wider than the fallback.
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(hug);
+
+    let frame = 0;
+    const onResize = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(hug);
+    };
+    window.addEventListener("resize", onResize);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("resize", onResize);
+    };
+  }, [deps]);
+
+  return ref;
+}
+
 /* Callout note overlaid on a video. Sticks to the top of the viewport while the video
    scrolls past, and every dimension is clamp()'d so it scales down on narrow screens
    rather than swallowing the frame. */
@@ -315,6 +372,7 @@ function VideoAnnotation({
   borderColor = "#E1E1E1",
 }) {
   const isRight = side === "right";
+  const boxRef = useHuggedWidth(text);
   return (
     <div
       // Hidden under 700px — at that size the notes would be taller than the video
@@ -334,12 +392,16 @@ function VideoAnnotation({
     >
       <div style={{ flex: `0 0 ${startAt}` }} />
       <div
+        ref={boxRef}
         style={{
           position: "sticky",
           top: stickyOffset,
           [isRight ? "marginRight" : "marginLeft"]: shift,
-          // Sized off the viewport rather than a parent row, capped at the Figma width.
-          width: `clamp(105px, 24vw, ${maxWidth}px)`,
+          // The cap the copy is allowed to wrap within — sized off the viewport rather
+          // than a parent row, and held to the Figma width. useHuggedWidth then pulls
+          // the box in to the longest line that actually rendered, so the note never
+          // carries a strip of dead space beside a short wrap.
+          maxWidth: `clamp(105px, 24vw, ${maxWidth}px)`,
           background: "#fff",
           border: `1px solid ${borderColor}`,
           borderRadius: "clamp(6px, 0.7vw, 9px)",
