@@ -367,9 +367,9 @@ export const PROJECTS = [
         rowMaxWidth: 1350,
         images: [
           [
-            { src: "/images/square/Banner Only.mp4", height: 400, flex: 1.15, caption: "Exploration 1: Banner concept after receiving initial loan offer" },
-            { src: "/images/square/Freeform.mp4", height: 400, caption: "Exploration 2: Freeform Input- Experience holds users accountable for # of bank accounts" },
-            { src: "/images/square/TextOnly.mp4", height: 400, flex: 1.15, caption: "Exploration 3: Copy to hold the seller accountable for maximum loan" },
+            { src: "/images/square/Banner Only.mp4", height: 400, flex: 1.3, caption: "Exploration 1: Banner concept after receiving initial loan offer" },
+            { src: "/images/square/Freeform.mp4", height: 400, flex:1.3, caption: "Exploration 2: Freeform Input- Experience holds users accountable for # of bank accounts" },
+            { src: "/images/square/TextOnly.mp4", height: 400, flex: 1.3, caption: "Exploration 3: Copy to hold the seller accountable for maximum loan" },
           ],
         ],
       },
