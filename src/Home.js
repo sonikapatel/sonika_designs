@@ -46,7 +46,7 @@ const VALUES = [
     title: "Diversity",
     bg: "#E4E4E4",
     textColor: "#2A2A2A",
-    description: "To grow is to be exposed to a variety of people and areas. Throughout my career, I've designed, launched and scaled products across industries." ,
+    description: "Throughout my career, I've designed, launched and scaled products across industries." ,
   },
 ];
 
