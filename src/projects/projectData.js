@@ -3,7 +3,7 @@ export const PROJECTS = [
     slug: "fika",
     company: "Fika",
     title: "Connecting creatives over coffee",
-    tags: ["End to End Product Development", "Marketing", "User Research"],
+    tags: ["End to End Product Development", "Marketing", "User Research", "Development in React.js"],
     role: "Founder / Product Designer & Developer / Brand Design",
     status: "2026",
     protected: "sp_project",
