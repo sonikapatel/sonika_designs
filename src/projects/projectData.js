@@ -163,6 +163,32 @@ export const PROJECTS = [
       },
       {
         type: "text-center",
+        header: "Onboarding + Admin Setup",
+        body: "Weekly Check-Ins was a confusing experience for HR admins to onboard their 200+ people organizations. There was a lack of mental model and hierarchy within the original setup configuration. To alleviate the confusion admins faced prior to Check-Ins launch, I designed a system to ensure admins across varying organizations sizes can easily onboard their employees to the experience. I explored lo-fidelity directions to build trust at scale, while helping users understand the impact of configuring each high-intent step. ",
+      },
+      {
+        type: "grid",
+        columns: 3,
+        sectionMaxWidth: 1200,
+        images: [
+          [
+            { src: "/images/criteria/onboarding-direction-1.png", borderRadius: 12, caption: "An accordion-style checklist that expands each step in place." },
+            { src: "/images/criteria/LoFidelity2.png", borderRadius: 12, caption: "A single-step wizard with a persistent side panel dedicated to explaining the trust and data implications of the step." },
+            { src: "/images/criteria/onboarding-direction-3.png", borderRadius: 12, caption: "An early lo-fidelity skeleton pass, focused purely on step structure and pacing — content and education framing came later." },
+          ],
+        ],
+      },
+      {
+        type: "video",
+        src: "/images/criteria/onboarding-setp4.mov",
+        width: 1000,
+        center: true,
+        sectionBg: "#F8F6F4",
+        muted: true,
+        caption: "A working demo of onboarding setup with different states for in-progress and complete steps, using the visual identity across products and the design system I created in Figma, translated to Typescript components.",
+      },
+      {
+        type: "text-center",
         header: "From research to product",
         body: "Managers, depending on their role within an organization, care about employees achieving their weekly projects, alongside certain metrics being met.  I thought about how to integrate role-specific variables, like ARR for Customer Success and Sales, for employees across various types of organizations into a meaningful coaching experience.",
       },
@@ -199,32 +225,6 @@ export const PROJECTS = [
           },
         ],
         caption: "A demo of the dashboard managers used, understanding what they care about most when reviewing direct reports' information. The yellow/red/green states are based off of the synthesized mood scores from Coach Bo.",
-      },
-      {
-        type: "text-center",
-        header: "Onboarding + Admin Setup",
-        body: "Weekly Check-Ins was a confusing experience for HR admins to onboard their 200+ people organizations. There was a lack of mental model and hierarchy within the original setup configuration. To alleviate the confusion admins faced prior to Check-Ins launch, I designed a system to ensure admins across varying organizations sizes can easily onboard their employees to the experience. I explored lo-fidelity directions to build trust at scale, while helping users understand the impact of configuring each high-intent step. ",
-      },
-      {
-        type: "grid",
-        columns: 3,
-        sectionMaxWidth: 1200,
-        images: [
-          [
-            { src: "/images/criteria/onboarding-direction-1.png", borderRadius: 12, caption: "An accordion-style checklist that expands each step in place." },
-            { src: "/images/criteria/LoFidelity2.png", borderRadius: 12, caption: "A single-step wizard with a persistent side panel dedicated to explaining the trust and data implications of the step." },
-            { src: "/images/criteria/onboarding-direction-3.png", borderRadius: 12, caption: "An early lo-fidelity skeleton pass, focused purely on step structure and pacing — content and education framing came later." },
-          ],
-        ],
-      },
-      {
-        type: "video",
-        src: "/images/criteria/criteria_full_vid.mov",
-        width: 1000,
-        center: true,
-        sectionBg: "#F8F6F4",
-        muted: true,
-        caption: "A working demo of onboarding setup with different states for in-progress and complete steps, using the visual identity across products and the design system I created in Figma, translated to Typescript components.",
       },
       {
         type: "image",
