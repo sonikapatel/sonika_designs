@@ -180,7 +180,7 @@ export const PROJECTS = [
       },
       {
         type: "video",
-        src: "/images/criteria/onboarding-setp4.mov",
+        src: "/images/criteria/onboarding-sept4.mov",
         width: 1000,
         center: true,
         sectionBg: "#F8F6F4",
