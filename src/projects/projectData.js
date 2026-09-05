@@ -235,7 +235,7 @@ export const PROJECTS = [
       {
         type: "stats",
         eyebrow: "Impact",
-        body: "The revised Check-Ins onboarding shipped to 5% of SMB accounts, with coaching v1 in limited beta. After launching the revised experience, customers had a clear understanding for how check-ins works, gauged through usability testing with customers. The work enabled Criteria to introduce Check-Ins to larger organizations, and established a scalable onboarding foundation, leveraging existing design patterns and introducing a modern component library, while supporting varying organization hierarchies.",
+        body: 'The redesigned Check-Ins onboarding experience launched to 5% of SMB accounts, alongside a limited beta of Coaching v1. The work created a scalable onboarding foundation that enabled Criteria to expand Check-Ins to larger organizations. It leveraged existing design patterns while introducing a modern component library and flexible UX patterns that could support varying organizational hierarchies.',
       }
     ],
   },
@@ -381,7 +381,7 @@ export const PROJECTS = [
         height: 500,
         objectPosition: "top",
         center: true,
-        caption: "In this solution that I shipped, sellers can input the number of bank accounts they have to hold the experience accountable. This solution yielded an increased seller understanding and loan conversion."
+        caption: "In this solution that we shipped, sellers can input the number of bank accounts they have to hold the experience accountable. This solution yielded an increased seller understanding and loan conversion."
       },
       {
         type: "stats",
