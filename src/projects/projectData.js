@@ -111,7 +111,7 @@ export const PROJECTS = [
       {
         type: "text-center",
         header: "Coach Bo ",
-        body: "Coach Bo is an AI-intelligent bot, that synthesizes information from the core chat, asking 3 core questions of ‘How was last week”, ‘What did you accomplish this week’, and ‘What are you looking to accomplish next’ in a conversational and optimistic manner. \n\n After processing the information, Check-Ins provides managers reports relevant to their roles, including information about organizational health, mood/progress levels of their direct reports, using sentiment analysis. ",
+        body: "Coach Bo is an AI-intelligent bot, that synthesizes information from the core chat product, asking ‘How was last week”, ‘What did you accomplish this week’, and ‘What are you looking to accomplish next’ in a conversational manner. \n\n After processing the information, Check-Ins provides managers reports relevant to their roles, including information about organizational health, mood/progress levels of their direct reports, using sentiment analysis. ",
       },
       {
         type: "video",
