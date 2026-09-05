@@ -86,8 +86,9 @@ export const PROJECTS = [
     bannerImage: "/images/banner_images/Criteria_Header.png",
     logo: "/images/criteria/criteria_logo.png",
     problem: [
-      { text: "Managers lack oversight into how their team is doing on a WoW basis.", bold: true },
-      { text: " Criteria offered 'Develop', a post-hire suite of solutions offering managers a real-time, personalized coaching at scale - without adding headcount. Originally having launched with TEAMScan, I designed a new company bet, an AI-powered coaching experience that surfaces relevant insights and suggested actions directly in the manager's workflow. The product we launched expanded our talent management offering, complementing our core pre-hire product and delivering value across the employee lifecycle." },
+      { text: "Managers lacked visibility into how their teams were doing week over week.", bold: true },
+      { text: "Criteria’s post-hire suite, Develop, aimed to give managers real-time, personalized coaching at scale—without adding headcount. Building on the success of TEAMScan, I helped shape a new company bet: an AI-powered coaching experience that surfaced relevant insights and recommended actions directly within the manager’s workflow. The resulting product expanded Criteria’s talent management offering beyond pre-hire assessments, creating a more continuous experience that supported managers across the employee lifecycle." },
+      
     ],
     team: [{ name: "Sonika Patel", role: "Senior Designer" }, { name: "Bryan Romero", role: "Engineer" }],
     context: { label: "criteriacorp.com/weekly-manager-check-ins", url: "https://www.criteriacorp.com/develop/weekly-manager-check-ins" },
