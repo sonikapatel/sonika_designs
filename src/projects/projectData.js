@@ -87,7 +87,7 @@ export const PROJECTS = [
     logo: "/images/criteria/criteria_logo.png",
     problem: [
       { text: "Managers lack visibility into how their teams were doing week over week.", bold: true },
-      { text: "Criteria’s post-hire suite, Develop, gave managers real-time, personalized coaching at scale. I shaped a new company bet: an AI-powered coaching experience that surfaced relevant insights and recommended actions directly within the manager’s workflow. The resulting product expanded Criteria’s talent management offering beyond pre-hire assessments, creating a more continuous experience that supported managers across the employee lifecycle." },
+      { text: "Criteria’s post-hire suite, Develop, gives managers real-time, personalized coaching at scale. I designed the core experience for a new company bet: an AI-powered coaching experience that surfaces relevant insights and recommends actions directly within a manager’s workflow. The product expanded Criteria’s talent management offering beyond pre-hire assessments, creating an experience that supports managers across the employee lifecycle." },
   
     ],
     team: [{ name: "Sonika Patel", role: "Senior Designer" }, { name: "Bryan Romero", role: "Engineer" }],
