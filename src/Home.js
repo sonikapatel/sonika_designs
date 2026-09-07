@@ -8,7 +8,7 @@ const EXPERIENCE = [
   { company: "Honeybee Health", industry: "Health tech",                     role: "Product Designer" },
   { company: "Square (Block)",  industry: "Fintech",                         role: "Product Designer" },
   { company: "Philosophie",     industry: "Fintech",                         role: "Product Designer" },
-  { company: "AT&T",            industry: "Networks and Sales Operations",   role: "" },
+  { company: "AT&T",            industry: "Networks and Sales Operations",   role: "Engineer / UX Designer" },
 ];
 
 /* The tools list that sits above the fold. */
@@ -17,6 +17,15 @@ const TOOL_LIST = [
   { name: "Cursor",               use: "Bringing prototypes to life" },
   { name: "Adobe CC",             use: "Branding work" },
   { name: "Figma (Make, Figjam)", use: "Canvas to ideate" },
+];
+
+const SKILLS = [
+  "0→1 Product Design",
+  "User Research",
+  "Prototyping",
+  "Design Systems",
+  "UX Copy and Messaging",
+  "A/B Testing",
 ];
 
 const VALUES = [
@@ -225,29 +234,40 @@ export default function Home() {
             <p style={styles.foldLabel}>Experience</p>
             <div style={styles.foldList}>
               {EXPERIENCE.map((item) => (
-                <div key={item.company} style={styles.foldRow}>
-                  <div style={styles.foldRowMain}>
+                <div key={item.company}>
+                  <div style={styles.foldRow}>
                     <p style={styles.foldPrimary}>{item.company}</p>
-                    <p style={styles.foldSecondary}>{item.industry}</p>
+                    {item.role && <p style={styles.foldRole}>{item.role}</p>}
                   </div>
-                  {item.role && <p style={styles.foldRole}>{item.role}</p>}
+                  <p style={styles.foldSecondary}>{item.industry}</p>
                 </div>
               ))}
             </div>
           </section>
 
-          {/* Tools */}
-          <section style={styles.foldColumn}>
-            <p style={styles.foldLabel}>Tools</p>
-            <div style={styles.foldToolList}>
-              {TOOL_LIST.map((tool) => (
-                <div key={tool.name} style={styles.foldRow}>
-                  <p style={styles.foldPrimary}>{tool.name}</p>
-                  <p style={styles.foldRole}>{tool.use}</p>
-                </div>
-              ))}
-            </div>
-          </section>
+          {/* Tools, then Skills beneath it */}
+          <div style={styles.foldColumn}>
+            <section>
+              <p style={styles.foldLabel}>Tools</p>
+              <div style={styles.foldToolList}>
+                {TOOL_LIST.map((tool) => (
+                  <div key={tool.name} style={styles.foldRow}>
+                    <p style={styles.foldPrimary}>{tool.name}</p>
+                    <p style={styles.foldRole}>{tool.use}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            <section style={styles.foldSubSection}>
+              <p style={styles.foldLabel}>Skills</p>
+              <div style={styles.foldToolList}>
+                {SKILLS.map((skill) => (
+                  <p key={skill} style={styles.foldPrimary}>{skill}</p>
+                ))}
+              </div>
+            </section>
+          </div>
         </div>
       </div>
 
@@ -510,6 +530,9 @@ const styles = {
     flex: "0 1 320px",
     minWidth: 0,
   },
+  foldSubSection: {
+    marginTop: 40,
+  },
   foldLabel: { ...sectionLabel, margin: "0 0 15px" },
   foldList: {
     display: "flex",
@@ -527,9 +550,6 @@ const styles = {
     justifyContent: "space-between",
     gap: 16,
   },
-  foldRowMain: {
-    minWidth: 0,
-  },
   foldPrimary: {
     margin: 0,
     fontSize: 14,
@@ -538,7 +558,8 @@ const styles = {
   },
   foldSecondary: {
     margin: 0,
-    fontSize: 14,
+    width: "100%",
+    fontSize: 12,
     lineHeight: 1.488,
     color: "#8B8B8B",
   },
