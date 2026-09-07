@@ -16,7 +16,7 @@ const TOOL_LIST = [
   { name: "Claude Code",          use: "Scaling AI-native design systems" },
   { name: "Cursor",               use: "Bringing prototypes to life" },
   { name: "Adobe CC",             use: "Branding work" },
-  { name: "Figma (Make, Figjam)", use: "Canvas to ideate" },
+  { name: "Figma (Make, Figjam)", use: "Canvas to ideate and brainstorm" },
 ];
 
 const SKILLS = [
