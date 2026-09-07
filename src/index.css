@@ -41,9 +41,7 @@
   }
 }
 
-/* Tool cards turn on hover to show the description on the back. Kept in CSS so
-   keyboard focus gets the same reveal; the click handler in Home.js covers touch,
-   where hover never fires. */
+/* Tool cards flip to their description on click, matching the values cards. */
 .tool-card {
   perspective: 800px;
   display: block;
@@ -65,8 +63,6 @@
   transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.tool-card:hover .tool-card-inner,
-.tool-card:focus-visible .tool-card-inner,
 .tool-card.is-flipped .tool-card-inner {
   transform: rotateY(180deg);
 }

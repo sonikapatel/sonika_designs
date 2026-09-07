@@ -103,9 +103,7 @@ function ValueCard({ title, description, bg, textColor }) {
 }
 
 function ToolCard({ title, description, logo, bg, textColor }) {
-  /* Hover drives the flip, so this state exists only for taps: touch devices never
-     fire hover, and without it the description would be unreachable there. */
-  const [tapped, setTapped] = useState(false);
+  const [flipped, setFlipped] = useState(false);
   const needsBorder = bg === "#FFFFFF";
   const face = {
     position: "absolute",
@@ -121,9 +119,9 @@ function ToolCard({ title, description, logo, bg, textColor }) {
   return (
     <button
       type="button"
-      className={`tool-card${tapped ? " is-flipped" : ""}`}
+      className={`tool-card${flipped ? " is-flipped" : ""}`}
       aria-label={`${title}. ${description}`}
-      onClick={() => setTapped((f) => !f)}
+      onClick={() => setFlipped((f) => !f)}
     >
       <div className="tool-card-inner">
         {/* Front */}
