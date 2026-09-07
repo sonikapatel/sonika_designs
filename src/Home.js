@@ -564,7 +564,7 @@ const styles = {
   },
   foldRole: {
     margin: 0,
-    fontSize: 14,
+    fontSize: 12,
     lineHeight: 1.488,
     color: "#4C4C4C",
     textAlign: "right",
