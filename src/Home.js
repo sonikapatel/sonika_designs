@@ -249,11 +249,11 @@ export default function Home() {
           <div style={styles.foldColumn}>
             <section>
               <p style={styles.foldLabel}>Tools</p>
-              <div style={styles.foldList}>
+              <div style={styles.foldToolList}>
                 {TOOL_LIST.map((tool) => (
-                  <div key={tool.name}>
-                    <p style={styles.foldSecondary}>{tool.use}</p>
+                  <div key={tool.name} style={styles.foldRow}>
                     <p style={styles.foldPrimary}>{tool.name}</p>
+                    <p style={styles.foldRole}>{tool.use}</p>
                   </div>
                 ))}
               </div>
@@ -533,6 +533,11 @@ const styles = {
     display: "flex",
     flexDirection: "column",
     gap: 16,
+  },
+  foldToolList: {
+    display: "flex",
+    flexDirection: "column",
+    gap: 8,
   },
   /* Skills are short enough to sit two-up rather than as one tall stack. */
   foldSkillsGrid: {
