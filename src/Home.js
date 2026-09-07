@@ -56,7 +56,7 @@ function ValueCard({ title, description, bg, textColor }) {
   const needsBorder = bg === "#FFFFFF";
   return (
     <div
-      style={{ perspective: 800, cursor: "pointer", height: 140 }}
+      style={{ perspective: 800, cursor: "pointer", height: "var(--flip-card-height)" }}
       onClick={() => setFlipped(f => !f)}
     >
       <div style={{
@@ -103,7 +103,9 @@ function ValueCard({ title, description, bg, textColor }) {
 }
 
 function ToolCard({ title, description, logo, bg, textColor }) {
-  const [flipped, setFlipped] = useState(false);
+  /* Hover drives the flip, so this state exists only for taps: touch devices never
+     fire hover, and without it the description would be unreachable there. */
+  const [tapped, setTapped] = useState(false);
   const needsBorder = bg === "#FFFFFF";
   const face = {
     position: "absolute",
@@ -114,36 +116,16 @@ function ToolCard({ title, description, logo, bg, textColor }) {
     padding: 24,
     backfaceVisibility: "hidden",
     WebkitBackfaceVisibility: "hidden",
+    color: textColor,
   };
   return (
     <button
       type="button"
-      aria-pressed={flipped}
+      className={`tool-card${tapped ? " is-flipped" : ""}`}
       aria-label={`${title}. ${description}`}
-      onClick={() => setFlipped((f) => !f)}
-      style={{
-        perspective: 800,
-        cursor: "pointer",
-        height: 168,
-        padding: 0,
-        border: "none",
-        background: "none",
-        font: "inherit",
-        textAlign: "left",
-        display: "block",
-        width: "100%",
-      }}
+      onClick={() => setTapped((f) => !f)}
     >
-      <div
-        style={{
-          position: "relative",
-          width: "100%",
-          height: "100%",
-          transformStyle: "preserve-3d",
-          transform: flipped ? "rotateY(180deg)" : "rotateY(0deg)",
-          transition: "transform 0.45s cubic-bezier(0.4, 0, 0.2, 1)",
-        }}
-      >
+      <div className="tool-card-inner">
         {/* Front */}
         <div
           style={{
@@ -151,8 +133,7 @@ function ToolCard({ title, description, logo, bg, textColor }) {
             display: "flex",
             flexDirection: "column",
             alignItems: "flex-start",
-            gap: 14,
-            color: textColor,
+            gap: 12,
           }}
         >
           {/* The marks are single-colour glyphs used as masks, so each card paints
@@ -214,7 +195,7 @@ function useFadeIn() {
 
 const TOOLS = [
   {
-    title: "Claude Code with Figma MCP",
+    title: "Claude Code",
     description: "To build scalable AI-native design systems.",
     logo: "/images/tools/claude.svg",
     bg: "#000000",
@@ -229,7 +210,7 @@ const TOOLS = [
   },
   {
     title: "Cursor",
-    description: "To bring product ideas to life directly in code.",
+    description: "To bring prototypes to life directly within code.",
     logo: "/images/tools/cursor.svg",
     bg: "#E4E4E4",
     textColor: "#2A2A2A",

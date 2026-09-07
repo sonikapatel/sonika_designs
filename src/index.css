@@ -8,6 +8,21 @@
   box-sizing: border-box;
 }
 
+/* Shared height for the two flip-card families — the values grid and the tools
+   grid — so they line up and can be retuned in one place. */
+:root {
+  --flip-card-height: 128px;
+}
+
+/* The values grid stays two-up on phones, so each card is barely 160px wide and the
+   descriptions on the back run long. Give the cards room there rather than clipping
+   the copy. */
+@media (max-width: 600px) {
+  :root {
+    --flip-card-height: 184px;
+  }
+}
+
 .project-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -26,12 +41,48 @@
   }
 }
 
+/* Tool cards turn on hover to show the description on the back. Kept in CSS so
+   keyboard focus gets the same reveal; the click handler in Home.js covers touch,
+   where hover never fires. */
+.tool-card {
+  perspective: 800px;
+  display: block;
+  width: 100%;
+  height: var(--flip-card-height);
+  padding: 0;
+  border: none;
+  background: none;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.tool-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.tool-card:hover .tool-card-inner,
+.tool-card:focus-visible .tool-card-inner,
+.tool-card.is-flipped .tool-card-inner {
+  transform: rotateY(180deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tool-card-inner {
+    transition: none;
+  }
+}
+
 /* The tool marks are monochrome glyphs painted through a mask, so a card sets its
    logo colour with `color` rather than needing a light and a dark file each. */
 .tool-logo {
   display: block;
-  width: 26px;
-  height: 26px;
+  width: 24px;
+  height: 24px;
   flex-shrink: 0;
   background-color: currentColor;
   -webkit-mask: var(--tool-logo) center / contain no-repeat;
@@ -69,6 +120,18 @@
     position: static !important;
     display: inline-block;
     margin-bottom: 24px;
+  }
+}
+
+/* Below this the two-up values grid leaves each card too narrow for its description
+   to fit any fixed height, so the cards go full width instead of clipping copy. */
+@media (max-width: 520px) {
+  .values-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  :root {
+    --flip-card-height: 150px;
   }
 }
 
