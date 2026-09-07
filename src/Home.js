@@ -538,13 +538,13 @@ const styles = {
   },
   foldSecondary: {
     margin: 0,
-    fontSize: 11,
+    fontSize: 14,
     lineHeight: 1.488,
     color: "#8B8B8B",
   },
   foldRole: {
     margin: 0,
-    fontSize: 10,
+    fontSize: 14,
     lineHeight: 1.488,
     color: "#4C4C4C",
     textAlign: "right",
