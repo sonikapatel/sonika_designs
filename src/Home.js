@@ -102,32 +102,93 @@ function ValueCard({ title, description, bg, textColor }) {
   );
 }
 
-function ToolCard({ title, description, bg }) {
+function ToolCard({ title, description, logo, bg, textColor }) {
+  const [flipped, setFlipped] = useState(false);
   const needsBorder = bg === "#FFFFFF";
+  const face = {
+    position: "absolute",
+    inset: 0,
+    background: bg,
+    border: needsBorder ? "1px solid rgba(0,0,0,0.09)" : "none",
+    borderRadius: 8,
+    padding: 24,
+    backfaceVisibility: "hidden",
+    WebkitBackfaceVisibility: "hidden",
+  };
   return (
-    <div
+    <button
+      type="button"
+      aria-pressed={flipped}
+      aria-label={`${title}. ${description}`}
+      onClick={() => setFlipped((f) => !f)}
       style={{
-        background: bg,
-        border: needsBorder ? "1px solid rgba(0,0,0,0.09)" : "none",
-        borderRadius: 8,
-        padding: 24,
+        perspective: 800,
+        cursor: "pointer",
+        height: 168,
+        padding: 0,
+        border: "none",
+        background: "none",
+        font: "inherit",
+        textAlign: "left",
+        display: "block",
+        width: "100%",
       }}
     >
-      <p
+      <div
         style={{
-          margin: 0,
-          fontSize: 16,
-          fontWeight: 500,
-          color: "#2A2A2A",
-          fontFamily: "'TT', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+          position: "relative",
+          width: "100%",
+          height: "100%",
+          transformStyle: "preserve-3d",
+          transform: flipped ? "rotateY(180deg)" : "rotateY(0deg)",
+          transition: "transform 0.45s cubic-bezier(0.4, 0, 0.2, 1)",
         }}
       >
-        {title}
-      </p>
-      <p style={{ margin: "12px 0 0", fontSize: 13, lineHeight: 1.65, color: "#2A2A2A" }}>
-        {description}
-      </p>
-    </div>
+        {/* Front */}
+        <div
+          style={{
+            ...face,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "flex-start",
+            gap: 14,
+            color: textColor,
+          }}
+        >
+          {/* The marks are single-colour glyphs used as masks, so each card paints
+              its logo in its own text colour instead of shipping three variants. */}
+          <span
+            className="tool-logo"
+            style={{ "--tool-logo": `url(${logo})` }}
+            aria-hidden="true"
+          />
+          <p
+            style={{
+              margin: 0,
+              fontSize: 16,
+              fontWeight: 500,
+              color: textColor,
+              fontFamily: "'TT', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+            }}
+          >
+            {title}
+          </p>
+        </div>
+        {/* Back */}
+        <div
+          style={{
+            ...face,
+            transform: "rotateY(180deg)",
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
+          <p style={{ margin: 0, fontSize: 13, lineHeight: 1.65, color: textColor }}>
+            {description}
+          </p>
+        </div>
+      </div>
+    </button>
   );
 }
 
@@ -155,17 +216,23 @@ const TOOLS = [
   {
     title: "Claude Code with Figma MCP",
     description: "To build scalable AI-native design systems.",
-    bg: "#B8C4B2",
+    logo: "/images/tools/claude.svg",
+    bg: "#000000",
+    textColor: "#FFFFFF",
   },
   {
     title: "Figma",
     description: "To think blue sky and ideate on a canvas.",
+    logo: "/images/tools/figma.svg",
     bg: "#FFFFFF",
+    textColor: "#2A2A2A",
   },
   {
     title: "Cursor",
     description: "To bring product ideas to life directly in code.",
+    logo: "/images/tools/cursor.svg",
     bg: "#E4E4E4",
+    textColor: "#2A2A2A",
   },
 ];
 

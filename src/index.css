@@ -26,6 +26,18 @@
   }
 }
 
+/* The tool marks are monochrome glyphs painted through a mask, so a card sets its
+   logo colour with `color` rather than needing a light and a dark file each. */
+.tool-logo {
+  display: block;
+  width: 26px;
+  height: 26px;
+  flex-shrink: 0;
+  background-color: currentColor;
+  -webkit-mask: var(--tool-logo) center / contain no-repeat;
+  mask: var(--tool-logo) center / contain no-repeat;
+}
+
 @media (max-width: 600px) {
   .project-grid {
     grid-template-columns: 1fr;
