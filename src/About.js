@@ -207,7 +207,8 @@ export default function About() {
 const styles = {
   page: {
     position: "relative",
-    maxWidth: 800,
+    /* Same 897px as Home and the case-study content column. */
+    maxWidth: 897,
     margin: "0 auto",
     padding: "56px 40px 80px",
     fontFamily: "'TT', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
