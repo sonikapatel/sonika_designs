@@ -24,6 +24,7 @@ const SKILLS = [
   "User Research",
   "Prototyping",
   "Design Systems",
+  "Branding",
   "UX Copy and Messaging",
 ];
 
