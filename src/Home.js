@@ -452,7 +452,9 @@ const sectionLabel = {
 
 const styles = {
   page: {
-    maxWidth: 800,
+    /* Matches the 897px content column of the case-study detail pages
+       (.cs-main in caseStudy.css), so both layouts read at the same width. */
+    maxWidth: 897,
     margin: "0 auto",
     padding: "56px 40px 80px",
     fontFamily: "'TT', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
