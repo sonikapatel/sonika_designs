@@ -1,0 +1,963 @@
+/* Portfolio case-study detail page — Figma node 1486:5717.
+
+   Shared by every project that uses the sidebar case-study layout (hbh-3, criteria).
+
+   The page is a fixed 318px sidebar beside an 897px content column (1215px total,
+   centered), which is the composition the Figma frame centers on its canvas. Below
+   1024px the sidebar flips to a sticky horizontal rail above the content.
+
+   The two research boards reproduce Figma's sub-10px type. Rather than freeze those
+   sizes, every board dimension is written against `--bs` (board scale, 1 = Figma) so a
+   single custom-property bump on narrow screens scales the whole artifact up together
+   instead of leaving 7px text on a phone. */
+
+.cs-page {
+  --cs-accent: #4a7a65;
+  --cs-body: #606b66;
+  --cs-rule: #e5ece8;
+  --cs-dark: #273142;
+  background: #fff;
+  color: #111;
+  min-height: 100vh;
+  font-family: "TT", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.cs-shell {
+  max-width: 1215px;
+  margin: 0 auto;
+  display: flex;
+  align-items: stretch;
+}
+
+/* ── Sidebar ── */
+
+.cs-sidebar {
+  flex: 0 0 318px;
+  border: 1px solid var(--cs-rule);
+}
+
+/* The bordered column runs the full page height (as in Figma); only the contents
+   stick. max-height keeps the nav scrollable on short viewports — at 833px tall it
+   otherwise overflows anything under a 15" laptop. */
+.cs-sidebar-inner {
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding: 48px 24px;
+  max-height: 100vh;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
+.cs-sidebar-inner::-webkit-scrollbar {
+  display: none;
+}
+
+.cs-back {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--cs-accent);
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.cs-back img {
+  width: 16px;
+  height: 16px;
+  display: block;
+}
+
+.cs-back:hover {
+  opacity: 0.7;
+}
+
+.cs-rule {
+  height: 1px;
+  background: var(--cs-rule);
+  flex-shrink: 0;
+}
+
+.cs-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cs-nav-group {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--cs-body);
+  margin: 0;
+  letter-spacing: 0.04em;
+}
+
+/* The tab gap tightened to 8px, so a second group heading (VRPH) would otherwise
+   sit as close to the last Nectar link as the links do to each other. This keeps
+   the break between the two groups reading as a break. */
+.cs-nav-link + .cs-nav-group {
+  margin-top: 8px;
+}
+
+.cs-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--cs-body);
+  text-align: left;
+  width: 100%;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.cs-nav-link:hover {
+  background: rgba(74, 122, 101, 0.06);
+}
+
+.cs-nav-link.is-active {
+  font-weight: 600;
+  color: var(--cs-accent);
+}
+
+/* The 4px rail only renders on the active item, so inactive labels keep the 12px
+   inset rather than reserving a gutter that never fills. */
+.cs-nav-indicator {
+  width: 4px;
+  height: 16px;
+  border-radius: 2px;
+  background: var(--cs-accent);
+  flex-shrink: 0;
+}
+
+/* ── Main column ── */
+
+.cs-main {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 48px 38px;
+}
+
+.cs-page-head {
+  margin-bottom: 49px;
+}
+
+.cs-page-title {
+  font-family: "IvyPrestoHeadline", "IvyPresto", Georgia, serif;
+  font-size: 24px;
+  font-weight: 600;
+  color: #000;
+  margin: 0;
+}
+
+.cs-page-subtitle {
+  margin: 8px 0 0;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--cs-body);
+}
+
+.cs-hero {
+  background: var(--cs-dark);
+  border-radius: 8px;
+  /* Percentages, not fixed px, so the mockup keeps its Figma inset ratio at every
+     column width: 14.5% each side leaves the artwork at 71% of the card. */
+  padding: 6.8% 14.5%;
+  margin: 0 0 49px;
+}
+
+.cs-hero img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Criteria's header art is a full-bleed photo, not a transparent mockup, so it fills
+   the card edge to edge instead of floating on the padded ground. */
+.cs-hero--bleed {
+  padding: 0;
+  overflow: hidden;
+}
+
+.cs-blocks {
+  display: flex;
+  flex-direction: column;
+}
+
+.cs-block {
+  margin-bottom: 48px;
+}
+
+/* Anchored blocks need headroom when scrolled to, so a section doesn't land flush
+   against the viewport top — or, on mobile, underneath the sticky nav rail. */
+.cs-block[id] {
+  scroll-margin-top: 24px;
+}
+
+.cs-block:last-child {
+  margin-bottom: 0;
+}
+
+/* ── Section variants ── */
+
+.cs-eyebrow {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--cs-accent);
+  letter-spacing: 0.02em;
+  margin: 0;
+  line-height: 1.35;
+}
+
+.cs-prose {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--cs-body);
+  text-align: justify;
+  margin: 0;
+}
+
+/* Default + Header — eyebrow stacked over full-width copy. Header lets a long,
+   sentence-length eyebrow run the full column instead of wrapping inside 274px. */
+.cs-v-default,
+.cs-v-header {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.cs-v-default .cs-eyebrow {
+  max-width: 274px;
+}
+
+.cs-v-header .cs-eyebrow {
+  white-space: pre-wrap;
+}
+
+/* Side to Side — eyebrow parked left, copy in a 576px measure on the right. */
+.cs-v-side {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 32px;
+}
+
+.cs-v-side > .cs-eyebrow {
+  flex: 0 0 auto;
+  max-width: 200px;
+}
+
+.cs-side-body {
+  flex: 0 1 576px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.cs-ordered {
+  display: flex;
+  justify-content: space-between;
+  gap: 32px;
+  margin: 0;
+  padding: 0;
+  counter-reset: cs-ol;
+  list-style: none;
+}
+
+.cs-ordered li {
+  flex: 1 1 0;
+  font-size: 16px;
+  line-height: 1.4;
+  color: var(--cs-body);
+  padding-left: 24px;
+  position: relative;
+  counter-increment: cs-ol;
+}
+
+.cs-ordered li::before {
+  content: counter(cs-ol) ".";
+  position: absolute;
+  left: 0;
+}
+
+/* 3 column — one eyebrow over three equal takeaways. */
+.cs-v-three {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.cs-three-cols {
+  display: flex;
+  gap: 32px;
+}
+
+.cs-three-cols p {
+  flex: 1 1 0;
+  min-width: 0;
+  font-size: 16px;
+  line-height: 1.4;
+  color: var(--cs-body);
+  margin: 0;
+}
+
+/* Stat row — three outcome figures, each with a label and an optional footnote. */
+.cs-v-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.cs-stat-row {
+  display: flex;
+  gap: 32px;
+}
+
+.cs-stat {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.cs-stat-value {
+  font-size: 36px;
+  font-weight: 500;
+  line-height: 1.1;
+  color: #111;
+  margin: 0;
+}
+
+.cs-stat-label {
+  font-size: 16px;
+  line-height: 1.4;
+  color: var(--cs-body);
+  margin: 8px 0 0;
+}
+
+.cs-stat-caption {
+  font-size: 13px;
+  font-style: italic;
+  line-height: 1.4;
+  color: var(--cs-body);
+  margin: 8px 0 0;
+}
+
+/* Product header — the VRPH title that opens the second half of the case study.
+   Flush left with every other section, so it starts on the same edge as the
+   eyebrows rather than floating in the middle of the column. */
+.cs-product-header {
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 1.6;
+  color: #000;
+  margin: 0;
+  text-align: left;
+}
+
+/* ── Media card ── */
+
+.cs-media {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Only the video sits on the dark ground — the caption reads as page copy below it,
+   which is why it takes the body colour rather than the white it used on the card. */
+.cs-media-frame {
+  background: var(--cs-dark);
+  border-radius: 8px;
+  padding: 32px;
+}
+
+/* Stills that already sit on their own ground (the Check-Ins overview, the design
+   system site) render without the dark card, which would otherwise box white
+   artwork inside a second frame. */
+.cs-media-frame--bare {
+  background: none;
+  border-radius: 0;
+  padding: 0;
+}
+
+/* Media that reads better on its own ground but still wants an edge: the border
+   hugs the media (fit-content) so a portrait or height-capped clip doesn't sit in a
+   full-width box with empty margins inside the rule. */
+.cs-media-frame--framed {
+  background: none;
+  padding: 0;
+  border: 1px solid #e5e7eb;
+  border-radius: 24px;
+  overflow: hidden;
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.cs-media-frame--framed video,
+.cs-media-frame--framed > img {
+  border-radius: 0;
+}
+
+.cs-media video,
+.cs-media-frame > img {
+  display: block;
+  border-radius: 2px;
+  /* Landscape media clamps to the column width; portrait media (phone recordings at
+     592x1280, 756x1880) clamps to the height instead and centres, rather than
+     stretching to 1600px tall and swallowing the page. */
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 620px;
+  margin: 0 auto;
+}
+
+/* Callouts that annotated the video in the old full-width layout. The 821px column
+   has no margin to overlay them into, so they sit under the frame as notes. */
+.cs-media-notes {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.cs-media-note {
+  background: #fff;
+  border: 1px solid #e1e1e1;
+  border-radius: 8px;
+  padding: 12px 14px;
+  font-size: 13px;
+  line-height: 1.4;
+  color: #000;
+}
+
+.cs-media-caption {
+  font-size: 16px;
+  font-style: italic;
+  line-height: 1.6;
+  color: var(--cs-body);
+  text-align: justify;
+  margin: 0;
+}
+
+/* ── Screenshot strip ── */
+
+.cs-shots {
+  background: #3a3a3a;
+  border-radius: 4.7px;
+  padding: 11.9px;
+  display: flex;
+  flex-direction: column;
+  gap: 11.9px;
+  overflow: hidden;
+}
+
+.cs-shots-label {
+  font-size: 10.1px;
+  font-weight: 500;
+  color: #fff;
+  margin: 0;
+}
+
+.cs-shots-row {
+  display: flex;
+  gap: 12px;
+}
+
+.cs-shots-row figure {
+  margin: 0;
+  min-width: 0;
+  overflow: hidden;
+  border-radius: 2px;
+  flex: var(--shot-w) 1 0;
+  aspect-ratio: var(--shot-w) / 150;
+}
+
+.cs-shots-row img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ── Post-it card sort ── */
+
+.cs-postits {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 16px;
+}
+
+/* ── Research boards ──
+   `--bs` is the scale knob: 1 reproduces Figma's board type exactly. */
+
+.cs-board {
+  --bs: 1;
+  background: #fff;
+  border: 1px solid #eaecf0;
+  border-radius: 12px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+.cs-board-title {
+  font-size: calc(18px * var(--bs));
+  font-weight: 500;
+  color: #1d2939;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.cs-board-sub {
+  font-size: calc(9px * var(--bs));
+  color: #475467;
+  margin: calc(4.5px * var(--bs)) 0 0;
+  line-height: 1.35;
+}
+
+.cs-board-body {
+  margin-top: calc(22.5px * var(--bs));
+  display: flex;
+  flex-direction: column;
+  gap: calc(18px * var(--bs));
+}
+
+.cs-row-title {
+  display: flex;
+  align-items: center;
+  gap: calc(4.5px * var(--bs));
+  margin-bottom: calc(9px * var(--bs));
+}
+
+.cs-row-icon {
+  display: flex;
+  padding: calc(3.4px * var(--bs));
+  border-radius: calc(4.5px * var(--bs));
+  flex-shrink: 0;
+}
+
+.cs-row-icon img {
+  display: block;
+  width: calc(9px * var(--bs));
+  height: calc(9px * var(--bs));
+}
+
+.cs-row-heading {
+  font-size: calc(10.1px * var(--bs));
+  font-weight: 500;
+  color: #1d2939;
+  margin: 0;
+  line-height: 1.3;
+}
+
+.cs-row-subheading {
+  font-size: calc(7.9px * var(--bs));
+  color: #98a2b3;
+  margin: calc(4.5px * var(--bs)) 0 0;
+  line-height: 1.3;
+}
+
+.cs-grid {
+  display: grid;
+  gap: calc(9px * var(--bs));
+}
+
+.cs-grid-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.cs-grid-4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.cs-card {
+  background: #fff;
+  border: 0.6px solid #eaecf0;
+  border-radius: calc(9px * var(--bs));
+  padding: calc(13.5px * var(--bs));
+  box-shadow: 0 0.6px 0.8px rgba(16, 24, 40, 0.05);
+}
+
+/* Requirement cards carry a heavier violet cap rule to read as the "goals" half of
+   the board against the plain behaviour cards above them. */
+.cs-card--requirement {
+  border-color: #e9d7fe;
+  border-top-width: 1.7px;
+  box-shadow: 0 2.3px 3.4px rgba(127, 86, 217, 0.05);
+}
+
+.cs-card-title {
+  font-size: calc(9px * var(--bs));
+  font-weight: 500;
+  color: #1d2939;
+  margin: 0;
+  line-height: 1.3;
+}
+
+.cs-card-body {
+  font-size: calc(7.9px * var(--bs));
+  color: #475467;
+  line-height: 1.5;
+  margin: calc(4.5px * var(--bs)) 0 0;
+}
+
+.cs-bullets {
+  list-style: none;
+  margin: calc(9px * var(--bs)) 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: calc(3.4px * var(--bs));
+}
+
+.cs-bullets li {
+  font-size: calc(7.3px * var(--bs));
+  line-height: 1.4;
+  color: #475467;
+  padding-left: calc(9px * var(--bs));
+  position: relative;
+}
+
+.cs-bullets li::before {
+  content: "\2022";
+  position: absolute;
+  left: 0;
+  color: #6941c6;
+}
+
+/* ── Pain-points board ── */
+
+.cs-board--pain {
+  border-color: #e5e7eb;
+  padding: 16px;
+}
+
+.cs-board--pain .cs-board-title {
+  font-size: calc(13.5px * var(--bs));
+  color: #1f2937;
+  letter-spacing: -0.02em;
+}
+
+.cs-board--pain .cs-board-sub {
+  font-size: calc(7.9px * var(--bs));
+  color: #4b5563;
+  margin-top: calc(3.4px * var(--bs));
+}
+
+.cs-board--pain .cs-board-head {
+  border-bottom: 0.6px solid #e5e7eb;
+  padding-bottom: calc(9px * var(--bs));
+}
+
+.cs-board--pain .cs-board-body {
+  margin-top: calc(18px * var(--bs));
+  gap: calc(15.75px * var(--bs));
+}
+
+.cs-section-title {
+  font-size: calc(10.1px * var(--bs));
+  font-weight: 500;
+  color: #1d2939;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: calc(2.3px * var(--bs));
+  line-height: 1.3;
+}
+
+.cs-section-sub {
+  font-size: calc(7.9px * var(--bs));
+  color: #4b5563;
+  margin: calc(2.3px * var(--bs)) 0 calc(9px * var(--bs));
+  line-height: 1.3;
+}
+
+.cs-pain-card {
+  background: #fff;
+  border: 0.6px solid #e5e7eb;
+  border-radius: calc(4.5px * var(--bs));
+  padding: calc(9px * var(--bs));
+}
+
+.cs-source-tag {
+  display: inline-block;
+  background: #f3f4f6;
+  border-radius: calc(2.3px * var(--bs));
+  padding: calc(2.3px * var(--bs)) calc(4.5px * var(--bs));
+  font-size: calc(6.2px * var(--bs));
+  font-weight: 500;
+  color: #374151;
+  line-height: 1.2;
+}
+
+.cs-pain-card p {
+  font-size: calc(7.3px * var(--bs));
+  line-height: 1.4;
+  color: #1f2937;
+  margin: calc(6.75px * var(--bs)) 0 0;
+}
+
+.cs-opp-card {
+  background: #fff;
+  border: 1px solid #ebebeb;
+  border-radius: calc(6.75px * var(--bs));
+  padding: calc(13.5px * var(--bs));
+}
+
+.cs-opp-card--highlight {
+  border: 1.1px solid #10b981;
+}
+
+.cs-opp-card h4 {
+  font-size: calc(10.1px * var(--bs));
+  font-weight: 500;
+  color: #1f2937;
+  margin: 0;
+  line-height: 1.3;
+}
+
+.cs-opp-card > p {
+  font-size: calc(7.3px * var(--bs));
+  line-height: 1.5;
+  color: #4b5563;
+  margin: calc(9px * var(--bs)) 0 0;
+}
+
+.cs-opp-card .cs-bullets li {
+  color: #1f2937;
+}
+
+.cs-opp-card .cs-bullets li::before {
+  color: #000;
+}
+
+.cs-context-card {
+  background: #fff;
+  border: 0.6px solid #e5e7eb;
+  border-radius: calc(4.5px * var(--bs));
+  padding: calc(9px * var(--bs));
+}
+
+.cs-context-card h4 {
+  font-size: calc(6.75px * var(--bs));
+  font-weight: 500;
+  color: #1f2937;
+  margin: 0;
+  line-height: 1.3;
+}
+
+.cs-context-card p {
+  font-size: calc(7.3px * var(--bs));
+  line-height: 1.4;
+  color: #4b5563;
+  margin: calc(5.6px * var(--bs)) 0 0;
+}
+
+.cs-context-card strong {
+  font-weight: 700;
+}
+
+/* ── Responsive ── */
+
+/* Below the two-column composition the sidebar becomes a sticky rail. Group labels
+   stay inline so "Overview" under NECTAR is still distinguishable from the VRPH one. */
+@media (max-width: 1023px) {
+  .cs-shell {
+    display: block;
+  }
+
+  .cs-sidebar {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: rgba(255, 255, 255, 0.94);
+    backdrop-filter: blur(8px);
+    border-width: 0 0 1px;
+  }
+
+  .cs-sidebar-inner {
+    position: static;
+    max-height: none;
+    overflow: visible;
+    gap: 12px;
+    padding: 16px 24px;
+  }
+
+  .cs-rule {
+    display: none;
+  }
+
+  .cs-nav {
+    flex-direction: row;
+    align-items: center;
+    gap: 4px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding-bottom: 2px;
+  }
+
+  .cs-nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .cs-nav-group {
+    flex-shrink: 0;
+    padding-right: 8px;
+    margin-left: 8px;
+    border-left: 1px solid var(--cs-rule);
+    padding-left: 12px;
+  }
+
+  .cs-nav-group:first-child {
+    margin-left: 0;
+    border-left: none;
+    padding-left: 0;
+  }
+
+  .cs-nav-link {
+    width: auto;
+    flex-shrink: 0;
+    white-space: nowrap;
+    padding: 8px 12px;
+  }
+
+  .cs-nav-indicator {
+    display: none;
+  }
+
+  .cs-nav-link.is-active {
+    background: rgba(74, 122, 101, 0.1);
+  }
+
+  .cs-main {
+    padding: 40px 24px 64px;
+  }
+
+  .cs-board {
+    --bs: 1.15;
+  }
+
+  .cs-block[id] {
+    scroll-margin-top: 88px;
+  }
+}
+
+@media (max-width: 767px) {
+  .cs-page-head {
+    margin-bottom: 32px;
+  }
+
+  .cs-hero {
+    padding: 24px;
+    margin-bottom: 32px;
+  }
+
+  .cs-block {
+    margin-bottom: 40px;
+  }
+
+  /* Side-by-side collapses to stacked; the 576px measure is wider than the column. */
+  .cs-v-side {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .cs-v-side > .cs-eyebrow {
+    max-width: none;
+  }
+
+  .cs-side-body {
+    flex: 1 1 auto;
+    width: 100%;
+  }
+
+  .cs-ordered,
+  .cs-three-cols,
+  .cs-stat-row {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .cs-stat-value {
+    font-size: 30px;
+  }
+
+  /* Justified text on a narrow measure opens rivers of white space. */
+  .cs-prose,
+  .cs-media-caption {
+    text-align: left;
+  }
+
+  .cs-media {
+    gap: 12px;
+  }
+
+  .cs-media-frame {
+    padding: 16px;
+  }
+
+  .cs-media-caption {
+    font-size: 14px;
+  }
+
+  .cs-shots-row {
+    gap: 8px;
+  }
+
+  .cs-media-notes {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  /* Boards scale up rather than down: four 7px columns on a phone is unreadable, so
+     the grids halve and the type grows to compensate. */
+  .cs-board {
+    --bs: 1.5;
+    padding: 16px;
+  }
+
+  .cs-grid-3,
+  .cs-grid-4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 520px) {
+  .cs-board {
+    --bs: 1.7;
+  }
+
+  .cs-grid-3,
+  .cs-grid-4 {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .cs-shots-row {
+    flex-direction: column;
+  }
+
+  .cs-shots-row figure {
+    flex: 0 0 auto;
+    width: 100%;
+  }
+
+  .cs-page-title {
+    font-size: 20px;
+  }
+
+  .cs-product-header {
+    font-size: 20px;
+  }
+}

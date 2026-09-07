@@ -145,7 +145,7 @@ const CARDS = {
       description: "Enabling physicians to prescribe medications while protecting patient privacy",
       bg: "#0D1917",
       image: "/images/HBH.png",
-      slug: "honeybee-health",
+      slug: "hbh-3",
     },
     {
       company: "Square",
@@ -350,29 +350,28 @@ function ServiceCard({ title, subtitle, features }) {
 }
 
 function ProjectCard({ company, description, image, slug, fullWidth }) {
-  const [hovered, setHovered] = useState(false);
   const ref = useFadeIn();
 
-  const img = (
-    <img
-      src={image}
-      alt={company}
-      style={{
-        ...styles.cardImage,
-        transform: hovered ? "translateY(-4px)" : "translateY(0)",
-        cursor: slug ? "pointer" : "default",
-      }}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      onError={(e) => { e.currentTarget.style.display = "none"; }}
-    />
+  /* Name and description sit inside the tile and are revealed by the overlay on
+     hover. The hover state lives in CSS rather than React state so that keyboard
+     focus and touch devices (which never hover) can be handled there too — see
+     .home-card-* in index.css. */
+  const tile = (
+    <div className="home-card-tile">
+      <img
+        src={image}
+        alt={company}
+        className="home-card-image"
+        onError={(e) => {
+          e.currentTarget.style.display = "none";
+        }}
+      />
+      <div className="home-card-overlay">
+        <p className="home-card-overlay-title">{company}</p>
+        <p className="home-card-overlay-text">{description}</p>
+      </div>
+    </div>
   );
-
-  const inner = slug ? (
-    <Link to={`/projects/${slug}`} style={{ display: "block", textDecoration: "none" }}>
-      {img}
-    </Link>
-  ) : img;
 
   return (
     <div
@@ -380,9 +379,13 @@ function ProjectCard({ company, description, image, slug, fullWidth }) {
       className="fade-section"
       style={fullWidth ? { gridColumn: "1 / -1" } : undefined}
     >
-      {inner}
-      <p style={styles.cardTitle}>{company}</p>
-      <p style={styles.cardSubtitle}>{description}</p>
+      {slug ? (
+        <Link to={`/projects/${slug}`} className="home-card-link" aria-label={company}>
+          {tile}
+        </Link>
+      ) : (
+        tile
+      )}
     </div>
   );
 }
@@ -530,25 +533,6 @@ const styles = {
   brandImage: {
     display: "block",
     maxWidth: "100%",
-  },
-  cardImage: {
-    display: "block",
-    width: "100%",
-    borderRadius: 16,
-    transition: "transform 0.2s ease",
-  },
-  cardTitle: {
-    margin: "20px 0 6px",
-    fontSize: 16,
-    fontWeight: 700,
-    fontFamily: "IvySemibold",
-    letterSpacing:'-0.08px',
-    color: "#1A1A1A",
-  },
-  cardSubtitle: {
-    margin: 0,
-    fontSize: 13,
-    color: "#6B6B6B",
   },
   brandsSubtitle: {
     margin: "0 0 20px",
