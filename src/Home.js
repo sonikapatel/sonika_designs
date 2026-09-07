@@ -540,7 +540,7 @@ const styles = {
   foldSkillsGrid: {
     display: "grid",
     gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
-    columnGap: 20,
+    columnGap: 28,
     rowGap: 8,
   },
   foldRow: {
