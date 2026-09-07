@@ -46,7 +46,7 @@ const VALUES = [
     title: "Diversity",
     bg: "#E4E4E4",
     textColor: "#2A2A2A",
-    description: "Throughout my career, I've designed, launched and scaled products across industries." ,
+    description: "I believe work comes from different perspectives, listening to customers, and being exposed to a variety of disciplines.",
   },
 ];
 
@@ -102,6 +102,35 @@ function ValueCard({ title, description, bg, textColor }) {
   );
 }
 
+function ToolCard({ title, description, bg }) {
+  const needsBorder = bg === "#FFFFFF";
+  return (
+    <div
+      style={{
+        background: bg,
+        border: needsBorder ? "1px solid rgba(0,0,0,0.09)" : "none",
+        borderRadius: 8,
+        padding: 24,
+      }}
+    >
+      <p
+        style={{
+          margin: 0,
+          fontSize: 16,
+          fontWeight: 500,
+          color: "#2A2A2A",
+          fontFamily: "'TT', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+        }}
+      >
+        {title}
+      </p>
+      <p style={{ margin: "12px 0 0", fontSize: 13, lineHeight: 1.65, color: "#2A2A2A" }}>
+        {description}
+      </p>
+    </div>
+  );
+}
+
 function useFadeIn() {
   const ref = useRef(null);
   useEffect(() => {
@@ -122,7 +151,25 @@ function useFadeIn() {
   return ref;
 }
 
-const TABS = ["Product Design", "Brands"];
+const TOOLS = [
+  {
+    title: "Claude Code with Figma MCP",
+    description: "To build scalable AI-native design systems.",
+    bg: "#B8C4B2",
+  },
+  {
+    title: "Figma",
+    description: "To think blue sky and ideate on a canvas.",
+    bg: "#FFFFFF",
+  },
+  {
+    title: "Cursor",
+    description: "To bring product ideas to life directly in code.",
+    bg: "#E4E4E4",
+  },
+];
+
+const TABS = ["Product Design", "Brands", "Tools"];
 
 const CARDS = {
   "Product Design": [
@@ -253,7 +300,17 @@ export default function Home() {
         <p style={styles.brandsSubtitle}>I designed the brand identity &amp; logos for the following businesses.</p>
       )}
 
+      {/* Tools */}
+      {activeTab === "Tools" && (
+        <div className="tools-grid">
+          {TOOLS.map((tool) => (
+            <ToolCard key={tool.title} {...tool} />
+          ))}
+        </div>
+      )}
+
       {/* Cards grid */}
+      {activeTab !== "Tools" && (
       <div className="project-grid" style={activeTab === "Brands" ? { gridTemplateColumns: "1fr" } : undefined}>
         {CARDS[activeTab].length > 0 ? (
           activeTab === "Brands"
@@ -274,6 +331,7 @@ export default function Home() {
           <p style={styles.empty}>Coming soon</p>
         )}
       </div>
+      )}
 
       {/* Services */}
       {activeTab === "Brands" && (
