@@ -29,62 +29,6 @@
   gap: 12px;
 }
 
-.tools-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 12px;
-}
-
-@media (max-width: 700px) {
-  .tools-grid {
-    grid-template-columns: minmax(0, 1fr);
-  }
-}
-
-/* Tool cards flip to their description on click, matching the values cards. */
-.tool-card {
-  perspective: 800px;
-  display: block;
-  width: 100%;
-  height: var(--flip-card-height);
-  padding: 0;
-  border: none;
-  background: none;
-  font: inherit;
-  text-align: left;
-  cursor: pointer;
-}
-
-.tool-card-inner {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  transform-style: preserve-3d;
-  transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.tool-card.is-flipped .tool-card-inner {
-  transform: rotateY(180deg);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .tool-card-inner {
-    transition: none;
-  }
-}
-
-/* The tool marks are monochrome glyphs painted through a mask, so a card sets its
-   logo colour with `color` rather than needing a light and a dark file each. */
-.tool-logo {
-  display: block;
-  width: 24px;
-  height: 24px;
-  flex-shrink: 0;
-  background-color: currentColor;
-  -webkit-mask: var(--tool-logo) center / contain no-repeat;
-  mask: var(--tool-logo) center / contain no-repeat;
-}
-
 @media (max-width: 600px) {
   .project-grid {
     grid-template-columns: 1fr;

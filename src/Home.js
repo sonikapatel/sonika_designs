@@ -11,8 +11,7 @@ const EXPERIENCE = [
   { company: "AT&T",            industry: "Networks and Sales Operations",   role: "",                                period: "" },
 ];
 
-/* The tools list that sits above the fold — distinct from the TOOLS cards in the
-   Work tabs below, which carry logos and flip copy. */
+/* The tools list that sits above the fold. */
 const TOOL_LIST = [
   { name: "Claude Code",          use: "Scaling AI-native design systems" },
   { name: "Cursor",               use: "Bringing prototypes to life" },
@@ -111,75 +110,6 @@ function ValueCard({ title, description, bg, textColor }) {
   );
 }
 
-function ToolCard({ title, description, logo, bg, textColor }) {
-  const [flipped, setFlipped] = useState(false);
-  const needsBorder = bg === "#FFFFFF";
-  const face = {
-    position: "absolute",
-    inset: 0,
-    background: bg,
-    border: needsBorder ? "1px solid rgba(0,0,0,0.09)" : "none",
-    borderRadius: 8,
-    padding: 24,
-    backfaceVisibility: "hidden",
-    WebkitBackfaceVisibility: "hidden",
-    color: textColor,
-  };
-  return (
-    <button
-      type="button"
-      className={`tool-card${flipped ? " is-flipped" : ""}`}
-      aria-label={`${title}. ${description}`}
-      onClick={() => setFlipped((f) => !f)}
-    >
-      <div className="tool-card-inner">
-        {/* Front */}
-        <div
-          style={{
-            ...face,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "flex-start",
-            gap: 12,
-          }}
-        >
-          {/* The marks are single-colour glyphs used as masks, so each card paints
-              its logo in its own text colour instead of shipping three variants. */}
-          <span
-            className="tool-logo"
-            style={{ "--tool-logo": `url(${logo})` }}
-            aria-hidden="true"
-          />
-          <p
-            style={{
-              margin: 0,
-              fontSize: 16,
-              fontWeight: 500,
-              color: textColor,
-              fontFamily: "'TT', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
-            }}
-          >
-            {title}
-          </p>
-        </div>
-        {/* Back */}
-        <div
-          style={{
-            ...face,
-            transform: "rotateY(180deg)",
-            display: "flex",
-            alignItems: "center",
-          }}
-        >
-          <p style={{ margin: 0, fontSize: 13, lineHeight: 1.65, color: textColor }}>
-            {description}
-          </p>
-        </div>
-      </div>
-    </button>
-  );
-}
-
 function useFadeIn() {
   const ref = useRef(null);
   useEffect(() => {
@@ -200,31 +130,7 @@ function useFadeIn() {
   return ref;
 }
 
-const TOOLS = [
-  {
-    title: "Claude Code",
-    description: "To build scalable AI-native design systems.",
-    logo: "/images/tools/claude.svg",
-    bg: "#000000",
-    textColor: "#FFFFFF",
-  },
-  {
-    title: "Figma",
-    description: "To think blue sky and ideate on a canvas.",
-    logo: "/images/tools/figma.svg",
-    bg: "#FFFFFF",
-    textColor: "#2A2A2A",
-  },
-  {
-    title: "Cursor",
-    description: "To bring prototypes to life directly within code.",
-    logo: "/images/tools/cursor.svg",
-    bg: "#E4E4E4",
-    textColor: "#2A2A2A",
-  },
-];
-
-const TABS = ["Product Design", "Brands", "Tools"];
+const TABS = ["Product Design", "Brands"];
 
 const CARDS = {
   "Product Design": [
@@ -386,17 +292,7 @@ export default function Home() {
         <p style={styles.brandsSubtitle}>I designed the brand identity &amp; logos for the following businesses.</p>
       )}
 
-      {/* Tools */}
-      {activeTab === "Tools" && (
-        <div className="tools-grid">
-          {TOOLS.map((tool) => (
-            <ToolCard key={tool.title} {...tool} />
-          ))}
-        </div>
-      )}
-
       {/* Cards grid */}
-      {activeTab !== "Tools" && (
       <div className="project-grid" style={activeTab === "Brands" ? { gridTemplateColumns: "1fr" } : undefined}>
         {CARDS[activeTab].length > 0 ? (
           activeTab === "Brands"
@@ -417,7 +313,6 @@ export default function Home() {
           <p style={styles.empty}>Coming soon</p>
         )}
       </div>
-      )}
 
       {/* Services */}
       {activeTab === "Brands" && (
@@ -643,7 +538,7 @@ const styles = {
   },
   foldSecondary: {
     margin: 0,
-    fontSize: 10,
+    fontSize: 11,
     lineHeight: 1.488,
     color: "#8B8B8B",
   },
@@ -656,7 +551,7 @@ const styles = {
   },
   foldPeriod: {
     margin: 0,
-    fontSize: 10,
+    fontSize: 11,
     lineHeight: 1.488,
     color: "#A4A4A4",
     textAlign: "right",
