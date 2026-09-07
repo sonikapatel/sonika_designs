@@ -3,12 +3,12 @@ import { Link } from "react-router-dom";
 import logo from "./assets/SPFavicon1.png";
 
 const EXPERIENCE = [
-  { company: "Fika",            industry: "Community/ Consumer tech",        role: "Lead Product Designer / Founder", period: "2024-2026" },
-  { company: "Criteria",        industry: "HR tech",                         role: "Senior UX Designer",              period: "2025" },
-  { company: "Honeybee Health", industry: "Health tech",                     role: "Product Designer",                period: "2025" },
-  { company: "Square (Block)",  industry: "Fintech",                         role: "Product Designer",                period: "2022-2023" },
-  { company: "Philosophie",     industry: "Fintech",                         role: "Product Designer",                period: "2021-2022" },
-  { company: "AT&T",            industry: "Networks and Sales Operations",   role: "",                                period: "" },
+  { company: "Fika",            industry: "Community/ Consumer tech",        role: "Lead Product Designer / Founder" },
+  { company: "Criteria",        industry: "HR tech",                         role: "Senior UX Designer" },
+  { company: "Honeybee Health", industry: "Health tech",                     role: "Product Designer" },
+  { company: "Square (Block)",  industry: "Fintech",                         role: "Product Designer" },
+  { company: "Philosophie",     industry: "Fintech",                         role: "Product Designer" },
+  { company: "AT&T",            industry: "Networks and Sales Operations",   role: "" },
 ];
 
 /* The tools list that sits above the fold. */
@@ -226,16 +226,11 @@ export default function Home() {
             <div style={styles.foldList}>
               {EXPERIENCE.map((item) => (
                 <div key={item.company} style={styles.foldRow}>
-                  <div style={styles.foldRowMain}>
-                    <p style={styles.foldPrimary}>{item.company}</p>
+                  <p style={styles.foldPrimary}>{item.company}</p>
+                  <div style={styles.foldRowMeta}>
+                    {item.role && <p style={styles.foldRole}>{item.role}</p>}
                     <p style={styles.foldSecondary}>{item.industry}</p>
                   </div>
-                  {item.role && (
-                    <div style={styles.foldRowMeta}>
-                      <p style={styles.foldRole}>{item.role}</p>
-                      <p style={styles.foldPeriod}>{item.period}</p>
-                    </div>
-                  )}
                 </div>
               ))}
             </div>
@@ -523,16 +518,13 @@ const styles = {
     justifyContent: "space-between",
     gap: 16,
   },
-  foldRowMain: {
-    minWidth: 0,
-  },
   foldRowMeta: {
     textAlign: "right",
     flexShrink: 0,
   },
   foldPrimary: {
     margin: 0,
-    fontSize: 12,
+    fontSize: 14,
     lineHeight: 1.488,
     color: "#000",
   },
@@ -541,19 +533,13 @@ const styles = {
     fontSize: 14,
     lineHeight: 1.488,
     color: "#8B8B8B",
+    textAlign: "right",
   },
   foldRole: {
     margin: 0,
     fontSize: 14,
     lineHeight: 1.488,
     color: "#4C4C4C",
-    textAlign: "right",
-  },
-  foldPeriod: {
-    margin: 0,
-    fontSize: 11,
-    lineHeight: 1.488,
-    color: "#A4A4A4",
     textAlign: "right",
   },
   valuesSection: {
