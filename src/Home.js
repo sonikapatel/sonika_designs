@@ -212,32 +212,32 @@ export default function Home() {
 
           {/* Right: bio */}
           <div style={styles.bioCol}>
+            <Link to="/about" style={styles.aboutLink}>About me ↗</Link>
             <p style={styles.bio}>
               Hello <span className="wave-emoji" role="img" aria-label="waving hand">👋🏼</span> I'm Sonika (So-knee-kah), a 0→1 product designer who deeply cares about <strong style={styles.bioEmphasis}>building genuinely valuable products</strong> across B2C community products, with experience building sustainable products for users across B2B healthtech, fintech, and HR tech.
             </p>
-            <Link to="/about" style={styles.aboutLink}>About me ↗</Link>
           </div>
         </div>
 
         <div className="fold-columns" style={styles.foldColumns}>
           {/* Experience */}
-          <section>
+          <section style={styles.foldColumn}>
             <p style={styles.foldLabel}>Experience</p>
             <div style={styles.foldList}>
               {EXPERIENCE.map((item) => (
                 <div key={item.company} style={styles.foldRow}>
-                  <p style={styles.foldPrimary}>{item.company}</p>
-                  <div style={styles.foldRowMeta}>
-                    {item.role && <p style={styles.foldRole}>{item.role}</p>}
+                  <div style={styles.foldRowMain}>
+                    <p style={styles.foldPrimary}>{item.company}</p>
                     <p style={styles.foldSecondary}>{item.industry}</p>
                   </div>
+                  {item.role && <p style={styles.foldRole}>{item.role}</p>}
                 </div>
               ))}
             </div>
           </section>
 
           {/* Tools */}
-          <section>
+          <section style={styles.foldColumn}>
             <p style={styles.foldLabel}>Tools</p>
             <div style={styles.foldToolList}>
               {TOOL_LIST.map((tool) => (
@@ -253,11 +253,7 @@ export default function Home() {
 
       {/* Values */}
       <div ref={valuesRef} className="fade-section" style={styles.valuesSection}>
-        <p style={styles.valuesLabel}>Values</p>
-        <p style={styles.valuesQuote}>
-          <strong>"When you know your why, you can endure any how."</strong>
-        </p>
-        <p style={{ ...styles.bio, marginBottom: 24 }}>Not just as a human, but also as a product designer.</p>
+        <p style={{ ...styles.valuesLabel, marginBottom: 24 }}>Values</p>
         <div className="values-grid" style={styles.valuesGrid}>
           {VALUES.map((v) => (
             <ValueCard key={v.title} {...v} />
@@ -424,6 +420,16 @@ function ProjectCard({ company, description, image, slug, fullWidth }) {
   );
 }
 
+/* Section eyebrows — Values, Work, Experience and Tools all share one treatment. */
+const sectionLabel = {
+  margin: "0 0 12px",
+  fontSize: 11,
+  fontWeight: 600,
+  letterSpacing: "0.12em",
+  textTransform: "uppercase",
+  color: "rgba(0,0,0,0.38)",
+};
+
 const styles = {
   page: {
     maxWidth: 800,
@@ -437,14 +443,20 @@ const styles = {
     marginBottom: 96,
   },
   topSection: {
-    display: "grid",
-    gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "flex-start",
     gap: 51,
-    alignItems: "start",
     marginBottom: 60,
   },
-  leftCol: {},
-  bioCol: {},
+  leftCol: {
+    flex: "0 1 320px",
+    minWidth: 0,
+  },
+  bioCol: {
+    flex: "0 1 320px",
+    minWidth: 0,
+  },
   logo: {
     width: 54,
     height: 54,
@@ -480,7 +492,7 @@ const styles = {
   },
   aboutLink: {
     display: "inline-block",
-    marginTop: 14,
+    marginBottom: 14,
     fontSize: 11,
     fontWeight: 600,
     letterSpacing: "0.12em",
@@ -489,19 +501,16 @@ const styles = {
     textDecoration: "none",
   },
   foldColumns: {
-    display: "grid",
-    gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "flex-start",
     gap: 51,
-    alignItems: "start",
   },
-  foldLabel: {
-    margin: "0 0 15px",
-    fontSize: 10,
-    fontWeight: 500,
-    letterSpacing: "1px",
-    textTransform: "uppercase",
-    color: "#989898",
+  foldColumn: {
+    flex: "0 1 320px",
+    minWidth: 0,
   },
+  foldLabel: { ...sectionLabel, margin: "0 0 15px" },
   foldList: {
     display: "flex",
     flexDirection: "column",
@@ -518,9 +527,8 @@ const styles = {
     justifyContent: "space-between",
     gap: 16,
   },
-  foldRowMeta: {
-    textAlign: "right",
-    flexShrink: 0,
+  foldRowMain: {
+    minWidth: 0,
   },
   foldPrimary: {
     margin: 0,
@@ -533,7 +541,6 @@ const styles = {
     fontSize: 14,
     lineHeight: 1.488,
     color: "#8B8B8B",
-    textAlign: "right",
   },
   foldRole: {
     margin: 0,
@@ -545,24 +552,7 @@ const styles = {
   valuesSection: {
     marginBottom: 96,
   },
-  valuesLabel: {
-    margin: "0 0 12px",
-    fontSize: 11,
-    fontWeight: 600,
-    letterSpacing: "0.12em",
-    textTransform: "uppercase",
-    color: "rgba(0,0,0,0.38)",
-  },
-  valuesQuote: {
-    margin: "0 0 8px",
-    fontSize: 15,
-    color: "#2A2A2A",
-    lineHeight: 1.5,
-  },
-  valuesQuoteSub: {
-    color: "#4E4E4E",
-    fontWeight: 400,
-  },
+  valuesLabel: sectionLabel,
   valuesGrid: {
     display: "grid",
     gridTemplateColumns: "repeat(3, 1fr)",

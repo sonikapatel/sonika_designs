@@ -36,12 +36,12 @@
   }
 
   .top-section {
-    grid-template-columns: 1fr !important;
+    flex-direction: column !important;
     gap: 24px !important;
   }
 
   .fold-columns {
-    grid-template-columns: 1fr !important;
+    flex-direction: column !important;
     gap: 40px !important;
   }
 
