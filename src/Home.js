@@ -25,7 +25,6 @@ const SKILLS = [
   "Prototyping",
   "Design Systems",
   "UX Copy and Messaging",
-  "A/B Testing",
 ];
 
 const VALUES = [
