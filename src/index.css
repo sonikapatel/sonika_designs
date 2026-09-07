@@ -23,14 +23,23 @@
   }
 }
 
-.project-grid {
+/* The Work cards and the Experience/Tools pair share one two-up grid so the
+   gutter between the columns is the same in both places by construction. */
+.project-grid,
+.fold-columns {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 12px;
 }
 
+/* Experience and Tools are different lengths; they top-align rather than stretch. */
+.fold-columns {
+  align-items: start;
+}
+
 @media (max-width: 600px) {
-  .project-grid {
+  .project-grid,
+  .fold-columns {
     grid-template-columns: 1fr;
     gap: 32px;
   }
@@ -38,11 +47,6 @@
   .top-section {
     flex-direction: column !important;
     gap: 24px !important;
-  }
-
-  .fold-columns {
-    flex-direction: column !important;
-    gap: 40px !important;
   }
 
   .values-grid {

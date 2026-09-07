@@ -227,7 +227,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="fold-columns" style={styles.foldColumns}>
+        <div className="fold-columns">
           {/* Experience */}
           <section style={styles.foldColumn}>
             <p style={styles.foldLabel}>Experience</p>
@@ -519,14 +519,7 @@ const styles = {
     color: "rgba(0,0,0,0.38)",
     textDecoration: "none",
   },
-  foldColumns: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "flex-start",
-    gap: 51,
-  },
   foldColumn: {
-    flex: "0 1 320px",
     minWidth: 0,
   },
   foldSubSection: {
@@ -566,7 +559,7 @@ const styles = {
     margin: 0,
     fontSize: 12,
     lineHeight: 1.488,
-    color: "#4C4C4C",
+    color: "#8B8B8B",
     textAlign: "right",
   },
   valuesSection: {
