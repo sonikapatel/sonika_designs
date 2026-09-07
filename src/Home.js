@@ -3,12 +3,21 @@ import { Link } from "react-router-dom";
 import logo from "./assets/SPFavicon1.png";
 
 const EXPERIENCE = [
-  { company: "Fika",            industry: "Community/ Consumer tech" },
-  { company: "Criteria",        industry: "HR tech" },
-  { company: "Honeybee Health", industry: "Health tech" },
-  { company: "Square (Block)",          industry: "Fintech" },
-  { company: "Philosophie",     industry: "Fintech" },
-  { company: "AT&T",             industry: "Networks and Sales Operations" },
+  { company: "Fika",            industry: "Community/ Consumer tech",        role: "Lead Product Designer / Founder", period: "2024-2026" },
+  { company: "Criteria",        industry: "HR tech",                         role: "Senior UX Designer",              period: "2025" },
+  { company: "Honeybee Health", industry: "Health tech",                     role: "Product Designer",                period: "2025" },
+  { company: "Square (Block)",  industry: "Fintech",                         role: "Product Designer",                period: "2022-2023" },
+  { company: "Philosophie",     industry: "Fintech",                         role: "Product Designer",                period: "2021-2022" },
+  { company: "AT&T",            industry: "Networks and Sales Operations",   role: "",                                period: "" },
+];
+
+/* The tools list that sits above the fold — distinct from the TOOLS cards in the
+   Work tabs below, which carry logos and flip copy. */
+const TOOL_LIST = [
+  { name: "Claude Code",          use: "Scaling AI-native design systems" },
+  { name: "Cursor",               use: "Bringing prototypes to life" },
+  { name: "Adobe CC",             use: "Branding work" },
+  { name: "Figma (Make, Figjam)", use: "Canvas to ideate" },
 ];
 
 const VALUES = [
@@ -283,30 +292,61 @@ export default function Home() {
 
   return (
     <div style={styles.page}>
-      {/* Top two-column section */}
-      <div ref={topRef} className="top-section fade-section" style={styles.topSection}>
-        {/* Left: identity + bio */}
-        <div style={styles.leftCol}>
-          <img src={logo} style={styles.logo} alt="Sonika Patel" />
-          <h1 style={styles.heading}>Sonika Patel</h1>
-          <p style={styles.tagline}>
-            0→1 product builder. designer. mini-canvas painter.
-          </p>
-          <p style={styles.bio}>
-            Hello <span className="wave-emoji" role="img" aria-label="waving hand">👋🏼</span> I'm Sonika (So-knee-kah), a 0→1 product designer who loves turning ideas into products people genuinely find valuable. I'm driven by curiosity, strong values, and I bring a technical and research foundation to designing thoughtful experiences, balancing user needs and business goals.
-          </p>
-          <Link to="/about" style={styles.aboutLink}>About me ↗</Link>
+      {/* Above the fold: identity + bio, then experience and tools side by side */}
+      <div ref={topRef} className="fade-section" style={styles.fold}>
+        <div className="top-section" style={styles.topSection}>
+          {/* Left: identity */}
+          <div style={styles.leftCol}>
+            <img src={logo} style={styles.logo} alt="Sonika Patel" />
+            <h1 style={styles.heading}>Sonika Patel</h1>
+            <p style={styles.tagline}>
+              0→1 product builder. designer. mini-canvas painter.
+            </p>
+          </div>
+
+          {/* Right: bio */}
+          <div style={styles.bioCol}>
+            <p style={styles.bio}>
+              Hello <span className="wave-emoji" role="img" aria-label="waving hand">👋🏼</span> I'm Sonika (So-knee-kah), a 0→1 product designer who deeply cares about <strong style={styles.bioEmphasis}>building genuinely valuable products</strong> across B2C community products, with experience building sustainable products for users across B2B healthtech, fintech, and HR tech.
+            </p>
+            <Link to="/about" style={styles.aboutLink}>About me ↗</Link>
+          </div>
         </div>
 
-        {/* Right: experience list */}
-        <div style={styles.rightCol}>
-          <p style={styles.expLabel}>Experience</p>
-          {EXPERIENCE.map((item) => (
-            <div key={item.company} style={styles.expRow}>
-              <span style={styles.expCompany}>{item.company}</span>
-              <span style={styles.expIndustry}>{item.industry}</span>
+        <div className="fold-columns" style={styles.foldColumns}>
+          {/* Experience */}
+          <section>
+            <p style={styles.foldLabel}>Experience</p>
+            <div style={styles.foldList}>
+              {EXPERIENCE.map((item) => (
+                <div key={item.company} style={styles.foldRow}>
+                  <div style={styles.foldRowMain}>
+                    <p style={styles.foldPrimary}>{item.company}</p>
+                    <p style={styles.foldSecondary}>{item.industry}</p>
+                  </div>
+                  {item.role && (
+                    <div style={styles.foldRowMeta}>
+                      <p style={styles.foldRole}>{item.role}</p>
+                      <p style={styles.foldPeriod}>{item.period}</p>
+                    </div>
+                  )}
+                </div>
+              ))}
             </div>
-          ))}
+          </section>
+
+          {/* Tools */}
+          <section>
+            <p style={styles.foldLabel}>Tools</p>
+            <div style={styles.foldToolList}>
+              {TOOL_LIST.map((tool) => (
+                <div key={tool.name} style={styles.foldRow}>
+                  <p style={styles.foldPrimary}>{tool.name}</p>
+                  <p style={styles.foldRole}>{tool.use}</p>
+                </div>
+              ))}
+            </div>
+          </section>
         </div>
       </div>
 
@@ -503,35 +543,36 @@ const styles = {
     color: "#111",
     boxSizing: "border-box",
   },
-  topSection: {
-    display: "grid",
-    gridTemplateColumns: "repeat(2, 1fr)",
-    gap: 96,
-    alignItems: "end",
+  fold: {
     marginBottom: 96,
   },
-  leftCol: {},
-  rightCol: {
-    paddingTop: 4,
+  topSection: {
+    display: "grid",
+    gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
+    gap: 51,
+    alignItems: "start",
+    marginBottom: 60,
   },
+  leftCol: {},
+  bioCol: {},
   logo: {
-    width: 42,
-    height: 42,
+    width: 54,
+    height: 54,
     objectFit: "contain",
-    marginBottom: 20,
+    marginBottom: 12,
     display: "block",
   },
   heading: {
     margin: 0,
-    fontSize: 48,
+    fontSize: 40,
     fontWeight: 800,
     fontFamily: "IvyPresto",
     color: "#4B4B4B",
-    letterSpacing: "-0.02em",
-    lineHeight: 1.05,
+    letterSpacing: "-0.01em",
+    lineHeight: 1.2,
   },
   tagline: {
-    margin: "8px 0 28px",
+    margin: "6px 0 0",
     fontSize: 12,
     fontWeight: 400,
     color: "#4E4E4E",
@@ -539,8 +580,12 @@ const styles = {
   },
   bio: {
     margin: 0,
-    fontSize: 13,
-    lineHeight: 1.7,
+    fontSize: 14,
+    lineHeight: 1.488,
+    color: "#4E4E4E",
+  },
+  bioEmphasis: {
+    fontWeight: 500,
     color: "#4E4E4E",
   },
   aboutLink: {
@@ -553,31 +598,68 @@ const styles = {
     color: "rgba(0,0,0,0.38)",
     textDecoration: "none",
   },
-  expLabel: {
-    margin: "0 0 16px",
-    fontSize: 11,
-    fontWeight: 600,
-    letterSpacing: "0.12em",
-    textTransform: "uppercase",
-    color: "rgba(0,0,0,0.38)",
+  foldColumns: {
+    display: "grid",
+    gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
+    gap: 51,
+    alignItems: "start",
   },
-  expRow: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "baseline",
-    padding: "12px 0",
-    borderBottom: "1px solid rgba(0,0,0,0.07)",
-  },
-  expCompany: {
-    fontSize: 14,
+  foldLabel: {
+    margin: "0 0 15px",
+    fontSize: 10,
     fontWeight: 500,
-    color: "#2A2A2A",
+    letterSpacing: "1px",
+    textTransform: "uppercase",
+    color: "#989898",
   },
-  expIndustry: {
-    fontSize: 12,
-    color: "rgba(0,0,0,0.42)",
+  foldList: {
+    display: "flex",
+    flexDirection: "column",
+    gap: 16,
+  },
+  foldToolList: {
+    display: "flex",
+    flexDirection: "column",
+    gap: 8,
+  },
+  foldRow: {
+    display: "flex",
+    alignItems: "flex-start",
+    justifyContent: "space-between",
+    gap: 16,
+  },
+  foldRowMain: {
+    minWidth: 0,
+  },
+  foldRowMeta: {
     textAlign: "right",
-    marginLeft: 12,
+    flexShrink: 0,
+  },
+  foldPrimary: {
+    margin: 0,
+    fontSize: 12,
+    lineHeight: 1.488,
+    color: "#000",
+  },
+  foldSecondary: {
+    margin: 0,
+    fontSize: 10,
+    lineHeight: 1.488,
+    color: "#8B8B8B",
+  },
+  foldRole: {
+    margin: 0,
+    fontSize: 10,
+    lineHeight: 1.488,
+    color: "#4C4C4C",
+    textAlign: "right",
+  },
+  foldPeriod: {
+    margin: 0,
+    fontSize: 10,
+    lineHeight: 1.488,
+    color: "#A4A4A4",
+    textAlign: "right",
   },
   valuesSection: {
     marginBottom: 96,

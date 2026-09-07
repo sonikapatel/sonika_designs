@@ -93,7 +93,12 @@
 
   .top-section {
     grid-template-columns: 1fr !important;
-    gap: 32px !important;
+    gap: 24px !important;
+  }
+
+  .fold-columns {
+    grid-template-columns: 1fr !important;
+    gap: 40px !important;
   }
 
   .values-grid {
