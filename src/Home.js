@@ -225,7 +225,7 @@ export default function Home() {
           <div style={styles.bioCol}>
             <Link to="/about" style={styles.aboutLink}>About me ↗</Link>
             <p style={styles.bio}>
-              Hello <span className="wave-emoji" role="img" aria-label="waving hand">👋🏼</span> I'm Sonika (So-knee-kah), a 0→1 product designer who deeply cares about <strong style={styles.bioEmphasis}>building genuinely valuable products</strong> across B2C community products, with experience building sustainable products for users across B2B healthtech, fintech, and HR tech.
+              Hello <span className="wave-emoji" role="img" aria-label="waving hand">👋🏼</span> I'm Sonika (So-knee-kah), a 0→1 product designer who deeply cares about <strong style={styles.bioEmphasis}>building genuinely valuable products</strong> with experience building sustainable products for users across B2B healthtech, fintech, and HR tech.
             </p>
           </div>
         </div>

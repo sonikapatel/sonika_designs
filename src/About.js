@@ -234,24 +234,28 @@ const styles = {
   leftCol: {
     width: 312,
   },
+  /* Logo, name, tagline and bio use the same treatment as the home page so the
+     identity lockup does not change size or rhythm between the two. The only
+     difference is the tagline's bottom margin: here the bio follows directly
+     beneath it in the same column, where on home it sits in the next column. */
   logo: {
-    width: 42,
-    height: 42,
+    width: 54,
+    height: 54,
     objectFit: "contain",
-    marginBottom: 20,
+    marginBottom: 12,
     display: "block",
   },
   heading: {
     margin: 0,
-    fontSize: 48,
+    fontSize: 40,
     fontWeight: 800,
     fontFamily: "IvyPresto",
     color: "#4B4B4B",
-    letterSpacing: "-0.02em",
-    lineHeight: 1.05,
+    letterSpacing: "-0.01em",
+    lineHeight: 1.2,
   },
   tagline: {
-    margin: "8px 0 28px",
+    margin: "6px 0 28px",
     fontSize: 12,
     fontWeight: 400,
     color: "#4E4E4E",
@@ -259,8 +263,8 @@ const styles = {
   },
   bio: {
     margin: 0,
-    fontSize: 13,
-    lineHeight: 1.7,
+    fontSize: 14,
+    lineHeight: 1.488,
     color: "#4E4E4E",
   },
   eyebrow: {
