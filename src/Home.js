@@ -462,7 +462,7 @@ const styles = {
     boxSizing: "border-box",
   },
   fold: {
-    marginBottom: 96,
+    marginBottom: 64,
   },
   topSection: {
     display: "flex",
@@ -573,7 +573,7 @@ const styles = {
     textAlign: "right",
   },
   valuesSection: {
-    marginBottom: 96,
+    marginBottom: 64,
   },
   valuesLabel: sectionLabel,
   valuesGrid: {
