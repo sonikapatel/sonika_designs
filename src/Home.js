@@ -26,6 +26,8 @@ const SKILLS = [
   "Design Systems",
   "Branding",
   "UX Copy and Messaging",
+  "App Development",
+  "Workshop Design",
 ];
 
 const VALUES = [
