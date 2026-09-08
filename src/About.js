@@ -95,7 +95,7 @@ export default function About() {
     <div style={styles.page}>
       <Link to="/" className="about-back-link" style={styles.backLink}>← Back home</Link>
 
-      <div className="about-content">
+      <div className="about-content" style={styles.content}>
         <div className="about-left-col" style={styles.leftCol}>
           <img src={logo} style={styles.logo} alt="Sonika Patel" />
           <h1 style={styles.heading}>Sonika Patel</h1>
@@ -225,8 +225,14 @@ const styles = {
     fontSize: 13,
     textDecoration: "none",
   },
+  content: {
+    display: "grid",
+    gridTemplateColumns: "312px 1fr",
+    gap: 48,
+    alignItems: "start",
+  },
   leftCol: {
-    minWidth: 0,
+    width: 312,
   },
   logo: {
     width: 42,

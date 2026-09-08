@@ -464,19 +464,15 @@ const styles = {
   fold: {
     marginBottom: 64,
   },
+  /* Grid columns and gutter come from .top-section in index.css, shared with
+     the Experience/Tools pair and the Work cards. */
   topSection: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "flex-start",
-    gap: 51,
     marginBottom: 60,
   },
   leftCol: {
-    flex: "0 1 320px",
     minWidth: 0,
   },
   bioCol: {
-    flex: "0 1 320px",
     minWidth: 0,
   },
   logo: {
