@@ -300,11 +300,6 @@ export default function Home() {
         ))}
       </div>
 
-      {/* Brands subtitle */}
-      {activeTab === "Brands" && (
-        <p style={styles.brandsSubtitle}>I designed the brand identity &amp; logos for the following businesses.</p>
-      )}
-
       {/* Cards grid */}
       <div className="project-grid" style={activeTab === "Brands" ? { gridTemplateColumns: "1fr" } : undefined}>
         {CARDS[activeTab].length > 0 ? (
