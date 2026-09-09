@@ -14,7 +14,7 @@ export const PROJECTS = [
       { text: "Creative professionals are working in isolation.", bold: true },
       { text: " Whether they're freelancers, business owners, or remote workers, the pandemic has changed the way we interact and the nature of the work is usually in solitude." },
       { break: true },
-      { text: "I designed and developed Fika, a new way for creatives to build meaningful connections IRL—whether that leads to a friendship, collaboration, or new opportunity. Inspired by the Swedish ritual of meeting over coffee, Fika brings people together through curated coffee matchmaking, community events, and gatherings at partner cafes. I designed the experience around how creatives naturally connect: through shared interests, inspiring people, and low-pressure opportunities to meet in person. Since launching, Fika has connected ~2,500 creatives through biweekly matchmaking, the product experience, and events hosted at partner locations." },
+      { text: "We designed and developed Fika, a new way for creatives to build meaningful connections IRL - whether that leads to a friendship, collaboration, or new opportunity. Inspired by the Swedish ritual of meeting over coffee, Fika brings people together through curated coffee matchmaking, community events, and gatherings at partner cafes. I designed the experience around how creatives naturally connect: through shared interests, inspiring people, and low-pressure opportunities to meet in person. Since launching, Fika has connected ~2,500 creatives through biweekly matchmaking, the product experience, and events hosted at partner locations." },
     ],
     team: [{ name: "Jamie Haberman", role: "co-designer" }],
     context: { label: "www.fikacreatives.co", url: "https://www.fikacreatives.co" },
@@ -31,13 +31,13 @@ export const PROJECTS = [
       },
       {
         type: "text-center",
-        body: "Fika profiles allow creatives to view other creatives nearby and their work. I refined the product experience based on user feedback and formed partnerships with cafes to offer discounts for creatives who meet for coffees. Most creatives sought building friendships and networking, as meeting other creatives in adjacent domains was crucial for growing inspiration and landing opportunities.",
+        body: "Fika profiles help creatives discover other creatives nearby and their work. Based on user feedback, I refined the experience around what people valued most: building genuine friendships and finding inspiration through adjacent creative disciplines. We also established cafe partnerships to offer Fika members discounts, creating a stronger incentive to take connections offline and meet over coffee.",
       },
       {
         type: "image",
         src: "/images/fika/Mobile.png",
         maxWidth: 996,
-        caption: "An onboarding experience I designed after iterating based off of dropoff rates in the funnel, improving onboarding by 32% with the low intent to high intent funnel. Creatives can upload their work and what they're looking to gain from Fika to facilitate matchmaking.",
+        caption: "An onboarding experience I designed after iterating based off of dropoff rates in the funnel, improving onboarding by 32% from a low intent to high intent funnel. Creatives can upload their work and what they're looking to gain from Fika to facilitate matchmaking.",
       },
       {
         type: "grid",
@@ -54,7 +54,7 @@ export const PROJECTS = [
       },
       {
         type: "text-center",
-        body: "My team and I held events all throughout NYC and LA to make sure creatives can connect with one another in natural settings. See examples of coworking, happy hours, and more we hosted! ",
+        body: "My team and I held events all throughout NYC and LA to make sure creatives can connect with one another in natural settings. See examples of coworking, happy hours, and more we hosted!",
       },
       {
         type: "image",
