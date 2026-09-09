@@ -9,7 +9,7 @@ export const PROJECTS = [
     protected: "sp_project",
     logo: "/images/fika/fika logo.png",
     bannerBg: "rgb(40, 35, 111)",
-    bannerImage: "/images/banner_images/Fika_Header.png",
+    bannerImage: "/images/banner_images/fika_project_1.png",
     problem: [
       { text: "Creative professionals are working in isolation.", bold: true },
       { text: " Whether they're freelancers, business owners, or remote workers, the pandemic has changed the way we interact and the nature of the work is usually in solitude." },
