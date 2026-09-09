@@ -37,7 +37,7 @@ export const PROJECTS = [
         type: "image",
         src: "/images/fika/Mobile.png",
         maxWidth: 996,
-        caption: "An onboarding experience I designed after iterating based off of dropoff rates in the funnel, improving onboarding by 32% from a low intent to high intent funnel. Creatives can upload their work and what they're looking to gain from Fika to facilitate matchmaking.",
+        caption: "The onboarding experience, iterating from dropoff rates in the funnel. Changes from onboarding improved by 32% from a low intent to high intent funnel. Creatives can upload their work and what they're looking to gain from Fika to facilitate matchmaking.",
       },
       {
         type: "grid",
@@ -47,7 +47,7 @@ export const PROJECTS = [
         rowGap: 64,
         images: [
           [
-            { src: "/images/fika/fikahome.mp4", height: 480, objectFit: "contain", borderRadius: 24, caption: 'Browse creatives nearby, and invite someone whose work you find inspiring. We learned roughly 10% of creatives invited others to coffee via the feed, while a larger portion partook in biweekly matchmaking.' },
+            { src: "/images/fika/fikahome.mp4", height: 480, objectFit: "contain", borderRadius: 24, caption: 'Browse creatives nearby, and invite someone whose work you find inspiring. We learned roughly 15% of creatives invited others to coffee via the feed, while a larger group of users partook in biweekly matchmaking.' },
             { src: "/images/fika/upcoming_fikas.mp4", height: 480, objectFit: "contain", borderRadius: 24, caption: 'A way to view all upcoming fikas and previous fikas. Accept coffee invites in application and confirm via text.' },
           ],
         ],
