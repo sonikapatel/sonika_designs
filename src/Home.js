@@ -38,10 +38,10 @@ const VALUES = [
     description: "Not just in visual form, but in interacting with product stakeholders and balancing user needs with a business.",
   },
   {
-    title: "Think in Systems",
+    title: "Systems Thinking",
     bg: "#FFFFFF",
     textColor: "#2A2A2A",
-    description: "Products are not shipped one off. Every feature or product I've designed is considered holistically.",
+    description: "I apply a system-driven approach to designing large-scale applications.",
   },
   {
     title: "Speed",
