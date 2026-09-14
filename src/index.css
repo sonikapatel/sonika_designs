@@ -8,30 +8,75 @@
   box-sizing: border-box;
 }
 
-/* Shared height for the two flip-card families — the values grid and the tools
-   grid — so they line up and can be retuned in one place. */
 :root {
+  /* ── Home page grid tokens ──
+     The landing page sits on a 12-column grid with one shared gutter. Every
+     section spans whole columns — the name/bio row, the Experience/Tools pair,
+     the Work cards and the Services cards are 6 + 6; the Values tiles are
+     4 + 4 + 4; the Skills list nests a 3 + 3 split inside its 6-column parent.
+     Because every grid reads the same gutter, their column lines coincide. */
+  --grid-gutter: 24px;
+
+  /* Vertical rhythm on an 8px scale: between major sections, between blocks
+     inside a section, and from a section eyebrow down to its content. */
+  --space-section: 64px;
+  --space-block: 40px;
+  --space-eyebrow: 16px;
+
+  /* Shared height for the values flip cards so they can be retuned in one place. */
   --flip-card-height: 128px;
 }
 
-/* The values grid stays two-up on phones, so each card is barely 160px wide and the
-   descriptions on the back run long. Give the cards room there rather than clipping
-   the copy. */
-@media (max-width: 600px) {
-  :root {
-    --flip-card-height: 184px;
-  }
+/* ── Home page layout ──
+   Matches the 897px content column of the case-study detail pages (.cs-main in
+   caseStudy.css), so both layouts read at the same width. */
+.home-page {
+  max-width: 897px;
+  margin: 0 auto;
+  padding: 56px 40px 80px;
+  font-family: "TT", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #111;
 }
 
-/* The name/bio row, the Experience/Tools pair and the Work cards share one
-   two-up grid, so all three rows of the page sit on the same two columns and the
-   gutter between them is identical by construction. */
+/* Every grid on the page is declared here rather than inline so the breakpoints
+   below can restack them without !important. */
 .top-section,
 .fold-columns,
-.project-grid {
+.project-grid,
+.services-grid,
+.values-grid,
+.skills-grid {
   display: grid;
+  gap: var(--grid-gutter);
+}
+
+/* 6 + 6 */
+.top-section,
+.fold-columns,
+.project-grid,
+.services-grid,
+.skills-grid {
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 28px;
+}
+
+/* 4 + 4 + 4 */
+.values-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+/* Skills are single words, so the rows sit tighter than the column gutter. */
+.skills-grid {
+  row-gap: 8px;
+}
+
+/* The Brands tab shows each board full width (12 columns). */
+.project-grid--single {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+/* Services continue the Work card grid, so the gap above them is the gutter. */
+.services-grid {
+  margin-top: var(--grid-gutter);
 }
 
 /* These columns are different lengths; they top-align rather than stretch. */
@@ -40,20 +85,41 @@
   align-items: start;
 }
 
+/* ── Breakpoints ──
+   768: tablet — the three-up values tiles fall to two-up before they get too
+        narrow for their back copy.
+   600: phone — every two-up grid stacks and the page gutters tighten.
+   480: small phone — the values tiles go full width as well. */
+
+@media (max-width: 768px) {
+  .values-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 @media (max-width: 600px) {
+  .home-page {
+    padding: 40px 24px 64px;
+  }
+
   .top-section,
   .fold-columns,
-  .project-grid {
-    grid-template-columns: 1fr;
-    gap: 32px;
-  }
-
-  .values-grid {
-    grid-template-columns: repeat(2, 1fr) !important;
-  }
-
+  .project-grid,
   .services-grid {
-    grid-template-columns: 1fr !important;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  /* When the name/bio and Experience/Tools pairs stack, the gap between them is
+     the space between two content groups, not a card gutter. */
+  .top-section,
+  .fold-columns {
+    row-gap: 32px;
+  }
+
+  /* Two-up values tiles are ~200px wide here and the descriptions on the back run
+     long. Give the cards room rather than clipping the copy. */
+  :root {
+    --flip-card-height: 184px;
   }
 
   .about-content {
@@ -73,9 +139,9 @@
 
 /* Below this the two-up values grid leaves each card too narrow for its description
    to fit any fixed height, so the cards go full width instead of clipping copy. */
-@media (max-width: 520px) {
+@media (max-width: 480px) {
   .values-grid {
-    grid-template-columns: minmax(0, 1fr) !important;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   :root {

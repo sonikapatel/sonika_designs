@@ -208,7 +208,7 @@ export default function Home() {
   const workRef = useFadeIn();
 
   return (
-    <div style={styles.page}>
+    <div className="home-page">
       {/* Above the fold: identity + bio, then experience and tools side by side */}
       <div ref={topRef} className="fade-section" style={styles.fold}>
         <div className="top-section" style={styles.topSection}>
@@ -263,7 +263,7 @@ export default function Home() {
 
             <section style={styles.foldSubSection}>
               <p style={styles.foldLabel}>Skills</p>
-              <div style={styles.foldSkillsGrid}>
+              <div className="skills-grid">
                 {SKILLS.map((skill) => (
                   <p key={skill} style={styles.foldPrimary}>{skill}</p>
                 ))}
@@ -275,8 +275,8 @@ export default function Home() {
 
       {/* Values */}
       <div ref={valuesRef} className="fade-section" style={styles.valuesSection}>
-        <p style={{ ...styles.valuesLabel, marginBottom: 24 }}>Values</p>
-        <div className="values-grid" style={styles.valuesGrid}>
+        <p style={styles.valuesLabel}>Values</p>
+        <div className="values-grid">
           {VALUES.map((v) => (
             <ValueCard key={v.title} {...v} />
           ))}
@@ -301,7 +301,7 @@ export default function Home() {
       </div>
 
       {/* Cards grid */}
-      <div className="project-grid" style={activeTab === "Brands" ? { gridTemplateColumns: "1fr" } : undefined}>
+      <div className={activeTab === "Brands" ? "project-grid project-grid--single" : "project-grid"}>
         {CARDS[activeTab].length > 0 ? (
           activeTab === "Brands"
             ? CARDS[activeTab].map((card) => (
@@ -324,7 +324,7 @@ export default function Home() {
 
       {/* Services */}
       {activeTab === "Brands" && (
-        <div className="services-grid" style={styles.servicesGrid}>
+        <div className="services-grid">
           {SERVICES.map((service) => (
             <ServiceCard key={service.title} {...service} />
           ))}
@@ -439,7 +439,7 @@ function ProjectCard({ company, description, image, slug, fullWidth }) {
 
 /* Section eyebrows — Values, Work, Experience and Tools all share one treatment. */
 const sectionLabel = {
-  margin: "0 0 12px",
+  margin: "0 0 var(--space-eyebrow)",
   fontSize: 11,
   fontWeight: 600,
   letterSpacing: "0.12em",
@@ -447,24 +447,14 @@ const sectionLabel = {
   color: "rgba(0,0,0,0.38)",
 };
 
+/* Page width, padding and every grid live in index.css (.home-page and the
+   grid block); the spacing tokens used below are defined there too. */
 const styles = {
-  page: {
-    /* Matches the 897px content column of the case-study detail pages
-       (.cs-main in caseStudy.css), so both layouts read at the same width. */
-    maxWidth: 897,
-    margin: "0 auto",
-    padding: "56px 40px 80px",
-    fontFamily: "'TT', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
-    color: "#111",
-    boxSizing: "border-box",
-  },
   fold: {
-    marginBottom: 64,
+    marginBottom: "var(--space-section)",
   },
-  /* Grid columns and gutter come from .top-section in index.css, shared with
-     the Experience/Tools pair and the Work cards. */
   topSection: {
-    marginBottom: 60,
+    marginBottom: "var(--space-section)",
   },
   leftCol: {
     minWidth: 0,
@@ -507,7 +497,7 @@ const styles = {
   },
   aboutLink: {
     display: "inline-block",
-    marginBottom: 14,
+    marginBottom: "var(--space-eyebrow)",
     fontSize: 11,
     fontWeight: 600,
     letterSpacing: "0.12em",
@@ -519,9 +509,9 @@ const styles = {
     minWidth: 0,
   },
   foldSubSection: {
-    marginTop: 40,
+    marginTop: "var(--space-block)",
   },
-  foldLabel: { ...sectionLabel, margin: "0 0 15px" },
+  foldLabel: sectionLabel,
   foldList: {
     display: "flex",
     flexDirection: "column",
@@ -531,13 +521,6 @@ const styles = {
     display: "flex",
     flexDirection: "column",
     gap: 8,
-  },
-  /* Skills are short enough to sit two-up rather than as one tall stack. */
-  foldSkillsGrid: {
-    display: "grid",
-    gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
-    columnGap: 28,
-    rowGap: 8,
   },
   foldRow: {
     display: "flex",
@@ -566,18 +549,13 @@ const styles = {
     textAlign: "right",
   },
   valuesSection: {
-    marginBottom: 64,
+    marginBottom: "var(--space-section)",
   },
   valuesLabel: sectionLabel,
-  valuesGrid: {
-    display: "grid",
-    gridTemplateColumns: "repeat(3, 1fr)",
-    gap: 12,
-  },
   tabs: {
     display: "flex",
     gap: 8,
-    marginBottom: 28,
+    marginBottom: "var(--grid-gutter)",
   },
   tab: {
     border: "none",
@@ -612,12 +590,6 @@ const styles = {
     fontSize: 14,
     color: "#4E4E4E",
     lineHeight: 1.6,
-  },
-  servicesGrid: {
-    display: "grid",
-    gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
-    gap: 16,
-    marginTop: 32,
   },
   serviceCard: {
     border: "1px solid rgba(0,0,0,0.1)",
