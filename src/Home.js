@@ -3,12 +3,12 @@ import { Link } from "react-router-dom";
 import logo from "./assets/SPFavicon1.png";
 
 const EXPERIENCE = [
-  { company: "Fika",            industry: "Community/ Consumer tech",        role: "Lead Product Designer / Founder" },
-  { company: "Criteria",        industry: "HR tech",                         role: "Senior UX Designer" },
-  { company: "Honeybee Health", industry: "Health tech",                     role: "Product Designer" },
-  { company: "Square (Block)",  industry: "Fintech",                         role: "Product Designer" },
-  { company: "Philosophie",     industry: "Fintech",                         role: "Product Designer" },
-  { company: "AT&T",            industry: "Networks and Sales Operations",   role: "Engineer / UX Designer" },
+  { company: "Fika",            role: "Lead Product Designer / Founder" },
+  { company: "Criteria",        role: "Senior UX Designer" },
+  { company: "Honeybee Health", role: "Product Designer" },
+  { company: "Square (Block)",  role: "Product Designer" },
+  { company: "Philosophie",     role: "Product Designer" },
+  { company: "AT&T",            role: "Engineer / UX Designer" },
 ];
 
 /* The tools list that sits above the fold. */
@@ -236,12 +236,9 @@ export default function Home() {
             <p style={styles.foldLabel}>Experience</p>
             <div style={styles.foldList}>
               {EXPERIENCE.map((item) => (
-                <div key={item.company}>
-                  <div style={styles.foldRow}>
-                    <p style={styles.foldPrimary}>{item.company}</p>
-                    {item.role && <p style={styles.foldRole}>{item.role}</p>}
-                  </div>
-                  <p style={styles.foldSecondary}>{item.industry}</p>
+                <div key={item.company} style={styles.foldRow}>
+                  <p style={styles.foldPrimary}>{item.company}</p>
+                  <p style={styles.foldRole}>{item.role}</p>
                 </div>
               ))}
             </div>
@@ -251,7 +248,7 @@ export default function Home() {
           <div style={styles.foldColumn}>
             <section>
               <p style={styles.foldLabel}>Tools</p>
-              <div style={styles.foldToolList}>
+              <div style={styles.foldList}>
                 {TOOL_LIST.map((tool) => (
                   <div key={tool.name} style={styles.foldRow}>
                     <p style={styles.foldPrimary}>{tool.name}</p>
@@ -512,12 +509,8 @@ const styles = {
     marginTop: "var(--space-block)",
   },
   foldLabel: sectionLabel,
+  /* Experience and Tools are both single-line rows, so they share one spacing. */
   foldList: {
-    display: "flex",
-    flexDirection: "column",
-    gap: 16,
-  },
-  foldToolList: {
     display: "flex",
     flexDirection: "column",
     gap: 8,
@@ -533,13 +526,6 @@ const styles = {
     fontSize: 14,
     lineHeight: 1.488,
     color: "#000",
-  },
-  foldSecondary: {
-    margin: 0,
-    width: "100%",
-    fontSize: 12,
-    lineHeight: 1.488,
-    color: "#8B8B8B",
   },
   foldRole: {
     margin: 0,
