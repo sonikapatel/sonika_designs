@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
-import logo from "./assets/SPFavicon1.png";
+import SiteShell, { NavLink, textStyles } from "./SiteShell";
 
 /* Company marks live in public/images/logos as 128px transparent PNGs (4x the
    32px they render at). */
@@ -72,13 +72,18 @@ const VALUES = [
 ];
 
 
+/* Touch screens never hover, so a tap toggles the card there instead. */
+const canHover = typeof window !== "undefined" && window.matchMedia("(hover: hover)").matches;
+
 function ValueCard({ title, description, bg, textColor }) {
   const [flipped, setFlipped] = useState(false);
   const needsBorder = bg === "#FFFFFF";
   return (
     <div
-      style={{ perspective: 800, cursor: "pointer", height: "var(--flip-card-height)" }}
-      onClick={() => setFlipped(f => !f)}
+      style={{ perspective: 800, cursor: canHover ? "default" : "pointer", height: "var(--flip-card-height)" }}
+      onMouseEnter={canHover ? () => setFlipped(true) : undefined}
+      onMouseLeave={canHover ? () => setFlipped(false) : undefined}
+      onClick={canHover ? undefined : () => setFlipped(f => !f)}
     >
       <div style={{
         position: "relative",
@@ -190,166 +195,125 @@ const CARDS = {
   ],
 };
 
-const SERVICES = [
-  {
-    title: "Brand Audit",
-    subtitle: "What's working on? What's not?",
-    features: ["Audit of existing experience", "1 concept direction", "Logo/ Color palette/ Placement"],
-  },
-  {
-    title: "Brand Conception",
-    subtitle: "Businesses starting out who want to elevate the presence.",
-    features: ["2 concept directions", "Brand colors", "Social Media Assets"],
-  },
-];
+
+/* Section heading + optional muted subtitle, shared by every section below the
+   intro so they all open the same way. */
+function SectionHeading({ title, subtitle }) {
+  return (
+    <div style={subtitle ? styles.sectionHead : styles.sectionHeadBare}>
+      <h2 className="section-title" style={styles.sectionTitle}>{title}</h2>
+      {subtitle && <p style={styles.sectionSubtitle}>{subtitle}</p>}
+    </div>
+  );
+}
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState("Product Design");
-  const topRef = useFadeIn();
-  const valuesRef = useFadeIn();
+
+  const introRef = useFadeIn();
   const workRef = useFadeIn();
+  const valuesRef = useFadeIn();
+  const experienceRef = useFadeIn();
 
   return (
-    <div className="home-page">
-      {/* Above the fold: identity + bio, then experience and tools side by side */}
-      <div ref={topRef} className="fade-section" style={styles.fold}>
-        <div className="top-section" style={styles.topSection}>
-          {/* Left: identity */}
-          <div style={styles.leftCol}>
-            <img src={logo} style={styles.logo} alt="Sonika Patel" />
-            <h1 style={styles.heading}>Sonika Patel</h1>
-            <p style={styles.tagline}>
-              0→1 product builder. designer. mini-canvas painter.
-            </p>
-          </div>
+    <SiteShell nav={<NavLink to="/about">About</NavLink>}>
+        {/* Intro */}
+        <section ref={introRef} className="fade-section">
+          <h1 style={textStyles.heading}>
+            Hello <span className="wave-emoji" role="img" aria-label="waving hand">👋🏼</span> I'm Sonika <span style={{ whiteSpace: "nowrap" }}>(So-knee-kah).</span>
+          </h1>
+          <p style={textStyles.lead}>
+            I'm a 0→1 product designer who deeply cares about <strong style={textStyles.leadEmphasis}>building genuinely valuable products</strong>, with experience building sustainable digital experiences for users across B2B healthtech, fintech, and HR tech.
+          </p>
+        </section>
 
-          {/* Right: bio */}
-          <div style={styles.bioCol}>
-            <Link to="/about" style={styles.aboutLink}>About me ↗</Link>
-            <p style={styles.bio}>
-              Hello <span className="wave-emoji" role="img" aria-label="waving hand">👋🏼</span> I'm Sonika (So-knee-kah), a 0→1 product designer who deeply cares about <strong style={styles.bioEmphasis}>building genuinely valuable products</strong> with experience building sustainable products for users across B2B healthtech, fintech, and HR tech.
-            </p>
-          </div>
-        </div>
-
-        <div className="fold-columns">
-          {/* Experience */}
-          <section style={styles.foldColumn}>
-            <p style={styles.foldLabel}>Experience</p>
-            <div style={styles.foldList}>
+        {/* Experience beside Tools, with Skills beneath Tools */}
+        <section ref={experienceRef} className="fade-section fold-columns">
+          <div>
+            <SectionHeading title="Experience" />
+            <div style={styles.entryList}>
               {EXPERIENCE.map((item) => (
-                <div key={item.company} style={styles.foldExperienceRow}>
-                  <div style={styles.foldCompany}>
-                    <img src={item.logo} alt="" style={styles.foldLogo} />
-                    <p style={styles.foldPrimary}>{item.company}</p>
+                <div key={item.company}>
+                  <div style={styles.entryCompany}>
+                    <img src={item.logo} alt="" style={styles.entryLogo} />
+                    <p style={styles.entryTitle}>{item.company}</p>
                   </div>
-                  <p style={styles.foldRole}>{item.role}</p>
+                  <p style={{ ...styles.entryMeta, ...styles.entryMetaIndented }}>{item.role}</p>
                 </div>
               ))}
             </div>
-          </section>
+          </div>
 
-          {/* Tools, then Skills beneath it */}
-          <div style={styles.foldColumn}>
-            <section>
-              <p style={styles.foldLabel}>Tools</p>
-              <div style={styles.foldList}>
-                {TOOL_LIST.map((tool) => (
-                  <div key={tool.name} style={styles.foldRow}>
-                    <p style={styles.foldPrimary}>{tool.name}</p>
-                    <p style={styles.foldRole}>{tool.use}</p>
-                  </div>
-                ))}
-              </div>
-            </section>
+          <div>
+            <SectionHeading title="Tools" />
+            <div style={styles.entryList}>
+              {TOOL_LIST.map((tool) => (
+                <div key={tool.name}>
+                  <p style={styles.entryTitle}>{tool.name}</p>
+                  <p style={styles.entryMeta}>{tool.use}</p>
+                </div>
+              ))}
+            </div>
 
-            <section style={styles.foldSubSection}>
-              <p style={styles.foldLabel}>Skills</p>
+            <div style={styles.subSection}>
+              <SectionHeading title="Skills" />
               <div className="skills-grid">
                 {SKILLS.map((skill) => (
-                  <p key={skill} style={styles.foldPrimary}>{skill}</p>
+                  <p key={skill} style={styles.entryTitle}>{skill}</p>
                 ))}
               </div>
-            </section>
+            </div>
           </div>
-        </div>
-      </div>
+        </section>
+        {/* Work */}
+        <section ref={workRef} className="fade-section">
+          <SectionHeading title="Work" subtitle="Select products and brand work." />
 
-      {/* Values */}
-      <div ref={valuesRef} className="fade-section" style={styles.valuesSection}>
-        <p style={styles.valuesLabel}>Values</p>
-        <div className="values-grid">
-          {VALUES.map((v) => (
-            <ValueCard key={v.title} {...v} />
-          ))}
-        </div>
-      </div>
+          <div style={styles.tabs}>
+            {TABS.map((tab) => (
+              <button
+                key={tab}
+                style={tab === activeTab ? { ...styles.tab, ...styles.tabActive } : styles.tab}
+                onClick={() => setActiveTab(tab)}
+              >
+                {tab}
+              </button>
+            ))}
+          </div>
 
-      {/* Work eyebrow */}
-      <div ref={workRef} className="fade-section">
-      <p style={styles.valuesLabel}>Work</p>
+          <div className={activeTab === "Brands" ? "project-grid project-grid--single" : "project-grid"}>
+            {CARDS[activeTab].length > 0 ? (
+              activeTab === "Brands"
+                ? CARDS[activeTab].map((card) => (
+                    <BrandCard key={card.image} image={card.image} />
+                  ))
+                : CARDS[activeTab].map((card) => (
+                    <ProjectCard
+                      key={card.company}
+                      company={card.company}
+                      description={card.description}
+                      image={card.image}
+                      slug={card.slug}
+                      fullWidth={card.fullWidth}
+                    />
+                  ))
+            ) : (
+              <p style={styles.empty}>Coming soon</p>
+            )}
+          </div>
+        </section>
 
-      {/* Tabs */}
-      <div style={styles.tabs}>
-        {TABS.map((tab) => (
-          <button
-            key={tab}
-            style={tab === activeTab ? { ...styles.tab, ...styles.tabActive } : styles.tab}
-            onClick={() => setActiveTab(tab)}
-          >
-            {tab}
-          </button>
-        ))}
-      </div>
+        {/* Values */}
+        <section ref={valuesRef} className="fade-section">
+          <SectionHeading title="Values" />
+          <div className="values-grid">
+            {VALUES.map((v) => (
+              <ValueCard key={v.title} {...v} />
+            ))}
+          </div>
+        </section>
 
-      {/* Cards grid */}
-      <div className={activeTab === "Brands" ? "project-grid project-grid--single" : "project-grid"}>
-        {CARDS[activeTab].length > 0 ? (
-          activeTab === "Brands"
-            ? CARDS[activeTab].map((card) => (
-                <BrandCard key={card.image} image={card.image} />
-              ))
-            : CARDS[activeTab].map((card) => (
-                <ProjectCard
-                  key={card.company}
-                  company={card.company}
-                  description={card.description}
-                  image={card.image}
-                  slug={card.slug}
-                  fullWidth={card.fullWidth}
-                />
-              ))
-        ) : (
-          <p style={styles.empty}>Coming soon</p>
-        )}
-      </div>
-
-      {/* Services */}
-      {activeTab === "Brands" && (
-        <div className="services-grid">
-          {SERVICES.map((service) => (
-            <ServiceCard key={service.title} {...service} />
-          ))}
-        </div>
-      )}
-      </div>
-
-      {/* Footer */}
-      <footer style={styles.footer}>
-        <a href="mailto:sonika2patel@gmail.com" style={styles.footerLink} aria-label="Email">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <rect x="2" y="4" width="20" height="16" rx="2" />
-            <path d="m22 6-10 7L2 6" />
-          </svg>
-          <span>sonika2patel@gmail.com</span>
-        </a>
-        <a href="https://www.linkedin.com/in/sonikapatel/" target="_blank" rel="noopener noreferrer" style={styles.footerIconLink} aria-label="LinkedIn">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13ZM7.12 20.45H3.56V9h3.56v11.45Z"/>
-          </svg>
-        </a>
-      </footer>
-    </div>
+    </SiteShell>
   );
 }
 
@@ -369,31 +333,6 @@ function BrandCard({ image }) {
       onMouseLeave={() => setHovered(false)}
     >
       <img src={image} alt="" style={styles.brandImage} />
-    </div>
-  );
-}
-
-function ServiceCard({ title, subtitle, features }) {
-  const [buttonHovered, setButtonHovered] = useState(false);
-  return (
-    <div style={styles.serviceCard}>
-      <div>
-        <h3 style={styles.serviceTitle}>{title}</h3>
-        <p style={styles.serviceSubtitle}>{subtitle}</p>
-      </div>
-      <div style={styles.serviceFeatures}>
-        {features.map((feature) => (
-          <p key={feature} style={styles.serviceFeature}>{feature}</p>
-        ))}
-      </div>
-      <a
-        href="mailto:sonikapateldesigns@gmail.com"
-        style={buttonHovered ? { ...styles.serviceButton, ...styles.serviceButtonHover } : styles.serviceButton}
-        onMouseEnter={() => setButtonHovered(true)}
-        onMouseLeave={() => setButtonHovered(false)}
-      >
-        Contact for more information
-      </a>
     </div>
   );
 }
@@ -439,129 +378,68 @@ function ProjectCard({ company, description, image, slug, fullWidth }) {
   );
 }
 
-/* Section eyebrows — Values, Work, Experience and Tools all share one treatment. */
-const sectionLabel = {
-  margin: "0 0 var(--space-eyebrow)",
-  fontSize: 11,
-  fontWeight: 600,
-  letterSpacing: "0.12em",
-  textTransform: "uppercase",
-  color: "rgba(0,0,0,0.38)",
-};
-
 /* Page width, padding and every grid live in index.css (.home-page and the
    grid block); the spacing tokens used below are defined there too. */
 const styles = {
-  fold: {
-    marginBottom: "var(--space-section)",
+  sectionHead: {
+    marginBottom: "var(--space-block)",
   },
-  topSection: {
-    marginBottom: "var(--space-section)",
+  sectionHeadBare: {
+    marginBottom: "var(--space-block)",
   },
-  leftCol: {
-    minWidth: 0,
-  },
-  bioCol: {
-    minWidth: 0,
-  },
-  logo: {
-    width: 54,
-    height: 54,
-    objectFit: "contain",
-    marginBottom: 12,
-    display: "block",
-  },
-  heading: {
-    margin: 0,
-    fontSize: 40,
-    fontWeight: 800,
-    fontFamily: "IvyPresto",
-    color: "#4B4B4B",
-    letterSpacing: "-0.01em",
-    lineHeight: 1.2,
-  },
-  tagline: {
-    margin: "6px 0 0",
-    fontSize: 12,
-    fontWeight: 400,
-    color: "#4E4E4E",
-    letterSpacing: "0.01em",
-  },
-  bio: {
-    margin: 0,
-    fontSize: 14,
-    lineHeight: 1.488,
-    color: "#4E4E4E",
-  },
-  bioEmphasis: {
-    fontWeight: 500,
-    color: "#4E4E4E",
-  },
-  aboutLink: {
+  sectionTitle: {
     display: "inline-block",
-    marginBottom: "var(--space-eyebrow)",
-    fontSize: 11,
-    fontWeight: 600,
-    letterSpacing: "0.12em",
-    textTransform: "uppercase",
-    color: "rgba(0,0,0,0.38)",
-    textDecoration: "none",
+    margin: "0 0 8px",
+    fontSize: 20,
+    fontWeight: 500,
+    color: "#111",
+    letterSpacing: "-0.01em",
+    lineHeight: 1.3,
   },
-  foldColumn: {
-    minWidth: 0,
+  sectionSubtitle: {
+    margin: 0,
+    fontSize: 13,
+    lineHeight: 1.6,
+    color: "#8B8B8B",
   },
-  foldSubSection: {
+  /* Skills sits under Tools inside the right-hand column. */
+  subSection: {
     marginTop: "var(--space-block)",
   },
-  foldLabel: sectionLabel,
-  /* Experience and Tools are both single-line rows, so they share one spacing. */
-  foldList: {
+  /* Stacked list entries (Experience, Tools): title line, muted line beneath. */
+  entryList: {
     display: "flex",
     flexDirection: "column",
-    gap: 8,
+    gap: 24,
   },
-  foldRow: {
-    display: "flex",
-    alignItems: "flex-start",
-    justifyContent: "space-between",
-    gap: 16,
-  },
-  /* Experience rows carry a 32px mark, so the role text centres on it. */
-  foldExperienceRow: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
-    gap: 16,
-  },
-  foldCompany: {
+  entryCompany: {
     display: "flex",
     alignItems: "center",
     gap: 12,
-    minWidth: 0,
   },
-  foldLogo: {
+  entryLogo: {
     width: 32,
     height: 32,
     objectFit: "contain",
     flexShrink: 0,
   },
-  foldPrimary: {
+  entryTitle: {
     margin: 0,
-    fontSize: 14,
-    lineHeight: 1.488,
-    color: "#000",
+    fontSize: 16,
+    fontWeight: 500,
+    lineHeight: 1.5,
+    color: "#111",
   },
-  foldRole: {
-    margin: 0,
-    fontSize: 12,
-    lineHeight: 1.488,
+  entryMeta: {
+    margin: "2px 0 0",
+    fontSize: 13,
+    lineHeight: 1.5,
     color: "#8B8B8B",
-    textAlign: "right",
   },
-  valuesSection: {
-    marginBottom: "var(--space-section)",
+  /* Lines up under the company name, past the 32px mark and its 12px gap. */
+  entryMetaIndented: {
+    paddingLeft: 44,
   },
-  valuesLabel: sectionLabel,
   tabs: {
     display: "flex",
     gap: 8,
@@ -572,8 +450,10 @@ const styles = {
     background: "transparent",
     padding: "8px 20px",
     borderRadius: 20,
-    fontSize: 14,
+    /* Same type as the Skills/Experience entries (styles.entryTitle). */
+    fontSize: 16,
     fontWeight: 500,
+    lineHeight: 1.5,
     color: "rgba(0,0,0,0.50)",
     cursor: "pointer",
     fontFamily: "inherit",
@@ -582,7 +462,6 @@ const styles = {
   tabActive: {
     background: "#E6E2DB",
     color: "#111",
-    fontWeight: 600,
   },
   brandCard: {
     borderRadius: 16,
@@ -601,82 +480,11 @@ const styles = {
     color: "#4E4E4E",
     lineHeight: 1.6,
   },
-  serviceCard: {
-    border: "1px solid rgba(0,0,0,0.1)",
-    borderRadius: 16,
-    padding: 28,
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-between",
-    minHeight: 260,
-    minWidth: 0,
-    boxSizing: "border-box",
-  },
-  serviceTitle: {
-    margin: "0 0 8px",
-    fontSize: 22,
-    fontWeight: 700,
-    fontFamily: "IvyPresto",
-    color: "#2A2A2A",
-  },
-  serviceSubtitle: {
-    margin: 0,
-    fontSize: 13,
-    color: "#4E4E4E",
-    lineHeight: 1.5,
-  },
-  serviceFeatures: {
-    margin: "20px 0",
-  },
-  serviceFeature: {
-    margin: "0 0 4px",
-    fontSize: 13,
-    fontWeight: 400,
-    color: "#1A1A1A",
-  },
-  serviceButton: {
-    display: "inline-block",
-    alignSelf: "flex-start",
-    background: "#E6E2DB",
-    color: "#111",
-    fontSize: 13,
-    fontWeight: 500,
-    padding: "10px 18px",
-    borderRadius: 20,
-    textDecoration: "none",
-    cursor: "pointer",
-    transition: "background 0.15s ease",
-  },
-  serviceButtonHover: {
-    background: "#D8D2C6",
-  },
   empty: {
     color: "#4E4E4E",
     fontSize: 15,
     gridColumn: "1 / -1",
     margin: 0,
     paddingTop: 8,
-  },
-  footer: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: 28,
-    marginTop: 96,
-    paddingTop: 32,
-    borderTop: "1px solid rgba(0,0,0,0.07)",
-  },
-  footerLink: {
-    display: "flex",
-    alignItems: "center",
-    gap: 8,
-    color: "rgba(0,0,0,0.52)",
-    fontSize: 13,
-    textDecoration: "none",
-  },
-  footerIconLink: {
-    display: "flex",
-    alignItems: "center",
-    color: "rgba(0,0,0,0.52)",
   },
 };

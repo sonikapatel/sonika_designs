@@ -9,54 +9,142 @@
 }
 
 :root {
-  /* ── Home page grid tokens ──
-     The landing page sits on a 12-column grid with one shared gutter. Every
-     section spans whole columns — the name/bio row, the Experience/Tools pair,
-     the Work cards and the Services cards are 6 + 6; the Values tiles are
-     4 + 4 + 4; the Skills list nests a 3 + 3 split inside its 6-column parent.
-     Because every grid reads the same gutter, their column lines coincide. */
+  /* ── Home page tokens ──
+     The landing page is a single 736px column (a 768px container with 16px side
+     padding) with every section stacked. Inside a section the card grids share one
+     gutter so their column lines coincide: the Work cards are 6 + 6,
+     the Values tiles are 4 + 4 + 4, and the Skills list is 6 + 6. */
   --grid-gutter: 24px;
 
-  /* Vertical rhythm on an 8px scale: between major sections, between blocks
-     inside a section, and from a section eyebrow down to its content. */
-  --space-section: 64px;
+  /* Container metrics; the background grid reads these so its lines track the
+     layout at every width. */
+  --page-max: 768px;
+  --page-pad: 16px;
+  --page-top: 32px;
+
+  /* Vertical rhythm: between stacked sections, from a section heading down to its
+     content, and between the header bar and the intro. */
+  --space-section: 80px;
   --space-block: 40px;
-  --space-eyebrow: 16px;
+  --space-header: 96px;
 
   /* Shared height for the values flip cards so they can be retuned in one place. */
   --flip-card-height: 128px;
 }
 
-/* ── Home page layout ──
-   Matches the 897px content column of the case-study detail pages (.cs-main in
-   caseStudy.css), so both layouts read at the same width. */
+/* ── Home page layout ── */
 .home-page {
-  max-width: 897px;
+  max-width: var(--page-max);
   margin: 0 auto;
-  padding: 56px 40px 80px;
+  padding: var(--page-top) var(--page-pad) 64px;
   font-family: "TT", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   color: #111;
 }
 
+/* ── Landing page background ──
+   Home adds .home-bg to <body> while mounted. A faint square grid is pinned behind
+   the viewport and masked so it fades toward the edges. The cell is the content
+   width divided by 16 (46px at full width), and the tiling starts at the
+   container's left edge, so lines land on both container edges and on the centre
+   of the gutter between the two columns. */
+body.home-bg {
+  background: #FDFBF5;
+}
+
+body.home-bg::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+
+  --content: min(calc(var(--page-max) - 2 * var(--page-pad)), calc(100vw - 2 * var(--page-pad)));
+  --cell: calc(var(--content) / 16);
+  --line: rgba(0, 0, 0, 0.055);
+
+  background-image:
+    linear-gradient(to right, var(--line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--line) 1px, transparent 1px);
+  background-size: var(--cell) var(--cell);
+  background-position: calc(50vw - var(--content) / 2) var(--page-top);
+  -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 40%, #000 30%, transparent 100%);
+  mask-image: radial-gradient(ellipse 70% 70% at 50% 40%, #000 30%, transparent 100%);
+}
+
+.home-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: var(--space-header);
+}
+
+.home-nav {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.home-nav-link {
+  font-size: 14px;
+  color: #111;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.home-nav-link:hover {
+  color: #8B8B8B;
+}
+
+.home-sections {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-section);
+  margin-bottom: 96px;
+}
+
+.home-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-top: 32px;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+/* Section subheaders carry a hand-drawn-style squiggle underneath: one 120px SVG
+   tile whose bumps vary in height and length so it doesn't read as a uniform
+   wave (titles are shorter than the tile, so the repeat is rarely visible).
+   inline-block keeps it the width of the word rather than the column. */
+.section-title {
+  padding-bottom: 10px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='8' viewBox='0 0 120 8'%3E%3Cpath d='M0 4 C3 1.2 6 1.5 9 4 S13 7 17 4.5 S24 1 29 3.5 S34 6.5 40 3 S46 1.5 51 4.5 S57 6.8 63 3.2 S69 0.8 75 4 S81 6.2 88 3.5 S95 2 102 4.6 S110 6.5 120 4' fill='none' stroke='%2331675F' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  background-position: 0 100%;
+  background-size: 120px 8px;
+}
+
 /* Every grid on the page is declared here rather than inline so the breakpoints
    below can restack them without !important. */
-.top-section,
-.fold-columns,
 .project-grid,
-.services-grid,
 .values-grid,
 .skills-grid {
   display: grid;
   gap: var(--grid-gutter);
 }
 
-/* 6 + 6 */
-.top-section,
+/* 6 + 6 — Experience beside Tools/Skills, and the card grids */
 .fold-columns,
 .project-grid,
-.services-grid,
 .skills-grid {
   grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+/* The two columns are different lengths; they top-align rather than stretch. */
+.fold-columns {
+  display: grid;
+  gap: var(--grid-gutter);
+  align-items: start;
 }
 
 /* 4 + 4 + 4 */
@@ -74,21 +162,11 @@
   grid-template-columns: minmax(0, 1fr);
 }
 
-/* Services continue the Work card grid, so the gap above them is the gutter. */
-.services-grid {
-  margin-top: var(--grid-gutter);
-}
-
-/* These columns are different lengths; they top-align rather than stretch. */
-.top-section,
-.fold-columns {
-  align-items: start;
-}
-
 /* ── Breakpoints ──
    768: tablet — the three-up values tiles fall to two-up before they get too
         narrow for their back copy.
-   600: phone — every two-up grid stacks and the page gutters tighten.
+   600: phone — the two-up grids stack, the footer stacks and the section gaps
+        tighten.
    480: small phone — the values tiles go full width as well. */
 
 @media (max-width: 768px) {
@@ -98,42 +176,34 @@
 }
 
 @media (max-width: 600px) {
-  .home-page {
-    padding: 40px 24px 64px;
-  }
-
-  .top-section,
-  .fold-columns,
-  .project-grid,
-  .services-grid {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  /* When the name/bio and Experience/Tools pairs stack, the gap between them is
-     the space between two content groups, not a card gutter. */
-  .top-section,
-  .fold-columns {
-    row-gap: 32px;
-  }
-
-  /* Two-up values tiles are ~200px wide here and the descriptions on the back run
-     long. Give the cards room rather than clipping the copy. */
   :root {
+    --space-section: 64px;
+    --space-header: 64px;
     --flip-card-height: 184px;
   }
 
-  .about-content {
-    grid-template-columns: 1fr !important;
+  :root {
+    --page-pad: 24px;
+    --page-top: 24px;
   }
 
-  .about-left-col {
-    width: 100% !important;
+  .home-page {
+    padding-bottom: 48px;
   }
 
-  .about-back-link {
-    position: static !important;
-    display: inline-block;
-    margin-bottom: 24px;
+  .project-grid,
+  .fold-columns {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  /* Stacked, Experience and Tools read as two sections, so they get section spacing. */
+  .fold-columns {
+    row-gap: var(--space-section);
+  }
+
+  .home-footer {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }
 
@@ -218,9 +288,8 @@
 
 .home-card-overlay-title {
   margin: 0;
-  font-family: "IvySemibold", "IvyPresto", Georgia, serif;
   font-size: 22px;
-  font-weight: 700;
+  font-weight: 500;
   letter-spacing: -0.01em;
   color: #fff;
 }

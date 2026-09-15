@@ -1,6 +1,5 @@
 import React, { useState, useRef } from "react";
-import { Link } from "react-router-dom";
-import logo from "./assets/SPFavicon1.png";
+import SiteShell, { NavLink, textStyles } from "./SiteShell";
 
 const HOURS = Array.from({ length: 12 }, (_, i) => i + 1);
 
@@ -92,19 +91,15 @@ export default function About() {
   }
 
   return (
-    <div style={styles.page}>
-      <Link to="/" className="about-back-link" style={styles.backLink}>← Back home</Link>
-
-      <div className="about-content" style={styles.content}>
-        <div className="about-left-col" style={styles.leftCol}>
-          <img src={logo} style={styles.logo} alt="Sonika Patel" />
-          <h1 style={styles.heading}>Sonika Patel</h1>
-          <p style={styles.tagline}>
-            0→1 product builder. designer. mini-canvas painter.
-          </p>
-          <p style={styles.bio}>
-            Hello <span role="img" aria-label="waving hand">👋🏼</span> I'm Sonika (So-knee-kah)! Outside of work, you can find me doing a variety of things, from playing my favorite sports to playing the keyboard. Hover around the clock to see what I'm up to throughout the day!
-            
+    <SiteShell nav={<NavLink to="/">Home</NavLink>}>
+      {/* Same two-column grid as the home page's Experience/Tools block. */}
+      <section className="fold-columns">
+        <div>
+          <h1 style={textStyles.heading}>
+            Hello <span className="wave-emoji" role="img" aria-label="waving hand">👋🏼</span> I'm Sonika <span style={{ whiteSpace: "nowrap" }}>(So-knee-kah)!</span>
+          </h1>
+          <p style={textStyles.lead}>
+            Outside of work, you can find me playing my tennis or soccer to playing the keyboard. Hover around the clock to see what I'm up to throughout the day!
           </p>
         </div>
 
@@ -199,82 +194,12 @@ export default function About() {
             )}
           </p>
         </div>
-      </div>
-    </div>
+      </section>
+    </SiteShell>
   );
 }
 
 const styles = {
-  page: {
-    position: "relative",
-    /* Same 897px as Home and the case-study content column. */
-    maxWidth: 897,
-    margin: "0 auto",
-    padding: "56px 40px 80px",
-    fontFamily: "'TT', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
-    color: "#111",
-    boxSizing: "border-box",
-  },
-  backLink: {
-    position: "absolute",
-    // Lines up with the clock caption below the ring: page's top padding (56)
-    // + the clock's own height (DISPLAY_SIZE) + the caption's top margin (24).
-    top: 56 + DISPLAY_SIZE + 24,
-    left: 40,
-    color: "rgba(0,0,0,0.52)",
-    fontSize: 13,
-    textDecoration: "none",
-  },
-  content: {
-    display: "grid",
-    gridTemplateColumns: "312px 1fr",
-    gap: 48,
-    alignItems: "start",
-  },
-  leftCol: {
-    width: 312,
-  },
-  /* Logo, name, tagline and bio use the same treatment as the home page so the
-     identity lockup does not change size or rhythm between the two. The only
-     difference is the tagline's bottom margin: here the bio follows directly
-     beneath it in the same column, where on home it sits in the next column. */
-  logo: {
-    width: 54,
-    height: 54,
-    objectFit: "contain",
-    marginBottom: 12,
-    display: "block",
-  },
-  heading: {
-    margin: 0,
-    fontSize: 40,
-    fontWeight: 800,
-    fontFamily: "IvyPresto",
-    color: "#4B4B4B",
-    letterSpacing: "-0.01em",
-    lineHeight: 1.2,
-  },
-  tagline: {
-    margin: "6px 0 28px",
-    fontSize: 12,
-    fontWeight: 400,
-    color: "#4E4E4E",
-    letterSpacing: "0.01em",
-  },
-  bio: {
-    margin: 0,
-    fontSize: 14,
-    lineHeight: 1.488,
-    color: "#4E4E4E",
-  },
-  eyebrow: {
-    margin: "14px 0 12px",
-    fontSize: 11,
-    fontWeight: 600,
-    letterSpacing: "0.12em",
-    textTransform: "uppercase",
-    color: "rgba(0,0,0,0.38)",
-  },
   rightCol: {
     display: "flex",
     flexDirection: "column",
