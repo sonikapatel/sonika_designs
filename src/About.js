@@ -92,18 +92,18 @@ export default function About() {
 
   return (
     <SiteShell nav={<NavLink to="/">Home</NavLink>}>
-      {/* Same two-column grid as the home page's Experience/Tools block. */}
-      <section className="fold-columns">
-        <div>
+      {/* Intro copy on the left, clock on the right, pushed to the column edges. */}
+      <section className="about-row">
+        <div style={styles.copy}>
           <h1 style={textStyles.heading}>
-            Hello <span className="wave-emoji" role="img" aria-label="waving hand">👋🏼</span> I'm Sonika <span style={{ whiteSpace: "nowrap" }}>(So-knee-kah)!</span>
+            Hello <span className="wave-emoji" role="img" aria-label="waving hand">👋🏼</span> I'm Sonika.
           </h1>
           <p style={textStyles.lead}>
             Outside of work, you can find me playing my tennis or soccer to playing the keyboard. Hover around the clock to see what I'm up to throughout the day!
           </p>
         </div>
 
-        <div style={styles.rightCol}>
+        <div style={styles.clockCol}>
           <div
             ref={clockRef}
             style={styles.clockWrap}
@@ -200,10 +200,15 @@ export default function About() {
 }
 
 const styles = {
-  rightCol: {
+  copy: {
+    flex: "0 1 360px",
+    minWidth: 0,
+  },
+  clockCol: {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
+    flexShrink: 0,
   },
   caption: {
     margin: "24px 0 0",

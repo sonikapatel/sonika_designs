@@ -124,6 +124,15 @@ body.home-bg::before {
   background-size: 120px 8px;
 }
 
+/* About: copy and clock sit at opposite edges of the column, top-aligned so the
+   heading lands at the same position as on the home page; they stack on phones. */
+.about-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--grid-gutter);
+}
+
 /* Every grid on the page is declared here rather than inline so the breakpoints
    below can restack them without !important. */
 .project-grid,
@@ -194,6 +203,12 @@ body.home-bg::before {
   .project-grid,
   .fold-columns {
     grid-template-columns: minmax(0, 1fr);
+  }
+
+  .about-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-block);
   }
 
   /* Stacked, Experience and Tools read as two sections, so they get section spacing. */

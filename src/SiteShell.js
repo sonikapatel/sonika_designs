@@ -54,9 +54,10 @@ export const textStyles = {
     letterSpacing: "-0.01em",
     lineHeight: 1.25,
   },
+  /* Same size as the Skills entries and the Work tab pills. */
   lead: {
     margin: 0,
-    fontSize: 20,
+    fontSize: 16,
     lineHeight: 1.6,
     color: "#4E4E4E",
     maxWidth: "36em",

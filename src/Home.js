@@ -220,7 +220,7 @@ export default function Home() {
         {/* Intro */}
         <section ref={introRef} className="fade-section">
           <h1 style={textStyles.heading}>
-            Hello <span className="wave-emoji" role="img" aria-label="waving hand">👋🏼</span> I'm Sonika <span style={{ whiteSpace: "nowrap" }}>(So-knee-kah).</span>
+            Hello <span className="wave-emoji" role="img" aria-label="waving hand">👋🏼</span> I'm Sonika.
           </h1>
           <p style={textStyles.lead}>
             I'm a 0→1 product designer who deeply cares about <strong style={textStyles.leadEmphasis}>building genuinely valuable products</strong>, with experience building sustainable digital experiences for users across B2B healthtech, fintech, and HR tech.
