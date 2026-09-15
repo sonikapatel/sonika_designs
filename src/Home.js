@@ -2,13 +2,15 @@ import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import logo from "./assets/SPFavicon1.png";
 
+/* Company marks live in public/images/logos as 128px transparent PNGs (4x the
+   32px they render at). */
 const EXPERIENCE = [
-  { company: "Fika",            role: "Lead Product Designer / Founder" },
-  { company: "Criteria",        role: "Senior UX Designer" },
-  { company: "Honeybee Health", role: "Product Designer" },
-  { company: "Square (Block)",  role: "Product Designer" },
-  { company: "Philosophie",     role: "Product Designer" },
-  { company: "AT&T",            role: "Engineer / UX Designer" },
+  { company: "Fika",            logo: "/images/logos/fika.png",        role: "Lead Product Designer / Founder" },
+  { company: "Criteria",        logo: "/images/logos/criteria.png",    role: "Senior UX Designer" },
+  { company: "Honeybee Health", logo: "/images/logos/honeybee.png",    role: "Product Designer" },
+  { company: "Square (Block)",  logo: "/images/logos/block.png",       role: "Product Designer" },
+  { company: "Philosophie",     logo: "/images/logos/philosophie.png", role: "Product Designer" },
+  { company: "AT&T",            logo: "/images/logos/att.png",         role: "Engineer / UX Designer" },
 ];
 
 /* The tools list that sits above the fold. */
@@ -236,8 +238,11 @@ export default function Home() {
             <p style={styles.foldLabel}>Experience</p>
             <div style={styles.foldList}>
               {EXPERIENCE.map((item) => (
-                <div key={item.company} style={styles.foldRow}>
-                  <p style={styles.foldPrimary}>{item.company}</p>
+                <div key={item.company} style={styles.foldExperienceRow}>
+                  <div style={styles.foldCompany}>
+                    <img src={item.logo} alt="" style={styles.foldLogo} />
+                    <p style={styles.foldPrimary}>{item.company}</p>
+                  </div>
                   <p style={styles.foldRole}>{item.role}</p>
                 </div>
               ))}
@@ -520,6 +525,25 @@ const styles = {
     alignItems: "flex-start",
     justifyContent: "space-between",
     gap: 16,
+  },
+  /* Experience rows carry a 32px mark, so the role text centres on it. */
+  foldExperienceRow: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    gap: 16,
+  },
+  foldCompany: {
+    display: "flex",
+    alignItems: "center",
+    gap: 12,
+    minWidth: 0,
+  },
+  foldLogo: {
+    width: 32,
+    height: 32,
+    objectFit: "contain",
+    flexShrink: 0,
   },
   foldPrimary: {
     margin: 0,
