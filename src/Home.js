@@ -223,7 +223,7 @@ export default function Home() {
             Hello <span className="wave-emoji" role="img" aria-label="waving hand">👋🏼</span> I'm Sonika.
           </h1>
           <p style={textStyles.lead}>
-          I'm a 0→1 product designer who cares about <strong>making genuinely valuable products</strong>. I've designed tools that help clinicians prescribe medications, small businesses get funding, credit unions access intuitive software, and managers coach their teams.</p>
+          I'm a 0→1 product designer who cares about <strong>making genuinely valuable products</strong>. I've designed tools that help clinicians prescribe medications, small businesses get funding, credit unions to experience intuitive software, and managers coach their teams.</p>
         </section>
 
         {/* Experience beside Tools, with Skills beneath Tools */}
