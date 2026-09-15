@@ -20,7 +20,10 @@ export default function SiteShell({ nav, children }) {
       <header className="home-header">
         <div style={styles.brand}>
           <img src={logo} style={styles.brandLogo} alt="" />
-          <span style={styles.brandName}>Sonika Patel</span>
+          <div>
+            <p style={styles.brandName}>Sonika Patel</p>
+            <p style={styles.brandTagline}>0→1 product builder. designer. mini-canvas painter.</p>
+          </div>
         </div>
         <nav className="home-nav">{nav}</nav>
       </header>
@@ -28,7 +31,6 @@ export default function SiteShell({ nav, children }) {
       <main className="home-sections">{children}</main>
 
       <footer className="home-footer">
-        <p style={styles.footerNote}>0→1 product builder. designer. mini-canvas painter.</p>
         <nav className="home-nav">
           <a href="mailto:sonika2patel@gmail.com" className="home-nav-link">Email</a>
           <a href={LINKEDIN} target="_blank" rel="noopener noreferrer" className="home-nav-link">LinkedIn</a>
@@ -81,13 +83,15 @@ const styles = {
     display: "block",
   },
   brandName: {
+    margin: 0,
     fontSize: 24,
     fontWeight: 700,
     letterSpacing: "-0.01em",
+    lineHeight: 1.2,
     color: "#111",
   },
-  footerNote: {
-    margin: 0,
+  brandTagline: {
+    margin: "2px 0 0",
     fontSize: 13,
     fontStyle: "italic",
     color: "#8B8B8B",

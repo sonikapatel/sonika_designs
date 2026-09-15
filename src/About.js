@@ -103,7 +103,7 @@ export default function About() {
           </p>
         </div>
 
-        <div style={styles.clockCol}>
+        <div className="about-clock" style={styles.clockCol}>
           <div
             ref={clockRef}
             style={styles.clockWrap}

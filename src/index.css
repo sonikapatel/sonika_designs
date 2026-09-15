@@ -106,7 +106,7 @@ body.home-bg::before {
 .home-footer {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   gap: 16px;
   padding-top: 32px;
   border-top: 1px solid rgba(0, 0, 0, 0.08);
@@ -124,13 +124,20 @@ body.home-bg::before {
   background-size: 120px 8px;
 }
 
-/* About: copy and clock sit at opposite edges of the column, top-aligned so the
-   heading lands at the same position as on the home page; they stack on phones. */
+/* About: copy and clock sit at opposite edges of the column. The row is
+   top-aligned so the heading lands at the same position as on the home page, and
+   the clock is pulled up so its centre lines up with the centre of the copy
+   (heading + three lines ≈ 140px tall against the 306px ring). They stack on
+   phones. */
 .about-row {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   gap: var(--grid-gutter);
+}
+
+.about-clock {
+  margin-top: -110px;
 }
 
 /* Every grid on the page is declared here rather than inline so the breakpoints
@@ -209,6 +216,10 @@ body.home-bg::before {
     flex-direction: column;
     align-items: stretch;
     gap: var(--space-block);
+  }
+
+  .about-clock {
+    margin-top: 0;
   }
 
   /* Stacked, Experience and Tools read as two sections, so they get section spacing. */
