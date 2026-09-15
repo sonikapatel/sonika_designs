@@ -46,10 +46,10 @@ const VALUES = [
     description: "I apply a system-driven approach to designing large-scale applications.",
   },
   {
-    title: "Speed",
+    title: "Collaboration",
     bg: "#E4E4E4",
     textColor: "#2A2A2A",
-    description: "Never compromising on craft, I balance moments that require intuitive conviction with moments where speed, learning, and iteration lead the way.",
+    description: "Design is a collaborative sport. I align stakeholders to ensure the design process is inclusive.",
   },
   {
     title: "Intentionality",
