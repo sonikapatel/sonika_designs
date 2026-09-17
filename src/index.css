@@ -247,12 +247,12 @@ body.home-bg::before {
 .home-card-link {
   display: block;
   text-decoration: none;
-  border-radius: 16px;
+  border-radius: 8px;
 }
 
 .home-card-tile {
   position: relative;
-  border-radius: 16px;
+  border-radius: 8px;
   overflow: hidden;
   transition: transform 0.2s ease;
 }

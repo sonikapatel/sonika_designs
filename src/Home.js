@@ -494,7 +494,7 @@ const styles = {
     color: "#111",
   },
   brandCard: {
-    borderRadius: 16,
+    borderRadius: 8,
     padding: 24,
     display: "flex",
     alignItems: "center",
