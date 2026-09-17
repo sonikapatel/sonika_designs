@@ -132,7 +132,7 @@ const modalStyles = {
     width: "100%",
     maxWidth: 360,
     boxShadow: "0 8px 40px rgba(0,0,0,0.08)",
-    fontFamily: "'TT', -apple-system, sans-serif",
+    fontFamily: "'Figtree', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
   },
   label: {
     margin: "0 0 24px",
@@ -479,7 +479,7 @@ function PostItScramble({ notes, frameWidth, frameHeight, noteSize, intervalMs =
                 fontWeight: 600,
                 lineHeight: 1.25,
                 color: "#3A3115",
-                fontFamily: "'TT', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+                fontFamily: "'Figtree', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
                 textAlign: "left",
               }}
             >
@@ -1040,7 +1040,7 @@ const constrained = {
 
 const styles = {
   page: {
-    fontFamily: "'TT', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+    fontFamily: "'Figtree', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
     color: "#111",
     background: "#fff",
     minHeight: "100vh",
@@ -1158,7 +1158,7 @@ const styles = {
     margin: 0,
     fontSize: 20,
     fontWeight: 500,
-    fontFamily: "IvyPresto",
+    fontFamily: "'Figtree', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
     color: "#111",
     lineHeight: 1.2,
   },

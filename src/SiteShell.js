@@ -85,7 +85,7 @@ const styles = {
   brandName: {
     margin: 0,
     fontSize: 24,
-    fontWeight: 700,
+    fontWeight: 500,
     letterSpacing: "-0.01em",
     lineHeight: 1.2,
     color: "#111",

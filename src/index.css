@@ -112,19 +112,6 @@ body.home-bg::before {
   border-top: 1px solid rgba(0, 0, 0, 0.08);
 }
 
-/* Section subheaders carry a paintbrush stroke underneath: one filled SVG shape
-   (thick, slightly wobbly body, a tapered lead-in on the left and a ragged
-   bristle tail on the right, plus a lighter dry-brush streak through the
-   middle) stretched to the width of the title via preserveAspectRatio="none".
-   inline-block keeps it the width of the word rather than the column. */
-.section-title {
-  padding-bottom: 12px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='12' viewBox='0 0 200 12' preserveAspectRatio='none'%3E%3Cpath d='M2 6.2 C10 3.4 22 2.6 38 3.1 S70 4.4 96 3.6 S140 2.2 168 3 S190 4.2 197 3.4 C199 4.6 198 6.8 196 7.6 C192 6.9 190 8.8 187 8.3 C183 9.4 180 7.6 176 8.9 C160 9.6 138 8.5 118 9.2 S82 8.1 60 8.9 S30 9.3 14 8.4 C8 8.1 3 8 2 6.2 Z' fill='%2331675F' fill-opacity='0.85'/%3E%3Cpath d='M20 5.9 C40 5.3 60 6.4 84 5.8 S130 5.1 158 5.7 S184 6.1 190 5.8 C180 6.5 160 6.3 140 6.8 S100 6.4 76 6.9 S40 6.6 20 5.9 Z' fill='%23FFFFFF' fill-opacity='0.28'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: 0 100%;
-  background-size: 100% 12px;
-}
-
 /* About: copy and clock sit at opposite edges of the column. The row is
    top-aligned so the heading lands at the same position as on the home page, and
    the clock is pulled up so its centre lines up with the centre of the copy
@@ -138,7 +125,7 @@ body.home-bg::before {
 }
 
 .about-clock {
-  margin-top: -110px;
+  margin-top: -70px;
 }
 
 /* Every grid on the page is declared here rather than inline so the breakpoints
@@ -172,6 +159,12 @@ body.home-bg::before {
 /* Skills are single words, so the rows sit tighter than the column gutter. */
 .skills-grid {
   row-gap: 8px;
+}
+
+/* Card grids sit tighter than the 24px gutter the other grids use. */
+.project-grid,
+.values-grid {
+  gap: 16px;
 }
 
 /* The Brands tab shows each board full width (12 columns). */
@@ -273,6 +266,17 @@ body.home-bg::before {
 .home-card-image {
   display: block;
   width: 100%;
+}
+
+/* Optional looping clip pinned over the still (see the Fika card in Home.js).
+   The still already carries the clip's first frame, so a browser that can't play
+   it just shows the PNG. */
+.home-card-video {
+  position: absolute;
+  display: block;
+  object-fit: cover;
+  border-radius: 6px;
+  pointer-events: none;
 }
 
 .home-card-overlay {

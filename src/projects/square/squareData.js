@@ -13,7 +13,7 @@ export const SQUARE = {
   slug: "square",
   company: "Square",
   title: "Square",
-  subtitle: "Allowing small businesses to get a range of credit products",
+  subtitle: "Rethinking credit for small businesses across merchant categories",
   protected: "sp_project",
   hero: {
     image: "/images/banner_images/Square_Header.png",

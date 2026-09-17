@@ -362,7 +362,7 @@ const modalStyles = {
     width: "100%",
     maxWidth: 360,
     boxShadow: "0 8px 40px rgba(0,0,0,0.08)",
-    fontFamily: "'TT', -apple-system, sans-serif",
+    fontFamily: "'Figtree', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
   },
   label: { margin: "0 0 24px", fontSize: 14, color: "#4E4E4E" },
   form: { display: "flex", flexDirection: "column", gap: 12 },

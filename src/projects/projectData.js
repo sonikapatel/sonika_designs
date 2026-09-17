@@ -190,7 +190,7 @@ export const PROJECTS = [
       },
       {
         type: "text-center",
-        header: "From research to product",
+        header: "From research to experience",
         body: "Managers, depending on their role within an organization, care about employees achieving their weekly projects, alongside certain metrics being met.  I thought about how to integrate role-specific variables, like ARR for Customer Success and Sales, for employees across various types of organizations into a meaningful coaching experience.",
       },
       {

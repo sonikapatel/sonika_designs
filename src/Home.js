@@ -148,15 +148,25 @@ function useFadeIn() {
   return ref;
 }
 
-const TABS = ["Product Design", "Brands"];
+const TABS = ["Products", "Brands"];
 
 const CARDS = {
-  "Product Design": [
+  Products: [
     {
       company: "Fika",
-      description: "Empowering creative connections through the usual routine of coffee.",
+      description: "Engaging creative connection IRL through coffee",
       bg: "#4B44AF",
       image: "/images/fika123.png",
+      /* Looping screen recording layered over the flattened frame baked into
+         the PNG. Position/size mirror the recording's rect in the Figma card
+         (23,56 / 291×154 on a 337×265 tile) so it lines up with the still. */
+      video: {
+        src: "/images/fika/fika-card.mp4",
+        left: "6.825%",
+        top: "21.13%",
+        width: "86.35%",
+        height: "58.11%",
+      },
       slug: "fika",
     },
     {
@@ -201,14 +211,14 @@ const CARDS = {
 function SectionHeading({ title, subtitle }) {
   return (
     <div style={subtitle ? styles.sectionHead : styles.sectionHeadBare}>
-      <h2 className="section-title" style={styles.sectionTitle}>{title}</h2>
+      <h2 style={styles.sectionTitle}>{title}</h2>
       {subtitle && <p style={styles.sectionSubtitle}>{subtitle}</p>}
     </div>
   );
 }
 
 export default function Home() {
-  const [activeTab, setActiveTab] = useState("Product Design");
+  const [activeTab, setActiveTab] = useState("Products");
 
   const introRef = useFadeIn();
   const workRef = useFadeIn();
@@ -292,6 +302,7 @@ export default function Home() {
                       company={card.company}
                       description={card.description}
                       image={card.image}
+                      video={card.video}
                       slug={card.slug}
                       fullWidth={card.fullWidth}
                     />
@@ -336,7 +347,7 @@ function BrandCard({ image }) {
   );
 }
 
-function ProjectCard({ company, description, image, slug, fullWidth }) {
+function ProjectCard({ company, description, image, video, slug, fullWidth }) {
   const ref = useFadeIn();
 
   /* Name and description sit inside the tile and are revealed by the overlay on
@@ -353,6 +364,26 @@ function ProjectCard({ company, description, image, slug, fullWidth }) {
           e.currentTarget.style.display = "none";
         }}
       />
+      {video && (
+        <video
+          className="home-card-video"
+          src={video.src}
+          autoPlay
+          loop
+          muted
+          playsInline
+          aria-hidden="true"
+          style={{
+            left: video.left,
+            top: video.top,
+            width: video.width,
+            height: video.height,
+          }}
+          onError={(e) => {
+            e.currentTarget.style.display = "none";
+          }}
+        />
+      )}
       <div className="home-card-overlay">
         <p className="home-card-overlay-title">{company}</p>
         <p className="home-card-overlay-text">{description}</p>
@@ -390,8 +421,8 @@ const styles = {
     display: "inline-block",
     margin: "0 0 8px",
     fontSize: 20,
-    fontWeight: 500,
-    color: "#111",
+    fontWeight: 600,
+    color: "#4E4E4E",
     letterSpacing: "-0.01em",
     lineHeight: 1.3,
   },

@@ -34,7 +34,7 @@ export const CRITERIA_NAV = [
     group: "BUILDING THE EXPERIENCE",
     items: [
       { id: "onboarding", label: "Onboarding + Admin Setup" },
-      { id: "research-to-product", label: "From Research to Product" },
+      { id: "research-to-product", label: "From Research to Experience" },
       { id: "design-system", label: "Design System" },
       { id: "impact", label: "Impact" },
     ],
