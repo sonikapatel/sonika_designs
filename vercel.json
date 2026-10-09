@@ -1,0 +1,1 @@
+{"redirects":[{"source":"/:path*","has":[{"type":"host","value":"sonikadesigns.vercel.app"}],"destination":"https://sonikapatel.com/:path*","permanent":true}]}
