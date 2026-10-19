@@ -6,6 +6,7 @@ import Hbh3Page from "./projects/hbh3/Hbh3Page";
 import CriteriaPage from "./projects/criteria/CriteriaPage";
 import FikaPage from "./projects/fika/FikaPage";
 import SquarePage from "./projects/square/SquarePage";
+import HomeasePage from "./projects/homease/HomeasePage";
 import { Analytics } from "@vercel/analytics/react";
 
 export default function App() {
@@ -27,6 +28,7 @@ export default function App() {
         <Route path="/projects/criteria" element={<CriteriaPage />} />
         <Route path="/projects/fika" element={<FikaPage />} />
         <Route path="/projects/square" element={<SquarePage />} />
+        <Route path="/projects/homease" element={<HomeasePage />} />
         <Route path="/projects/:slug" element={<ProjectPage />} />
       </Routes>
       <Analytics />

@@ -98,7 +98,7 @@ function ValueCard({ title, description, bg, textColor }) {
           position: "absolute", inset: 0,
           background: bg,
           border: needsBorder ? "1px solid rgba(0,0,0,0.09)" : "none",
-          borderRadius: 8,
+          borderRadius: 24,
           padding: 24,
           backfaceVisibility: "hidden",
           WebkitBackfaceVisibility: "hidden",
@@ -113,7 +113,7 @@ function ValueCard({ title, description, bg, textColor }) {
           position: "absolute", inset: 0,
           background: bg,
           border: needsBorder ? "1px solid rgba(0,0,0,0.09)" : "none",
-          borderRadius: 8,
+          borderRadius: 24,
           padding: 24,
           backfaceVisibility: "hidden",
           WebkitBackfaceVisibility: "hidden",
@@ -148,7 +148,7 @@ function useFadeIn() {
   return ref;
 }
 
-const TABS = ["Products", "Brands"];
+const TABS = ["Products", "Brands", "Playground"];
 
 const CARDS = {
   Products: [
@@ -194,6 +194,28 @@ const CARDS = {
       company: "Co-op Solutions",
       description: "Modernizing legacy credit union software - Case study coming soon! ",
       image: "/images/Springboard.png",
+      fullWidth: true,
+    },
+  ],
+  /* Self-initiated concepts and prototypes. */
+  Playground: [
+    {
+      company: "Homease",
+      description: "Mid-term rentals from every source in one search",
+      bg: "#86533A",
+      image: "/images/homease/homease-card.png",
+      /* The Ask flow recorded from the prototype, pinned over the phone in the Figma
+         card (858,72 / 281×608 on a 1354×556 tile). The phone runs off the bottom
+         edge, as it does in Figma; the tile clips it. */
+      video: {
+        src: "/images/homease/cover.mp4",
+        left: "63.37%",
+        top: "12.95%",
+        width: "20.75%",
+        height: "109.35%",
+        radius: "8.36% / 3.86%",
+      },
+      slug: "homease",
       fullWidth: true,
     },
   ],
@@ -378,6 +400,7 @@ function ProjectCard({ company, description, image, video, slug, fullWidth }) {
             top: video.top,
             width: video.width,
             height: video.height,
+            ...(video.radius && { borderRadius: video.radius }),
           }}
           onError={(e) => {
             e.currentTarget.style.display = "none";
@@ -494,7 +517,7 @@ const styles = {
     color: "#111",
   },
   brandCard: {
-    borderRadius: 8,
+    borderRadius: 24,
     padding: 24,
     display: "flex",
     alignItems: "center",

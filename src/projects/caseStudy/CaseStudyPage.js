@@ -242,11 +242,25 @@ function Block({ block, custom }) {
             className={`cs-media-frame${block.bare ? " cs-media-frame--bare" : ""}${
               block.framed ? " cs-media-frame--framed" : ""
             }`}
+            style={block.ground ? { background: block.ground } : undefined}
           >
             {isVideo(block.src) ? (
               /* No forced aspect ratio: the Figma ratios were measured off still
                  screenshots, and pinning them here would crop the real recordings. */
-              <video src={block.src} controls playsInline muted preload="metadata" />
+              /* `autoplay` loops short UI clips like a GIF; everything else keeps the player. */
+              block.autoplay ? (
+                <video
+                  src={block.src}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  preload="auto"
+                  style={block.radius ? { borderRadius: block.radius } : undefined}
+                />
+              ) : (
+                <video src={block.src} controls playsInline muted preload="metadata" />
+              )
             ) : (
               <img src={block.src} alt={block.alt || ""} />
             )}
@@ -433,7 +447,30 @@ export default function CaseStudyPage({ meta, nav, blocks, custom }) {
             className={`cs-hero${meta.hero.bleed ? " cs-hero--bleed" : ""}`}
             style={meta.hero.bg ? { background: meta.hero.bg } : undefined}
           >
-            <img src={meta.hero.image} alt={meta.hero.alt} />
+            {meta.hero.video ? (
+              /* Optional looping clip pinned over the still, same as the home cards. */
+              <div className="cs-hero-stage">
+                <img src={meta.hero.image} alt={meta.hero.alt} />
+                <video
+                  className="cs-hero-video"
+                  src={meta.hero.video.src}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  aria-hidden="true"
+                  style={{
+                    left: meta.hero.video.left,
+                    top: meta.hero.video.top,
+                    width: meta.hero.video.width,
+                    height: meta.hero.video.height,
+                    borderRadius: meta.hero.video.radius,
+                  }}
+                />
+              </div>
+            ) : (
+              <img src={meta.hero.image} alt={meta.hero.alt} />
+            )}
           </div>
 
           <div className="cs-blocks">

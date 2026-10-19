@@ -189,6 +189,22 @@
   overflow: hidden;
 }
 
+/* Hero still with a looping clip pinned over it (Homease). */
+.cs-hero-stage {
+  position: relative;
+  /* The clip runs past the still's bottom edge (the phone is cropped in Figma too),
+     so the stage clips it — and rounds to the cover's own 32px corners. */
+  overflow: hidden;
+  border-radius: 2.36% / 5.76%;
+}
+
+.cs-hero-video {
+  position: absolute;
+  display: block;
+  object-fit: cover;
+  pointer-events: none;
+}
+
 .cs-blocks {
   display: flex;
   flex-direction: column;
