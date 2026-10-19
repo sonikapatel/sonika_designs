@@ -49,6 +49,7 @@ export const HOMEASE_BLOCKS = [
     body: [
       "Travel nurses, interns and people relocating for work need a furnished place for a few months, not a year. Those listings are spread across Facebook groups, Craigslist, Airbnb and Furnished Finder — each with its own filters, its own way of messaging, and its own blind spots.",
       "Homease is a concept I designed and prototyped end to end: describe your stay once, answer a few quick questions, and get ranked matches from every source, with commute time and real cost up front. When you find the one, Homease drafts the message and hands you off to wherever the host actually lives.",
+      "Homease was also my playground for working AI-first on a problem that genuinely needs solving. I vibe coded it, but systematically: Figma stayed the source of truth, tokens and motion rules were set before any code, and each screen was built, run in the iOS simulator and checked against the design before moving on. The same principles shaped the product itself — AI handles the tedious parts, like reading messy posts, turning one message into structured criteria and drafting the first outreach, while the renter stays in control by confirming what it understood and undoing anything it changes.",
     ],
   },
   {
@@ -71,15 +72,27 @@ export const HOMEASE_BLOCKS = [
   },
   {
     id: "problem",
-    variant: "side-to-side",
+    variant: "card-stack",
     eyebrow: "The Problem",
     lead: "Mid-term renters do the aggregating themselves.",
     body: "Talking with people who had searched for a short-term lease, the same story kept coming up: a dozen tabs, a spreadsheet, and messages scattered across apps. The search itself wasn’t the hard part. Trusting what they found, and acting before it was gone, was.",
-    orderedList: [
-      "Listings are fragmented across sites that don’t talk to each other, so every search runs four times.",
-      "Posts leave out what matters: utilities, furniture, minimum stay. Strict filters silently hide those listings.",
-      "Price on the card isn’t the price you pay, so budgets break after the first message.",
-      "Scam posts look exactly like real ones, and good places are gone within days.",
+    cards: [
+      {
+        title: "Listings are fragmented",
+        body: "They’re spread across sites that don’t talk to each other, so every search runs four times.",
+      },
+      {
+        title: "Posts leave out what matters",
+        body: "Utilities, furniture and minimum stay are often missing, and strict filters silently hide those listings.",
+      },
+      {
+        title: "The listed price isn’t the real price",
+        body: "Fees and utilities show up later, so budgets break after the first message.",
+      },
+      {
+        title: "Scams look real, and good places go fast",
+        body: "Scam posts look exactly like real ones, and the good places are gone within days.",
+      },
     ],
   },
   {
@@ -93,14 +106,29 @@ export const HOMEASE_BLOCKS = [
   },
   {
     id: "decisions",
-    variant: "side-to-side",
+    variant: "card-stack",
     eyebrow: "Key Decisions",
-    orderedList: [
-      "Ask, then confirm. Renters describe their stay in one message; Homease turns it into seven short questions that restate what it heard (“I picked up Nov 1 to Dec 1”) instead of a wall of filters.",
-      "Unstated isn’t excluded. Listings that don’t mention utilities or furniture stay in the results, flagged with “+ utilities?”, so renters ask rather than miss out.",
-      "Commute and price on every card. Minutes to work and the monthly price sit together, right under the photo, because they decide most searches.",
-      "Message where the host is. Facebook group posts open a Messenger-style draft; Craigslist and Furnished Finder open an email. Homease writes the first message instead of replacing the platform.",
-      "Every change can be undone. Criteria live as chips above the results; editing one shows exactly what changed — “Budget changed to $2,500 · 5 places hidden” — with Undo.",
+    cards: [
+      {
+        title: "Ask, then confirm",
+        body: "Renters describe their stay in one message; Homease turns it into seven short questions that restate what it heard (“I picked up Nov 1 to Dec 1”) instead of a wall of filters.",
+      },
+      {
+        title: "Unstated isn’t excluded",
+        body: "Listings that don’t mention utilities or furniture stay in the results, flagged with “+ utilities?”, so renters ask rather than miss out.",
+      },
+      {
+        title: "Commute and price on every card",
+        body: "Minutes to work and the monthly price sit together, right under the photo, because they decide most searches.",
+      },
+      {
+        title: "Message where the host is",
+        body: "Facebook group posts open a Messenger-style draft; Craigslist and Furnished Finder open an email. Homease writes the first message instead of replacing the platform.",
+      },
+      {
+        title: "Every change can be undone",
+        body: "Criteria live as chips above the results; editing one shows exactly what changed — “Budget changed to $2,500 · 5 places hidden” — with Undo.",
+      },
     ],
   },
   {
@@ -115,8 +143,9 @@ export const HOMEASE_BLOCKS = [
     ground: "#F3E8E1",
     radius: 24,
     src: "/images/homease/ask-flow.mp4",
+    label: { src: "/images/homease/label-ask.svg", alt: "Ask" },
     caption:
-      "Ask: one message becomes seven confirm-or-adjust questions — dates, commute, budget, space, furniture, must-haves and flexibility. Optional questions can be skipped.",
+      "One message becomes seven confirm-or-adjust questions — dates, commute, budget, space, furniture, must-haves and flexibility. Optional questions can be skipped.",
   },
   {
     variant: "media",
@@ -124,8 +153,9 @@ export const HOMEASE_BLOCKS = [
     ground: "#F3E8E1",
     radius: 24,
     src: "/images/homease/matches.mp4",
+    label: { src: "/images/homease/label-matches.svg", alt: "Matches" },
     caption:
-      "Matches: each card leads with the source and how recently it was posted, then fit, price and commute. Swipe through every room on the card; open a listing for the household, roommate preferences and lease details.",
+      "Each card leads with the source and how recently it was posted, then fit, price and commute. Swipe through every room on the card; open a listing for the household, roommate preferences and lease details.",
   },
   {
     variant: "media",
@@ -133,8 +163,9 @@ export const HOMEASE_BLOCKS = [
     ground: "#F3E8E1",
     radius: 24,
     src: "/images/homease/email.mp4",
+    label: { src: "/images/homease/label-reach-out.svg", alt: "Reach out" },
     caption:
-      "Reach out: “Message Marcus” opens an email to the Furnished Finder host, pre-filled with the listing, dates and workplace. Facebook group listings open a Messenger-style chat instead.",
+      "“Message Marcus” opens an email to the Furnished Finder host, pre-filled with the listing, dates and workplace. Facebook group listings open a Messenger-style chat instead.",
   },
   {
     id: "prototype",

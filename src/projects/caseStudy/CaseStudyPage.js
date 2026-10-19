@@ -241,9 +241,12 @@ function Block({ block, custom }) {
           <div
             className={`cs-media-frame${block.bare ? " cs-media-frame--bare" : ""}${
               block.framed ? " cs-media-frame--framed" : ""
-            }`}
+            }${block.label ? " cs-media-frame--labelled" : ""}`}
             style={block.ground ? { background: block.ground } : undefined}
           >
+            {/* Optional title set as an image (e.g. a licensed display face outlined to SVG),
+                pinned to the frame's top-left corner. */}
+            {block.label && <img className="cs-media-label" src={block.label.src} alt={block.label.alt} />}
             {isVideo(block.src) ? (
               /* No forced aspect ratio: the Figma ratios were measured off still
                  screenshots, and pinning them here would crop the real recordings. */

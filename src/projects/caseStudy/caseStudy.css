@@ -400,6 +400,19 @@
 /* Stills that already sit on their own ground (the Check-Ins overview, the design
    system site) render without the dark card, which would otherwise box white
    artwork inside a second frame. */
+.cs-media-frame--labelled {
+  position: relative;
+}
+
+.cs-media-frame > .cs-media-label {
+  position: absolute;
+  top: 32px;
+  left: 32px;
+  height: 28px;
+  width: auto;
+  pointer-events: none;
+}
+
 .cs-media-frame--bare {
   background: none;
   border-radius: 0;
@@ -923,6 +936,17 @@
 
   .cs-media-frame {
     padding: 16px;
+  }
+
+  /* Narrow frames: give the label its own row above the media. */
+  .cs-media-frame--labelled {
+    padding-top: 56px;
+  }
+
+  .cs-media-frame > .cs-media-label {
+    top: 16px;
+    left: 16px;
+    height: 24px;
   }
 
   .cs-media-caption {
