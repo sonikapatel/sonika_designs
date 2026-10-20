@@ -5,8 +5,8 @@ import logo from "./assets/SPFavicon1.png";
 const LINKEDIN = "https://www.linkedin.com/in/sonikapatel/";
 
 /* Page chrome shared by Home and About: the 768px container, the header bar
-   (name left, links right), the footer, and the body background + grid. Layout
-   rules live in index.css under .home-page / .home-header / .home-footer. */
+   (logo left; page link, Email and LinkedIn right), and the body background +
+   grid. Layout rules live in index.css under .home-page / .home-header. */
 export default function SiteShell({ nav, children }) {
   /* The background and grid live on <body> (body.home-bg in index.css) so they
      cover the full document; scoped to these routes via the class. */
@@ -18,24 +18,18 @@ export default function SiteShell({ nav, children }) {
   return (
     <div className="home-page">
       <header className="home-header">
-        <div style={styles.brand}>
+        {/* The mark alone, linking home; it's the only brand element in the header. */}
+        <Link to="/" style={styles.brand} aria-label="Sonika Patel, home">
           <img src={logo} style={styles.brandLogo} alt="" />
-          <div>
-            <p style={styles.brandName}>Sonika Patel</p>
-            <p style={styles.brandTagline}>0→1 product builder. designer. mini-canvas painter.</p>
-          </div>
-        </div>
-        <nav className="home-nav">{nav}</nav>
-      </header>
-
-      <main className="home-sections">{children}</main>
-
-      <footer className="home-footer">
+        </Link>
         <nav className="home-nav">
+          {nav}
           <a href="mailto:sonika2patel@gmail.com" className="home-nav-link">Email</a>
           <a href={LINKEDIN} target="_blank" rel="noopener noreferrer" className="home-nav-link">LinkedIn</a>
         </nav>
-      </footer>
+      </header>
+
+      <main className="home-sections">{children}</main>
     </div>
   );
 }
@@ -74,26 +68,11 @@ const styles = {
   brand: {
     display: "flex",
     alignItems: "center",
-    gap: 10,
   },
   brandLogo: {
-    width: 28,
-    height: 28,
+    width: 44,
+    height: 44,
     objectFit: "contain",
     display: "block",
-  },
-  brandName: {
-    margin: 0,
-    fontSize: 24,
-    fontWeight: 500,
-    letterSpacing: "-0.01em",
-    lineHeight: 1.2,
-    color: "#111",
-  },
-  brandTagline: {
-    margin: "2px 0 0",
-    fontSize: 13,
-    fontStyle: "italic",
-    color: "#8B8B8B",
   },
 };

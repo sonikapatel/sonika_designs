@@ -18,7 +18,7 @@
 
   /* Container metrics; the background grid reads these so its lines track the
      layout at every width. */
-  --page-max: 768px;
+  --page-max: 1215px; /* matches the case-study shell (.cs-shell) */
   --page-pad: 16px;
   --page-top: 32px;
 
@@ -103,15 +103,6 @@ body.home-bg::before {
   margin-bottom: 96px;
 }
 
-.home-footer {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 16px;
-  padding-top: 32px;
-  border-top: 1px solid rgba(0, 0, 0, 0.08);
-}
-
 /* About: copy and clock sit at opposite edges of the column. The row is
    top-aligned so the heading lands at the same position as on the home page, and
    the clock is pulled up so its centre lines up with the centre of the copy
@@ -137,7 +128,7 @@ body.home-bg::before {
   gap: var(--grid-gutter);
 }
 
-/* 6 + 6 — Experience beside Tools/Skills, and the card grids */
+/* 6 + 6 — Tools beside Skills, and the card grids */
 .fold-columns,
 .project-grid,
 .skills-grid {
@@ -156,9 +147,142 @@ body.home-bg::before {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
+/* Past companies under the intro: real marks, greyed and muted so they read as
+   a quiet strip rather than compete with the work. */
+.logo-strip {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 32px;
+  margin: var(--space-block) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Home intro: heading, lead and logo strip centred on the page. The lead keeps
+   its 36em measure and is centred as a block in Home.js (its margins are inline). */
+.home-intro {
+  text-align: center;
+}
+
+.home-intro .logo-strip {
+  justify-content: center;
+}
+
+.logo-strip img {
+  display: block;
+  filter: grayscale(1);
+  opacity: 0.5;
+  transition: opacity 0.2s ease;
+}
+
+.logo-strip li:hover img {
+  opacity: 0.8;
+}
+
 /* Skills are single words, so the rows sit tighter than the column gutter. */
 .skills-grid {
   row-gap: 8px;
+}
+
+/* Work: the tabs on the left and, on Products, the industry filter pills on the
+   right of the same row. */
+.work-tabs-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  margin-bottom: var(--grid-gutter);
+}
+
+.industry-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 4px;
+}
+
+/* Same pill as the Work tabs, one size down. */
+.industry-pill {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  border: none;
+  background: transparent;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.5;
+  color: rgba(0, 0, 0, 0.5);
+  text-align: left;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.industry-pill:hover {
+  color: #111;
+}
+
+.industry-pill[aria-pressed="true"] {
+  background: #e6e2db;
+  color: #111;
+}
+
+.industry-pill:focus-visible {
+  outline: 2px solid #111;
+  outline-offset: 2px;
+}
+
+.industry-pill-count {
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.4);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Typewriter heading ("I've built"): the typed text sits over an invisible copy
+   of the full text, so the heading keeps its final size while it types. */
+.typewriter {
+  position: relative;
+  display: inline-block;
+}
+
+.typewriter-ghost {
+  visibility: hidden;
+}
+
+.typewriter-typed {
+  position: absolute;
+  inset: 0;
+  white-space: nowrap;
+}
+
+.typewriter-caret {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  margin-left: 2px;
+  vertical-align: -0.12em;
+  background: currentColor;
+  animation: typewriter-blink 0.8s steps(1) infinite;
+}
+
+@keyframes typewriter-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* "I build with": two columns of tool entries. */
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: var(--grid-gutter);
+  row-gap: 24px;
 }
 
 /* Card grids sit tighter than the 24px gutter the other grids use. */
@@ -175,7 +299,7 @@ body.home-bg::before {
 /* ── Breakpoints ──
    768: tablet — the three-up values tiles fall to two-up before they get too
         narrow for their back copy.
-   600: phone — the two-up grids stack, the footer stacks and the section gaps
+   600: phone — the two-up grids stack, the header stacks and the section gaps
         tighten.
    480: small phone — the values tiles go full width as well. */
 
@@ -206,6 +330,11 @@ body.home-bg::before {
     grid-template-columns: minmax(0, 1fr);
   }
 
+  /* Phones: the pills drop under the tabs and start from the left. */
+  .industry-nav {
+    justify-content: flex-start;
+  }
+
   .about-row {
     flex-direction: column;
     align-items: stretch;
@@ -216,12 +345,13 @@ body.home-bg::before {
     margin-top: 0;
   }
 
-  /* Stacked, Experience and Tools read as two sections, so they get section spacing. */
+  /* Stacked, Tools and Skills read as two sections, so they get section spacing. */
   .fold-columns {
     row-gap: var(--space-section);
   }
 
-  .home-footer {
+  /* Name and links stack so the three links never crowd the name. */
+  .home-header {
     flex-direction: column;
     align-items: flex-start;
   }
@@ -277,6 +407,48 @@ body.home-bg::before {
   object-fit: cover;
   border-radius: 6px;
   pointer-events: none;
+}
+
+/* Homease: the house mark draws itself over the clean card still
+   (src/projects/homease/HomeaseHouse.js). Timing is Figma's, verbatim: 2s loop,
+   path trim ease-in-out (motion.dev "easeInOut") to 94.1%, then hold. */
+.homease-house {
+  position: absolute;
+  display: block;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.homease-house-line {
+  stroke-dasharray: 0 1;
+  stroke-dashoffset: -1;
+  animation: homease-house-draw 2s infinite;
+}
+
+@keyframes homease-house-draw {
+  0% {
+    stroke-dasharray: 0 1;
+    stroke-dashoffset: -1;
+    animation-timing-function: cubic-bezier(0.42, 0, 0.58, 1);
+  }
+  94.1% {
+    stroke-dasharray: 1 1;
+    stroke-dashoffset: 0;
+    animation-timing-function: linear;
+  }
+  100% {
+    stroke-dasharray: 1 1;
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Less motion: the finished house, standing still. */
+@media (prefers-reduced-motion: reduce) {
+  .homease-house-line {
+    animation: none;
+    stroke-dasharray: none;
+    stroke-dashoffset: 0;
+  }
 }
 
 .home-card-overlay {

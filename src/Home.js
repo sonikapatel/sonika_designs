@@ -1,19 +1,21 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import SiteShell, { NavLink, textStyles } from "./SiteShell";
+import HomeaseHouse from "./projects/homease/HomeaseHouse";
 
-/* Company marks live in public/images/logos as 128px transparent PNGs (4x the
-   32px they render at). */
+/* Company marks live in public/images/logos: square marks as 128px transparent
+   PNGs, and mark-plus-name logos (Criteria, Square, AT&T) as wordmarks. They sit
+   in a greyed-out strip under the intro, all at one height. */
 const EXPERIENCE = [
   { company: "Fika",            logo: "/images/logos/fika.png",        role: "Lead Product Designer / Founder" },
-  { company: "Criteria",        logo: "/images/logos/criteria.png",    role: "Senior UX Designer" },
+  { company: "Criteria",        logo: "/images/logos/criteria-wordmark.png",    role: "Senior UX Designer" },
   { company: "Honeybee Health", logo: "/images/logos/honeybee.png",    role: "Product Designer" },
-  { company: "Square (Block)",  logo: "/images/logos/block.png",       role: "Product Designer" },
+  { company: "Square (Block)",  logo: "/images/logos/square-wordmark.svg",       role: "Product Designer" },
   { company: "Philosophie",     logo: "/images/logos/philosophie.png", role: "Product Designer" },
-  { company: "AT&T",            logo: "/images/logos/att.png",         role: "Engineer / UX Designer" },
+  { company: "AT&T",            logo: "/images/logos/att-wordmark.svg",         role: "Engineer / UX Designer" },
 ];
 
-/* The tools list beside Experience. */
+/* The tools list beside Skills. */
 const TOOL_LIST = [
   { name: "Claude Code",          use: "Scaling AI-native design systems" },
   { name: "Cursor",               use: "Bringing prototypes to life" },
@@ -150,11 +152,16 @@ function useFadeIn() {
 
 const TABS = ["Products", "Brands", "Playground"];
 
+/* Industry filter for the Products tab, so a recruiter can jump to the work that
+   matches their space. Each Products card carries one `industry`. */
+const INDUSTRIES = ["Fintech", "Healthcare", "HR Tech", "Community"];
+
 const CARDS = {
   Products: [
     {
       company: "Fika",
       description: "Engaging creative connection IRL through coffee",
+      industry: "Community",
       bg: "#4B44AF",
       image: "/images/fika123.png",
       /* Looping screen recording layered over the flattened frame baked into
@@ -172,6 +179,7 @@ const CARDS = {
     {
       company: "Criteria",
       description: "Personalized AI coaching for more effective management",
+      industry: "HR Tech",
       bg: "#16112E",
       image: "/images/criteria.png",
       slug: "criteria",
@@ -179,6 +187,7 @@ const CARDS = {
     {
       company: "Honeybee Health",
       description: "Enabling physicians to prescribe medications while protecting patient privacy",
+      industry: "Healthcare",
       bg: "#0D1917",
       image: "/images/HBH.png",
       slug: "hbh-3",
@@ -186,6 +195,7 @@ const CARDS = {
     {
       company: "Square",
       description: "Empowering small businesses with flexible financing.",
+      industry: "Fintech",
       bg: "#3D5445",
       image: "/images/Square_full.png",
       slug: "square",
@@ -193,6 +203,7 @@ const CARDS = {
     {
       company: "Co-op Solutions",
       description: "Modernizing legacy credit union software - Case study coming soon! ",
+      industry: "Fintech",
       image: "/images/Springboard.png",
       fullWidth: true,
     },
@@ -203,7 +214,16 @@ const CARDS = {
       company: "Homease",
       description: "Mid-term rentals from every source in one search",
       bg: "#86533A",
-      image: "/images/homease/homease-card.png",
+      /* The card without its house mark; HomeaseHouse draws it in place on a loop
+         (Figma node 107:5363). The outline sits at 385.6,208.7 / 132.1×125.3 on
+         the 1354×556 tile. */
+      image: "/images/homease/homease-card-plain.png",
+      house: {
+        left: "28.479%",
+        top: "37.536%",
+        width: "9.758%",
+        height: "22.530%",
+      },
       /* The Ask flow recorded from the prototype, pinned over the phone in the Figma
          card (858,72 / 281×608 on a 1354×556 tile). The phone runs off the bottom
          edge, as it does in Figma; the tile clips it. */
@@ -228,12 +248,61 @@ const CARDS = {
 };
 
 
+/* Types `text` out once, letter by letter, the first time it scrolls into view,
+   with a caret that blinks while typing and then goes away. The full text sits
+   invisibly underneath so nothing shifts, and screen readers get it straight away.
+   Readers who prefer less motion see the finished text. */
+const TYPE_MS = 75;
+
+function Typewriter({ text }) {
+  const ref = useRef(null);
+  const [count, setCount] = useState(0);
+  const [started, setStarted] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setCount(text.length);
+      return;
+    }
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setStarted(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.6 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [text]);
+
+  useEffect(() => {
+    if (!started || count >= text.length) return;
+    const id = setTimeout(() => setCount((n) => n + 1), TYPE_MS);
+    return () => clearTimeout(id);
+  }, [started, count, text]);
+
+  const typing = count < text.length;
+  return (
+    <span ref={ref} className="typewriter" aria-label={text}>
+      <span className="typewriter-ghost" aria-hidden="true">{text}</span>
+      <span className="typewriter-typed" aria-hidden="true">
+        {text.slice(0, count)}
+        {typing && <span className="typewriter-caret" />}
+      </span>
+    </span>
+  );
+}
+
 /* Section heading + optional muted subtitle, shared by every section below the
-   intro so they all open the same way. */
-function SectionHeading({ title, subtitle }) {
+   intro so they all open the same way. `typewriter` types the title out once. */
+function SectionHeading({ title, subtitle, typewriter }) {
   return (
     <div style={subtitle ? styles.sectionHead : styles.sectionHeadBare}>
-      <h2 style={styles.sectionTitle}>{title}</h2>
+      <h2 style={styles.sectionTitle}>{typewriter ? <Typewriter text={title} /> : title}</h2>
       {subtitle && <p style={styles.sectionSubtitle}>{subtitle}</p>}
     </div>
   );
@@ -241,27 +310,44 @@ function SectionHeading({ title, subtitle }) {
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState("Products");
+  const [industry, setIndustry] = useState("All");
+  const showIndustries = activeTab === "Products";
+  const cards =
+    showIndustries && industry !== "All"
+      ? CARDS.Products.filter((card) => card.industry === industry)
+      : CARDS[activeTab];
 
   const introRef = useFadeIn();
   const workRef = useFadeIn();
   const valuesRef = useFadeIn();
-  const experienceRef = useFadeIn();
+  const toolsRef = useFadeIn();
 
   return (
     <SiteShell nav={<NavLink to="/about">About</NavLink>}>
         {/* Intro */}
-        <section ref={introRef} className="fade-section">
-          <h1 style={textStyles.heading}>
+        <section ref={introRef} className="fade-section home-intro">
+          <h1 style={{ ...textStyles.heading, fontSize: 44 }}>
             Hello <span className="wave-emoji" role="img" aria-label="waving hand">👋🏼</span> I'm Sonika.
           </h1>
-          <p style={textStyles.lead}>
+          <p style={{ ...textStyles.lead, fontSize: 19, marginLeft: "auto", marginRight: "auto" }}>
           I'm a 0→1 product designer who cares about <strong>making genuinely valuable products</strong>. I've designed tools that help clinicians prescribe medications, small businesses get funding, credit unions to experience intuitive software, and managers coach their teams.</p>
+
+          <ul className="logo-strip" aria-label="Companies I've worked with">
+            {EXPERIENCE.map((item) => (
+              <li key={item.company} title={`${item.company} · ${item.role}`}>
+                <img src={item.logo} alt={item.company} style={styles.stripLogo} />
+              </li>
+            ))}
+          </ul>
         </section>
 
         {/* Work */}
         <section ref={workRef} className="fade-section">
-          <SectionHeading title="Work" subtitle="Select products and brand work." />
+          <SectionHeading typewriter title="I've built" subtitle="Selected products, brands and side projects." />
 
+          {/* Tabs on the left; on Products, the industry filter pills on the right
+              of the same row. */}
+          <div className="work-tabs-row">
           <div style={styles.tabs}>
             {TABS.map((tab) => (
               <button
@@ -273,20 +359,42 @@ export default function Home() {
               </button>
             ))}
           </div>
+          {showIndustries && (
+            <nav className="industry-nav" aria-label="Filter projects by industry">
+              {["All", ...INDUSTRIES].map((name) => {
+                const count =
+                  name === "All" ? CARDS.Products.length : CARDS.Products.filter((c) => c.industry === name).length;
+                return (
+                  <button
+                    key={name}
+                    type="button"
+                    className="industry-pill"
+                    aria-pressed={industry === name}
+                    onClick={() => setIndustry(name)}
+                  >
+                    {name}
+                    <span className="industry-pill-count">{count}</span>
+                  </button>
+                );
+              })}
+            </nav>
+          )}
+          </div>
 
-          <div className={activeTab === "Brands" ? "project-grid project-grid--single" : "project-grid"}>
-            {CARDS[activeTab].length > 0 ? (
+          <div className={activeTab === "Brands" ? "project-grid project-grid--single" : "project-grid"} aria-live="polite">
+            {cards.length > 0 ? (
               activeTab === "Brands"
-                ? CARDS[activeTab].map((card) => (
+                ? cards.map((card) => (
                     <BrandCard key={card.image} image={card.image} />
                   ))
-                : CARDS[activeTab].map((card) => (
+                : cards.map((card) => (
                     <ProjectCard
                       key={card.company}
                       company={card.company}
                       description={card.description}
                       image={card.image}
                       video={card.video}
+                      house={card.house}
                       slug={card.slug}
                       fullWidth={card.fullWidth}
                     />
@@ -297,26 +405,11 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Experience beside Tools, with Skills beneath Tools */}
-        <section ref={experienceRef} className="fade-section fold-columns">
+        {/* Tools beside Skills */}
+        <section ref={toolsRef} className="fade-section fold-columns">
           <div>
-            <SectionHeading title="Experience" />
-            <div style={styles.entryList}>
-              {EXPERIENCE.map((item) => (
-                <div key={item.company}>
-                  <div style={styles.entryCompany}>
-                    <img src={item.logo} alt="" style={styles.entryLogo} />
-                    <p style={styles.entryTitle}>{item.company}</p>
-                  </div>
-                  <p style={{ ...styles.entryMeta, ...styles.entryMetaIndented }}>{item.role}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div>
-            <SectionHeading title="Tools" />
-            <div style={styles.entryList}>
+            <SectionHeading typewriter title="I build with" />
+            <div className="tools-grid">
               {TOOL_LIST.map((tool) => (
                 <div key={tool.name}>
                   <p style={styles.entryTitle}>{tool.name}</p>
@@ -324,21 +417,21 @@ export default function Home() {
                 </div>
               ))}
             </div>
+          </div>
 
-            <div style={styles.subSection}>
-              <SectionHeading title="Skills" />
-              <div className="skills-grid">
-                {SKILLS.map((skill) => (
-                  <p key={skill} style={styles.entryTitle}>{skill}</p>
-                ))}
-              </div>
+          <div>
+            <SectionHeading typewriter title="I specialize in" />
+            <div className="skills-grid">
+              {SKILLS.map((skill) => (
+                <p key={skill} style={styles.entryTitle}>{skill}</p>
+              ))}
             </div>
           </div>
         </section>
 
         {/* Values */}
         <section ref={valuesRef} className="fade-section">
-          <SectionHeading title="Values" />
+          <SectionHeading typewriter title="I prioritize" />
           <div className="values-grid">
             {VALUES.map((v) => (
               <ValueCard key={v.title} {...v} />
@@ -370,7 +463,7 @@ function BrandCard({ image }) {
   );
 }
 
-function ProjectCard({ company, description, image, video, slug, fullWidth }) {
+function ProjectCard({ company, description, image, video, house, slug, fullWidth }) {
   const ref = useFadeIn();
 
   /* Name and description sit inside the tile and are revealed by the overlay on
@@ -408,6 +501,7 @@ function ProjectCard({ company, description, image, video, slug, fullWidth }) {
           }}
         />
       )}
+      {house && <HomeaseHouse style={house} />}
       <div className="home-card-overlay">
         <p className="home-card-overlay-title">{company}</p>
         <p className="home-card-overlay-text">{description}</p>
@@ -435,11 +529,13 @@ function ProjectCard({ company, description, image, video, slug, fullWidth }) {
 /* Page width, padding and every grid live in index.css (.home-page and the
    grid block); the spacing tokens used below are defined there too. */
 const styles = {
+  /* Heading to its content: 24px in all (8px under the title + 16px), tighter
+     than the 40px --space-block used between other blocks. */
   sectionHead: {
-    marginBottom: "var(--space-block)",
+    marginBottom: 16,
   },
   sectionHeadBare: {
-    marginBottom: "var(--space-block)",
+    marginBottom: 16,
   },
   sectionTitle: {
     display: "inline-block",
@@ -456,26 +552,16 @@ const styles = {
     lineHeight: 1.6,
     color: "#8B8B8B",
   },
-  /* Skills sits under Tools inside the right-hand column. */
-  subSection: {
-    marginTop: "var(--space-block)",
-  },
-  /* Stacked list entries (Experience, Tools): title line, muted line beneath. */
+  /* Stacked list entries (Tools): title line, muted line beneath. */
   entryList: {
     display: "flex",
     flexDirection: "column",
     gap: 24,
   },
-  entryCompany: {
-    display: "flex",
-    alignItems: "center",
-    gap: 12,
-  },
-  entryLogo: {
-    width: 32,
+  stripLogo: {
+    display: "block",
     height: 32,
-    objectFit: "contain",
-    flexShrink: 0,
+    width: "auto",
   },
   entryTitle: {
     margin: 0,
@@ -490,14 +576,10 @@ const styles = {
     lineHeight: 1.5,
     color: "#8B8B8B",
   },
-  /* Lines up under the company name, past the 32px mark and its 12px gap. */
-  entryMetaIndented: {
-    paddingLeft: 44,
-  },
+  /* Spacing below the row lives on .work-tabs-row (index.css). */
   tabs: {
     display: "flex",
     gap: 8,
-    marginBottom: "var(--grid-gutter)",
   },
   tab: {
     border: "none",
