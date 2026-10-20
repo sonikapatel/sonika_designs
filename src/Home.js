@@ -13,7 +13,7 @@ const EXPERIENCE = [
   { company: "AT&T",            logo: "/images/logos/att.png",         role: "Engineer / UX Designer" },
 ];
 
-/* The tools list that sits above the fold. */
+/* The tools list beside Experience. */
 const TOOL_LIST = [
   { name: "Claude Code",          use: "Scaling AI-native design systems" },
   { name: "Cursor",               use: "Bringing prototypes to life" },
@@ -258,44 +258,6 @@ export default function Home() {
           I'm a 0→1 product designer who cares about <strong>making genuinely valuable products</strong>. I've designed tools that help clinicians prescribe medications, small businesses get funding, credit unions to experience intuitive software, and managers coach their teams.</p>
         </section>
 
-        {/* Experience beside Tools, with Skills beneath Tools */}
-        <section ref={experienceRef} className="fade-section fold-columns">
-          <div>
-            <SectionHeading title="Experience" />
-            <div style={styles.entryList}>
-              {EXPERIENCE.map((item) => (
-                <div key={item.company}>
-                  <div style={styles.entryCompany}>
-                    <img src={item.logo} alt="" style={styles.entryLogo} />
-                    <p style={styles.entryTitle}>{item.company}</p>
-                  </div>
-                  <p style={{ ...styles.entryMeta, ...styles.entryMetaIndented }}>{item.role}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div>
-            <SectionHeading title="Tools" />
-            <div style={styles.entryList}>
-              {TOOL_LIST.map((tool) => (
-                <div key={tool.name}>
-                  <p style={styles.entryTitle}>{tool.name}</p>
-                  <p style={styles.entryMeta}>{tool.use}</p>
-                </div>
-              ))}
-            </div>
-
-            <div style={styles.subSection}>
-              <SectionHeading title="Skills" />
-              <div className="skills-grid">
-                {SKILLS.map((skill) => (
-                  <p key={skill} style={styles.entryTitle}>{skill}</p>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
         {/* Work */}
         <section ref={workRef} className="fade-section">
           <SectionHeading title="Work" subtitle="Select products and brand work." />
@@ -332,6 +294,45 @@ export default function Home() {
             ) : (
               <p style={styles.empty}>Coming soon</p>
             )}
+          </div>
+        </section>
+
+        {/* Experience beside Tools, with Skills beneath Tools */}
+        <section ref={experienceRef} className="fade-section fold-columns">
+          <div>
+            <SectionHeading title="Experience" />
+            <div style={styles.entryList}>
+              {EXPERIENCE.map((item) => (
+                <div key={item.company}>
+                  <div style={styles.entryCompany}>
+                    <img src={item.logo} alt="" style={styles.entryLogo} />
+                    <p style={styles.entryTitle}>{item.company}</p>
+                  </div>
+                  <p style={{ ...styles.entryMeta, ...styles.entryMetaIndented }}>{item.role}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <SectionHeading title="Tools" />
+            <div style={styles.entryList}>
+              {TOOL_LIST.map((tool) => (
+                <div key={tool.name}>
+                  <p style={styles.entryTitle}>{tool.name}</p>
+                  <p style={styles.entryMeta}>{tool.use}</p>
+                </div>
+              ))}
+            </div>
+
+            <div style={styles.subSection}>
+              <SectionHeading title="Skills" />
+              <div className="skills-grid">
+                {SKILLS.map((skill) => (
+                  <p key={skill} style={styles.entryTitle}>{skill}</p>
+                ))}
+              </div>
+            </div>
           </div>
         </section>
 
