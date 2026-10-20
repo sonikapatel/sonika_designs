@@ -3,15 +3,16 @@ import { Link } from "react-router-dom";
 import SiteShell, { NavLink, textStyles } from "./SiteShell";
 import HomeaseHouse from "./projects/homease/HomeaseHouse";
 
-/* Company marks live in public/images/logos: square marks as 128px transparent
-   PNGs, and mark-plus-name logos (Criteria, Square, AT&T) as wordmarks. They sit
-   in a greyed-out strip under the intro, all at one height. */
+/* Company marks live in public/images/logos: Fika's 128px transparent PNG, and
+   mark-plus-name wordmarks for the rest. They sit in a greyed-out strip under the
+   intro at one height, except Philosophie's text-only wordmark, which is so wide
+   it sets smaller to carry the same visual weight. */
 const EXPERIENCE = [
   { company: "Fika",            logo: "/images/logos/fika.png",        role: "Lead Product Designer / Founder" },
   { company: "Criteria",        logo: "/images/logos/criteria-wordmark.png",    role: "Senior UX Designer" },
-  { company: "Honeybee Health", logo: "/images/logos/honeybee.png",    role: "Product Designer" },
+  { company: "Honeybee Health", logo: "/images/logos/honeybee-wordmark.png",    role: "Product Designer" },
   { company: "Square (Block)",  logo: "/images/logos/square-wordmark.svg",       role: "Product Designer" },
-  { company: "Philosophie",     logo: "/images/logos/philosophie.png", role: "Product Designer" },
+  { company: "Philosophie",     logo: "/images/logos/philosophie-wordmark.svg", role: "Product Designer", height: 14 },
   { company: "AT&T",            logo: "/images/logos/att-wordmark.svg",         role: "Engineer / UX Designer" },
 ];
 
@@ -154,7 +155,7 @@ const TABS = ["Products", "Brands", "Playground"];
 
 /* Industry filter for the Products tab, so a recruiter can jump to the work that
    matches their space. Each Products card carries one `industry`. */
-const INDUSTRIES = ["Fintech", "Healthcare", "HR Tech", "Community"];
+const INDUSTRIES = ["Financial", "HR Tech", "Community", "Healthcare"];
 
 const CARDS = {
   Products: [
@@ -195,7 +196,7 @@ const CARDS = {
     {
       company: "Square",
       description: "Empowering small businesses with flexible financing.",
-      industry: "Fintech",
+      industry: "Financial",
       bg: "#3D5445",
       image: "/images/Square_full.png",
       slug: "square",
@@ -203,7 +204,7 @@ const CARDS = {
     {
       company: "Co-op Solutions",
       description: "Modernizing legacy credit union software - Case study coming soon! ",
-      industry: "Fintech",
+      industry: "Financial",
       image: "/images/Springboard.png",
       fullWidth: true,
     },
@@ -335,7 +336,7 @@ export default function Home() {
           <ul className="logo-strip" aria-label="Companies I've worked with">
             {EXPERIENCE.map((item) => (
               <li key={item.company} title={`${item.company} · ${item.role}`}>
-                <img src={item.logo} alt={item.company} style={styles.stripLogo} />
+                <img src={item.logo} alt={item.company} style={{ ...styles.stripLogo, height: item.height || 32 }} />
               </li>
             ))}
           </ul>
@@ -560,7 +561,6 @@ const styles = {
   },
   stripLogo: {
     display: "block",
-    height: 32,
     width: "auto",
   },
   entryTitle: {
