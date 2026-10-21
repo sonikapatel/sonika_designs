@@ -3,17 +3,19 @@ import { Link } from "react-router-dom";
 import SiteShell, { NavLink, textStyles } from "./SiteShell";
 import HomeaseHouse from "./projects/homease/HomeaseHouse";
 
-/* Company marks live in public/images/logos: Fika's 128px transparent PNG, and
-   mark-plus-name wordmarks for the rest. They sit in a greyed-out strip under the
-   intro at one height, except Philosophie's text-only wordmark, which is so wide
-   it sets smaller to carry the same visual weight. */
+/* Company wordmarks live in public/images/logos, each cropped to its ink. They
+   sit in a greyed-out strip under the intro, sized to one shared area rather
+   than one height, so a near-square mark (AT&T) and a long one (Philosophie)
+   carry the same visual weight. `aspect` is each file's width / height; `scale`
+   trims the heavy, solid wordmarks (Fika, Philosophie) so they don't read larger. */
+const LOGO_AREA = 3136; // px², a 112 × 28 box
 const EXPERIENCE = [
-  { company: "Fika",            logo: "/images/logos/fika.png",        role: "Lead Product Designer / Founder" },
-  { company: "Criteria",        logo: "/images/logos/criteria-wordmark.png",    role: "Senior UX Designer" },
-  { company: "Honeybee Health", logo: "/images/logos/honeybee-wordmark.png",    role: "Product Designer" },
-  { company: "Square (Block)",  logo: "/images/logos/square-wordmark.svg",       role: "Product Designer" },
-  { company: "Philosophie",     logo: "/images/logos/philosophie-wordmark.svg", role: "Product Designer", height: 14 },
-  { company: "AT&T",            logo: "/images/logos/att-wordmark.svg",         role: "Engineer / UX Designer" },
+  { company: "Fika",            logo: "/images/logos/fika-wordmark.png",        aspect: 2.37, scale: 0.85, role: "Lead Product Designer / Founder" },
+  { company: "Criteria",        logo: "/images/logos/criteria-wordmark.png",    aspect: 4.0,  role: "Senior UX Designer" },
+  { company: "Honeybee Health", logo: "/images/logos/honeybee-wordmark.png",    aspect: 3.57, role: "Product Designer" },
+  { company: "Square (Block)",  logo: "/images/logos/square-wordmark.svg",      aspect: 4.0,  role: "Product Designer" },
+  { company: "Philosophie",     logo: "/images/logos/philosophie-wordmark.svg", aspect: 8.93, scale: 0.85, role: "Product Designer" },
+  { company: "AT&T",            logo: "/images/logos/att-wordmark.svg",         aspect: 2.43, role: "Engineer / UX Designer" },
 ];
 
 /* The tools list beside Skills. */
@@ -182,7 +184,25 @@ const CARDS = {
       description: "Personalized AI coaching for more effective management",
       industry: "HR Tech",
       bg: "#16112E",
+      /* The still's dashboard window is dashboard.mov's first frame, so the clip
+         takes over seamlessly on hover. It plays in that window (87,108 /
+         798×459 on the 1011×795 tile), and the "Prepare for your next 1:1" panel,
+         cut from the same still (465,237 / 462×448), sits back on top of it. */
       image: "/images/criteria.png",
+      video: {
+        src: "/images/criteria/criteria-card.mp4",
+        left: "8.605%",
+        top: "13.585%",
+        width: "78.932%",
+        height: "57.736%",
+      },
+      layer: {
+        src: "/images/criteria/criteria-prep-panel.png",
+        left: "45.994%",
+        top: "29.811%",
+        width: "45.697%",
+        height: "56.352%",
+      },
       slug: "criteria",
     },
     {
@@ -191,6 +211,17 @@ const CARDS = {
       industry: "Healthcare",
       bg: "#0D1917",
       image: "/images/HBH.png",
+      /* HBH_Prototype.mov from the case study, the same E-prescription screen.
+         Pinned to the app window in the still (126,204 on the 1011×795 tile) at
+         the clip's own 1.9:1, so it runs off the right edge as the still does. */
+      video: {
+        src: "/images/hbh/hbh-card.mp4",
+        left: "12.463%",
+        top: "25.660%",
+        width: "111.08%",
+        height: "74.34%",
+        radius: 0,
+      },
       slug: "hbh-3",
     },
     {
@@ -199,6 +230,17 @@ const CARDS = {
       industry: "Financial",
       bg: "#3D5445",
       image: "/images/Square_full.png",
+      /* customizefinancing.mov from the case study: the loan flow the still's
+         phone panels come from. It's a desktop recording, so it can't sit inside
+         those panels; it fills the tile instead. */
+      video: {
+        src: "/images/square/square-card.mp4",
+        left: "0",
+        top: "0",
+        width: "100%",
+        height: "100%",
+        radius: 0,
+      },
       slug: "square",
     },
     {
@@ -336,7 +378,7 @@ export default function Home() {
           <ul className="logo-strip" aria-label="Companies I've worked with">
             {EXPERIENCE.map((item) => (
               <li key={item.company} title={`${item.company} · ${item.role}`}>
-                <img src={item.logo} alt={item.company} style={{ ...styles.stripLogo, height: item.height || 32 }} />
+                <img src={item.logo} alt={item.company} style={{ ...styles.stripLogo, height: Math.round(Math.sqrt(LOGO_AREA / item.aspect) * (item.scale || 1)) }} />
               </li>
             ))}
           </ul>
@@ -395,6 +437,7 @@ export default function Home() {
                       description={card.description}
                       image={card.image}
                       video={card.video}
+                      layer={card.layer}
                       house={card.house}
                       slug={card.slug}
                       fullWidth={card.fullWidth}
@@ -459,20 +502,49 @@ function BrandCard({ image }) {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      <img src={image} alt="" style={styles.brandImage} />
+      <img src={image} alt="" className="brand-card-image" style={styles.brandImage} />
     </div>
   );
 }
 
-function ProjectCard({ company, description, image, video, house, slug, fullWidth }) {
+/* Card clips sit hidden and paused until the card is hovered or focused, then
+   fade in and play from the start. Touch screens can't hover, so there they
+   autoplay as before; readers who ask for less motion keep the still. */
+const prefersStill = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+function ProjectCard({ company, description, image, video, layer, house, slug, fullWidth }) {
   const ref = useFadeIn();
+  const videoRef = useRef(null);
+  const [playing, setPlaying] = useState(false);
+
+  useEffect(() => {
+    if (video && !canHover && !prefersStill()) setPlaying(true);
+  }, [video]);
+
+  useEffect(() => {
+    const el = videoRef.current;
+    if (!el) return;
+    if (playing) {
+      el.currentTime = 0;
+      el.play().catch(() => {});
+    } else {
+      el.pause();
+    }
+  }, [playing]);
+
+  const start = () => {
+    if (canHover && !prefersStill()) setPlaying(true);
+  };
+  const stop = () => {
+    if (canHover) setPlaying(false);
+  };
 
   /* Name and description sit inside the tile and are revealed by the overlay on
      hover. The hover state lives in CSS rather than React state so that keyboard
      focus and touch devices (which never hover) can be handled there too — see
      .home-card-* in index.css. */
   const tile = (
-    <div className="home-card-tile">
+    <div className={video ? "home-card-tile" : "home-card-tile home-card-tile--still"}>
       <img
         src={image}
         alt={company}
@@ -483,9 +555,10 @@ function ProjectCard({ company, description, image, video, house, slug, fullWidt
       />
       {video && (
         <video
-          className="home-card-video"
+          ref={videoRef}
+          className={playing ? "home-card-video is-playing" : "home-card-video"}
           src={video.src}
-          autoPlay
+          preload="metadata"
           loop
           muted
           playsInline
@@ -495,11 +568,19 @@ function ProjectCard({ company, description, image, video, house, slug, fullWidt
             top: video.top,
             width: video.width,
             height: video.height,
-            ...(video.radius && { borderRadius: video.radius }),
+            ...(video.radius !== undefined && { borderRadius: video.radius }),
           }}
           onError={(e) => {
             e.currentTarget.style.display = "none";
           }}
+        />
+      )}
+      {layer && (
+        <img
+          src={layer.src}
+          alt=""
+          className="home-card-layer"
+          style={{ left: layer.left, top: layer.top, width: layer.width, height: layer.height }}
         />
       )}
       {house && <HomeaseHouse style={house} />}
@@ -515,6 +596,10 @@ function ProjectCard({ company, description, image, video, house, slug, fullWidt
       ref={ref}
       className="fade-section"
       style={fullWidth ? { gridColumn: "1 / -1" } : undefined}
+      onMouseEnter={start}
+      onMouseLeave={stop}
+      onFocus={start}
+      onBlur={stop}
     >
       {slug ? (
         <Link to={`/projects/${slug}`} className="home-card-link" aria-label={company}>

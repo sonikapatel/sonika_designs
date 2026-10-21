@@ -398,15 +398,50 @@ body.home-bg::before {
   width: 100%;
 }
 
-/* Optional looping clip pinned over the still (see the Fika card in Home.js).
-   The still already carries the clip's first frame, so a browser that can't play
-   it just shows the PNG. */
+/* Optional clip pinned over the still (see the cards in Home.js). It stays
+   hidden until the card is hovered, then fades in and plays; a browser that
+   can't play it just shows the PNG. */
 .home-card-video {
   position: absolute;
   display: block;
   object-fit: cover;
   border-radius: 6px;
   pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.home-card-video.is-playing {
+  opacity: 1;
+}
+
+/* A cut-out from the still that stays in front of the clip (the Criteria 1:1
+   panel), so the recording plays behind it rather than over it. */
+.home-card-layer {
+  position: absolute;
+  display: block;
+  pointer-events: none;
+}
+
+/* Cards without a clip (Co-op, the brand tiles) get a slow push-in instead. */
+.home-card-tile--still .home-card-image,
+.brand-card-image {
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.home-card-link:hover .home-card-tile--still .home-card-image,
+.home-card-link:focus-visible .home-card-tile--still .home-card-image,
+.home-card-tile--still:hover .home-card-image,
+.brand-card-image:hover {
+  transform: scale(1.04);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-card-tile--still .home-card-image,
+  .brand-card-image {
+    transition: none;
+    transform: none !important;
+  }
 }
 
 /* Homease: the house mark draws itself over the clean card still
@@ -462,7 +497,8 @@ body.home-bg::before {
   /* Matches the 24px inset the value cards use. */
   padding: 24px;
   text-align: left;
-  background: rgba(0, 0, 0, 0.5);
+  /* Darkens only behind the copy, so the clip playing above it stays visible. */
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.35) 35%, rgba(0, 0, 0, 0) 65%);
   opacity: 0;
   transition: opacity 0.25s ease;
 }
