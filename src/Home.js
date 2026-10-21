@@ -167,9 +167,10 @@ const CARDS = {
       industry: "Community",
       bg: "#4B44AF",
       image: "/images/fika123.png",
-      /* The landing page scrolling top to bottom (Fika Landing Page.mov), played
-         in the still's browser window. Position/size mirror the window's rect in
-         the Figma card (23,56 / 291×154 on a 337×265 tile). */
+      /* The landing page scrolling top to bottom at a constant speed, captured
+         frame by frame from the fika-march-code frontend in headless Chrome at
+         1440×762, played in the still's browser window. Position/size mirror the
+         window's rect in the Figma card (23,56 / 291×154 on a 337×265 tile). */
       video: {
         src: "/images/fika/fika-landing.mp4",
         left: "6.825%",
