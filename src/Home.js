@@ -167,15 +167,16 @@ const CARDS = {
       industry: "Community",
       bg: "#4B44AF",
       image: "/images/fika123.png",
-      /* Looping screen recording layered over the flattened frame baked into
-         the PNG. Position/size mirror the recording's rect in the Figma card
-         (23,56 / 291×154 on a 337×265 tile) so it lines up with the still. */
+      /* The landing page scrolling top to bottom (Fika Landing Page.mov), played
+         in the still's browser window. Position/size mirror the window's rect in
+         the Figma card (23,56 / 291×154 on a 337×265 tile). */
       video: {
-        src: "/images/fika/fika-card.mp4",
+        src: "/images/fika/fika-landing.mp4",
         left: "6.825%",
         top: "21.13%",
         width: "86.35%",
         height: "58.11%",
+        radius: "2.3% / 4.3%",
       },
       slug: "fika",
     },
@@ -230,17 +231,8 @@ const CARDS = {
       industry: "Financial",
       bg: "#3D5445",
       image: "/images/Square_full.png",
-      /* customizefinancing.mov from the case study: the loan flow the still's
-         phone panels come from. It's a desktop recording, so it can't sit inside
-         those panels; it fills the tile instead. */
-      video: {
-        src: "/images/square/square-card.mp4",
-        left: "0",
-        top: "0",
-        width: "100%",
-        height: "100%",
-        radius: 0,
-      },
+      /* Stays still on hover: no clip and no push-in. */
+      noMotion: true,
       slug: "square",
     },
     {
@@ -438,6 +430,7 @@ export default function Home() {
                       image={card.image}
                       video={card.video}
                       layer={card.layer}
+                      noMotion={card.noMotion}
                       house={card.house}
                       slug={card.slug}
                       fullWidth={card.fullWidth}
@@ -512,7 +505,7 @@ function BrandCard({ image }) {
    autoplay as before; readers who ask for less motion keep the still. */
 const prefersStill = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-function ProjectCard({ company, description, image, video, layer, house, slug, fullWidth }) {
+function ProjectCard({ company, description, image, video, layer, house, noMotion, slug, fullWidth }) {
   const ref = useFadeIn();
   const videoRef = useRef(null);
   const [playing, setPlaying] = useState(false);
@@ -544,7 +537,7 @@ function ProjectCard({ company, description, image, video, layer, house, slug, f
      focus and touch devices (which never hover) can be handled there too — see
      .home-card-* in index.css. */
   const tile = (
-    <div className={video ? "home-card-tile" : "home-card-tile home-card-tile--still"}>
+    <div className={video || noMotion ? "home-card-tile" : "home-card-tile home-card-tile--still"}>
       <img
         src={image}
         alt={company}
