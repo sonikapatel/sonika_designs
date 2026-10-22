@@ -80,6 +80,21 @@ export const FIKA_BLOCKS = [
       "A way to view all upcoming fikas and previous fikas. Accept coffee invites in application and confirm via text.",
   },
   {
+    variant: "text-thread",
+  },
+  {
+    variant: "media",
+    src: "/images/fika/fika_profile.mp4",
+    caption:
+      "A creative’s profile: who they are, what they’re working on, their work, and fun facts that give the other person something to talk about over coffee.",
+  },
+  {
+    variant: "media",
+    src: "/images/fika/fika_settings.mp4",
+    caption:
+      "Settings, where creatives update their details, creative profile, membership, favorite cafe and order, the weekly times they’re usually free, and their fun facts.",
+  },
+  {
     id: "events",
     variant: "side-to-side",
     eyebrow: "Events",

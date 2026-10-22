@@ -1,0 +1,558 @@
+/* Criteria-only blocks: the Career History board (careerHistory.js) and the 1:1
+   check-in screen. It is an app screen rebuilt in code, so they use a
+   small, fixed UI type scale in the page's Figtree rather than the prose sizes:
+
+     20 / 600  screen title        13 / 600  card titles, dates
+     16 / 600  section heading     12 / 400  body, links
+     10 / 600  uppercase labels    11 / 500  tags, pills                          */
+
+.ch,
+.oo {
+  --ui-navy: #1f2b5c;
+  --ui-ink: #111827;
+  --ui-muted: #6b7280;
+  --ui-faint: #9ca3af;
+  --ui-line: #e5e7eb;
+  --ui-ground: #f5f6f8;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.ch p,
+.oo p {
+  margin: 0;
+}
+
+/* ── App chrome shared by both screens ── */
+
+.ch-frame,
+.oo-frame {
+  display: flex;
+  background: var(--ui-ground);
+  border: 1px solid var(--ui-line);
+  border-radius: var(--cs-radius);
+  overflow: hidden;
+}
+
+.ch-fit {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--cs-radius);
+}
+
+/* Inside the scaled frame the screen is a capture, not a card: no border, and the
+   same slim gutter as the dashboard recording. */
+.ch-fit > .ch-frame {
+  border: none;
+  border-radius: 0;
+}
+
+.ch-fit .ch-screen {
+  /* Measured off the dashboard recording at the same 1100px design width:
+     ~32px from the top, ~64px from the rail and the right edge. */
+  padding: 32px 64px;
+}
+
+.ch-fit > .ch-frame {
+  transform-origin: top left;
+}
+
+.ch-rail {
+  position: relative;
+  flex: 0 0 56px;
+  background: #101729;
+  overflow: hidden;
+}
+
+/* Absolutely placed so the tall artwork never sets the frame's height. */
+.ch-rail img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.ch-titlebar {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.ch-role {
+  font-size: 14px;
+  color: var(--ui-navy);
+}
+
+.ch-screen,
+.oo-screen {
+  flex: 1;
+  min-width: 0;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.ch-title,
+.oo-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--ui-navy);
+}
+
+/* ── Career History board ── */
+
+.ch-board {
+  background: #fff;
+  border: 1px solid var(--ui-line);
+  border-radius: var(--cs-radius);
+  padding: 16px;
+}
+
+.ch-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--ui-line);
+}
+
+.ch-month {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--ui-navy);
+}
+
+.ch-sub {
+  font-size: 12px;
+  color: var(--ui-muted);
+  margin-top: 4px !important;
+}
+
+.ch-tabs {
+  display: flex;
+  flex-shrink: 0;
+  padding: 3px;
+  border-radius: 999px;
+  background: var(--ui-ground);
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--ui-ink);
+}
+
+.ch-tabs span {
+  padding: 6px 12px;
+  border-radius: 999px;
+}
+
+.ch-tabs .is-on {
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(17, 24, 39, 0.1);
+}
+
+/* Five day columns need ~640px; narrower columns scroll the week sideways rather
+   than squeezing cards to unreadable widths. */
+.ch-scroll {
+  overflow-x: auto;
+  margin-top: 16px;
+}
+
+.ch-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(120px, 1fr));
+  gap: 10px;
+  min-width: 640px;
+}
+
+.ch-day {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ui-faint);
+}
+
+.ch-date {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ui-ink);
+  margin: 2px 0 12px !important;
+}
+
+.ch-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 210px;
+}
+
+.ch-card {
+  position: relative;
+  background: #fff;
+  border: 1px solid var(--ui-line);
+  border-radius: 12px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  box-shadow: 0 1px 2px rgba(17, 24, 39, 0.04);
+}
+
+.ch-card-title {
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--ui-ink);
+}
+
+.ch-card-link {
+  font-size: 12px;
+  color: var(--ui-ink);
+}
+
+.ch-tag {
+  align-self: flex-start;
+  margin-top: 2px;
+  padding: 3px 6px;
+  border-radius: 4px;
+  background: var(--ui-navy);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+
+.ch-empty {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border: 1px dashed var(--ui-line);
+  border-radius: 12px;
+  background: #fafafb;
+  font-size: 12px;
+  text-align: center;
+  color: var(--ui-faint);
+  padding: 12px;
+}
+
+.ch-plus {
+  display: grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 1.5px solid var(--ui-ink);
+  color: var(--ui-ink);
+  font-size: 13px;
+  line-height: 1;
+}
+
+.ch-progress {
+  font-size: 14px;
+  color: var(--cs-body);
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 767px) {
+  .ch-rail {
+    display: none;
+  }
+
+  .ch-screen,
+  .oo-screen {
+    padding: 16px;
+  }
+
+  .ch-head {
+    flex-direction: column;
+  }
+}
+
+/* ── 1:1 check-in ── */
+
+.oo-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.oo-who {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.oo-avatar {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--ui-navy);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.oo-meta {
+  font-size: 12px;
+  color: var(--ui-muted);
+  margin-top: 2px !important;
+}
+
+.oo-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: #ecfdf3;
+  color: #15803d;
+  font-size: 11px;
+  font-weight: 500;
+  flex-shrink: 0;
+}
+
+.oo-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.oo-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 12px;
+}
+
+.oo-card {
+  background: #fff;
+  border: 1px solid var(--ui-line);
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+}
+
+.oo-agenda {
+  grid-row: span 2;
+}
+
+.oo-notes,
+.oo-bo {
+  grid-column: 1 / -1;
+}
+
+.oo-card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.oo-h {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ui-ink);
+}
+
+.oo-count,
+.oo-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ui-faint);
+}
+
+.oo-agenda ul,
+.oo-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.oo-agenda label {
+  display: grid;
+  grid-template-columns: 16px 1fr;
+  column-gap: 10px;
+  row-gap: 2px;
+  align-items: start;
+  padding: 10px;
+  border-radius: 10px;
+  background: var(--ui-ground);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.oo-agenda input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.oo-agenda input:focus-visible + .oo-box {
+  outline: 2px solid var(--cs-accent);
+  outline-offset: 2px;
+}
+
+.oo-box {
+  display: grid;
+  place-items: center;
+  width: 16px;
+  height: 16px;
+  margin-top: 1px;
+  border-radius: 4px;
+  border: 1.5px solid #c4c8d0;
+  color: transparent;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+
+.oo-agenda .is-done .oo-box {
+  background: #16a34a;
+  border-color: #16a34a;
+  color: #fff;
+}
+
+.oo-item {
+  font-size: 12px;
+  color: var(--ui-ink);
+  line-height: 1.4;
+}
+
+.oo-agenda .is-done .oo-item {
+  color: var(--ui-muted);
+  text-decoration: line-through;
+}
+
+.oo-source {
+  grid-column: 2;
+  font-size: 11px;
+  color: var(--ui-faint);
+}
+
+.oo-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  height: 96px;
+}
+
+.oo-bar {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 6px;
+}
+
+.oo-bar span {
+  width: 100%;
+  border-radius: 6px 6px 2px 2px;
+  background: #c7cbe8;
+}
+
+.oo-bar span.is-dip {
+  background: #f5a524;
+}
+
+.oo-bar p {
+  font-size: 11px;
+  color: var(--ui-faint);
+}
+
+.oo-list li {
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--ui-ink);
+  padding-left: 14px;
+  position: relative;
+}
+
+.oo-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 6px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--ui-navy);
+}
+
+.oo-bo {
+  background: #f1fbf6;
+  border-color: #d3efe0;
+}
+
+.oo-actions li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.oo-actions .ch-tag {
+  margin-top: 0;
+  flex-shrink: 0;
+}
+
+@media (max-width: 767px) {
+  .oo-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .oo-agenda {
+    grid-row: auto;
+  }
+
+  .oo-head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* In the scaled screen the board fills the remaining height, and each day's column
+   runs to the bottom so the "Add completed project" slots are full height. */
+.ch-fit .ch-board {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.ch-fit .ch-scroll {
+  flex: 1;
+  display: flex;
+}
+
+.ch-fit .ch-grid {
+  flex: 1;
+}
+
+.ch-fit .ch-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.ch-fit .ch-stack {
+  flex: 1;
+  min-height: 0;
+}

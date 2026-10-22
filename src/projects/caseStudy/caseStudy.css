@@ -16,6 +16,9 @@
   --cs-body: #606b66;
   --cs-rule: #e5ece8;
   --cs-dark: #273142;
+  /* One corner radius for every container and piece of media across the case
+     studies, so cards, recordings and stills all share the same edge. */
+  --cs-radius: 20px;
   background: #fff;
   color: #111;
   min-height: 100vh;
@@ -169,7 +172,7 @@
 
 .cs-hero {
   background: var(--cs-dark);
-  border-radius: 8px;
+  border-radius: var(--cs-radius);
   /* Percentages, not fixed px, so the mockup keeps its Figma inset ratio at every
      column width: 14.5% each side leaves the artwork at 71% of the card. */
   padding: 6.8% 14.5%;
@@ -195,7 +198,7 @@
   /* The clip runs past the still's bottom edge (the phone is cropped in Figma too),
      so the stage clips it — and rounds to the cover's own 32px corners. */
   overflow: hidden;
-  border-radius: 2.36% / 5.76%;
+  border-radius: var(--cs-radius);
 }
 
 .cs-hero-video {
@@ -393,7 +396,7 @@
    which is why it takes the body colour rather than the white it used on the card. */
 .cs-media-frame {
   background: var(--cs-dark);
-  border-radius: 8px;
+  border-radius: var(--cs-radius);
   padding: 32px;
 }
 
@@ -415,8 +418,15 @@
 
 .cs-media-frame--bare {
   background: none;
-  border-radius: 0;
   padding: 0;
+}
+
+/* Bare stills always span the full column. The portrait height cap below is for
+   recordings; applied here it shrank wide artwork (Fika's rewards and web shots)
+   narrower than the blocks around it. */
+.cs-media .cs-media-frame--bare > img {
+  width: 100%;
+  max-height: none;
 }
 
 /* Media that reads better on its own ground but still wants an edge: the border
@@ -426,7 +436,7 @@
   background: none;
   padding: 0;
   border: 1px solid #e5e7eb;
-  border-radius: 24px;
+  border-radius: var(--cs-radius);
   overflow: hidden;
   width: fit-content;
   max-width: 100%;
@@ -441,7 +451,7 @@
 .cs-media video,
 .cs-media-frame > img {
   display: block;
-  border-radius: 2px;
+  border-radius: var(--cs-radius);
   /* Landscape media clamps to the column width; portrait media (phone recordings at
      592x1280, 756x1880) clamps to the height instead and centres, rather than
      stretching to 1600px tall and swallowing the page. */
@@ -464,7 +474,7 @@
 .cs-media-note {
   background: #fff;
   border: 1px solid #e1e1e1;
-  border-radius: 8px;
+  border-radius: var(--cs-radius);
   padding: 12px 14px;
   font-size: 13px;
   line-height: 1.4;
@@ -480,11 +490,152 @@
   margin: 0;
 }
 
+/* ── Design principles ── one card per principle, two up. */
+
+.cs-principles {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.cs-principle-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.cs-principle {
+  background: #f7f9f8;
+  border: 1px solid var(--cs-rule);
+  border-radius: var(--cs-radius);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cs-principle-num {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--cs-accent);
+  font-variant-numeric: tabular-nums;
+}
+
+.cs-principle-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.3;
+  color: #111;
+}
+
+.cs-principle-body {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--cs-body);
+}
+
+@media (max-width: 767px) {
+  .cs-principle-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Carousel ──
+   Draggable track (Carousel.js). The viewport clips at the column edge; slides
+   are 82% of it so the next one peeks in. */
+
+.cs-carousel {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.cs-carousel-viewport {
+  overflow: hidden;
+  border-radius: var(--cs-radius);
+}
+
+.cs-carousel-track {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  cursor: grab;
+  touch-action: pan-y;
+  user-select: none;
+}
+
+.cs-carousel-track:active {
+  cursor: grabbing;
+}
+
+.cs-carousel-slide {
+  flex: 0 0 auto;
+  border-radius: var(--cs-radius);
+  overflow: hidden;
+  background: #f7f8fa;
+  border: 1px solid #e5e7eb;
+}
+
+.cs-carousel-slide img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+.cs-carousel-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cs-carousel-arrows {
+  display: flex;
+  gap: 8px;
+}
+
+.cs-carousel-arrows button {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--cs-rule);
+  background: #fff;
+  color: #111;
+  cursor: pointer;
+  transition: opacity 0.2s, background 0.2s;
+}
+
+.cs-carousel-arrows button:hover:not(:disabled) {
+  background: rgba(74, 122, 101, 0.06);
+}
+
+.cs-carousel-arrows button:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.cs-carousel-count {
+  margin: 0;
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+  color: var(--cs-body);
+}
+
 /* ── Screenshot strip ── */
 
 .cs-shots {
   background: #3a3a3a;
-  border-radius: 4.7px;
+  border-radius: var(--cs-radius);
   padding: 11.9px;
   display: flex;
   flex-direction: column;
@@ -525,7 +676,7 @@
 .cs-postits {
   background: #fff;
   border: 1px solid #e5e7eb;
-  border-radius: 12px;
+  border-radius: var(--cs-radius);
   padding: 16px;
 }
 
@@ -536,7 +687,7 @@
   --bs: 1;
   background: #fff;
   border: 1px solid #eaecf0;
-  border-radius: 12px;
+  border-radius: var(--cs-radius);
   padding: 24px;
   display: flex;
   flex-direction: column;

@@ -26,6 +26,7 @@ export const CRITERIA_NAV = [
     items: [
       { id: "overview", label: "Overview" },
       { id: "context", label: "Context" },
+      { id: "principles", label: "Design Principles" },
       { id: "coach-bo", label: "Coach Bo" },
       { id: "designing-for-trust", label: "Designing for Trust" },
     ],
@@ -35,6 +36,7 @@ export const CRITERIA_NAV = [
     items: [
       { id: "onboarding", label: "Onboarding + Admin Setup" },
       { id: "research-to-product", label: "From Research to Experience" },
+      { id: "career-history", label: "Career History" },
       { id: "design-system", label: "Design System" },
       { id: "impact", label: "Impact" },
     ],
@@ -60,6 +62,28 @@ export const CRITERIA_BLOCKS = [
     src: "/images/criteria/og_check-ins.png",
     alt: "The elements that go into the Check-Ins experience",
     bare: true,
+  },
+  {
+    id: "principles",
+    variant: "principles",
+    items: [
+      {
+        title: "Ground every signal",
+        body: "Scores inform a conversation; they never replace it.",
+      },
+      {
+        title: "Meet managers in their workflow",
+        body: "Insights surface where coaching already happens: check-ins and 1:1 prep.",
+      },
+      {
+        title: "Make setup legible at scale",
+        body: "Admins of 200+ person orgs should understand the impact of each step before they commit.",
+      },
+      {
+        title: "Coach, don’t judge",
+        body: "Language and visuals frame data as support for growth, not evaluation.",
+      },
+    ],
   },
   {
     id: "coach-bo",
@@ -96,24 +120,27 @@ export const CRITERIA_BLOCKS = [
     body: "Weekly Check-Ins was a confusing experience for HR admins to onboard their 200+ people organizations. There was a lack of mental model and hierarchy within the original setup configuration. To alleviate the confusion admins faced prior to Check-Ins launch, I designed a system to ensure admins across varying organizations sizes can easily onboard their employees to the experience. I explored lo-fidelity directions to build trust at scale, while helping users understand the impact of configuring each high-intent step. ",
   },
   {
-    variant: "media",
-    src: "/images/criteria/onboarding-direction-1.png",
-    alt: "Accordion-style onboarding checklist",
-    caption: "An accordion-style checklist that expands each step in place.",
-  },
-  {
-    variant: "media",
-    src: "/images/criteria/LoFidelity2.png",
-    alt: "Single-step wizard with a persistent side panel",
-    caption:
-      "A single-step wizard with a persistent side panel dedicated to explaining the trust and data implications of the step.",
-  },
-  {
-    variant: "media",
-    src: "/images/criteria/onboarding-direction-3.png",
-    alt: "Lo-fidelity onboarding skeleton",
-    caption:
-      "An early lo-fidelity skeleton pass, focused purely on step structure and pacing — content and education framing came later.",
+    variant: "carousel",
+    label: "Lo-fidelity onboarding directions",
+    slides: [
+      {
+        src: "/images/criteria/onboarding-direction-1.png",
+        alt: "Accordion-style onboarding checklist",
+        caption: "An accordion-style checklist that expands each step in place.",
+      },
+      {
+        src: "/images/criteria/LoFidelity2.png",
+        alt: "Single-step wizard with a persistent side panel",
+        caption:
+          "A single-step wizard with a persistent side panel dedicated to explaining the trust and data implications of the step.",
+      },
+      {
+        src: "/images/criteria/onboarding-direction-3.png",
+        alt: "Lo-fidelity onboarding skeleton",
+        caption:
+          "An early lo-fidelity skeleton pass, focused purely on step structure and pacing — content and education framing came later.",
+      },
+    ],
   },
   {
     variant: "media",
@@ -142,6 +169,17 @@ export const CRITERIA_BLOCKS = [
     ],
     caption:
       "A demo of the dashboard managers used, understanding what they care about most when reviewing direct reports' information. The yellow/red/green states are based off of the synthesized mood scores from Coach Bo.",
+  },
+  {
+    id: "career-history",
+    variant: "side-to-side",
+    eyebrow: "Career history",
+    body: "Individual contributors log the projects they complete each day, with links to the work and the teammate who reviewed it. Week over week this builds a running career history that managers can draw on ahead of a 1:1.",
+  },
+  {
+    variant: "career-history",
+    caption:
+      "Career History gives individual contributors a view of their own progress at the company. Each completed project links straight to its outputs, like Figma libraries, research findings and shipped updates, so contributors can point to their work in conversations about growth.",
   },
   {
     id: "design-system",

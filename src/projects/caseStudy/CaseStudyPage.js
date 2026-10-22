@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo, useRef, useCallback } from "react";
 import { Link } from "react-router-dom";
+import Carousel from "./Carousel";
 import "./caseStudy.css";
 
 /* ─────────────────────────────────────────────────────────────
@@ -282,6 +283,25 @@ function Block({ block, custom }) {
           )}
         </figure>
       );
+
+    case "principles":
+      return (
+        <div className="cs-principles">
+          {block.eyebrow && <p className="cs-eyebrow">{block.eyebrow}</p>}
+          <ol className="cs-principle-grid">
+            {block.items.map((item, i) => (
+              <li key={item.title} className="cs-principle">
+                <span className="cs-principle-num">{String(i + 1).padStart(2, "0")}</span>
+                <p className="cs-principle-title">{item.title}</p>
+                <p className="cs-principle-body">{item.body}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      );
+
+    case "carousel":
+      return <Carousel block={block} />;
 
     case "screenshot-grid":
       return (
