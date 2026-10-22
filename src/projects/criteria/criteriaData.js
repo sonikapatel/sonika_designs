@@ -9,7 +9,6 @@ export const CRITERIA = {
   title: "Criteria",
   subtitle: "Enabling managers to have insight into their team performance",
   /* Same gate as the criteria entry in projectData.js. */
-  protected: "sp_project",
   hero: {
     image: "/images/banner_images/Criteria_Header.png",
     alt: "Weekly Check-Ins career history and 1:1 preparation views",

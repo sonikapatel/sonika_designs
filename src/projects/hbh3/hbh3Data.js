@@ -12,7 +12,6 @@ export const HBH3 = {
   title: "Honeybee Health",
   subtitle: "Enabling e-prescription workflows",
   /* Same gate as the honeybee-health entry in projectData.js. */
-  protected: "sp_project",
   hero: {
     image: "/images/hbh/HBH1.png",
     alt: "Hey Jane intake, Honeybee shipping confirmation, and the Nectar prescribing screen",
