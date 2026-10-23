@@ -65,7 +65,7 @@ export const HOMEASE_BLOCKS = [
     variant: "media",
     autoplay: true,
     ground: "#F3E8E1",
-    radius: 24,
+    radius: 20,
     src: "/images/homease/splash.mp4",
     caption:
       "The opening moment: listings from different sites scatter and settle, and the house outline draws itself around “ease” — the product promise in one motion.",
@@ -141,7 +141,7 @@ export const HOMEASE_BLOCKS = [
     variant: "media",
     autoplay: true,
     ground: "#F3E8E1",
-    radius: 24,
+    radius: 20,
     src: "/images/homease/ask-flow.mp4",
     label: { src: "/images/homease/label-ask.svg", alt: "Ask" },
     caption:
@@ -151,7 +151,7 @@ export const HOMEASE_BLOCKS = [
     variant: "media",
     autoplay: true,
     ground: "#F3E8E1",
-    radius: 24,
+    radius: 20,
     src: "/images/homease/matches.mp4",
     label: { src: "/images/homease/label-matches.svg", alt: "Matches" },
     caption:
@@ -161,7 +161,7 @@ export const HOMEASE_BLOCKS = [
     variant: "media",
     autoplay: true,
     ground: "#F3E8E1",
-    radius: 24,
+    radius: 20,
     src: "/images/homease/email.mp4",
     label: { src: "/images/homease/label-reach-out.svg", alt: "Reach out" },
     caption:

@@ -103,26 +103,6 @@
   background: #fff;
 }
 
-/* Still-image slides: all stacked in one cell, the active one faded in. */
-.sc-images {
-  display: grid;
-  place-items: center;
-}
-
-.sc-images img {
-  grid-area: 1 / 1;
-  display: block;
-  max-width: 100%;
-  max-height: 620px;
-  border-radius: 2px;
-  opacity: 0;
-  transition: opacity 0.4s var(--sc-ease);
-}
-
-.sc-images img.is-active {
-  opacity: 1;
-}
-
 /* ── Shared scene parts ── */
 
 .sc-window {

@@ -1,13 +1,14 @@
 import CaseStudyPage from "../caseStudy/CaseStudyPage";
 import { CRITERIA, CRITERIA_NAV, CRITERIA_BLOCKS } from "./criteriaData";
 import PostItScramble from "./postits";
-import SolutionConcepts, { ImageCarousel } from "./solutionConcepts";
+import CareerHistory from "./careerHistory";
+import SolutionConcepts from "./solutionConcepts";
 import { JobStories, ChannelOptions } from "./storyBlocks";
 
 const CUSTOM_BLOCKS = {
   "card-sort": PostItScramble,
+  "career-history": CareerHistory,
   "solution-concepts": SolutionConcepts,
-  "image-carousel": ImageCarousel,
   "job-stories": JobStories,
   "channel-options": ChannelOptions,
 };

@@ -25,6 +25,7 @@ export const CRITERIA_NAV = [
     items: [
       { id: "overview", label: "Overview" },
       { id: "context", label: "Context" },
+      { id: "principles", label: "Design Principles" },
       { id: "roles", label: "Who We Designed For" },
       { id: "coach-bo", label: "Coach Bo" },
       { id: "designing-for-trust", label: "Designing for Trust" },
@@ -64,6 +65,28 @@ export const CRITERIA_BLOCKS = [
     src: "/images/criteria/og_check-ins.png",
     alt: "The elements that go into the Check-Ins experience",
     bare: true,
+  },
+  {
+    id: "principles",
+    variant: "principles",
+    items: [
+      {
+        title: "Ground every signal",
+        body: "Scores inform a conversation; they never replace it.",
+      },
+      {
+        title: "Meet managers in their workflow",
+        body: "Insights surface where coaching already happens: check-ins and 1:1 prep.",
+      },
+      {
+        title: "Make setup legible at scale",
+        body: "Admins of 200+ person orgs should understand the impact of each step before they commit.",
+      },
+      {
+        title: "Coach, don’t judge",
+        body: "Language and visuals frame data as support for growth, not evaluation.",
+      },
+    ],
   },
   {
     id: "roles",
@@ -189,24 +212,21 @@ export const CRITERIA_BLOCKS = [
     body: "Onboarding a 200+ person organization to Weekly Check-Ins was confusing for HR admins: the original setup had no clear mental model or hierarchy. Before launch, I designed a system so admins at organizations of any size could onboard their employees with confidence. I explored lo-fidelity directions that built trust at scale while showing admins the impact of each high-intent step.",
   },
   {
-    variant: "image-carousel",
-    label: "Lo-fidelity directions",
+    variant: "carousel",
+    label: "Lo-fidelity onboarding directions",
     slides: [
       {
-        title: "Accordion checklist",
         src: "/images/criteria/onboarding-direction-1.png",
         alt: "Accordion-style onboarding checklist",
         caption: "An accordion-style checklist that expands each step in place.",
       },
       {
-        title: "Wizard with side panel",
         src: "/images/criteria/LoFidelity2.png",
         alt: "Single-step wizard with a persistent side panel",
         caption:
           "A single-step wizard with a persistent side panel dedicated to explaining the trust and data implications of the step.",
       },
       {
-        title: "Skeleton pass",
         src: "/images/criteria/onboarding-direction-3.png",
         alt: "Lo-fidelity onboarding skeleton",
         caption:
@@ -302,6 +322,11 @@ export const CRITERIA_BLOCKS = [
       "Their progression over time, as a record they own",
       "Shout-outs to the colleagues who were pivotal to a project",
     ],
+  },
+  {
+    variant: "career-history",
+    caption:
+      "The explored growth timeline, Career History, gives individual contributors a view of their own progress at the company. Each completed project links straight to its outputs, like Figma libraries, research findings and shipped updates, so contributors can point to their work in conversations about growth.",
   },
   {
     id: "design-system",
