@@ -18,16 +18,6 @@ export function JobStories({ block }) {
               <strong>When</strong> {story.when}, <strong>I want</strong> {story.want},{" "}
               <strong>so</strong> {story.so}.
             </p>
-            <dl className="st-meta">
-              <div>
-                <dt>Evidence</dt>
-                <dd>{story.evidence}</dd>
-              </div>
-              <div>
-                <dt>Led to</dt>
-                <dd>{story.ledTo}</dd>
-              </div>
-            </dl>
           </article>
         ))}
       </div>

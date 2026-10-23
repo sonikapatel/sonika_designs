@@ -522,7 +522,7 @@ export default function SolutionConcepts({ block }) {
         <div className="sc-frame-head">
           <p className="sc-frame-label">{block.label}</p>
           <p className="sc-frame-count">
-            {index + 1} / {SLIDES.length} · {slide.title}
+            {slide.title}
           </p>
         </div>
 
