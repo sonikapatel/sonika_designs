@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { CARD_SORT } from "./criteriaData";
 
 /* Sticky notes that continuously reshuffle between two arrangements — the card-sort
-   exercise run with 10 managers. Ported unchanged from ProjectPage: coordinates come
+   exercise run with managers. Ported unchanged from ProjectPage: coordinates come
    straight from the Figma frames (px, in a frameWidth x frameHeight canvas), and
    percentage positioning plus a locked aspect-ratio wrapper keeps everything
    responsive without distorting the (square) notes. */

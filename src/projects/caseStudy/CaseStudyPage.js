@@ -289,9 +289,8 @@ function Block({ block, custom }) {
         <div className="cs-principles">
           {block.eyebrow && <p className="cs-eyebrow">{block.eyebrow}</p>}
           <ol className="cs-principle-grid">
-            {block.items.map((item, i) => (
+            {block.items.map((item) => (
               <li key={item.title} className="cs-principle">
-                <span className="cs-principle-num">{String(i + 1).padStart(2, "0")}</span>
                 <p className="cs-principle-title">{item.title}</p>
                 <p className="cs-principle-body">{item.body}</p>
               </li>

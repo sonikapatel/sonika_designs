@@ -1,0 +1,1118 @@
+/* Dashboard alternatives carousel. Colour and type come from the Check-Ins design
+   system (DSWebsite.png): Blue (Brand) 50–900, the Green/Orange/Red semantic ramps,
+   Title 20/700, Body 16/400, Meta 14/500, Caption 13/400, Label Caps 12/600/0.06em.
+
+   The scenes are a fixed composition, so every size is written in em off the stage's
+   font-size, which tracks the stage width (cqw). The whole mock scales as one piece,
+   the same idea as `--bs` on the research boards. */
+
+.sc-frame {
+  --ci-blue-50: #eef0f6;
+  --ci-blue-100: #dce0ef;
+  --ci-blue-200: #bdc5e5;
+  --ci-blue-500: #364fb5;
+  --ci-blue-600: #2c4196;
+  --ci-blue-900: #151c38;
+  --ci-green-50: #ebfaf3;
+  --ci-green-600: #00c268;
+  --ci-green-700: #049552;
+  --ci-orange-50: #f9f1eb;
+  --ci-orange-500: #df670b;
+  --ci-red-50: #f7eeed;
+  --ci-red-500: #bf362c;
+  --ci-border: #e5e7eb;
+  --ci-surface: #f7f8fa;
+  --ci-muted: #6b7280;
+  --sc-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.sc-frame-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+.sc-frame-label {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.sc-frame-count {
+  margin: 0;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.65);
+  text-align: right;
+}
+
+.sc-stage {
+  position: relative;
+  container-type: inline-size;
+}
+
+.sc-arrow {
+  position: absolute;
+  top: 50%;
+  z-index: 3;
+  transform: translateY(-50%);
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92);
+  color: #111;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+}
+
+.sc-arrow--prev {
+  left: -16px;
+}
+
+.sc-arrow--next {
+  right: -16px;
+}
+
+.sc-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.sc-dot-btn {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: none;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  transition: width 0.3s var(--sc-ease), background 0.3s;
+}
+
+.sc-dot-btn.is-active {
+  width: 24px;
+  background: #fff;
+}
+
+/* ── Shared scene parts ── */
+
+.sc-window {
+  position: relative;
+  aspect-ratio: 16 / 11;
+  overflow: hidden;
+  font-size: 1.7cqw;
+  color: #111;
+  background: #fff;
+  border-radius: 0.8em;
+  animation: sc-window-in 0.4s var(--sc-ease);
+}
+
+@keyframes sc-window-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.6em);
+  }
+}
+
+.sc-window p {
+  margin: 0;
+}
+
+.sc-title {
+  font-size: 1.45em;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.sc-meta {
+  font-size: 1em;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--ci-muted);
+}
+
+.sc-label-caps {
+  font-size: 0.85em;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ci-blue-500);
+}
+
+.sc-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5em 0.9em;
+  border: 1px solid var(--ci-border);
+  border-radius: 0.45em;
+  background: #fff;
+  font-size: 0.95em;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: background 0.25s, color 0.25s, border-color 0.25s, transform 0.15s;
+}
+
+.sc-btn--primary {
+  border-color: var(--ci-blue-500);
+  background: var(--ci-blue-500);
+  color: #fff;
+}
+
+.sc-btn.is-done {
+  border-color: var(--ci-green-700);
+  background: var(--ci-green-700);
+}
+
+.sc-btn.is-picked {
+  border-color: var(--ci-blue-500);
+  background: var(--ci-blue-50);
+  color: var(--ci-blue-600);
+}
+
+.sc-cursor {
+  position: absolute;
+  z-index: 5;
+  width: 1.4em;
+  height: 1.75em;
+  pointer-events: none;
+  transition: left 0.7s var(--sc-ease), top 0.7s var(--sc-ease), opacity 0.3s, transform 0.12s;
+}
+
+.sc-cursor.is-pressed {
+  transform: scale(0.85);
+}
+
+/* Everything that enters does so with one motion: a short rise and fade. */
+.sc-mail-row--new,
+.sc-point,
+.sc-actions {
+  transition: opacity 0.45s var(--sc-ease), transform 0.45s var(--sc-ease),
+    max-height 0.45s var(--sc-ease), background 0.3s;
+}
+
+.sc-point:not(.is-in),
+.sc-actions:not(.is-in) {
+  opacity: 0;
+  transform: translateY(0.6em);
+}
+
+/* ── 1. Inbox ── */
+
+.sc-mail {
+  display: grid;
+  grid-template-columns: 36% 1fr;
+  background: var(--ci-surface);
+}
+
+.sc-mail-list {
+  border-right: 1px solid var(--ci-border);
+  background: #fff;
+  overflow: hidden;
+}
+
+.sc-mail-folder {
+  padding: 1.2em 1.2em 0.8em;
+  font-size: 1.1em;
+  font-weight: 700;
+}
+
+.sc-mail-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6em;
+  padding: 0.9em 1.2em;
+  border-top: 1px solid var(--ci-border);
+}
+
+.sc-mail-row > div {
+  flex: 1;
+  min-width: 0;
+}
+
+.sc-mail-from {
+  font-size: 1em;
+  font-weight: 600;
+}
+
+.sc-mail-subject {
+  font-size: 0.9em;
+  color: var(--ci-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sc-mail-time {
+  font-size: 0.8em;
+  color: var(--ci-muted);
+}
+
+.sc-mail-row--new {
+  max-height: 6em;
+  background: var(--ci-blue-50);
+}
+
+.sc-mail-row--new:not(.is-in) {
+  max-height: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  opacity: 0;
+  transform: translateX(-1em);
+}
+
+.sc-mail-row--new.is-selected {
+  background: var(--ci-blue-100);
+  box-shadow: inset 0.25em 0 0 var(--ci-blue-500);
+}
+
+.sc-mail-row--skeleton > div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4em;
+  padding: 0.2em 0;
+}
+
+.sc-bar {
+  display: block;
+  height: 0.7em;
+  width: 70%;
+  border-radius: 0.35em;
+  background: #eceef2;
+}
+
+.sc-bar--short {
+  width: 45%;
+}
+
+.sc-mail-row--new .sc-mail-subject {
+  color: #111;
+}
+
+.sc-unread {
+  flex: none;
+  width: 0.55em;
+  height: 0.55em;
+  margin-top: 0.45em;
+  border-radius: 50%;
+  background: var(--ci-blue-500);
+}
+
+.sc-mail-pane {
+  display: flex;
+  padding: 1.6em 1.8em;
+}
+
+.sc-empty {
+  margin: auto !important;
+  color: var(--ci-muted);
+}
+
+.sc-mail-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35em;
+  width: 100%;
+  animation: sc-window-in 0.4s var(--sc-ease);
+}
+
+.sc-points {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6em;
+  margin: 0.9em 0 1em;
+}
+
+.sc-point {
+  padding: 0.75em 0.9em;
+  border: 1px solid var(--ci-border);
+  border-left: 0.25em solid var(--ci-blue-500);
+  border-radius: 0.45em;
+  background: #fff;
+}
+
+.sc-point--warn {
+  border-left-color: var(--ci-orange-500);
+}
+
+.sc-point-text {
+  font-size: 1.05em;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.sc-point-why {
+  margin-top: 0.2em !important;
+  font-size: 0.88em;
+  color: var(--ci-muted);
+}
+
+.sc-actions {
+  display: flex;
+  gap: 0.6em;
+}
+
+/* ── Microsoft Teams shell ──
+   Teams' light theme: neutral greys, brand purple #5B5FC7, Segoe UI. Check-Ins content
+   inside it (summary cards, the prep tab) keeps the Check-Ins tokens above. */
+
+.tm {
+  --tm-brand: #5b5fc7;
+  --tm-brand-50: #e8ebfa;
+  --tm-bg: #f5f5f5;
+  --tm-chrome: #ebebeb;
+  --tm-border: #e0e0e0;
+  --tm-text: #242424;
+  --tm-muted: #616161;
+  display: flex;
+  flex-direction: column;
+  font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, "Figtree", sans-serif;
+  color: var(--tm-text);
+  background: var(--tm-bg);
+}
+
+.tm-titlebar {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  padding: 0.55em 1em;
+  background: var(--tm-chrome);
+  border-bottom: 1px solid var(--tm-border);
+}
+
+.tm-nav {
+  font-size: 1.1em;
+  color: var(--tm-muted);
+  letter-spacing: 0.3em;
+}
+
+.tm-search {
+  flex: 0 1 45%;
+  margin: 0 auto;
+  padding: 0.35em 0.8em;
+  border-radius: 0.35em;
+  background: #fff;
+  font-size: 0.9em;
+  color: var(--tm-muted);
+}
+
+.tm-me {
+  display: grid;
+  place-items: center;
+  width: 2em;
+  height: 2em;
+  border-radius: 50%;
+  background: #c8c6c4;
+  color: #fff;
+  font-size: 0.75em;
+  font-weight: 600;
+}
+
+.tm-body {
+  position: relative;
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}
+
+.tm-rail {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3em;
+  width: 4.6em;
+  padding: 0.6em 0;
+  background: var(--tm-chrome);
+}
+
+.tm-rail-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2em;
+  padding: 0.45em 0;
+  font-size: 0.72em;
+  color: var(--tm-muted);
+}
+
+.tm-rail-item svg {
+  width: 1.9em;
+  height: 1.9em;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.1;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.tm-rail-item.is-active {
+  color: var(--tm-brand);
+  font-weight: 600;
+}
+
+.tm-rail-item.is-active::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 20%;
+  bottom: 20%;
+  width: 0.25em;
+  border-radius: 0 0.2em 0.2em 0;
+  background: var(--tm-brand);
+}
+
+.tm-muted {
+  margin: 0;
+  font-size: 0.9em;
+  color: var(--tm-muted);
+}
+
+.tm-label {
+  margin: 0.9em 0 0.45em !important;
+  font-size: 0.85em;
+  font-weight: 600;
+  color: var(--tm-muted);
+}
+
+.tm-skeleton {
+  height: 3.2em;
+  margin: 0.3em 0.6em;
+  border-radius: 0.4em;
+  background: linear-gradient(90deg, #ededed, #f4f4f4);
+}
+
+.sc-avatar {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 2.4em;
+  height: 2.4em;
+  border-radius: 0.5em;
+  background: var(--ci-blue-500);
+  color: #fff;
+  font-size: 0.95em;
+  font-weight: 700;
+}
+
+/* Teams draws people and apps as circles. */
+.tm-bo {
+  width: 2.2em;
+  height: 2.2em;
+  border-radius: 50%;
+  font-size: 0.8em;
+}
+
+.tm-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  padding: 0.5em 0.1em;
+  border-bottom: 0.18em solid transparent;
+  font-size: 0.95em;
+  color: var(--tm-muted);
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.tm-tab.is-active {
+  border-color: var(--tm-brand);
+  color: var(--tm-text);
+  font-weight: 600;
+}
+
+.tm-app-dot {
+  width: 0.8em;
+  height: 0.8em;
+  border-radius: 0.2em;
+  background: var(--ci-blue-500);
+}
+
+.tm-app-dot--lg {
+  width: 1.6em;
+  height: 1.6em;
+  border-radius: 0.35em;
+}
+
+.tm-visibility {
+  margin: 0.4em 0 0 !important;
+  padding: 0.45em 0.7em;
+  border-radius: 0.35em;
+  background: var(--ci-blue-50);
+  font-size: 0.85em;
+  color: var(--ci-blue-900);
+}
+
+/* ── 2. Teams chat ── */
+
+.tm-list {
+  width: 30%;
+  border-right: 1px solid var(--tm-border);
+  overflow: hidden;
+}
+
+.tm-list-title {
+  margin: 0;
+  padding: 0.9em 1em 0.6em;
+  font-size: 1.15em;
+  font-weight: 700;
+}
+
+.tm-list-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6em;
+  padding: 0.55em 0.8em;
+}
+
+.tm-list-row.is-selected {
+  margin: 0 0.5em;
+  border-radius: 0.4em;
+  background: #fff;
+}
+
+.tm-list-name {
+  margin: 0;
+  font-size: 0.95em;
+  font-weight: 600;
+}
+
+.tm-list-sub {
+  margin: 0;
+  font-size: 0.82em;
+  color: var(--tm-muted);
+}
+
+.tm-convo {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+  background: #fff;
+}
+
+.tm-convo-head {
+  display: flex;
+  align-items: center;
+  gap: 0.6em;
+  padding: 0.5em 1.2em 0;
+  border-bottom: 1px solid var(--tm-border);
+}
+
+.tm-convo-name {
+  margin: 0 0.8em 0 0;
+  font-size: 1.05em;
+  font-weight: 700;
+}
+
+.tm-feed {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 0.7em;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  padding: 1em 1.2em;
+  background: var(--tm-bg);
+}
+
+.tm-msg {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6em;
+  max-width: 80%;
+  transition: opacity 0.4s var(--sc-ease), transform 0.4s var(--sc-ease);
+}
+
+/* Unsent messages take no room, so the feed only moves when one arrives. */
+.tm-msg:not(.is-in) {
+  display: none;
+}
+
+.tm-msg.is-in {
+  animation: sc-window-in 0.4s var(--sc-ease);
+}
+
+.tm-msg--me {
+  align-self: flex-end;
+}
+
+.tm-bubble {
+  padding: 0.55em 0.8em;
+  border-radius: 0.4em;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+
+.tm-msg--me .tm-bubble {
+  background: var(--tm-brand-50);
+}
+
+.tm-msg-meta {
+  margin: 0 0 0.15em !important;
+  font-size: 0.8em;
+  font-weight: 600;
+  color: var(--tm-muted);
+}
+
+.tm-msg-text {
+  font-size: 0.98em;
+  line-height: 1.4;
+}
+
+.tm-question {
+  font-weight: 600;
+}
+
+.tm-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.35em;
+  padding: 0.9em 1em;
+  border: 1px solid var(--tm-border);
+  border-radius: 0.4em;
+  background: #fff;
+}
+
+.tm-card-title {
+  font-size: 1.02em;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.tm-card .sc-btn {
+  margin-top: 0.3em;
+}
+
+.tm-compose {
+  margin: 0.6em 1.2em 0.9em;
+  padding: 0.6em 0.9em;
+  border: 1px solid var(--tm-border);
+  border-bottom: 0.15em solid var(--tm-border);
+  border-radius: 0.35em;
+  font-size: 0.9em;
+  color: var(--tm-muted);
+  transition: border-color 0.2s;
+}
+
+.tm-compose.is-typing {
+  border-bottom-color: var(--tm-brand);
+}
+
+/* ── 3. Teams meeting with a Check-Ins tab ── */
+
+.tm-meeting,
+.tm-day {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+  background: #fff;
+}
+
+.tm-meeting-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1em;
+  padding: 0.9em 1.4em 0.5em;
+}
+
+.tm-meeting-title {
+  margin: 0;
+  font-size: 1.25em;
+  font-weight: 700;
+}
+
+.tm-join {
+  padding: 0.45em 1.2em;
+  border-radius: 0.3em;
+  background: var(--tm-brand);
+  color: #fff;
+  font-size: 0.95em;
+  font-weight: 600;
+}
+
+.tm-tabs {
+  display: flex;
+  gap: 1.4em;
+  padding: 0 1.4em;
+  border-bottom: 1px solid var(--tm-border);
+}
+
+.tm-details {
+  padding: 0.4em 1.4em;
+}
+
+.tm-details .tm-skeleton {
+  margin: 0.4em 0;
+  height: 2.2em;
+}
+
+.tm-attendee {
+  display: flex;
+  align-items: center;
+  gap: 0.6em;
+  font-size: 0.95em;
+}
+
+.tm-initials {
+  display: grid;
+  place-items: center;
+  width: 2em;
+  height: 2em;
+  border-radius: 50%;
+  background: #c8c6c4;
+  color: #fff;
+  font-size: 0.75em;
+  font-weight: 600;
+}
+
+.tm-prep {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 1.4em;
+  padding: 1em 1.4em;
+  animation: sc-window-in 0.35s var(--sc-ease);
+}
+
+.tm-scores {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4em;
+  margin-top: 0.7em;
+}
+
+.tm-score {
+  padding: 0.25em 0.55em;
+  border: 1px solid;
+  border-radius: 0.3em;
+  font-size: 0.82em;
+  font-weight: 600;
+}
+
+.tm-score--warn {
+  border-color: var(--ci-orange-500);
+  background: var(--ci-orange-50);
+}
+
+.tm-score--good {
+  border-color: var(--ci-green-700);
+  background: var(--ci-green-50);
+}
+
+.tm-starters {
+  margin: 0;
+  padding-left: 1.1em;
+  font-size: 0.92em;
+  line-height: 1.45;
+}
+
+.tm-starters li {
+  margin-bottom: 0.35em;
+  transition: opacity 0.4s var(--sc-ease), transform 0.4s var(--sc-ease);
+}
+
+.tm-starters li::marker {
+  color: var(--ci-blue-500);
+}
+
+.tm-scores:not(.is-in),
+.tm-starters li:not(.is-in),
+.tm-prep-side:not(.is-in),
+.tm-toast-line:not(.is-in) {
+  opacity: 0;
+  transform: translateY(0.5em);
+}
+
+.tm-scores,
+.tm-prep-side,
+.tm-toast-line {
+  transition: opacity 0.4s var(--sc-ease), transform 0.4s var(--sc-ease);
+}
+
+.tm-prep-side {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4em;
+  padding: 0.8em 1em;
+  border: 1px solid var(--ci-border);
+  border-radius: 0.5em;
+}
+
+.tm-prep-side .tm-label {
+  margin-top: 0 !important;
+}
+
+.tm-prep-side svg {
+  width: 100%;
+  height: 7em;
+  overflow: visible;
+}
+
+.sc-line-reveal {
+  transform-origin: 0 0;
+  transition: transform 0.9s var(--sc-ease);
+}
+
+.tm-line {
+  fill: none;
+  stroke-width: 2;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+/* The three series colours from the Scores over time chart. */
+.tm-line.tm-line--mood {
+  stroke: var(--ci-blue-500);
+}
+
+.tm-line.tm-line--progress {
+  stroke: #f0643c;
+}
+
+.tm-line.tm-line--readiness {
+  stroke: #4fc6cc;
+}
+
+.tm-weeks {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.7em;
+  color: var(--tm-muted);
+}
+
+.tm-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8em;
+  font-size: 0.75em;
+  color: var(--tm-muted);
+}
+
+.tm-legend span::before {
+  content: "";
+  display: inline-block;
+  width: 1em;
+  height: 0.35em;
+  margin-right: 0.35em;
+  border-radius: 0.2em;
+  vertical-align: middle;
+}
+
+.tm-legend .tm-line--mood::before {
+  background: var(--ci-blue-500);
+}
+
+.tm-legend .tm-line--progress::before {
+  background: #f0643c;
+}
+
+.tm-legend .tm-line--readiness::before {
+  background: #4fc6cc;
+}
+
+.tm-spot {
+  padding: 0.45em 0.65em;
+  border-radius: 0.35em;
+  font-size: 0.85em;
+  line-height: 1.35;
+}
+
+.tm-spot--good {
+  background: var(--ci-green-50);
+}
+
+.tm-spot--warn {
+  background: var(--ci-orange-50);
+}
+
+.tm-spot-label {
+  margin: 0 0 0.1em !important;
+  font-size: 0.85em;
+  font-weight: 700;
+  color: var(--tm-muted);
+}
+
+/* ── 4. Synced reminder ── */
+
+.tm-grid {
+  position: relative;
+  flex: 1;
+  margin: 0 1.4em 1em;
+  border-top: 1px solid var(--tm-border);
+}
+
+.tm-hour {
+  height: 25%;
+  border-bottom: 1px solid var(--tm-border);
+}
+
+.tm-hour span {
+  display: block;
+  padding-top: 0.3em;
+  font-size: 0.8em;
+  color: var(--tm-muted);
+}
+
+.tm-event {
+  position: absolute;
+  top: 25%;
+  left: 5em;
+  right: 0;
+  height: 12.5%;
+  padding: 0.35em 0.7em;
+  border-left: 0.25em solid var(--tm-brand);
+  border-radius: 0.3em;
+  background: var(--tm-brand-50);
+  transition: box-shadow 0.3s;
+}
+
+.tm-event.is-soon {
+  box-shadow: 0 0 0 0.12em var(--tm-brand);
+}
+
+.tm-event-title {
+  margin: 0;
+  font-size: 0.95em;
+  font-weight: 600;
+}
+
+.tm-toast {
+  position: absolute;
+  right: 1.2em;
+  bottom: 1.2em;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45em;
+  width: 46%;
+  padding: 0.9em 1em;
+  border-radius: 0.5em;
+  background: #fff;
+  box-shadow: 0 0.6em 2em rgba(0, 0, 0, 0.22);
+  transition: opacity 0.45s var(--sc-ease), transform 0.45s var(--sc-ease);
+}
+
+.tm-toast:not(.is-in) {
+  opacity: 0;
+  transform: translateY(1.2em);
+}
+
+.tm-toast-head {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.tm-toast-title {
+  font-size: 1.02em;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.tm-toast-line {
+  font-size: 0.88em;
+  line-height: 1.4;
+}
+
+.tm-toast-line .tm-spot-label {
+  margin-right: 0.3em;
+}
+
+.tm-toast-actions {
+  display: flex;
+  gap: 0.5em;
+  margin-top: 0.2em;
+}
+
+.tm-btn {
+  padding: 0.4em 1em;
+  border: 1px solid var(--tm-border);
+  border-radius: 0.3em;
+  font-size: 0.9em;
+  font-weight: 600;
+  transition: background 0.2s, transform 0.12s;
+}
+
+.tm-btn--primary {
+  border-color: var(--tm-brand);
+  background: var(--tm-brand);
+  color: #fff;
+}
+
+.tm-btn.is-pressed {
+  background: #444791;
+  transform: scale(0.97);
+}
+
+/* Narrow frames: the scenes get taller and drop their secondary columns so the type
+   can stay legible instead of shrinking with the width. */
+@media (max-width: 640px) {
+  .sc-frame-head {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .sc-frame-count {
+    text-align: left;
+  }
+
+  .sc-arrow {
+    display: none;
+  }
+
+  .sc-window {
+    aspect-ratio: 4 / 5;
+    font-size: 3cqw;
+  }
+
+  .sc-mail {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+  }
+
+  .sc-mail-list .sc-mail-row:not(.sc-mail-row--new) {
+    display: none;
+  }
+
+  .sc-mail-pane {
+    padding: 1.2em;
+  }
+
+  .tm-rail,
+  .tm-list,
+  .tm-search {
+    display: none;
+  }
+
+  .tm-prep {
+    grid-template-columns: 1fr;
+  }
+
+  .tm-toast {
+    left: 5%;
+    right: 5%;
+    width: auto;
+  }
+
+  .sc-cursor {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sc-frame *,
+  .sc-frame *::before {
+    animation: none !important;
+    transition: none !important;
+  }
+}
