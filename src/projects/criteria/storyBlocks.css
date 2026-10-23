@@ -26,13 +26,63 @@
   background: #fff;
 }
 
-.st-role {
-  margin: 0;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
-  color: var(--cs-accent);
+/* Role carousel: tabs on top, the active role's stories, arrows underneath. */
+.st-roles {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.st-role-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.st-role-tab {
+  padding: 8px 14px;
+  border: 1px solid var(--cs-rule);
+  border-radius: 999px;
+  background: #fff;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--cs-body);
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.st-role-tab:hover:not(.is-active) {
+  background: rgba(74, 122, 101, 0.06);
+}
+
+.st-role-tab.is-active {
+  border-color: var(--cs-accent);
+  background: var(--cs-accent);
+  color: #fff;
+}
+
+.st-role-tab:focus-visible {
+  outline: 2px solid var(--cs-accent);
+  outline-offset: 2px;
+}
+
+.st-role-viewport {
+  display: grid;
+  overflow: hidden;
+}
+
+.st-role-viewport > * {
+  grid-area: 1 / 1;
+  align-self: start;
+}
+
+.st-role-viewport > [aria-hidden="true"] {
+  pointer-events: none;
+}
+
+.st-stories--single {
+  grid-template-columns: minmax(0, 1fr);
 }
 
 .st-text {
