@@ -6,7 +6,6 @@ export const PROJECTS = [
     tags: ["End to End Product Development", "Marketing", "User Research", "Development in React.js"],
     role: "Founder / Product Designer & Developer / Brand Design",
     status: "2026",
-    protected: "sp_project",
     logo: "/images/fika/fika logo.png",
     bannerBg: "rgb(40, 35, 111)",
     bannerImage: "/images/banner_images/fika_project_1.png",
@@ -81,7 +80,6 @@ export const PROJECTS = [
     tags: ["UX Research", "Design Systems"],
     role: "Senior Product Designer",
     status: "2025",
-    protected: "sp_project",
     bannerBg: "#16112E",
     bannerImage: "/images/banner_images/Criteria_Header.png",
     logo: "/images/criteria/criteria_logo.png",
@@ -142,7 +140,7 @@ export const PROJECTS = [
       {
         type: "text-center",
         header: "Designing for trust in coaching signals ",
-        body: "One of the most important challenges surfaced during the first iteration: the sentiment-analysis scores did not always accurately reflect employee performance. For a manager making decisions about how to coach a direct report, an inaccurate signal can quickly undermine confidence in the entire experience. Rather than treating sentiment scores as objective answers, I focused on creating an experience where managers could understand the signals, interpret them in context, and confidently decide when to act. Trust became a core design principle for Check-Ins: every coaching signal needed to feel grounded enough to inform a conversation, not simply present a score. The resulting experience was designed to help managers move from “What does this score mean?” to “What should I do with this information? I led a generative research study alongside a card sorting exercise with 10 managers across domains with varying levels of leadership to understand the priority of information managers care about in 1:1s with their direct reports.",
+        body: "One of the most important challenges surfaced during the first iteration: the sentiment-analysis scores did not always accurately reflect employee performance. For a manager making decisions about how to coach a direct report, an inaccurate signal can quickly undermine confidence in the entire experience. Rather than treating sentiment scores as objective answers, I focused on creating an experience where managers could understand the signals, interpret them in context, and confidently decide when to act. Trust became a core design principle for Check-Ins: every coaching signal needed to feel grounded enough to inform a conversation, not simply present a score. The resulting experience was designed to help managers move from “What does this score mean?” to “What should I do with this information? I led a generative research study alongside a card sorting exercise with managers across domains with varying levels of leadership to understand the priority of information managers care about in 1:1s with their direct reports.",
       },
       {
         type: "postits",       
@@ -247,7 +245,6 @@ export const PROJECTS = [
     tags: ["0→1 Product Design", "UX Research"],
     role: "Product Designer",
     status: "2023",
-    protected: "sp_project",
     bannerBg: "#0D1917",
     bannerImage: "/images/banner_images/HBH_Header.png",
     logo: "https://media.licdn.com/dms/image/v2/C560BAQEv4kv5trlreQ/company-logo_200_200/company-logo_200_200/0/1630619991909/honeybeehealth_logo?e=2147483647&v=beta&t=i2iOeMqvRAfa8v5ASaKzczGOBeV8q_qQPqyt2PEDYh8",
@@ -304,7 +301,6 @@ export const PROJECTS = [
     tags: ["Data-Driven Design", "Usability Research"],
     role: "Product Designer",
     status: "2022-2023",
-    protected: "sp_project",
     bannerBg: "#14244D",
     bannerImage: "/images/banner_images/Square_Header.png",
     problem: [

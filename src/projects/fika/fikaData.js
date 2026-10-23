@@ -9,7 +9,6 @@ export const FIKA = {
   company: "Fika",
   title: "Fika",
   subtitle: "Connecting creatives over coffee",
-  protected: "sp_project",
   hero: {
     image: "/images/banner_images/Fika_Header.png",
     alt: "Fika profiles, matchmaking and rewards across mobile and web",

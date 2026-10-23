@@ -14,7 +14,6 @@ export const SQUARE = {
   company: "Square",
   title: "Square",
   subtitle: "Rethinking credit for small businesses across merchant categories",
-  protected: "sp_project",
   hero: {
     image: "/images/banner_images/Square_Header.png",
     alt: "Square Loans discovery and offer experiences in the seller dashboard",
