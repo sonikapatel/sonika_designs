@@ -334,14 +334,14 @@ export const CRITERIA_BLOCKS = [
     variant: "side-to-side",
     eyebrow: "Merchandising Check-Ins in the product",
     body: [
-      "Shipping Check-Ins to customers meant more than turning it on. Because it rolled out to accounts already using Develop, the product itself had to explain what Check-Ins was and why it mattered, right where people already worked. I designed an in-app merchandising layer that met each role at its own entry point: employees saw Check-Ins framed as career acceleration on their weekly home, while managers saw it framed as management superpowers on their analytics dashboard.",
-      "Both banners open the same three-step walkthrough (How It Works, Why You Need It and What You Can Expect), so the story stays consistent across roles. Each step pairs a short value proposition with a quote from someone already using Check-Ins, set in its own container so the proof reads apart from the pitch. The last step ends on one clear path, Contact us, so curiosity could turn into a conversation without leaving the product.",
+      "Shipping Check-Ins to customers meant more than turning it on. Because it rolled out to accounts already using Develop, the product itself had to explain what Check-Ins was and why it mattered, right where managers already worked. I designed an in-app merchandising banner for the manager’s analytics dashboard that framed Check-Ins as management superpowers: AI-powered weekly conversations that give managers actionable insights and early warnings about their team.",
+      "The banner opens a three-step walkthrough (How It Works, Why You Need It and What You Can Expect) that answers a manager’s questions in the order they ask them. Each step pairs a short value proposition with a quote from someone already using Check-Ins, set in its own container so the proof reads apart from the pitch. The last step ends on one clear path, Contact us, so curiosity could turn into a conversation without leaving the product.",
     ],
   },
   {
     variant: "merchandising",
     caption:
-      "An interactive rebuild of the merchandising screens on the manager dashboard. Change the date range, open Learn more to step through the walkthrough, then Preview experience to see each report a user receives.",
+      "Exploring ways of showcasing inactive products, so Check-Ins could introduce itself inside a dashboard managers already use before their account turned it on. An interactive rebuild of the merchandising screens on the manager dashboard. Click Learn more to explore the merchandising experience that resulted in a 28% increase in engagement for clients using Develop.",
   },
   {
     id: "impact",
