@@ -1,0 +1,438 @@
+/* Learn more workflow cards (merchSteps.js), inside the scaled merchandising screen.
+   Only transform and opacity move. A card's pattern plays in when its line starts
+   and then stays finished, so each step builds up line by line; the hand-off between
+   lines is one slow ease-in-out, with no size change, so nothing jumps. */
+
+.ms-visual {
+  --ms-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ms-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ms-hand-off: cubic-bezier(0.65, 0, 0.35, 1);
+  width: 100%;
+}
+
+.ms-stack {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  animation: ms-enter 360ms var(--ms-out);
+}
+
+/* Each pass, including a loop back to the first line, eases in from the start. */
+@keyframes ms-enter {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+}
+
+.ms-scene {
+  position: relative;
+  display: grid;
+  grid-template-columns: 36px minmax(0, 1fr) 156px;
+  gap: 12px;
+  align-items: center;
+  padding: 10px 14px;
+  background: #fff;
+  border: 1.5px solid var(--mx-line);
+  border-radius: 12px;
+  overflow: hidden;
+  opacity: 0.5;
+  transition: opacity 480ms var(--ms-hand-off), border-color 480ms var(--ms-hand-off),
+    box-shadow 480ms var(--ms-hand-off);
+}
+
+.ms-scene.is-done {
+  opacity: 0.85;
+}
+
+.ms-scene.is-on {
+  opacity: 1;
+  border-color: #b9c1ea;
+  box-shadow: 0 10px 24px rgba(40, 52, 120, 0.1);
+}
+
+/* Time left on the playing line: fills at the beat's pace, then fades once played. */
+.ms-scene::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background: var(--mx-primary);
+  opacity: 0;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: opacity 300ms ease;
+}
+
+.ms-scene.is-on::after {
+  opacity: 0.45;
+  transform: scaleX(1);
+  transition: opacity 200ms ease, transform var(--beat, 2200ms) linear;
+}
+
+.ms-icon {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: var(--mx-wash);
+  color: var(--mx-deep);
+  transition: background 480ms var(--ms-hand-off), color 480ms var(--ms-hand-off);
+}
+
+.ms-scene.is-done .ms-icon {
+  background: #dfe3f6;
+  color: var(--mx-primary);
+}
+
+.ms-scene.is-on .ms-icon {
+  background: var(--mx-primary);
+  color: #fff;
+}
+
+.ms-scene-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.ms-kicker {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--mx-muted);
+}
+
+.ms-title {
+  font-size: 15px;
+  line-height: 1.35;
+  color: var(--mx-ink);
+}
+
+.ms-mini {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  justify-content: flex-end;
+  min-height: 26px;
+}
+
+.ms-chip {
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: var(--mx-wash);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--mx-deep);
+  white-space: nowrap;
+}
+
+.ms-chip--good {
+  background: #e3f4ea;
+  color: #1e7a4f;
+}
+
+.ms-chip--warn {
+  background: #fcefe3;
+  color: #b4541a;
+}
+
+.ms-chip--live {
+  background: var(--mx-primary);
+  color: #fff;
+}
+
+.ms-chip--soon {
+  background: #eef0f4;
+  color: var(--mx-muted);
+}
+
+/* Pieces that arrive once their card is playing, a beat apart. */
+.ms-pop {
+  opacity: 0;
+  transform: translateY(4px) scale(0.96);
+  transition: opacity 120ms ease, transform 120ms ease;
+}
+
+.ms-scene:is(.is-on, .is-done) .ms-pop {
+  opacity: 1;
+  transform: none;
+  transition: opacity 260ms var(--ms-out), transform 260ms var(--ms-out);
+  transition-delay: calc(160ms + var(--i, 0) * 70ms);
+}
+
+/* ── How It Works: the week as a timeline ── */
+
+/* The rail runs behind the icons; its fill reaches the card that's playing. */
+.ms-stack--timeline::before {
+  content: "";
+  position: absolute;
+  left: 33px;
+  top: 30px;
+  bottom: 30px;
+  width: 2px;
+  background: var(--mx-line);
+}
+
+.ms-stack--timeline::after {
+  content: "";
+  position: absolute;
+  left: 33px;
+  top: 30px;
+  bottom: 30px;
+  width: 2px;
+  background: var(--mx-primary);
+  transform: scaleY(var(--reached, 0));
+  transform-origin: top;
+  transition: transform var(--beat, 2200ms) linear;
+}
+
+.ms-stack--timeline .ms-scene {
+  z-index: 1;
+}
+
+.ms-timer {
+  position: relative;
+  width: 120px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--mx-wash);
+  overflow: hidden;
+}
+
+/* Two minutes, told in under two seconds: constant motion, so linear. */
+.ms-timer-fill {
+  position: absolute;
+  inset: 0;
+  background: var(--mx-primary);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 120ms ease;
+}
+
+.ms-scene:is(.is-on, .is-done) .ms-timer-fill {
+  transform: scaleX(1);
+  transition: transform 1600ms linear;
+}
+
+.ms-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 5px;
+  height: 26px;
+}
+
+.ms-bars span {
+  width: 12px;
+  height: 100%;
+  border-radius: 3px 3px 0 0;
+  background: #b9c1ea;
+  transform: scaleY(0.15);
+  transform-origin: bottom;
+  transition: transform 120ms ease;
+}
+
+.ms-scene:is(.is-on, .is-done) .ms-bars span {
+  background: var(--mx-primary);
+  transform: scaleY(var(--h));
+  transition: transform 420ms var(--ms-out);
+  transition-delay: calc(120ms + var(--i) * 60ms);
+}
+
+/* ── Why You Need It ── */
+
+.ms-swap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ms-struck {
+  position: relative;
+  font-size: 12.5px;
+  color: var(--mx-muted);
+}
+
+.ms-struck::after {
+  content: "";
+  position: absolute;
+  left: -2px;
+  right: -2px;
+  top: 52%;
+  height: 1.5px;
+  background: #b4541a;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 120ms ease;
+}
+
+.ms-scene:is(.is-on, .is-done) .ms-struck::after {
+  transform: scaleX(1);
+  transition: transform 320ms var(--ms-out) 80ms;
+}
+
+.ms-spark {
+  width: 120px;
+  height: 28px;
+  overflow: visible;
+}
+
+.ms-spark polyline {
+  fill: none;
+  stroke: #b9c1ea;
+  stroke-width: 2;
+}
+
+.ms-spark circle {
+  fill: #b4541a;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.ms-scene.is-on .ms-spark circle {
+  animation: ms-ping 1.2s var(--ms-out) infinite;
+}
+
+@keyframes ms-ping {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.6);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* ── What You Can Expect ── */
+
+.ms-agenda {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #1e7a4f;
+}
+
+.ms-meter {
+  position: relative;
+  width: 100%;
+  max-width: 200px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--mx-wash);
+}
+
+.ms-meter-fill {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--mx-primary);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 120ms ease;
+}
+
+.ms-scene:is(.is-on, .is-done) .ms-meter-fill {
+  transform: scaleX(0.55);
+  transition: transform 700ms var(--ms-out) 120ms;
+}
+
+/* The 50% line the fill crosses. */
+.ms-meter-mark {
+  position: absolute;
+  left: 50%;
+  top: -3px;
+  bottom: -3px;
+  width: 2px;
+  border-radius: 1px;
+  background: var(--mx-deep);
+}
+
+.ms-track {
+  position: relative;
+  width: 100%;
+  max-width: 200px;
+  height: 14px;
+}
+
+.ms-track::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 6px;
+  height: 2px;
+  background: var(--mx-line);
+}
+
+/* The stretch Bo buys back, between the early flag and when it would have surfaced. */
+.ms-track-gap {
+  position: absolute;
+  left: 20%;
+  right: 15%;
+  top: 5px;
+  height: 4px;
+  border-radius: 2px;
+  background: #b9c1ea;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 120ms ease;
+}
+
+.ms-scene:is(.is-on, .is-done) .ms-track-gap {
+  transform: scaleX(1);
+  transition: transform 520ms var(--ms-out) 140ms;
+}
+
+.ms-dot {
+  position: absolute;
+  top: 1px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  translate: -50% 0;
+}
+
+.ms-dot--late {
+  left: 85%;
+  background: #d5d9e6;
+}
+
+.ms-dot--early {
+  left: 20%;
+  background: var(--mx-primary);
+  opacity: 0;
+  transform: scale(0.6);
+  transition: opacity 120ms ease, transform 120ms ease;
+}
+
+.ms-scene:is(.is-on, .is-done) .ms-dot--early {
+  opacity: 1;
+  transform: none;
+  transition: opacity 240ms var(--ms-out) 520ms, transform 240ms var(--ms-out) 520ms;
+}
+
+/* Less motion: every card is shown, settled, with nothing moving. */
+@media (prefers-reduced-motion: reduce) {
+  .ms-visual *,
+  .ms-visual *::before,
+  .ms-visual *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}

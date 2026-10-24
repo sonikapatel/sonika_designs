@@ -38,6 +38,7 @@ export const CRITERIA_NAV = [
       { id: "research-to-product", label: "From Research to Experience" },
       { id: "ic-incentive", label: "Giving ICs a Reason" },
       { id: "design-system", label: "Design System" },
+      { id: "merchandising", label: "In-Product Merchandising" },
       { id: "impact", label: "Impact" },
     ],
   },
@@ -329,6 +330,21 @@ export const CRITERIA_BLOCKS = [
     bare: true,
   },
   {
+    id: "merchandising",
+    variant: "side-to-side",
+    eyebrow: "Merchandising Check-Ins in the product",
+    body: [
+      "Shipping Check-Ins to customers meant more than turning it on. Because it rolled out to accounts already using Develop, the product itself had to explain what Check-Ins was and why it mattered, right where people already worked. I designed an in-app merchandising layer that met each role at its own entry point: employees saw Check-Ins framed as career acceleration on their weekly home, while managers saw it framed as management superpowers on their analytics dashboard.",
+      "Both banners open the same three-step walkthrough (How It Works, Why You Need It and What You Can Expect), so the story stays consistent across roles. Each step pairs a short value proposition with a quote from someone already using Check-Ins, set in its own container so the proof reads apart from the pitch. The last step ends on one clear path, Contact us, so curiosity could turn into a conversation without leaving the product.",
+      "Launching the new merchandising experience resulted in 28% engagement within existing Develop customers.",
+    ],
+  },
+  {
+    variant: "merchandising",
+    caption:
+      "An interactive rebuild of the merchandising screens on the manager dashboard. Change the date range, open Learn more to step through the walkthrough, then Preview experience to see each report a user receives.",
+  },
+  {
     id: "impact",
     variant: "default",
     eyebrow: "Impact",
@@ -338,13 +354,25 @@ export const CRITERIA_BLOCKS = [
     ],
   },
   {
-    variant: "side-to-side",
+    variant: "reflections",
     eyebrow: "What I’d do differently",
-    body: [
-      "Plan the integration path from day one. Teams, Outlook and Google Calendar were where people worked, and building the identity and SSO foundation earlier would have let chat and 1:1 prep move there sooner.",
-      "Lead with talking points, not scores. The dashboard’s red/yellow/green states pull managers toward reading verdicts, which is the trust problem the research flagged.",
-      "Give ICs something back from the start. The whole system runs on IC participation, so the growth timeline belonged in v1.",
-      "Channel is a design decision, not a delivery detail. Who gets value, when and where shapes whether a weekly habit forms at all.",
+    items: [
+      {
+        title: "Plan the integration path from day one.",
+        body: "Teams, Outlook and Google Calendar were where people worked, and building the identity and SSO foundation earlier would have let chat and 1:1 prep move there sooner.",
+      },
+      {
+        title: "Lead with talking points, not scores.",
+        body: "The dashboard’s red/yellow/green states pull managers toward reading verdicts, which is the trust problem the research flagged.",
+      },
+      {
+        title: "Give ICs something back from the start.",
+        body: "The whole system runs on IC participation, so the growth timeline belonged in v1.",
+      },
+      {
+        title: "Channel is a design decision, not a delivery detail.",
+        body: "Who gets value, when and where shapes whether a weekly habit forms at all.",
+      },
     ],
   },
 ];

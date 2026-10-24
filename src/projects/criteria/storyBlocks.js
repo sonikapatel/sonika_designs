@@ -1,10 +1,11 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import "./storyBlocks.css";
 
-/* Two text layouts the Criteria story needs beyond the shared section variants: the
-   job stories per role, and the channel options weighed for chat and insights. Both
-   are content only — they sit in the same 821px column and type scale as the prose. */
+/* Text layouts the Criteria story needs beyond the shared section variants: the job
+   stories per role, the channel options weighed for chat and insights, and the
+   reflections list. All content only — they sit in the same 821px column and type
+   scale as the prose. */
 
 // Same zero-bounce spring as the shared image carousel.
 const SPRING = { type: "spring", visualDuration: 0.4, bounce: 0 };
@@ -165,6 +166,45 @@ export function ChannelOptions({ block }) {
         ))}
       </div>
       {block.caption && <p className="cs-media-caption">{block.caption}</p>}
+    </div>
+  );
+}
+
+/* "What I'd do differently" as a list beside its label, like the other side-to-side
+   sections. Each point is a bold takeaway with the reason under it. The points ease
+   in one after another the first time the list scrolls into view; that happens once
+   per visit, so it can afford a little motion. */
+export function Reflections({ block }) {
+  const ref = useRef(null);
+  const [shown, setShown] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return undefined;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShown(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "0px 0px -80px 0px" }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div className="cs-v-side">
+      <p className="cs-eyebrow">{block.eyebrow}</p>
+      <ul ref={ref} className={`cs-side-body st-reflections${shown ? " is-shown" : ""}`}>
+        {block.items.map((item, i) => (
+          <li key={item.title} className="st-reflection" style={{ "--i": i }}>
+            <p className="st-reflection-title">{item.title}</p>
+            <p className="st-reflection-body">{item.body}</p>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
