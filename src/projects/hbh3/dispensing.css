@@ -1,0 +1,94 @@
+/* Dispensing case study: the workflow map (boards.js). */
+
+/* ── Workflow map ── each column is a stage and its edge cases; arrows join stages. */
+
+/* Each list item dissolves into the grid so every stage card shares row 1 (equal
+   heights, aligned edge-case labels) and its edge cases fill row 2 of its column. */
+.wf-stages {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  column-gap: calc(18px * var(--bs));
+  row-gap: calc(9px * var(--bs));
+}
+
+.wf-col {
+  display: contents;
+}
+
+.wf-stage {
+  position: relative;
+  grid-row: 1;
+  grid-column: var(--col);
+}
+
+.wf-edges {
+  grid-row: 2;
+  grid-column: var(--col);
+  display: flex;
+  flex-direction: column;
+  gap: calc(9px * var(--bs));
+}
+
+/* Arrow into the next stage, centred in the gap. */
+.wf-col:not(:last-child) .wf-stage::after {
+  content: "→";
+  position: absolute;
+  right: calc(-14px * var(--bs));
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: calc(10px * var(--bs));
+  color: #98a2b3;
+}
+
+.wf-num {
+  display: inline-grid;
+  place-items: center;
+  width: calc(14px * var(--bs));
+  height: calc(14px * var(--bs));
+  border-radius: 50%;
+  background: #f4ebff;
+  color: #6941c6;
+  font-size: calc(7.5px * var(--bs));
+  font-weight: 600;
+  margin-bottom: calc(5px * var(--bs));
+}
+
+.wf-label {
+  margin: calc(4px * var(--bs)) 0 0;
+  font-size: calc(7px * var(--bs));
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #98a2b3;
+}
+
+.wf-edge {
+  background: #fcfcfd;
+}
+
+.wf-edge .cs-card-body {
+  margin: 0;
+}
+
+@media (max-width: 767px) {
+  .wf-stages {
+    grid-template-columns: 1fr;
+  }
+
+  .wf-stage,
+  .wf-edges {
+    grid-row: auto;
+    grid-column: auto;
+  }
+
+  .wf-edges:not(:last-child) {
+    margin-bottom: calc(18px * var(--bs));
+  }
+
+  .wf-col:not(:last-child) .wf-stage::after {
+    content: none;
+  }
+}
