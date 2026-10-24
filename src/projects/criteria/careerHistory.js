@@ -7,7 +7,7 @@ import "./criteria.css";
    completes flies in under its day. The projects are the ones in the Figma frame;
    days without one keep the "Add completed project" slot. */
 
-const WEEK = [
+export const WEEK = [
   {
     day: "Monday",
     date: "Jan 10",
@@ -57,7 +57,7 @@ const ORDER = WEEK.flatMap((d, di) => d.projects.map((_, pi) => `${di}-${pi}`));
 const STAGGER_MS = 650;
 const LEAD_MS = 400;
 
-const FLY = {
+export const FLY = {
   hidden: { opacity: 0, y: -28, scale: 0.94, rotate: -2 },
   shown: {
     opacity: 1,
@@ -70,7 +70,7 @@ const FLY = {
 
 // The rail is Figma's own sidebar artwork (logo, expand button, dashboard,
 // analytics, projects, people, messages, settings), pinned to the top of the column.
-function Rail() {
+export function Rail() {
   return (
     <div className="ch-rail" aria-hidden="true">
       <img src="/images/criteria/career-rail.png" alt="" />
@@ -78,9 +78,17 @@ function Rail() {
   );
 }
 
-function ProjectCard({ project }) {
+/* `still` skips the fly-in for cards already on the board; `fresh` outlines the one a
+   check-in just logged (checkInFlow.js). */
+export function ProjectCard({ project, still, fresh }) {
   return (
-    <motion.article className="ch-card" variants={FLY} initial="hidden" animate="shown" layout>
+    <motion.article
+      className={`ch-card${fresh ? " is-fresh" : ""}`}
+      variants={FLY}
+      initial={still ? false : "hidden"}
+      animate="shown"
+      layout
+    >
       <p className="ch-card-title">{project.title}</p>
       {project.links.map((link) => (
         <p key={link} className="ch-card-link">
@@ -88,7 +96,7 @@ function ProjectCard({ project }) {
           <span aria-hidden="true">{"\u00a0"}↗</span>
         </p>
       ))}
-      <span className="ch-tag">{project.reviewer}</span>
+      {project.reviewer && <span className="ch-tag">{project.reviewer}</span>}
     </motion.article>
   );
 }
@@ -96,10 +104,10 @@ function ProjectCard({ project }) {
 // The screen is laid out at a fixed desktop size and scaled to the column, so it
 // reads as a real screenshot. Its 16:9 proportions match the dashboard recording
 // (3016x1706) in the frame above it.
-const SCREEN_W = 1100;
-const SCREEN_H = Math.round((SCREEN_W * 1706) / 3016);
+export const SCREEN_W = 1100;
+export const SCREEN_H = Math.round((SCREEN_W * 1706) / 3016);
 
-function useFitScale(ref) {
+export function useFitScale(ref) {
   const [scale, setScale] = useState(1);
   useLayoutEffect(() => {
     const el = ref.current;

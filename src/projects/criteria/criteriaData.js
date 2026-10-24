@@ -305,6 +305,7 @@ export const CRITERIA_BLOCKS = [
     body: [
       "Every insight a manager or leader sees depends on employees checking in each week, but the first version gave ICs almost nothing back. Most of the value flowed up the org chart.",
       "To close that loop, I explored a personal growth timeline. It turns each check-in into part of an IC’s own record, and lets them credit the teammates who helped. It was explored but not shipped.",
+      "The timeline is fed by the check-in itself. Whatever an IC tells Coach Bo they finished becomes a project on their Career History, with the teammate they credited and links to the work, so there is no second place to log it.",
     ],
     orderedList: [
       "Every project logged through Coach Bo, laid out across their tenure",
@@ -313,9 +314,9 @@ export const CRITERIA_BLOCKS = [
     ],
   },
   {
-    variant: "career-history",
+    variant: "check-in-flow",
     caption:
-      "The explored growth timeline, Career History, gives individual contributors a view of their own progress at the company. Each completed project links straight to its outputs, like Figma libraries, research findings and shipped updates, so contributors can point to their work in conversations about growth.",
+      "From check-in to Career History. Answer Coach Bo’s weekly check-in, where one follow-up asks who helped so they get a shout-out, then follow the project Bo logs onto Friday of the Career History board. Each completed project links straight to its outputs, so contributors can point to their work in conversations about growth.",
   },
   {
     id: "design-system",
