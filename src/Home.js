@@ -372,13 +372,26 @@ export default function Home() {
           <p style={{ ...textStyles.lead, fontSize: 19, marginLeft: "auto", marginRight: "auto" }}>
           I'm a 0→1 product designer who cares about <strong>making genuinely valuable products</strong>. I've designed tools that help clinicians prescribe medications, small businesses get funding, credit unions to experience intuitive software, and managers coach their teams.</p>
 
-          <ul className="logo-strip" aria-label="Companies I've worked with">
-            {EXPERIENCE.map((item) => (
-              <li key={item.company} title={`${item.company} · ${item.role}`}>
-                <img src={item.logo} alt={item.company} style={{ ...styles.stripLogo, height: Math.round(Math.sqrt(LOGO_AREA / item.aspect) * (item.scale || 1)) }} />
-              </li>
-            ))}
-          </ul>
+          {/* On desktop the strip scrolls as a loop: the marks are listed four times and
+              the track slides by half its width, so each half is wider than the row and
+              no gap shows. The copies are hidden from assistive tech and from smaller
+              screens, where the strip stays still and wraps. */}
+          <div className="logo-marquee">
+            <ul className="logo-strip" aria-label="Companies I've worked with">
+              {[0, 1, 2, 3].flatMap((copy) =>
+                EXPERIENCE.map((item) => (
+                  <li
+                    key={`${copy}-${item.company}`}
+                    className={copy ? "logo-strip-copy" : undefined}
+                    aria-hidden={copy ? "true" : undefined}
+                    title={`${item.company} · ${item.role}`}
+                  >
+                    <img src={item.logo} alt={copy ? "" : item.company} style={{ ...styles.stripLogo, height: Math.round(Math.sqrt(LOGO_AREA / item.aspect) * (item.scale || 1)) }} />
+                  </li>
+                ))
+              )}
+            </ul>
+          </div>
         </section>
 
         {/* Work */}
