@@ -41,6 +41,18 @@ export const HBH3_NAV = [
       { id: "vrph-outcomes", label: "Outcomes" },
     ],
   },
+  {
+    group: "DISPENSING",
+    items: [
+      { id: "dispensing-overview", label: "Overview" },
+      { id: "dispensing-challenge", label: "The Challenge" },
+      { id: "dispensing-workflow", label: "Mapping the Workflow" },
+      { id: "dispensing-iterations", label: "From v1 to v2" },
+      { id: "dispensing-testing", label: "Testing with Technicians" },
+      { id: "dispensing-prototype", label: "The Prototype" },
+      { id: "dispensing-outcomes", label: "Outcomes" },
+    ],
+  },
 ];
 
 export const HBH3_BLOCKS = [
@@ -150,6 +162,105 @@ export const HBH3_BLOCKS = [
     variant: "default",
     eyebrow: "Outcomes",
     body: [[{ text: "VRPH was designed in close collaboration with engineering and validated through customer research and usability testing.", bold: true }, { text: " Nectar ultimately was not pursued due to technical constraints integrating e-prescription workflows with EHR data. Beyond product design, " }, { text: "I introduced Honeybee Health's team to a human-centered design process", bold: true }, { text: ", shifting product development from a traditionally requirements-driven, waterfall approach toward one grounded in user research, iterative testing, and cross-functional collaboration." }]],
+  },
+  {
+    id: "dispensing-overview",
+    variant: "product-header",
+    title: "Dispensing Experience",
+    gapAfter: 32,
+  },
+  {
+    variant: "default",
+    eyebrow: "Overview",
+    body: [
+      [
+        { text: "The new dispensing flow shipped to Honeybee Health’s pharmacy technicians and " },
+        { text: "cut the time they spend dispensing medications by 72%", bold: true },
+        { text: "." },
+      ],
+      "Every order Honeybee fills passes through two systems: Keeper, our internal order and operations tool, and Guardian, the pharmacy dispensing system. I led design for bringing Guardian’s dispensing into Keeper, working with engineering and our pharmacy operations lead over six weeks.",
+    ],
+  },
+  {
+    id: "dispensing-challenge",
+    variant: "side-to-side",
+    eyebrow: "The challenge",
+    body: "To dispense an order, a pharmacy technician checked Keeper and Guardian side by side, confirming that every medication, count and manufacturer matched before writing sigs and directions for each one. Every mismatch had to be caught by eye, across two screens. The goals for bringing dispensing into Keeper:",
+    orderedList: [
+      "Compare medications in Keeper and Guardian by medication, count and strength.",
+      "Dispense one medication at a time, writing the sig and directions for each.",
+      "Review every medication across both systems, with pharmacy notes, before sending to fill.",
+      "Stay consistent with Keeper’s design system, in a pattern that scales across actions.",
+    ],
+  },
+  {
+    id: "dispensing-workflow",
+    variant: "side-to-side",
+    eyebrow: "Mapping the workflow",
+    body: "I mapped dispensing into four stages, then pressure-tested each one against the edge cases engineering and pharmacy ops raised: an item in one system but not the other, over-the-counter add-ons, and linked items whose quantities don’t match.",
+  },
+  {
+    variant: "workflow-board",
+  },
+  {
+    id: "dispensing-iterations",
+    variant: "side-to-side",
+    eyebrow: "From v1 to v2",
+    body: "v1 worked through the core functionality at low fidelity: comparing medications in Keeper and Guardian, dispensing in a modal or full screen, one medication at a time, and a final review. After a workshare with the team, v2 made three changes:",
+    orderedList: [
+      "A progress bar, so technicians can move between validation, each medication and review.",
+      "A clear hierarchy of linked and unlinked items, with icons and tooltips for linked, unlinked and mismatched quantities.",
+      "Every edge case accounted for, like a medication that exists in Guardian but not in Keeper.",
+    ],
+  },
+  {
+    variant: "carousel",
+    label: "Order validation, v1 to v2",
+    slides: [
+      {
+        src: "/images/hbh3/dispensing-v1-validation.png",
+        alt: "v1 medication count validation with Keeper and Guardian tables side by side",
+        caption: "v1: Keeper and Guardian tables side by side, with a pass or fail mark per row and no way to resolve a mismatch in place.",
+      },
+      {
+        src: "/images/hbh3/dispensing-v2-validation.png",
+        alt: "v2 order validation with a progress bar and linked, mismatched and unlinked items",
+        caption: "v2: a progress bar across every step, and each row marked linked, mismatched or unlinked, with the fix one click away.",
+      },
+    ],
+  },
+  {
+    id: "dispensing-testing",
+    variant: "side-to-side",
+    eyebrow: "Testing with technicians",
+    body: "I walked pharmacy technicians through the end-to-end prototype to get feedback and iterate. The clearest change came from them: technicians wanted to see allergies up front while dispensing, not nested in a modal. Allergies moved onto every dispense step, next to the patient and prescription.",
+  },
+  {
+    id: "dispensing-prototype",
+    variant: "side-to-side",
+    eyebrow: "The prototype",
+    body: "The shipped flow, end to end: a technician starts from an order, resolves the mismatches between Keeper and Guardian, dispenses each medication with a sig from the glossary, then reviews the order and sends it to fill.",
+  },
+  {
+    variant: "media",
+    src: "/images/hbh3/dispensing-prototype.mp4",
+    aspectRatio: "1200 / 760",
+    caption: "In order validation, the technician fixes a quantity mismatch, links an item missing from Guardian and removes one that isn’t in Keeper. Each medication is then dispensed with allergies up front, the change technicians asked for, before the order is reviewed and sent to fill.",
+  },
+  {
+    id: "dispensing-outcomes",
+    variant: "default",
+    eyebrow: "Outcomes",
+    body: [[{ text: "Dispensing moved into Keeper and shipped to pharmacy technicians", bold: true }, { text: ", replacing the side-by-side check across two systems with one guided flow. " }, { text: "Time spent dispensing medications improved by 72%.", bold: true }]],
+  },
+  {
+    variant: "three-column",
+    eyebrow: "Reflections",
+    columns: [
+      "Map the edge cases before the screens. Linked, unlinked and mismatched items shaped the validation table more than the happy path did.",
+      "Test with the people doing the work. Moving allergies up front came from technicians, not from the requirements.",
+      "Build on the system people already use. Designing inside Keeper’s patterns kept a new flow familiar to technicians who live in it all day.",
+    ],
   },
 ];
 
@@ -310,4 +421,41 @@ export const PAIN_POINTS_BOARD = {
       },
     ],
   },
+};
+
+/* ── Workflow map: the dispensing stages in Keeper and their edge cases (Figma 587:7984) ── */
+export const WORKFLOW_BOARD = {
+  title: "Dispensing Experience in Keeper",
+  subtitle: "Four stages, from an order to send-to-fill, with the edge cases each one has to absorb.",
+  stages: [
+    {
+      title: "Entry point",
+      body: "Dispense from the order details page.",
+      edges: [],
+    },
+    {
+      title: "Order validation",
+      body: "Compare medications from Guardian and Keeper.",
+      edges: [
+        "A Guardian medication with no Keeper match: assign a Keeper medication by NDC.",
+        "A Keeper medication with no Guardian match: assign a Guardian medication from inventory.",
+        "Add an over-the-counter item at any point; it doesn’t have to match 1:1 with Keeper.",
+        "Linked medications with mismatched quantities: update the quantity.",
+      ],
+    },
+    {
+      title: "Medication dispensing",
+      body: "Review medication details and input the sig and directions, pulled from the sig code glossary.",
+      edges: [
+        "Review patient details and prescription information, then fill out refills, quantity written, units per dose, sig and directions.",
+      ],
+    },
+    {
+      title: "Order review",
+      body: "Confirm the medications being dispensed and add pharmacy notes, which default to the medications in the order.",
+      edges: [
+        "Confirm the Guardian items integrated into Keeper by manufacturer, strength, quantity and sig.",
+      ],
+    },
+  ],
 };

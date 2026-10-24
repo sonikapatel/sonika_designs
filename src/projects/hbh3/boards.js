@@ -1,5 +1,6 @@
 import React from "react";
-import { BEHAVIORS_BOARD, PAIN_POINTS_BOARD } from "./hbh3Data";
+import { BEHAVIORS_BOARD, PAIN_POINTS_BOARD, WORKFLOW_BOARD } from "./hbh3Data";
+import "./dispensing.css";
 
 /* The two research artifacts unique to the Honeybee case study. Both reproduce a
    dense Figma "board" — see the --bs scale note in caseStudy.css for how their
@@ -109,6 +110,47 @@ export function PainPointsBoard() {
             ))}
           </div>
         </section>
+      </div>
+    </div>
+  );
+}
+
+/* The dispensing workflow map: four stages across the top, each with its edge cases
+   stacked under it, so a reader sees where the complexity actually sits. A stage and
+   its edge cases share a list item, so they stay together when the columns stack. */
+export function WorkflowBoard() {
+  return (
+    <div className="cs-board">
+      <div className="cs-board-head">
+        <p className="cs-board-title">{WORKFLOW_BOARD.title}</p>
+        <p className="cs-board-sub">{WORKFLOW_BOARD.subtitle}</p>
+      </div>
+      <div className="cs-board-body">
+        <div className="cs-row-title">
+          <span className="cs-row-icon" style={{ background: "#F0F9FF" }}>
+            <img src="/images/hbh3/icon-clipboard.svg" alt="" />
+          </span>
+          <p className="cs-row-heading">Workflow and edge cases</p>
+        </div>
+        <ol className="wf-stages">
+          {WORKFLOW_BOARD.stages.map((stage, i) => (
+            <li key={stage.title} className="wf-col" style={{ "--col": i + 1 }}>
+              <article className="cs-card cs-card--requirement wf-stage">
+                <span className="wf-num">{i + 1}</span>
+                <p className="cs-card-title">{stage.title}</p>
+                <p className="cs-card-body">{stage.body}</p>
+              </article>
+              <div className="wf-edges">
+                {stage.edges.length > 0 && <p className="wf-label">Edge cases</p>}
+                {stage.edges.map((edge) => (
+                  <article key={edge} className="cs-card wf-edge">
+                    <p className="cs-card-body">{edge}</p>
+                  </article>
+                ))}
+              </div>
+            </li>
+          ))}
+        </ol>
       </div>
     </div>
   );

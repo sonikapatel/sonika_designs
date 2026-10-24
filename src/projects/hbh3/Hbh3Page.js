@@ -1,10 +1,11 @@
 import CaseStudyPage from "../caseStudy/CaseStudyPage";
 import { HBH3, HBH3_NAV, HBH3_BLOCKS } from "./hbh3Data";
-import { BehaviorsBoard, PainPointsBoard } from "./boards";
+import { BehaviorsBoard, PainPointsBoard, WorkflowBoard } from "./boards";
 
 const CUSTOM_BLOCKS = {
   "board-behaviors": BehaviorsBoard,
   "board-painpoints": PainPointsBoard,
+  "workflow-board": WorkflowBoard,
 };
 
 export default function Hbh3Page() {
