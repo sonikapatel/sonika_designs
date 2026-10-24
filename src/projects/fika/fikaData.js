@@ -37,7 +37,7 @@ export const FIKA_BLOCKS = [
     lead: "Creative professionals are working in isolation.",
     body: [
       "Whether they’re freelancers, business owners, or remote workers, the pandemic has changed the way we interact and the nature of the work is usually in solitude.",
-      "I designed and developed Fika – a new way to help creatives connect in a more meaningful way, whether it’s a new friendship, collaborator, or opportunity. Fika connects people over coffee IRL, inspired by the Swedish ritual. By inviting someone inspiring to coffee to matchmaking and events, I designed Fika with creatives’ interests in mind. Since launching, Fika connected ~2,500 creatives over biweekly matchmaking at cafes, the product experience, and events hosted in partner locations.",
+      [{ text: "I designed and developed Fika – a new way to help creatives connect in a more meaningful way, whether it’s a new friendship, collaborator, or opportunity. Fika connects people over coffee IRL, inspired by the Swedish ritual. By inviting someone inspiring to coffee to matchmaking and events, I designed Fika with creatives’ interests in mind. Since launching, " }, { text: "Fika connected ~2,500 creatives", bold: true }, { text: " over biweekly matchmaking at cafes, the product experience, and events hosted in partner locations." }],
     ],
   },
   {
@@ -64,13 +64,13 @@ export const FIKA_BLOCKS = [
     alt: "The Fika onboarding funnel",
     bare: true,
     caption:
-      "An onboarding experience I designed after iterating based off of dropoff rates in the funnel, improving onboarding by 32% with the low intent to high intent funnel. Creatives can upload their work and what they're looking to gain from Fika to facilitate matchmaking.",
+      [{ text: "An onboarding experience I designed after iterating based off of dropoff rates in the funnel, " }, { text: "improving onboarding by 32%", bold: true }, { text: " with the low intent to high intent funnel. Creatives can upload their work and what they're looking to gain from Fika to facilitate matchmaking." }],
   },
   {
     variant: "media",
     src: "/images/fika/fikahome.mp4",
     caption:
-      "Browse creatives nearby, and invite someone whose work you find inspiring. We learned roughly 10% of creatives invited others to coffee via the feed, while a larger portion partook in biweekly matchmaking.",
+      [{ text: "Browse creatives nearby, and invite someone whose work you find inspiring. We learned " }, { text: "roughly 10% of creatives invited others to coffee via the feed", bold: true }, { text: ", while a larger portion partook in biweekly matchmaking." }],
   },
   {
     variant: "media",

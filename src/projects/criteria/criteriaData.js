@@ -336,7 +336,6 @@ export const CRITERIA_BLOCKS = [
     body: [
       "Shipping Check-Ins to customers meant more than turning it on. Because it rolled out to accounts already using Develop, the product itself had to explain what Check-Ins was and why it mattered, right where people already worked. I designed an in-app merchandising layer that met each role at its own entry point: employees saw Check-Ins framed as career acceleration on their weekly home, while managers saw it framed as management superpowers on their analytics dashboard.",
       "Both banners open the same three-step walkthrough (How It Works, Why You Need It and What You Can Expect), so the story stays consistent across roles. Each step pairs a short value proposition with a quote from someone already using Check-Ins, set in its own container so the proof reads apart from the pitch. The last step ends on one clear path, Contact us, so curiosity could turn into a conversation without leaving the product.",
-      "Launching the new merchandising experience resulted in 28% engagement within existing Develop customers.",
     ],
   },
   {
@@ -349,8 +348,8 @@ export const CRITERIA_BLOCKS = [
     variant: "default",
     eyebrow: "Impact",
     body: [
-      "The redesigned Check-Ins onboarding experience launched to 5% of SMB accounts, alongside a limited beta of Coaching v1: the weekly Coach Bo chat and the manager dashboard with 1:1 prep. The executive intelligence digest went out by email to managers and the C-suite, and the Check-Ins design system carried from Figma into TypeScript components.",
-      "The work created a scalable onboarding foundation that enabled Criteria to expand Check-Ins to larger organizations. I left before post-launch numbers were available.",
+      [{ text: "The redesigned Check-Ins onboarding experience " }, { text: "launched to 5% of SMB accounts", bold: true }, { text: ", alongside a limited beta of Coaching v1: the weekly Coach Bo chat and the manager dashboard with 1:1 prep. The executive intelligence digest went out by email to managers and the C-suite, and the Check-Ins design system carried from Figma into TypeScript components. In-product merchandising " }, { text: "drove 28% engagement within existing Develop customers", bold: true }, { text: "." }],
+      [{ text: "The work created a scalable onboarding foundation that enabled Criteria to expand Check-Ins to larger organizations.", bold: true }, { text: " I left before the remaining post-launch numbers were available." }],
     ],
   },
   {

@@ -14,7 +14,9 @@ export function Facts({ block }) {
         <div key={fact.label}>
           <dt>{fact.label}</dt>
           {fact.lines.map((line) => (
-            <dd key={line}>{line}</dd>
+            <dd key={line} className={fact.outcome ? "cs-outcome" : undefined}>
+              {line}
+            </dd>
           ))}
         </div>
       ))}

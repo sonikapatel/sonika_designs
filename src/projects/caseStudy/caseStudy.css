@@ -1146,3 +1146,10 @@
     font-size: 20px;
   }
 }
+
+/* Outcomes inside prose and captions: bold and a shade darker than the body copy,
+   so the results stand out when skimming. */
+.cs-outcome {
+  font-weight: 600;
+  color: #111;
+}
