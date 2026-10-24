@@ -55,7 +55,7 @@ export const CRITERIA_BLOCKS = [
         { text: "launched to 5% of SMB accounts", bold: true },
         { text: ", and " },
         { text: "28% of existing Develop users checked out its in-product merchandising", bold: true },
-        { text: " during the four-week rollout. I led design end to end, partnering with a PM and an engineer over [TK: timeline, e.g. six months in 2025]." },
+        { text: " during the four-week rollout. I led design end to end, partnering with a PM and an engineer over six months." },
       ],
       "Managers lacked visibility into how their teams were doing week over week. Criteria’s post-hire suite, Develop, gives managers real-time, personalized coaching at scale. I designed the core experience for a new company bet: an AI-powered coaching product that surfaces relevant insights and recommends actions directly within a manager’s workflow. The product expanded Criteria’s talent management offering beyond pre-hire assessments, creating an experience that supports managers across the employee lifecycle.",
       "Weekly feedback only works if checking in is easy for employees and insights reach managers when they can act on them. So the real design question was where Check-Ins should meet each person: inside the tools they already use, like Teams, Slack, email and calendar, or inside Develop.",
@@ -214,7 +214,7 @@ export const CRITERIA_BLOCKS = [
     eyebrow: "Resolving the trust problem",
     body: [
       "The research gave the trust problem its answer: a score was only as useful as the reason behind it. So every signal explains itself. Each mood and progress score links back to the check-in answers it came from, and 1:1 prep leads with talking points drawn from those answers, not the number.",
-      "[TK: add a before/after of one score, shown alone and then with its explanation.] The red, yellow and green states stayed in v1, which is why leading with talking points is on my list of what I’d do differently.",
+      "The red, yellow and green states stayed in v1, which is why leading with talking points is on my list of what I’d do differently.",
     ],
   },
   {
