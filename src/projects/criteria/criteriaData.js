@@ -49,9 +49,15 @@ export const CRITERIA_BLOCKS = [
     id: "overview",
     variant: "default",
     eyebrow: "Overview",
-    lead: "Managers lack visibility into how their teams are doing week over week.",
     body: [
-      "Criteria’s post-hire suite, Develop, gives managers real-time, personalized coaching at scale. I designed the core experience for a new company bet: an AI-powered coaching product that surfaces relevant insights and recommends actions directly within a manager’s workflow. The product expanded Criteria’s talent management offering beyond pre-hire assessments, creating an experience that supports managers across the employee lifecycle.",
+      [
+        { text: "Weekly Check-Ins " },
+        { text: "launched to 5% of SMB accounts", bold: true },
+        { text: ", and " },
+        { text: "28% of existing Develop users checked out its in-product merchandising", bold: true },
+        { text: " during the four-week rollout. I led design end to end, partnering with a PM and an engineer over [TK: timeline, e.g. six months in 2025]." },
+      ],
+      "Managers lacked visibility into how their teams were doing week over week. Criteria’s post-hire suite, Develop, gives managers real-time, personalized coaching at scale. I designed the core experience for a new company bet: an AI-powered coaching product that surfaces relevant insights and recommends actions directly within a manager’s workflow. The product expanded Criteria’s talent management offering beyond pre-hire assessments, creating an experience that supports managers across the employee lifecycle.",
       "Weekly feedback only works if checking in is easy for employees and insights reach managers when they can act on them. So the real design question was where Check-Ins should meet each person: inside the tools they already use, like Teams, Slack, email and calendar, or inside Develop.",
     ],
   },
@@ -194,6 +200,24 @@ export const CRITERIA_BLOCKS = [
     variant: "card-sort",
   },
   {
+    variant: "side-to-side",
+    eyebrow: "What managers prioritized",
+    body: "Across 10 managers, the sort pointed the same way: managers wanted the context behind how someone was doing more than a measure of it. Each finding shaped what 1:1 prep shows first.",
+    orderedList: [
+      "Current blockers and this week’s wins ranked highest, so 1:1 prep opens with them, before any score.",
+      "A trend over the past four weeks mattered more than a single week, so the dashboard shows mood, progress and readiness over time.",
+      "Strengths and motivators were wanted but rarely at hand, so prep guides pull them in from each employee’s pre-hire assessments.",
+    ],
+  },
+  {
+    variant: "side-to-side",
+    eyebrow: "Resolving the trust problem",
+    body: [
+      "The research gave the trust problem its answer: a score was only as useful as the reason behind it. So every signal explains itself. Each mood and progress score links back to the check-in answers it came from, and 1:1 prep leads with talking points drawn from those answers, not the number.",
+      "[TK: add a before/after of one score, shown alone and then with its explanation.] The red, yellow and green states stayed in v1, which is why leading with talking points is on my list of what I’d do differently.",
+    ],
+  },
+  {
     id: "onboarding",
     variant: "side-to-side",
     eyebrow: "Onboarding + Admin Setup",
@@ -309,14 +333,14 @@ export const CRITERIA_BLOCKS = [
   {
     variant: "merchandising",
     caption:
-      "Exploring ways of showcasing inactive products, so Check-Ins could introduce itself inside a dashboard managers already use before their account turned it on. An interactive rebuild of the merchandising screens on the manager dashboard. Click Learn more to explore the merchandising experience that resulted in a 28% increase in engagement for clients using Develop.",
+      "Exploring ways of showcasing inactive products, so Check-Ins could introduce itself inside a dashboard managers already use before their account turned it on. An interactive rebuild of the merchandising screens on the manager dashboard. Click Learn more to explore the merchandising experience, which 28% of existing Develop users checked out during the four-week rollout.",
   },
   {
     id: "impact",
     variant: "default",
     eyebrow: "Impact",
     body: [
-      [{ text: "The redesigned Check-Ins onboarding experience " }, { text: "launched to 5% of SMB accounts", bold: true }, { text: ", alongside a limited beta of Coaching v1: the weekly Coach Bo chat and the manager dashboard with 1:1 prep. The executive intelligence digest went out by email to managers and the C-suite, and the Check-Ins design system carried from Figma into TypeScript components. In-product merchandising " }, { text: "drove 28% engagement within existing Develop customers", bold: true }, { text: "." }],
+      [{ text: "The redesigned Check-Ins onboarding experience " }, { text: "launched to 5% of SMB accounts", bold: true }, { text: ", alongside a limited beta of Coaching v1: the weekly Coach Bo chat and the manager dashboard with 1:1 prep. The executive intelligence digest went out by email to managers and the C-suite, and the Check-Ins design system carried from Figma into TypeScript components. In-product merchandising " }, { text: "was checked out by 28% of existing Develop users", bold: true }, { text: " during the four-week rollout." }],
       [{ text: "The work created a scalable onboarding foundation that enabled Criteria to expand Check-Ins to larger organizations.", bold: true }, { text: " I left before the remaining post-launch numbers were available." }],
     ],
   },
