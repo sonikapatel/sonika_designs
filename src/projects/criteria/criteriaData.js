@@ -38,6 +38,7 @@ export const CRITERIA_NAV = [
       { id: "research-to-product", label: "From Research to Experience" },
       { id: "ic-incentive", label: "Giving ICs a Reason" },
       { id: "design-system", label: "Design System" },
+      { id: "merchandising", label: "In-Product Merchandising" },
       { id: "impact", label: "Impact" },
     ],
   },
@@ -329,22 +330,48 @@ export const CRITERIA_BLOCKS = [
     bare: true,
   },
   {
+    id: "merchandising",
+    variant: "side-to-side",
+    eyebrow: "Merchandising Check-Ins in the product",
+    body: [
+      "Shipping Check-Ins to customers meant more than turning it on. Because it rolled out to accounts already using Develop, the product itself had to explain what Check-Ins was and why it mattered, right where people already worked. I designed an in-app merchandising layer that met each role at its own entry point: employees saw Check-Ins framed as career acceleration on their weekly home, while managers saw it framed as management superpowers on their analytics dashboard.",
+      "Both banners open the same three-step walkthrough (How It Works, Why You Need It and What You Can Expect), so the story stays consistent across roles. Each step pairs a short value proposition with a quote from someone already using Check-Ins, set in its own container so the proof reads apart from the pitch. The last step ends on one clear path, Contact us, so curiosity could turn into a conversation without leaving the product.",
+    ],
+  },
+  {
+    variant: "merchandising",
+    caption:
+      "An interactive rebuild of the merchandising screens on the manager dashboard. Change the date range, open Learn more to step through the walkthrough, then Preview experience to see each report a user receives.",
+  },
+  {
     id: "impact",
     variant: "default",
     eyebrow: "Impact",
     body: [
-      "The redesigned Check-Ins onboarding experience launched to 5% of SMB accounts, alongside a limited beta of Coaching v1: the weekly Coach Bo chat and the manager dashboard with 1:1 prep. The executive intelligence digest went out by email to managers and the C-suite, and the Check-Ins design system carried from Figma into TypeScript components.",
-      "The work created a scalable onboarding foundation that enabled Criteria to expand Check-Ins to larger organizations. I left before post-launch numbers were available.",
+      [{ text: "The redesigned Check-Ins onboarding experience " }, { text: "launched to 5% of SMB accounts", bold: true }, { text: ", alongside a limited beta of Coaching v1: the weekly Coach Bo chat and the manager dashboard with 1:1 prep. The executive intelligence digest went out by email to managers and the C-suite, and the Check-Ins design system carried from Figma into TypeScript components. In-product merchandising " }, { text: "drove 28% engagement within existing Develop customers", bold: true }, { text: "." }],
+      [{ text: "The work created a scalable onboarding foundation that enabled Criteria to expand Check-Ins to larger organizations.", bold: true }, { text: " I left before the remaining post-launch numbers were available." }],
     ],
   },
   {
-    variant: "side-to-side",
+    variant: "reflections",
     eyebrow: "What I’d do differently",
-    body: [
-      "Plan the integration path from day one. Teams, Outlook and Google Calendar were where people worked, and building the identity and SSO foundation earlier would have let chat and 1:1 prep move there sooner.",
-      "Lead with talking points, not scores. The dashboard’s red/yellow/green states pull managers toward reading verdicts, which is the trust problem the research flagged.",
-      "Give ICs something back from the start. The whole system runs on IC participation, so the growth timeline belonged in v1.",
-      "Channel is a design decision, not a delivery detail. Who gets value, when and where shapes whether a weekly habit forms at all.",
+    items: [
+      {
+        title: "Plan the integration path from day one.",
+        body: "Teams, Outlook and Google Calendar were where people worked, and building the identity and SSO foundation earlier would have let chat and 1:1 prep move there sooner.",
+      },
+      {
+        title: "Lead with talking points, not scores.",
+        body: "The dashboard’s red/yellow/green states pull managers toward reading verdicts, which is the trust problem the research flagged.",
+      },
+      {
+        title: "Give ICs something back from the start.",
+        body: "The whole system runs on IC participation, so the growth timeline belonged in v1.",
+      },
+      {
+        title: "Channel is a design decision, not a delivery detail.",
+        body: "Who gets value, when and where shapes whether a weekly habit forms at all.",
+      },
     ],
   },
 ];

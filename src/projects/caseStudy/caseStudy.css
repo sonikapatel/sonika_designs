@@ -576,7 +576,8 @@
   border: 1px solid #e5e7eb;
 }
 
-.cs-carousel-slide img {
+.cs-carousel-slide img,
+.cs-carousel-slide video {
   display: block;
   width: 100%;
   aspect-ratio: 3 / 2;
@@ -1144,4 +1145,11 @@
   .cs-product-header {
     font-size: 20px;
   }
+}
+
+/* Outcomes inside prose and captions: bold and a shade darker than the body copy,
+   so the results stand out when skimming. */
+.cs-outcome {
+  font-weight: 600;
+  color: #111;
 }

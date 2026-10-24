@@ -82,7 +82,7 @@ export const SQUARE_BLOCKS = [
     id: "outcomes",
     variant: "default",
     eyebrow: "Outcomes",
-    body: "Term vs Flex Loan Product prototypes were presented to leadership to continue developing in the following quarter to improve seller experience.",
+    body: [[{ text: "Term vs Flex Loan Product prototypes were " }, { text: "presented to leadership to continue developing in the following quarter", bold: true }, { text: " to improve seller experience." }]],
   },
   {
     id: "term-loans",
@@ -122,7 +122,7 @@ export const SQUARE_BLOCKS = [
     src: "/images/square/TabBar-nomark.mp4",
     framed: true,
     caption:
-      "In this solution that we shipped, sellers can input the number of bank accounts they have to hold the experience accountable. This solution yielded an increased seller understanding and loan conversion.",
+      [{ text: "In this solution that we shipped, sellers can input the number of bank accounts they have to hold the experience accountable. " }, { text: "This solution yielded an increased seller understanding and loan conversion.", bold: true }],
   },
   {
     id: "impact",

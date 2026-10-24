@@ -127,37 +127,44 @@ function Sidebar({ nav, activeId, onNavigate }) {
 
 const isVideo = (src) => /\.(mov|mp4|webm)$/i.test(src);
 
+/* A run of copy: a plain string or, where part of it is a link or an outcome, a list
+   of {text} / {text, url} / {text, bold} segments. Outcomes are set bold so a reader
+   skimming any case study lands on the results. */
+export function Rich({ value }) {
+  const segments = Array.isArray(value) ? value : [{ text: value }];
+  return segments.map((seg, j) =>
+    seg.url ? (
+      <a
+        key={j}
+        href={seg.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="proj-inline-link"
+      >
+        {seg.text}
+      </a>
+    ) : seg.bold ? (
+      <strong key={j} className="cs-outcome">
+        {seg.text}
+      </strong>
+    ) : (
+      <React.Fragment key={j}>{seg.text}</React.Fragment>
+    )
+  );
+}
+
 /* Body copy is one paragraph in most sections, but a couple carry a bold opening
    sentence or run to two paragraphs — both still the same prose style. */
 function Prose({ lead, body }) {
   const paragraphs = Array.isArray(body) ? body : [body];
   return (
     <>
-      {paragraphs.map((part, i) => {
-        // A paragraph is either a plain string or, where it carries a link, a list of
-        // {text} / {text, url} segments.
-        const segments = Array.isArray(part) ? part : [{ text: part }];
-        return (
-          <p key={i} className="cs-prose">
-            {i === 0 && lead && <strong>{lead} </strong>}
-            {segments.map((seg, j) =>
-              seg.url ? (
-                <a
-                  key={j}
-                  href={seg.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="proj-inline-link"
-                >
-                  {seg.text}
-                </a>
-              ) : (
-                <React.Fragment key={j}>{seg.text}</React.Fragment>
-              )
-            )}
-          </p>
-        );
-      })}
+      {paragraphs.map((part, i) => (
+        <p key={i} className="cs-prose">
+          {i === 0 && lead && <strong>{lead} </strong>}
+          <Rich value={part} />
+        </p>
+      ))}
     </>
   );
 }
@@ -279,7 +286,9 @@ function Block({ block, custom }) {
             )}
           </div>
           {block.caption && (
-            <figcaption className="cs-media-caption">{block.caption}</figcaption>
+            <figcaption className="cs-media-caption">
+              <Rich value={block.caption} />
+            </figcaption>
           )}
         </figure>
       );
@@ -500,7 +509,7 @@ export default function CaseStudyPage({ meta, nav, blocks, custom }) {
               <div
                 key={block.id || `${block.variant}-${i}`}
                 id={block.id}
-                className="cs-block"
+                className={block.className ? `cs-block ${block.className}` : "cs-block"}
                 style={block.gapAfter ? { marginBottom: block.gapAfter } : undefined}
               >
                 <Block block={block} custom={custom} />

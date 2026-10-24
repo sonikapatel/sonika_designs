@@ -116,7 +116,7 @@ export const HBH3_BLOCKS = [
     id: "reflection",
     variant: "default",
     eyebrow: "Outcomes",
-    body: "Producing Nectar was halted given EHR integration would be a limiting factor for prescribers to switch to a tool like Nectar, uncovered through persistent research with clinicians. Aside from the core user experience, we instead created an opportunity for providers to see prescription data they’ve sent to Honeybee Health.",
+    body: [[{ text: "Producing Nectar was halted given EHR integration would be a limiting factor for prescribers to switch to a tool like Nectar, uncovered through persistent research with clinicians. Aside from the core user experience, " }, { text: "we instead created an opportunity for providers to see prescription data they’ve sent to Honeybee Health.", bold: true }]],
   },
   {
     variant: "three-column",
@@ -149,7 +149,7 @@ export const HBH3_BLOCKS = [
     id: "vrph-outcomes",
     variant: "default",
     eyebrow: "Outcomes",
-    body: "VRPH was designed in close collaboration with engineering and validated through customer research and usability testing. Nectar ultimately was not pursued due to technical constraints integrating e-prescription workflows with EHR data. Beyond product design, I introduced Honeybee Health's team to a human-centered design process, shifting product development from a traditionally requirements-driven, waterfall approach toward one grounded in user research, iterative testing, and cross-functional collaboration.",
+    body: [[{ text: "VRPH was designed in close collaboration with engineering and validated through customer research and usability testing.", bold: true }, { text: " Nectar ultimately was not pursued due to technical constraints integrating e-prescription workflows with EHR data. Beyond product design, " }, { text: "I introduced Honeybee Health's team to a human-centered design process", bold: true }, { text: ", shifting product development from a traditionally requirements-driven, waterfall approach toward one grounded in user research, iterative testing, and cross-functional collaboration." }]],
   },
 ];
 

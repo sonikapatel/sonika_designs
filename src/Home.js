@@ -7,10 +7,9 @@ import HomeaseHouse from "./projects/homease/HomeaseHouse";
    sit in a greyed-out strip under the intro, sized to one shared area rather
    than one height, so a near-square mark (AT&T) and a long one (Philosophie)
    carry the same visual weight. `aspect` is each file's width / height; `scale`
-   trims the heavy, solid wordmarks (Fika, Philosophie) so they don't read larger. */
+   trims the heavy, solid Philosophie wordmark so it doesn't read larger. */
 const LOGO_AREA = 3136; // px², a 112 × 28 box
 const EXPERIENCE = [
-  { company: "Fika",            logo: "/images/logos/fika-wordmark.png",        aspect: 2.37, scale: 0.85, role: "Lead Product Designer / Founder" },
   { company: "Criteria",        logo: "/images/logos/criteria-wordmark.png",    aspect: 4.0,  role: "Senior UX Designer" },
   { company: "Honeybee Health", logo: "/images/logos/honeybee-wordmark.png",    aspect: 3.57, role: "Product Designer" },
   { company: "Square (Block)",  logo: "/images/logos/square-wordmark.svg",      aspect: 4.0,  role: "Product Designer" },
@@ -208,6 +207,28 @@ const CARDS = {
       slug: "criteria",
     },
     {
+      company: "Square",
+      description: "Empowering small businesses with flexible financing.",
+      industry: "Financial",
+      bg: "#3D5445",
+      image: "/images/Square_full.png",
+      /* Stays still on hover: no clip and no push-in. */
+      noMotion: true,
+      slug: "square",
+    },
+    {
+      company: "Co-op Solutions",
+      description: "Modernizing legacy credit union software - Case study coming soon! ",
+      industry: "Financial",
+      image: "/images/Springboard.png",
+      /* The wide still is cropped to the other tiles' shape so it sits beside
+         Square, holding on the member sidebar and cardholder table. */
+      crop: { position: "32% 0" },
+      /* Its "coming soon" note runs the full width of the card. */
+      wideCopy: true,
+      slug: "coop",
+    },
+    {
       company: "Honeybee Health",
       description: "Enabling physicians to prescribe medications while protecting patient privacy",
       industry: "Healthcare",
@@ -225,23 +246,6 @@ const CARDS = {
         radius: 0,
       },
       slug: "hbh-3",
-    },
-    {
-      company: "Square",
-      description: "Empowering small businesses with flexible financing.",
-      industry: "Financial",
-      bg: "#3D5445",
-      image: "/images/Square_full.png",
-      /* Stays still on hover: no clip and no push-in. */
-      noMotion: true,
-      slug: "square",
-    },
-    {
-      company: "Co-op Solutions",
-      description: "Modernizing legacy credit union software - Case study coming soon! ",
-      industry: "Financial",
-      image: "/images/Springboard.png",
-      fullWidth: true,
     },
   ],
   /* Self-initiated concepts and prototypes. */
@@ -434,6 +438,8 @@ export default function Home() {
                       noMotion={card.noMotion}
                       house={card.house}
                       slug={card.slug}
+                      crop={card.crop}
+                      wideCopy={card.wideCopy}
                       fullWidth={card.fullWidth}
                     />
                   ))
@@ -506,7 +512,7 @@ function BrandCard({ image }) {
    autoplay as before; readers who ask for less motion keep the still. */
 const prefersStill = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-function ProjectCard({ company, description, image, video, layer, house, noMotion, slug, fullWidth }) {
+function ProjectCard({ company, description, image, video, layer, house, noMotion, slug, crop, wideCopy, fullWidth }) {
   const ref = useFadeIn();
   const videoRef = useRef(null);
   const [playing, setPlaying] = useState(false);
@@ -542,7 +548,8 @@ function ProjectCard({ company, description, image, video, layer, house, noMotio
       <img
         src={image}
         alt={company}
-        className="home-card-image"
+        className={crop ? "home-card-image home-card-image--crop" : "home-card-image"}
+        style={crop ? { objectPosition: crop.position } : undefined}
         onError={(e) => {
           e.currentTarget.style.display = "none";
         }}
@@ -580,7 +587,7 @@ function ProjectCard({ company, description, image, video, layer, house, noMotio
       {house && <HomeaseHouse style={house} />}
       <div className="home-card-overlay">
         <p className="home-card-overlay-title">{company}</p>
-        <p className="home-card-overlay-text">{description}</p>
+        <p className={wideCopy ? "home-card-overlay-text home-card-overlay-text--wide" : "home-card-overlay-text"}>{description}</p>
       </div>
     </div>
   );
