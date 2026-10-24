@@ -49,9 +49,15 @@ export const CRITERIA_BLOCKS = [
     id: "overview",
     variant: "default",
     eyebrow: "Overview",
-    lead: "Managers lack visibility into how their teams are doing week over week.",
     body: [
-      "Criteria’s post-hire suite, Develop, gives managers real-time, personalized coaching at scale. I designed the core experience for a new company bet: an AI-powered coaching product that surfaces relevant insights and recommends actions directly within a manager’s workflow. The product expanded Criteria’s talent management offering beyond pre-hire assessments, creating an experience that supports managers across the employee lifecycle.",
+      [
+        { text: "Weekly Check-Ins " },
+        { text: "launched to 5% of SMB accounts", bold: true },
+        { text: ", and " },
+        { text: "28% of existing Develop users checked out its in-product merchandising", bold: true },
+        { text: " during the four-week rollout. I led design end to end, partnering with a PM and an engineer over six months." },
+      ],
+      "Managers lacked visibility into how their teams were doing week over week. Criteria’s post-hire suite, Develop, gives managers real-time, personalized coaching at scale. I designed the core experience for a new company bet: an AI-powered coaching product that surfaces relevant insights and recommends actions directly within a manager’s workflow. The product expanded Criteria’s talent management offering beyond pre-hire assessments, creating an experience that supports managers across the employee lifecycle.",
       "Weekly feedback only works if checking in is easy for employees and insights reach managers when they can act on them. So the real design question was where Check-Ins should meet each person: inside the tools they already use, like Teams, Slack, email and calendar, or inside Develop.",
     ],
   },
@@ -194,6 +200,24 @@ export const CRITERIA_BLOCKS = [
     variant: "card-sort",
   },
   {
+    variant: "side-to-side",
+    eyebrow: "What managers prioritized",
+    body: "Across 10 managers, the sort pointed the same way: managers wanted the context behind how someone was doing more than a measure of it. Each finding shaped what 1:1 prep shows first.",
+    orderedList: [
+      "Current blockers and this week’s wins ranked highest, so 1:1 prep opens with them, before any score.",
+      "A trend over the past four weeks mattered more than a single week, so the dashboard shows mood, progress and readiness over time.",
+      "Strengths and motivators were wanted but rarely at hand, so prep guides pull them in from each employee’s pre-hire assessments.",
+    ],
+  },
+  {
+    variant: "side-to-side",
+    eyebrow: "Resolving the trust problem",
+    body: [
+      "The research gave the trust problem its answer: a score was only as useful as the reason behind it. So every signal explains itself. Each mood and progress score links back to the check-in answers it came from, and 1:1 prep leads with talking points drawn from those answers, not the number.",
+      "The red, yellow and green states stayed in v1, which is why leading with talking points is on my list of what I’d do differently.",
+    ],
+  },
+  {
     id: "onboarding",
     variant: "side-to-side",
     eyebrow: "Onboarding + Admin Setup",
@@ -244,40 +268,7 @@ export const CRITERIA_BLOCKS = [
   {
     variant: "side-to-side",
     eyebrow: "Where insights reach managers and leaders",
-    body: "Calendar and inbox were where managers prepared, but integrating them meant Outlook and Google Calendar APIs and SSO we didn’t have. As a new company bet, Develop also needed engagement inside the product. I designed the dashboard first, and pushed outward where it was cheap: leaders got an emailed digest.",
-  },
-  {
-    variant: "channel-options",
-    options: [
-      {
-        name: "Dashboard in Develop",
-        serves: "managers",
-        decision: "Shipped",
-        appeal: "Mood, progress and 1:1 prep in one place, built on our own data and design system; keeps managers in Develop",
-        holdback: "Managers have to come to it, and red/yellow/green states invite reading scores as verdicts",
-      },
-      {
-        name: "Executive intelligence digest",
-        serves: "managers, VPs and the C-suite",
-        decision: "Shipped",
-        appeal: "A high-level read on team health and burnout risk, with no login",
-        holdback: "Needed automatic permissioning so each leader only sees their part of the org",
-      },
-      {
-        name: "1:1 report in calendar or inbox",
-        serves: "managers",
-        decision: "Explored",
-        appeal: "Arrives when managers prepare, with an energy-over-time preview and talking points",
-        holdback: "Outlook and Google Calendar APIs, plus mapping calendar events to reporting lines",
-      },
-      {
-        name: "Reminder synced to the upcoming 1:1",
-        serves: "managers",
-        decision: "Explored",
-        appeal: "A light nudge tied to a real meeting",
-        holdback: "The same calendar integration cost, and little value without the prep behind it",
-      },
-    ],
+    body: "Managers prepared for 1:1s in their calendar and inbox, but meeting them there meant building on the Outlook and Google Calendar APIs and an SSO foundation we didn’t have yet. Develop, a new bet for the company, also needed people engaging inside the product. So I started with the dashboard in Develop and reached beyond it only where that was cheap: leaders received the insights as an emailed digest.",
   },
   {
     variant: "solution-concepts",
@@ -305,6 +296,7 @@ export const CRITERIA_BLOCKS = [
     body: [
       "Every insight a manager or leader sees depends on employees checking in each week, but the first version gave ICs almost nothing back. Most of the value flowed up the org chart.",
       "To close that loop, I explored a personal growth timeline. It turns each check-in into part of an IC’s own record, and lets them credit the teammates who helped. It was explored but not shipped.",
+      "The timeline is fed by the check-in itself. Whatever an IC tells Coach Bo they finished becomes a project on their Career History, with the teammate they credited and links to the work, so there is no second place to log it.",
     ],
     orderedList: [
       "Every project logged through Coach Bo, laid out across their tenure",
@@ -313,9 +305,9 @@ export const CRITERIA_BLOCKS = [
     ],
   },
   {
-    variant: "career-history",
+    variant: "check-in-flow",
     caption:
-      "The explored growth timeline, Career History, gives individual contributors a view of their own progress at the company. Each completed project links straight to its outputs, like Figma libraries, research findings and shipped updates, so contributors can point to their work in conversations about growth.",
+      "From check-in to Career History. Answer Coach Bo’s weekly check-in, where one follow-up asks who helped so they get a shout-out, then follow the project Bo logs onto Friday of the Career History board. Each completed project links straight to its outputs, so contributors can point to their work in conversations about growth.",
   },
   {
     id: "design-system",
@@ -334,21 +326,21 @@ export const CRITERIA_BLOCKS = [
     variant: "side-to-side",
     eyebrow: "Merchandising Check-Ins in the product",
     body: [
-      "Shipping Check-Ins to customers meant more than turning it on. Because it rolled out to accounts already using Develop, the product itself had to explain what Check-Ins was and why it mattered, right where people already worked. I designed an in-app merchandising layer that met each role at its own entry point: employees saw Check-Ins framed as career acceleration on their weekly home, while managers saw it framed as management superpowers on their analytics dashboard.",
-      "Both banners open the same three-step walkthrough (How It Works, Why You Need It and What You Can Expect), so the story stays consistent across roles. Each step pairs a short value proposition with a quote from someone already using Check-Ins, set in its own container so the proof reads apart from the pitch. The last step ends on one clear path, Contact us, so curiosity could turn into a conversation without leaving the product.",
+      "Shipping Check-Ins to customers meant more than turning it on. Because it rolled out to accounts already using Develop, the product itself had to explain what Check-Ins was and why it mattered, right where managers already worked. I designed an in-app merchandising banner for the manager’s analytics dashboard that framed Check-Ins as management superpowers: AI-powered weekly conversations that give managers actionable insights and early warnings about their team.",
+      "The banner opens a three-step walkthrough (How It Works, Why You Need It and What You Can Expect) that answers a manager’s questions in the order they ask them. Each step pairs a short value proposition with a quote from someone already using Check-Ins, set in its own container so the proof reads apart from the pitch. The last step ends on one clear path, Contact us, so curiosity could turn into a conversation without leaving the product.",
     ],
   },
   {
     variant: "merchandising",
     caption:
-      "An interactive rebuild of the merchandising screens on the manager dashboard. Change the date range, open Learn more to step through the walkthrough, then Preview experience to see each report a user receives.",
+      "Exploring ways of showcasing inactive products, so Check-Ins could introduce itself inside a dashboard managers already use before their account turned it on. An interactive rebuild of the merchandising screens on the manager dashboard. Click Learn more to explore the merchandising experience, which 28% of existing Develop users checked out during the four-week rollout.",
   },
   {
     id: "impact",
     variant: "default",
     eyebrow: "Impact",
     body: [
-      [{ text: "The redesigned Check-Ins onboarding experience " }, { text: "launched to 5% of SMB accounts", bold: true }, { text: ", alongside a limited beta of Coaching v1: the weekly Coach Bo chat and the manager dashboard with 1:1 prep. The executive intelligence digest went out by email to managers and the C-suite, and the Check-Ins design system carried from Figma into TypeScript components. In-product merchandising " }, { text: "drove 28% engagement within existing Develop customers", bold: true }, { text: "." }],
+      [{ text: "The redesigned Check-Ins onboarding experience " }, { text: "launched to 5% of SMB accounts", bold: true }, { text: ", alongside a limited beta of Coaching v1: the weekly Coach Bo chat and the manager dashboard with 1:1 prep. The executive intelligence digest went out by email to managers and the C-suite, and the Check-Ins design system carried from Figma into TypeScript components. In-product merchandising " }, { text: "was checked out by 28% of existing Develop users", bold: true }, { text: " during the four-week rollout." }],
       [{ text: "The work created a scalable onboarding foundation that enabled Criteria to expand Check-Ins to larger organizations.", bold: true }, { text: " I left before the remaining post-launch numbers were available." }],
     ],
   },
