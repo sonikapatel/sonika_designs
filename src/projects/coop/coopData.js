@@ -217,6 +217,6 @@ export const COOP_BLOCKS = [
     variant: "media",
     src: "/images/coop/vibe-credit-union.mp4",
     caption:
-      "Co-op Solutions on LinkedIn: “By giving staff real-time access to cardholder information and account activity all in one place, Co-op Springboard has helped Vibe Credit Union remove barriers and deliver solutions in a way that helps tell their members “yes” more often and “no” a whole lot less.” Watch Now - Vibe CU Case Study",
+      "Co-op Solutions on LinkedIn: “By giving staff real-time access to cardholder information and account activity all in one place, Co-op Springboard has helped Vibe Credit Union remove barriers and deliver solutions in a way that helps tell their members “yes” more often and “no” a whole lot less.”",
   },
 ];
