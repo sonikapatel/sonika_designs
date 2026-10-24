@@ -1,0 +1,172 @@
+/* Project facts, personas, quotes and the clip row for the Springboard story. Same
+   tokens as the shell (body, rule, radius) so they read as page content. */
+
+.co-facts {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 24px;
+  margin: 0;
+}
+
+.co-facts dt {
+  margin-bottom: 4px;
+  font-size: 14px;
+  color: var(--cs-body);
+}
+
+.co-facts dd {
+  margin: 0 0 8px;
+  font-size: 16px;
+  line-height: 1.4;
+  color: #111;
+}
+
+/* The Problem statement reads as a line of copy above its paragraph rather than a
+   small-caps label. */
+.co-statement .cs-eyebrow {
+  max-width: none;
+  font-family: "Figtree", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: 0;
+  text-transform: none;
+  color: #111;
+}
+
+.co-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.co-card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px;
+  border: 1px solid var(--cs-rule);
+  border-radius: 8px;
+  background: #fff;
+}
+
+.co-persona-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.co-persona-name {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #111;
+}
+
+.co-persona-title {
+  margin: 2px 0 0;
+  font-size: 14px;
+  color: var(--cs-body);
+}
+
+.co-tag {
+  flex: none;
+  padding: 3px 10px;
+  border: 1px solid var(--cs-rule);
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--cs-body);
+  white-space: nowrap;
+}
+
+.co-persona-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 0;
+  padding-top: 12px;
+  border-top: 1px solid var(--cs-rule);
+}
+
+.co-persona-meta dt {
+  font-size: 12px;
+  font-weight: 600;
+  color: #111;
+}
+
+.co-persona-meta dd {
+  margin: 2px 0 0;
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--cs-body);
+}
+
+.co-persona-meta ul {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.co-quotes {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.co-quote {
+  margin: 0;
+  padding-left: 20px;
+  border-left: 2px solid var(--cs-rule);
+}
+
+.co-quote blockquote {
+  margin: 0 0 12px;
+  font-size: 18px;
+  line-height: 1.5;
+  color: #111;
+}
+
+.co-quote blockquote strong {
+  font-weight: 600;
+}
+
+.co-quote figcaption {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #111;
+}
+
+.co-quote-org {
+  color: var(--cs-body);
+}
+
+.co-clip-row {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+}
+
+.co-clip-row video {
+  display: block;
+  flex: 0 1 280px;
+  min-width: 0;
+  border-radius: 8px;
+}
+
+@media (max-width: 767px) {
+  .co-facts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .co-cards {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .co-clip-row {
+    gap: 12px;
+    padding: 16px;
+  }
+}

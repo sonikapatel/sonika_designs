@@ -500,7 +500,7 @@ export default function CaseStudyPage({ meta, nav, blocks, custom }) {
               <div
                 key={block.id || `${block.variant}-${i}`}
                 id={block.id}
-                className="cs-block"
+                className={block.className ? `cs-block ${block.className}` : "cs-block"}
                 style={block.gapAfter ? { marginBottom: block.gapAfter } : undefined}
               >
                 <Block block={block} custom={custom} />

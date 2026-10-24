@@ -226,6 +226,7 @@ const CARDS = {
       crop: { position: "32% 0" },
       /* Its "coming soon" note runs the full width of the card. */
       wideCopy: true,
+      slug: "coop",
     },
     {
       company: "Honeybee Health",
