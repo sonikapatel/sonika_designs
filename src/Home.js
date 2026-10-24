@@ -7,10 +7,9 @@ import HomeaseHouse from "./projects/homease/HomeaseHouse";
    sit in a greyed-out strip under the intro, sized to one shared area rather
    than one height, so a near-square mark (AT&T) and a long one (Philosophie)
    carry the same visual weight. `aspect` is each file's width / height; `scale`
-   trims the heavy, solid wordmarks (Fika, Philosophie) so they don't read larger. */
+   trims the heavy, solid Philosophie wordmark so it doesn't read larger. */
 const LOGO_AREA = 3136; // px², a 112 × 28 box
 const EXPERIENCE = [
-  { company: "Fika",            logo: "/images/logos/fika-wordmark.png",        aspect: 2.37, scale: 0.85, role: "Lead Product Designer / Founder" },
   { company: "Criteria",        logo: "/images/logos/criteria-wordmark.png",    aspect: 4.0,  role: "Senior UX Designer" },
   { company: "Honeybee Health", logo: "/images/logos/honeybee-wordmark.png",    aspect: 3.57, role: "Product Designer" },
   { company: "Square (Block)",  logo: "/images/logos/square-wordmark.svg",      aspect: 4.0,  role: "Product Designer" },
