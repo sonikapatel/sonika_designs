@@ -123,4 +123,11 @@ export const FIKA_BLOCKS = [
     alt: "Top performing Fika Instagram posts",
     bare: true,
   },
+  {
+    variant: "media",
+    src: "/images/fika/fika_style_guide.jpg",
+    alt: "Fika brand guidelines: tagline, logo, color palette, typography, textures, photography style and illustrations",
+    bare: true,
+    caption: "I collaborated on this visual style guide for the Fika brand.",
+  },
 ];

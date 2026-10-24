@@ -180,6 +180,53 @@ body.home-bg::before {
   opacity: 0.8;
 }
 
+.logo-strip-copy {
+  display: none;
+}
+
+/* Desktop: the strip runs as a slow, constant loop (linear, since it never starts
+   or stops), fading out at both edges. Hovering holds it so a mark can be read. */
+@media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
+  /* Held to the lead's measure (36em at 19px) and centred under it, so the loop
+     runs inside the same column as the copy above rather than edge to edge. */
+  .logo-marquee {
+    max-width: 684px;
+    overflow: hidden;
+    margin: var(--space-block) auto 0;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  }
+
+  .home-intro .logo-marquee .logo-strip {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    width: max-content;
+    gap: 0;
+    margin: 0;
+    animation: logo-scroll 60s linear infinite;
+  }
+
+  /* Spacing sits on each mark rather than in the flex gap, so both halves are
+     exactly the same width and the loop has no seam. */
+  .logo-marquee .logo-strip li {
+    padding-right: 56px;
+  }
+
+  .logo-strip-copy {
+    display: block;
+  }
+
+  .logo-marquee:hover .logo-strip {
+    animation-play-state: paused;
+  }
+}
+
+@keyframes logo-scroll {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
 /* Skills are single words, so the rows sit tighter than the column gutter. */
 .skills-grid {
   row-gap: 8px;
