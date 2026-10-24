@@ -247,39 +247,6 @@ export const CRITERIA_BLOCKS = [
     body: "Managers prepared for 1:1s in their calendar and inbox, but meeting them there meant building on the Outlook and Google Calendar APIs and an SSO foundation we didn’t have yet. Develop, a new bet for the company, also needed people engaging inside the product. So I started with the dashboard in Develop and reached beyond it only where that was cheap: leaders received the insights as an emailed digest.",
   },
   {
-    variant: "channel-options",
-    options: [
-      {
-        name: "Dashboard in Develop",
-        serves: "managers",
-        decision: "Shipped",
-        appeal: "Mood, progress and 1:1 prep in one place, built on our own data and design system; keeps managers in Develop",
-        holdback: "Managers have to come to it, and red/yellow/green states invite reading scores as verdicts",
-      },
-      {
-        name: "Executive intelligence digest",
-        serves: "managers, VPs and the C-suite",
-        decision: "Shipped",
-        appeal: "A high-level read on team health and burnout risk, with no login",
-        holdback: "Needed automatic permissioning so each leader only sees their part of the org",
-      },
-      {
-        name: "1:1 report in calendar or inbox",
-        serves: "managers",
-        decision: "Explored",
-        appeal: "Arrives when managers prepare, with an energy-over-time preview and talking points",
-        holdback: "Outlook and Google Calendar APIs, plus mapping calendar events to reporting lines",
-      },
-      {
-        name: "Reminder synced to the upcoming 1:1",
-        serves: "managers",
-        decision: "Explored",
-        appeal: "A light nudge tied to a real meeting",
-        holdback: "The same calendar integration cost, and little value without the prep behind it",
-      },
-    ],
-  },
-  {
     variant: "solution-concepts",
     label: "Options we evaluated · Meeting people where they work",
   },
