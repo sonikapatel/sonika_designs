@@ -244,7 +244,7 @@ export const CRITERIA_BLOCKS = [
   {
     variant: "side-to-side",
     eyebrow: "Where insights reach managers and leaders",
-    body: "Calendar and inbox were where managers prepared, but integrating them meant Outlook and Google Calendar APIs and SSO we didn’t have. As a new company bet, Develop also needed engagement inside the product. I designed the dashboard first, and pushed outward where it was cheap: leaders got an emailed digest.",
+    body: "Managers prepared for 1:1s in their calendar and inbox, but meeting them there meant building on the Outlook and Google Calendar APIs and an SSO foundation we didn’t have yet. Develop, a new bet for the company, also needed people engaging inside the product. So I started with the dashboard in Develop and reached beyond it only where that was cheap: leaders received the insights as an emailed digest.",
   },
   {
     variant: "channel-options",
