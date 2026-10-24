@@ -114,7 +114,7 @@ export const COOP_BLOCKS = [
     body: "After uncovering key frustrations credit union representatives had with Springboard, I partnered with another designer to define our core principles for the redesign. A primary goal was to shift from a product-centric to a member-centric experience—empowering representatives to quickly understand a member’s full financial picture when handling calls about disputes or lost/stolen cards. Since representatives serviced 50-100 customers a day, it was important to optimize for speed and accuracy.",
   },
   {
-    variant: "principles",
+    variant: "rotating-principles",
     items: [
       {
         title: "Consistency",
@@ -144,22 +144,22 @@ export const COOP_BLOCKS = [
     body: "We converged on a navigation pattern that would easily allow representatives to get a holistic understanding of the member they’re servicing. We diverged and created wireframe concepts to promote the member-centric navigation framework. Before consolidating on a direction, we tested our wireframe concepts against the 30+ screens and features in the Legacy Springboard system to identify where the navigation might fail.",
   },
   {
-    variant: "media",
-    src: "/images/coop/nav-left-pane.mp4",
-    autoplay: true,
-    alt: "Wireframe concept: member details and products in a left pane",
-  },
-  {
-    variant: "media",
-    src: "/images/coop/nav-top-pane.mp4",
-    autoplay: true,
-    alt: "Wireframe concept: member details and products across a top pane",
-  },
-  {
-    variant: "media",
-    src: "/images/coop/nav-my-products.mp4",
-    autoplay: true,
-    alt: "Wireframe concept: a My Products home with an overview of activity and service history",
+    variant: "carousel",
+    label: "Navigation wireframe concepts",
+    slides: [
+      {
+        src: "/images/coop/nav-left-pane.mp4",
+        alt: "Wireframe concept: member details and products in a left pane",
+      },
+      {
+        src: "/images/coop/nav-top-pane.mp4",
+        alt: "Wireframe concept: member details and products across a top pane",
+      },
+      {
+        src: "/images/coop/nav-my-products.mp4",
+        alt: "Wireframe concept: a My Products home with an overview of activity and service history",
+      },
+    ],
   },
   {
     variant: "clip-row",

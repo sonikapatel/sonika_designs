@@ -5,7 +5,8 @@ import { motion, animate, useMotionValue, useReducedMotion, AnimatePresence } fr
    (examples.motion.dev/react/carousel): a horizontal track that overflows to the
    right so the next slide peeks in, a page snap on a zero-bounce spring, and
    prev/next arrows that fade out at either end. One slide moves per step and the
-   caption under the track follows the active slide. */
+   caption under the track follows the active slide. Slides can be stills or short
+   looping clips. */
 
 const GAP = 20;
 // The example settles ~90% of a page move in ~350ms with no overshoot.
@@ -25,6 +26,8 @@ function Chevron({ flip }) {
     </svg>
   );
 }
+
+const isVideo = (src) => /\.(mov|mp4|webm)$/i.test(src);
 
 export default function Carousel({ block }) {
   const { slides } = block;
@@ -110,7 +113,21 @@ export default function Carousel({ block }) {
               aria-hidden={i !== index}
               onClick={() => i !== index && goTo(i)}
             >
-              <img src={slide.src} alt={slide.alt || ""} draggable={false} />
+              {/* Video slides are short UI clips; they loop silently like GIFs. */}
+              {isVideo(slide.src) ? (
+                <video
+                  src={slide.src}
+                  aria-label={slide.alt}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  preload="auto"
+                  draggable={false}
+                />
+              ) : (
+                <img src={slide.src} alt={slide.alt || ""} draggable={false} />
+              )}
             </li>
           ))}
         </motion.ul>
