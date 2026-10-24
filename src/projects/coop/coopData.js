@@ -168,6 +168,7 @@ export const COOP_BLOCKS = [
       { src: "/images/coop/inactive-show.mp4", alt: "Inactive products revealed from a Show inactive row" },
       { src: "/images/coop/inactive-toggle.mp4", alt: "Inactive products revealed with a Show Inactive Products toggle" },
     ],
+    caption: "Exploring ways of showcasing inactive products.",
   },
   // Final navigation pattern goes here, captioned:
   // "The final navigation pattern - ensures features have a corresponding home at scale."
