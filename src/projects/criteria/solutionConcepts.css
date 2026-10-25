@@ -22,7 +22,7 @@
   --ci-red-500: #bf362c;
   --ci-border: #e5e7eb;
   --ci-surface: #f7f8fa;
-  --ci-muted: #6b7280;
+  --ci-muted: #5b6270;
   --sc-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
@@ -32,7 +32,7 @@
   align-items: baseline;
   gap: 16px;
   margin-bottom: 20px;
-  color: #fff;
+  color: var(--cs-accent);
 }
 
 .sc-frame-label {
@@ -46,7 +46,7 @@
 .sc-frame-count {
   margin: 0;
   font-size: 13px;
-  color: rgba(255, 255, 255, 0.65);
+  color: var(--cs-body);
   text-align: right;
 }
 
@@ -93,14 +93,14 @@
   padding: 0;
   border: none;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(0, 0, 0, 0.3);
   cursor: pointer;
   transition: width 0.3s var(--sc-ease), background 0.3s;
 }
 
 .sc-dot-btn.is-active {
   width: 24px;
-  background: #fff;
+  background: var(--cs-accent);
 }
 
 /* ── Shared scene parts ── */

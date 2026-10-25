@@ -24,7 +24,8 @@ const HOUR_RADII = Object.fromEntries(
 );
 const CENTER_SIZE = scale(130);
 const NUMBER_CIRCLE_SIZE = scale(36);
-const NUMBER_FONT_SIZE = scale(12.5);
+// Not scaled: the hours stay at the 12px floor for legible text.
+const NUMBER_FONT_SIZE = 12;
 const BADGE_SIZE = scale(60.8);
 const BADGE_ANGLE = 40;
 const BADGE_RADIUS = (CENTER_SIZE / 2) * 0.82;
@@ -243,8 +244,8 @@ const styles = {
     justifyContent: "center",
     fontSize: NUMBER_FONT_SIZE,
     fontWeight: 600,
-    color: "#C5A35D",
-    opacity: 0.8,
+    /* Darker than the brand gold so the hours keep 4.5:1 on the cream page. */
+    color: "#8A6A1F",
     transition: "background 0.15s ease",
   },
   emojiBadge: {

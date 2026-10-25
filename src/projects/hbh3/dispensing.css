@@ -40,7 +40,7 @@
   top: 50%;
   transform: translateY(-50%);
   font-size: calc(10px * var(--bs));
-  color: #98a2b3;
+  color: #667085;
 }
 
 .wf-num {
@@ -62,7 +62,7 @@
   font-weight: 600;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: #98a2b3;
+  color: #667085;
 }
 
 .wf-edge {
