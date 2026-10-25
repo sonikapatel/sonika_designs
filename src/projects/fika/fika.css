@@ -1,5 +1,5 @@
 /* Fika-only blocks: the availability text thread (textThread.js). The phone sits
-   on the same dark ground as the Fika recordings, with an SMS-style thread inside. */
+   on the same ground as the Fika recordings, with an SMS-style thread inside. */
 
 .ft {
   margin: 0;
@@ -12,11 +12,11 @@
   margin: 0;
 }
 
-/* Same dark ground and 32px inset as the Fika recordings around it. */
+/* Same ground and inset as the Fika recordings around it. */
 .ft-stage {
-  background: var(--cs-dark);
+  background: var(--cs-ground);
   border-radius: var(--cs-radius);
-  padding: 32px;
+  padding: 40px;
   display: flex;
   justify-content: center;
 }
@@ -29,7 +29,7 @@
   --ios-blue: #007aff;
   --ios-green: #34c759;
   --ios-gray: #e9e9eb;
-  --ios-label2: #8a8a8e;
+  --ios-label2: #6c6c70;
   width: 100%;
   max-width: 330px;
   aspect-ratio: 393 / 852;

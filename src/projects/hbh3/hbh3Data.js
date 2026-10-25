@@ -65,13 +65,13 @@ export const HBH3_BLOCKS = [
   {
     id: "initial-assumptions",
     variant: "header",
-    eyebrow: "Nectar   an e-prescription tool for womens' health providers",
+    eyebrow: "Nectar: an e-prescription tool for women’s health providers",
     body: "Producing Nectar was halted given EHR integration would be a limiting factor for prescribers to switch to a tool like Nectar, uncovered through persistent research with clinicians. Aside from the core user experience, we instead created an opportunity for providers to see prescription data they’ve sent to Honeybee Health.",
   },
   {
     id: "market-research",
     variant: "side-to-side",
-    eyebrow: "EXISTING ISSUES",
+    eyebrow: "Existing issues",
     body: "Doctors at telehealth partners with Honeybee Health are typically prescribing medications from applications like Tebra, Dosespot, and MD tool box. Seeing around 15-30 patients a day, specifically for womens’ health medication abortion, these doctors are concerned about patient privacy, especially with concerning medication abortion laws in place. ",
     orderedList: [
       "Existing solutions data policies don’t protect patient privacy. ",
@@ -81,13 +81,13 @@ export const HBH3_BLOCKS = [
   {
     id: "becoming-my-users",
     variant: "side-to-side",
-    eyebrow: "ThE CORE UX",
+    eyebrow: "The core UX",
     body: "How might we protected the privacy and safety of medication abortion patients and prescribers? ",
   },
   {
     id: "competitor-research",
     variant: "side-to-side",
-    eyebrow: "RESEARCH",
+    eyebrow: "Research",
     body: "I led user research with 7 clinicians to better understand their pain points with existing e-prescription tools, including Tebra, Dosespot, and Toolbox MD. After mapping research insights from current clinician behaviors to MVP goals and design opportunities, I leveraged findings to design a prototype that would enable Honeybee Health to offer value to teleheatlh partners who are already worried about medication privacy with these solutions.",
   },
   {
@@ -109,7 +109,7 @@ export const HBH3_BLOCKS = [
   {
     id: "the-prototype",
     variant: "side-to-side",
-    eyebrow: ["fROM research ", "to product experience"],
+    eyebrow: ["From research ", "to product experience"],
     body: "I then translated findings directly from the experience to a clickable prototype that would enable doctors to easily search patients, and prescribe medications straight from Nectar to Honeybee Health. After prescribing typically bundled medications, a doctor can modify parameters for each medication before reviewing an entire bundle order. In designing this experience, I evaluated different layouts, mapped elements across different screens, and leveraged our e-commerce design system to build an on-brand Nectar product experience. ",
   },
   {

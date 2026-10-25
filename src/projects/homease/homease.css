@@ -37,7 +37,7 @@
   margin: 0;
   font-size: 16px;
   line-height: 1.6;
-  color: var(--cs-body);
+  color: #555;
 }
 
 @media (max-width: 640px) {
