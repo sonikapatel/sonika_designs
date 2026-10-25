@@ -650,7 +650,7 @@ const styles = {
     margin: 0,
     fontSize: 13,
     lineHeight: 1.6,
-    color: "#8B8B8B",
+    color: "#6B6B6B",
   },
   /* Stacked list entries (Tools): title line, muted line beneath. */
   entryList: {
@@ -673,7 +673,7 @@ const styles = {
     margin: "2px 0 0",
     fontSize: 13,
     lineHeight: 1.5,
-    color: "#8B8B8B",
+    color: "#6B6B6B",
   },
   /* Spacing below the row lives on .work-tabs-row (index.css). */
   tabs: {
@@ -689,7 +689,7 @@ const styles = {
     fontSize: 16,
     fontWeight: 500,
     lineHeight: 1.5,
-    color: "rgba(0,0,0,0.50)",
+    color: "rgba(0,0,0,0.62)",
     cursor: "pointer",
     fontFamily: "inherit",
     transition: "background 0.15s, color 0.15s",
