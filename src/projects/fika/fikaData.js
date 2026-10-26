@@ -42,9 +42,9 @@ export const FIKA_BLOCKS = [
   },
   {
     variant: "media",
-    src: "/images/fika/rewards.png",
-    alt: "Fika rewards and cafe partner discounts",
-    bare: true,
+    src: "/images/fika/fika-landing.mp4",
+    autoplay: true,
+    caption: "The Fika landing page, from top to bottom.",
   },
   {
     variant: "media",

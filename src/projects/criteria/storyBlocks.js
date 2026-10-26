@@ -103,8 +103,8 @@ export function JobStories({ block }) {
                 {r.stories.map((story) => (
                   <article key={story.when} className="st-story">
                     <p className="st-text">
-                      <strong>When</strong> {story.when}, <strong>I want</strong> {story.want},{" "}
-                      <strong>so</strong> {story.so}.
+                      When {story.when}, I want {story.want},{" "}
+                      so {story.so}.
                     </p>
                   </article>
                 ))}
