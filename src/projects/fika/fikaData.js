@@ -48,9 +48,9 @@ export const FIKA_BLOCKS = [
   },
   {
     variant: "media",
-    src: "/images/fika/web.png",
-    alt: "The Fika web experience",
-    bare: true,
+    src: "/images/fika/fika_upcoming_web.jpg",
+    alt: "Upcoming Fikas on the Fika web app: what a fika is, 1:1 Fikas, Group Fikas and this month's Fikas",
+    caption: "Upcoming Fikas on the web app, where creatives see their 1:1 and group fikas and the month's events.",
   },
   {
     id: "product",
