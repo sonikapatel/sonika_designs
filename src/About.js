@@ -48,9 +48,9 @@ const HOUR_ACTIONS = {
   1: "coding prototypes",
   2: "designing in Figma",
   3: "asking users how they feel about a UX",
-  4: "biking around the neighborhood",
-  5: "playing soccer",
-  6: "making content for Fika",
+  4: "asking users how they feel about a UX",
+  5: "biking around the neighborhood",
+  6: "playing soccer",
   7: "unwinding with a book",
   8: "drinking a matcha to start the day",
   9: "designing ideas",
@@ -61,7 +61,7 @@ const HOUR_ACTIONS = {
 const AM_HOURS = new Set([8, 9, 10, 11]);
 // Most hours use their own numbered image (public/Emojis/{hour}.png); overrides
 // here point specific hours at a different file.
-const EMOJI_IMAGE = { 7: 13 };
+const EMOJI_IMAGE = { 4: 3, 5: 4, 6: 5, 7: 13 };
 
 export default function About() {
   const [hoveredHour, setHoveredHour] = useState(null);
