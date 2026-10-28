@@ -369,7 +369,7 @@ export default function Home() {
             Hello <span className="wave-emoji" role="img" aria-label="waving hand">👋🏼</span> I'm Sonika.
           </h1>
           <p style={{ ...textStyles.lead, fontSize: 19, marginLeft: "auto", marginRight: "auto" }}>
-          I'm a UI/UX designer who cares deeply about <strong>making genuinely valuable products</strong>. I've designed tools that help clinicians prescribe medications, small businesses get funding, credit unions to experience intuitive software, and managers coach their teams.</p>
+          I'm a marketing and UX/UI design specialist who cares deeply about <strong>making genuinely valuable products</strong>. I've designed tools that help clinicians prescribe medications, small businesses get funding, credit unions to experience intuitive software, and managers coach their teams.</p>
 
           {/* On desktop the strip scrolls as a loop: the marks are listed four times and
               the track slides by half its width, so each half is wider than the row and
