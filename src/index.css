@@ -594,10 +594,6 @@ body.home-bg::before {
   max-width: 44ch;
 }
 
-.home-card-overlay-text--wide {
-  max-width: none;
-}
-
 @media (max-width: 600px) {
   .home-card-overlay-title {
     font-size: 18px;

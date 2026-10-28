@@ -218,14 +218,12 @@ const CARDS = {
     },
     {
       company: "Co-op Solutions",
-      description: "Modernizing legacy credit union software - Case study coming soon! ",
+      description: "Modernizing legacy credit union software",
       industry: "Financial",
       image: "/images/Springboard.png",
       /* The wide still is cropped to the other tiles' shape so it sits beside
          Square, holding on the member sidebar and cardholder table. */
       crop: { position: "32% 0" },
-      /* Its "coming soon" note runs the full width of the card. */
-      wideCopy: true,
       slug: "coop",
     },
     {
@@ -280,6 +278,7 @@ const CARDS = {
     },
   ],
   Brands: [
+    { image: "/images/fika1.png" },
     { image: "/images/Bib1.png" },
     { image: "/images/jaal2.png" },
     { image: "/images/motion1.png" },
@@ -370,7 +369,7 @@ export default function Home() {
             Hello <span className="wave-emoji" role="img" aria-label="waving hand">👋🏼</span> I'm Sonika.
           </h1>
           <p style={{ ...textStyles.lead, fontSize: 19, marginLeft: "auto", marginRight: "auto" }}>
-          I'm a 0→1 product designer who cares about <strong>making genuinely valuable products</strong>. I've designed tools that help clinicians prescribe medications, small businesses get funding, credit unions to experience intuitive software, and managers coach their teams.</p>
+          I'm a UI/UX designer who cares deeply about <strong>making genuinely valuable products</strong>. I've designed tools that help clinicians prescribe medications, small businesses get funding, credit unions to experience intuitive software, and managers coach their teams.</p>
 
           {/* On desktop the strip scrolls as a loop: the marks are listed four times and
               the track slides by half its width, so each half is wider than the row and
@@ -452,7 +451,6 @@ export default function Home() {
                       house={card.house}
                       slug={card.slug}
                       crop={card.crop}
-                      wideCopy={card.wideCopy}
                       fullWidth={card.fullWidth}
                     />
                   ))
@@ -525,7 +523,7 @@ function BrandCard({ image }) {
    autoplay as before; readers who ask for less motion keep the still. */
 const prefersStill = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-function ProjectCard({ company, description, image, video, layer, house, noMotion, slug, crop, wideCopy, fullWidth }) {
+function ProjectCard({ company, description, image, video, layer, house, noMotion, slug, crop, fullWidth }) {
   const ref = useFadeIn();
   const videoRef = useRef(null);
   const [playing, setPlaying] = useState(false);
@@ -600,7 +598,7 @@ function ProjectCard({ company, description, image, video, layer, house, noMotio
       {house && <HomeaseHouse style={house} />}
       <div className="home-card-overlay">
         <p className="home-card-overlay-title">{company}</p>
-        <p className={wideCopy ? "home-card-overlay-text home-card-overlay-text--wide" : "home-card-overlay-text"}>{description}</p>
+        <p className="home-card-overlay-text">{description}</p>
       </div>
     </div>
   );
