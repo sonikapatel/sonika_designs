@@ -278,7 +278,20 @@ const CARDS = {
     },
   ],
   Brands: [
-    { image: "/images/fika1.png" },
+    {
+      image: "/images/fika1.png",
+      name: "Fika",
+      /* Clicking the card opens the newsletters sent to the community from beehiiv. */
+      campaigns: [
+        {
+          title: "Join the table",
+          subtitle: "Grab your latte or matcha or tea!",
+          date: "Apr 2, 2026",
+          image: "/images/fika/fika_email_join_the_table.jpg",
+          url: "https://fikacreativesco.beehiiv.com/p/join-the-table-32a2",
+        },
+      ],
+    },
     { image: "/images/Bib1.png" },
     { image: "/images/jaal2.png" },
     { image: "/images/motion1.png" },
@@ -437,7 +450,7 @@ export default function Home() {
             {cards.length > 0 ? (
               activeTab === "Brands"
                 ? cards.map((card) => (
-                    <BrandCard key={card.image} image={card.image} />
+                    <BrandCard key={card.image} image={card.image} name={card.name} campaigns={card.campaigns} />
                   ))
                 : cards.map((card) => (
                     <ProjectCard
@@ -498,22 +511,70 @@ export default function Home() {
   );
 }
 
-function BrandCard({ image }) {
+function BrandCard({ image, name, campaigns }) {
   const [hovered, setHovered] = useState(false);
   const ref = useFadeIn();
+  const dialogRef = useRef(null);
+  const style = {
+    ...styles.brandCard,
+    background: hovered ? "#F7F3EC" : "transparent",
+    transition: "background 0.2s ease, opacity 0.65s ease, transform 0.65s ease",
+  };
+  const img = <img src={image} alt="" className="brand-card-image" style={styles.brandImage} />;
+
+  if (!campaigns) {
+    return (
+      <div ref={ref} className="fade-section" style={style} onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}>
+        {img}
+      </div>
+    );
+  }
+
+  /* Cards with campaigns are buttons that open a native dialog: it traps focus,
+     closes on Escape, and a click on the backdrop closes it too. */
   return (
-    <div
-      ref={ref}
-      className="fade-section"
-      style={{
-        ...styles.brandCard,
-        background: hovered ? "#F7F3EC" : "transparent",
-        transition: "background 0.2s ease, opacity 0.65s ease, transform 0.65s ease",
-      }}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-    >
-      <img src={image} alt="" className="brand-card-image" style={styles.brandImage} />
+    <div ref={ref} className="fade-section">
+      <button
+        type="button"
+        className="brand-card-button"
+        style={style}
+        aria-label={`${name}: see the email campaigns`}
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+        onClick={() => dialogRef.current?.showModal()}
+      >
+        {img}
+      </button>
+      <dialog
+        ref={dialogRef}
+        className="campaign-dialog"
+        aria-labelledby={`${name}-campaigns-title`}
+        onClick={(e) => e.target === e.currentTarget && e.currentTarget.close()}
+      >
+        <div className="campaign-dialog-inner">
+          <header className="campaign-dialog-head">
+            <div>
+              <h2 id={`${name}-campaigns-title`} className="campaign-dialog-title">{name} email campaigns</h2>
+              <p className="campaign-dialog-sub">Newsletters sent to the {name} community from beehiiv.</p>
+            </div>
+            <button type="button" className="campaign-dialog-close" aria-label="Close" onClick={() => dialogRef.current?.close()}>
+              ×
+            </button>
+          </header>
+          {campaigns.map((c) => (
+            <article key={c.url} className="campaign">
+              <div className="campaign-meta">
+                <p className="campaign-title">{c.title}</p>
+                <p className="campaign-date">{c.subtitle} · {c.date}</p>
+                <a className="campaign-link" href={c.url} target="_blank" rel="noreferrer">
+                  Read on beehiiv ↗
+                </a>
+              </div>
+              <img className="campaign-image" src={c.image} alt={`The "${c.title}" email`} loading="lazy" />
+            </article>
+          ))}
+        </div>
+      </dialog>
     </div>
   );
 }
