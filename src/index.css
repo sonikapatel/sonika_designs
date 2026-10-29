@@ -476,6 +476,113 @@ body.home-bg::before {
   pointer-events: none;
 }
 
+/* A brand tile that opens its email campaigns. */
+.brand-card-button {
+  display: flex;
+  width: 100%;
+  border: 0;
+  font: inherit;
+  cursor: pointer;
+}
+
+.brand-card-button:focus-visible {
+  outline: 2px solid #111;
+  outline-offset: 4px;
+}
+
+.campaign-dialog {
+  width: min(720px, calc(100vw - 32px));
+  max-height: calc(100vh - 48px);
+  padding: 0;
+  border: 0;
+  border-radius: 20px;
+  background: #FBF9F4;
+  color: #111;
+  overflow: auto;
+}
+
+.campaign-dialog::backdrop {
+  background: rgba(17, 17, 17, 0.5);
+}
+
+.campaign-dialog-inner {
+  padding: 24px;
+}
+
+.campaign-dialog-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.campaign-dialog-title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.campaign-dialog-sub,
+.campaign-date {
+  margin: 4px 0 0;
+  font-size: 14px;
+  color: #555;
+}
+
+.campaign-dialog-close {
+  flex: none;
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 50%;
+  background: #E6E2DB;
+  font-size: 22px;
+  line-height: 1;
+  color: #111;
+  cursor: pointer;
+}
+
+.campaign-dialog-close:focus-visible,
+.campaign-link:focus-visible {
+  outline: 2px solid #111;
+  outline-offset: 2px;
+}
+
+.campaign {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.campaign-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.campaign-link {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #1F1D4F;
+}
+
+.campaign-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  border: 1px solid #E6E2DB;
+}
+
+@media (max-width: 600px) {
+  .campaign-dialog-inner {
+    padding: 16px;
+  }
+}
+
 /* Cards without a clip (Co-op, the brand tiles) get a slow push-in instead. */
 .home-card-tile--still .home-card-image,
 .brand-card-image {
