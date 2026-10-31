@@ -251,6 +251,11 @@ body.home-bg::before {
   flex: 1 1 240px;
 }
 
+/* With the industry pills below, they sit close under the heading row. */
+.work-head:has(+ .work-tabs-row) {
+  margin-bottom: 0;
+}
+
 .work-tabs-row {
   display: flex;
   justify-content: flex-start;
