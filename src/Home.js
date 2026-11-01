@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
-import SiteShell, { NavLink, textStyles } from "./SiteShell";
+import SiteShell, { NavLink } from "./SiteShell";
 import HomeaseHouse from "./projects/homease/HomeaseHouse";
 
 /* Company wordmarks live in public/images/logos, each cropped to its ink. They
@@ -8,7 +8,7 @@ import HomeaseHouse from "./projects/homease/HomeaseHouse";
    than one height, so a near-square mark (AT&T) and a long one (Philosophie)
    carry the same visual weight. `aspect` is each file's width / height; `scale`
    trims the heavy, solid Philosophie wordmark so it doesn't read larger. */
-const LOGO_AREA = 3136; // px², a 112 × 28 box
+const LOGO_AREA = 1024; // px², a 64 × 16 box, so a wordmark sits in a line of text
 const EXPERIENCE = [
   { company: "Criteria",        logo: "/images/logos/criteria-wordmark.png",    aspect: 4.0,  role: "Senior UX Designer" },
   { company: "Honeybee Health", logo: "/images/logos/honeybee-wordmark.png",    aspect: 3.57, role: "Product Designer" },
@@ -16,6 +16,14 @@ const EXPERIENCE = [
   { company: "Philosophie",     logo: "/images/logos/philosophie-wordmark.svg", aspect: 8.93, scale: 0.85, role: "Product Designer" },
   { company: "AT&T",            logo: "/images/logos/att-wordmark.svg",         aspect: 2.43, role: "Engineer / UX Designer" },
 ];
+
+/* Consecutive companies with the same role, for the "Previously…" line. */
+const ROLE_GROUPS = EXPERIENCE.reduce((groups, item) => {
+  const last = groups[groups.length - 1];
+  if (last && last.role === item.role) last.items.push(item);
+  else groups.push({ role: item.role, items: [item] });
+  return groups;
+}, []);
 
 /* The tools list beside Skills. */
 const TOOL_LIST = [
@@ -153,10 +161,6 @@ function useFadeIn() {
 }
 
 const TABS = ["Products", "Brands", "Playground"];
-
-/* Industry filter for the Products tab, so a recruiter can jump to the work that
-   matches their space. Each Products card carries one `industry`. */
-const INDUSTRIES = ["Financial", "HR Tech", "Community", "Healthcare"];
 
 const CARDS = {
   Products: [
@@ -362,12 +366,7 @@ function SectionHeading({ title, subtitle, typewriter }) {
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState("Products");
-  const [industry, setIndustry] = useState("All");
-  const showIndustries = activeTab === "Products";
-  const cards =
-    showIndustries && industry !== "All"
-      ? CARDS.Products.filter((card) => card.industry === industry)
-      : CARDS[activeTab];
+  const cards = CARDS[activeTab];
 
   const introRef = useFadeIn();
   const workRef = useFadeIn();
@@ -376,33 +375,43 @@ export default function Home() {
 
   return (
     <SiteShell nav={<NavLink to="/about">About</NavLink>}>
-        {/* Intro */}
+        {/* Intro: portrait on the left, copy on the right, kept short so the work
+            starts above the fold. */}
         <section ref={introRef} className="fade-section home-intro">
-          <h1 style={{ ...textStyles.heading, fontSize: 44 }}>
-            Hello <span className="wave-emoji" role="img" aria-label="waving hand">👋🏼</span> I'm Sonika.
-          </h1>
-          <p style={{ ...textStyles.lead, fontSize: 19, marginLeft: "auto", marginRight: "auto" }}>
-          I'm a marketing and UX/UI design specialist who cares deeply about <strong>making genuinely valuable products</strong>. I've designed tools that help clinicians prescribe medications, small businesses get funding, credit unions to experience intuitive software, and managers coach their teams.</p>
+          <div className="home-portrait">
+            <img src="/images/sonika-portrait.jpg" alt="Sonika smiling in front of a wall of bougainvillea at sunset" />
+          </div>
 
-          {/* On desktop the strip scrolls as a loop: the marks are listed four times and
-              the track slides by half its width, so each half is wider than the row and
-              no gap shows. The copies are hidden from assistive tech and from smaller
-              screens, where the strip stays still and wraps. */}
-          <div className="logo-marquee">
-            <ul className="logo-strip" aria-label="Companies I've worked with">
-              {[0, 1, 2, 3].flatMap((copy) =>
-                EXPERIENCE.map((item) => (
-                  <li
-                    key={`${copy}-${item.company}`}
-                    className={copy ? "logo-strip-copy" : undefined}
-                    aria-hidden={copy ? "true" : undefined}
-                    title={`${item.company} · ${item.role}`}
-                  >
-                    <img src={item.logo} alt={copy ? "" : item.company} style={{ ...styles.stripLogo, height: Math.round(Math.sqrt(LOGO_AREA / item.aspect) * (item.scale || 1)) }} />
-                  </li>
-                ))
-              )}
-            </ul>
+          <div className="home-intro-copy">
+            <h1 className="home-intro-title">
+              Hello <span className="wave-emoji" role="img" aria-label="waving hand">👋🏼</span> I'm Sonika.
+            </h1>
+            <p className="home-intro-lead">
+              I'm a marketing and UX/UI design specialist who cares deeply about <strong>making genuinely valuable products</strong>. I've designed tools that help clinicians prescribe medications, small businesses get funding, credit unions to experience intuitive software, and managers coach their teams.
+            </p>
+            {/* Roles in order, with each company's wordmark standing in for its name. */}
+            <p className="home-intro-lead home-intro-history">
+              Previously{" "}
+              {ROLE_GROUPS.map((group, i) => (
+                <React.Fragment key={group.role}>
+                  {i > 0 && (i === ROLE_GROUPS.length - 1 ? ", and " : ", ")}
+                  {group.role} at{" "}
+                  {group.items.map((item, j) => (
+                    <React.Fragment key={item.company}>
+                      {j > 0 && (j === group.items.length - 1 ? " and " : ", ")}
+                      <img
+                        className="home-intro-logo"
+                        src={item.logo}
+                        alt={item.company}
+                        title={item.company}
+                        style={{ height: Math.round(Math.sqrt(LOGO_AREA / item.aspect) * (item.scale || 1)) }}
+                      />
+                    </React.Fragment>
+                  ))}
+                </React.Fragment>
+              ))}
+              .
+            </p>
           </div>
         </section>
 
@@ -424,30 +433,6 @@ export default function Home() {
             </div>
           </div>
 
-          {/* On Products, the industry filter pills sit under the heading, from the left. */}
-          {showIndustries && (
-          <div className="work-tabs-row">
-            <nav className="industry-nav" aria-label="Filter projects by industry">
-              {["All", ...INDUSTRIES].map((name) => {
-                const count =
-                  name === "All" ? CARDS.Products.length : CARDS.Products.filter((c) => c.industry === name).length;
-                return (
-                  <button
-                    key={name}
-                    type="button"
-                    className="industry-pill"
-                    aria-pressed={industry === name}
-                    onClick={() => setIndustry(name)}
-                  >
-                    {name}
-                    <span className="industry-pill-count">{count}</span>
-                  </button>
-                );
-              })}
-            </nav>
-          </div>
-          )}
-
           <div className={activeTab === "Brands" ? "project-grid project-grid--single" : "project-grid"} aria-live="polite">
             {cards.length > 0 ? (
               activeTab === "Brands"
@@ -459,6 +444,8 @@ export default function Home() {
                       key={card.company}
                       company={card.company}
                       description={card.description}
+                      industry={card.industry}
+                      accent={card.bg}
                       image={card.image}
                       video={card.video}
                       layer={card.layer}
@@ -586,7 +573,7 @@ function BrandCard({ image, name, campaigns }) {
    autoplay as before; readers who ask for less motion keep the still. */
 const prefersStill = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-function ProjectCard({ company, description, image, video, layer, house, noMotion, slug, crop, fullWidth }) {
+function ProjectCard({ company, description, industry, accent, image, video, layer, house, noMotion, slug, crop, fullWidth }) {
   const ref = useFadeIn();
   const videoRef = useRef(null);
   const [playing, setPlaying] = useState(false);
@@ -613,15 +600,14 @@ function ProjectCard({ company, description, image, video, layer, house, noMotio
     if (canHover) setPlaying(false);
   };
 
-  /* Name and description sit inside the tile and are revealed by the overlay on
-     hover. The hover state lives in CSS rather than React state so that keyboard
-     focus and touch devices (which never hover) can be handled there too — see
-     .home-card-* in index.css. */
+  /* A quiet tile with the copy underneath it: the description on the left, the
+     project name and industry as small tags on the right (.home-card-* in
+     index.css). The caption names the project, so the still's alt stays empty. */
   const tile = (
     <div className={video || noMotion ? "home-card-tile" : "home-card-tile home-card-tile--still"}>
       <img
         src={image}
-        alt={company}
+        alt=""
         className={crop ? "home-card-image home-card-image--crop" : "home-card-image"}
         style={crop ? { objectPosition: crop.position } : undefined}
         onError={(e) => {
@@ -659,9 +645,17 @@ function ProjectCard({ company, description, image, video, layer, house, noMotio
         />
       )}
       {house && <HomeaseHouse style={house} />}
-      <div className="home-card-overlay">
-        <p className="home-card-overlay-title">{company}</p>
-        <p className="home-card-overlay-text">{description}</p>
+    </div>
+  );
+
+  const caption = (
+    <div className="home-card-caption">
+      <p className="home-card-description">{description}</p>
+      <div className="home-card-tags">
+        <span className="home-card-tag home-card-tag--name" style={accent ? { color: accent } : undefined}>
+          {company}
+        </span>
+        {industry && <span className="home-card-tag">{industry}</span>}
       </div>
     </div>
   );
@@ -677,11 +671,15 @@ function ProjectCard({ company, description, image, video, layer, house, noMotio
       onBlur={stop}
     >
       {slug ? (
-        <Link to={`/projects/${slug}`} className="home-card-link" aria-label={company}>
+        <Link to={`/projects/${slug}`} className="home-card-link">
           {tile}
+          {caption}
         </Link>
       ) : (
-        tile
+        <>
+          {tile}
+          {caption}
+        </>
       )}
     </div>
   );
@@ -719,10 +717,6 @@ const styles = {
     flexDirection: "column",
     gap: 24,
   },
-  stripLogo: {
-    display: "block",
-    width: "auto",
-  },
   entryTitle: {
     margin: 0,
     fontSize: 16,
@@ -736,7 +730,6 @@ const styles = {
     lineHeight: 1.5,
     color: "#6B6B6B",
   },
-  /* Spacing below the row lives on .work-tabs-row (index.css). */
   tabs: {
     display: "flex",
     gap: 8,
