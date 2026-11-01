@@ -234,19 +234,38 @@ body.home-bg::before {
 
 /* Work: the tabs on the left and, on Products, the industry filter pills on the
    right of the same row. */
-.work-tabs-row {
+/* "I've built" heading on the left, the Products/Brands/Playground tabs on the
+   right; wraps so the tabs drop under the heading on narrow screens. */
+.work-head {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 8px 24px;
   margin-bottom: var(--grid-gutter);
 }
 
+/* The heading types itself in, so give it room up front instead of letting it
+   shrink to its first letters. */
+.work-head > :first-child {
+  flex: 1 1 240px;
+}
+
+/* With the industry pills below, they sit close under the heading row. */
+.work-head:has(+ .work-tabs-row) {
+  margin-bottom: 0;
+}
+
+.work-tabs-row {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: var(--grid-gutter);
+}
+
 .industry-nav {
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-end;
+  justify-content: flex-start;
   gap: 4px;
 }
 

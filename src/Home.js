@@ -408,23 +408,25 @@ export default function Home() {
 
         {/* Work */}
         <section ref={workRef} className="fade-section">
-          <SectionHeading typewriter title="I've built" subtitle="Selected products, brands and side projects." />
-
-          {/* Tabs on the left; on Products, the industry filter pills on the right
-              of the same row. */}
-          <div className="work-tabs-row">
-          <div style={styles.tabs}>
-            {TABS.map((tab) => (
-              <button
-                key={tab}
-                style={tab === activeTab ? { ...styles.tab, ...styles.tabActive } : styles.tab}
-                onClick={() => setActiveTab(tab)}
-              >
-                {tab}
-              </button>
-            ))}
+          {/* Heading on the left, tabs on the right of the same row. */}
+          <div className="work-head">
+            <SectionHeading typewriter title="I've built" subtitle="Selected products, brands and side projects." />
+            <div style={styles.tabs}>
+              {TABS.map((tab) => (
+                <button
+                  key={tab}
+                  style={tab === activeTab ? { ...styles.tab, ...styles.tabActive } : styles.tab}
+                  onClick={() => setActiveTab(tab)}
+                >
+                  {tab}
+                </button>
+              ))}
+            </div>
           </div>
+
+          {/* On Products, the industry filter pills sit under the heading, from the left. */}
           {showIndustries && (
+          <div className="work-tabs-row">
             <nav className="industry-nav" aria-label="Filter projects by industry">
               {["All", ...INDUSTRIES].map((name) => {
                 const count =
@@ -443,8 +445,8 @@ export default function Home() {
                 );
               })}
             </nav>
-          )}
           </div>
+          )}
 
           <div className={activeTab === "Brands" ? "project-grid project-grid--single" : "project-grid"} aria-live="polite">
             {cards.length > 0 ? (
