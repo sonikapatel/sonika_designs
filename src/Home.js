@@ -296,10 +296,38 @@ const CARDS = {
         },
       ],
     },
-    { image: "/images/Bib1.png" },
+    {
+      image: "/images/Bib1.png",
+      name: "Beauty in Balance",
+      /* Clicking the card opens the Instagram posts and event visuals. */
+      posts: [
+        { src: "/images/bib/bib-brand-intro.jpg", caption: "Brand intro post", alt: "Beauty in Balance intro post: career, community, wellness" },
+        { src: "/images/bib/bib-brand-video.mp4", poster: "/images/bib/bib-brand-video-poster.jpg", caption: "Brand video" },
+        { src: "/images/bib/bib-signature-series.jpg", caption: "The Signature Series launch", alt: "The Signature Series by Beauty in Balance post" },
+        { src: "/images/bib/bib-tour-pillars.jpg", caption: "Signature Series tour", alt: "Post reading: Each pillar of branding, revealed soon" },
+      ],
+    },
     { image: "/images/jaal2.png" },
     { image: "/images/motion1.png" },
-    { image: "/images/ortho1.png" },
+    {
+      image: "/images/ortho1.png",
+      name: "Lokahi Orthodontics",
+      /* Clicking the card opens the brand and graphic style guide, one page per
+         slide, rendered from the PDF in /images/lokahi. */
+      guide: {
+        pdf: "/images/lokahi/lokahi-brand-guide.pdf",
+        pages: [
+          { src: "/images/lokahi/lokahi-guide-1.jpg", caption: "Cover", alt: "Lokahi Orthodontics wordmark: harmony in every smile" },
+          { src: "/images/lokahi/lokahi-guide-2.jpg", caption: "Mission", alt: "Lokahi mission statement, established 2026" },
+          { src: "/images/lokahi/lokahi-guide-3.jpg", caption: "Social media assets", alt: "Before and after social media posts" },
+          { src: "/images/lokahi/lokahi-guide-4.jpg", caption: "Color palette", alt: "Sage, cream, deep green and blush color swatches" },
+          { src: "/images/lokahi/lokahi-guide-5.jpg", caption: "Header type: Ivy Presto Italic", alt: "Ivy Presto Italic header type samples" },
+          { src: "/images/lokahi/lokahi-guide-6.jpg", caption: "Body type: Authentic Sans", alt: "Authentic Sans body type samples: Beauty. Balance. Breath." },
+          { src: "/images/lokahi/lokahi-guide-7.jpg", caption: "Placements", alt: "The brand applied to signage and print" },
+          { src: "/images/lokahi/lokahi-guide-8.jpg", caption: "Sign-off", alt: "Lokahi Orthodontics: beauty, balance, breath" },
+        ],
+      },
+    },
   ],
 };
 
@@ -437,7 +465,7 @@ export default function Home() {
             {cards.length > 0 ? (
               activeTab === "Brands"
                 ? cards.map((card) => (
-                    <BrandCard key={card.image} image={card.image} name={card.name} campaigns={card.campaigns} />
+                    <BrandCard key={card.image} image={card.image} name={card.name} campaigns={card.campaigns} posts={card.posts} guide={card.guide} />
                   ))
                 : cards.map((card) => (
                     <ProjectCard
@@ -500,7 +528,7 @@ export default function Home() {
   );
 }
 
-function BrandCard({ image, name, campaigns }) {
+function BrandCard({ image, name, campaigns, posts, guide }) {
   const [hovered, setHovered] = useState(false);
   const ref = useFadeIn();
   const dialogRef = useRef(null);
@@ -511,7 +539,7 @@ function BrandCard({ image, name, campaigns }) {
   };
   const img = <img src={image} alt="" className="brand-card-image" style={styles.brandImage} />;
 
-  if (!campaigns) {
+  if (!campaigns && !posts && !guide) {
     return (
       <div ref={ref} className="fade-section" style={style} onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}>
         {img}
@@ -519,15 +547,22 @@ function BrandCard({ image, name, campaigns }) {
     );
   }
 
-  /* Cards with campaigns are buttons that open a native dialog: it traps focus,
-     closes on Escape, and a click on the backdrop closes it too. */
+  /* Cards with campaigns, posts or a guide are buttons that open a native dialog:
+     it traps focus, closes on Escape, and a click on the backdrop closes it too. */
+  const kind = guide ? "brand and graphic styles" : posts ? "Instagram posts" : "email campaigns";
+  const title = guide ? "brand and graphic styles" : posts ? "Instagram" : "email campaigns";
+  const sub = guide
+    ? `Logo, color, type and placements from the ${name} brand guide.`
+    : posts
+      ? `Posts and event visuals made for the ${name} Instagram.`
+      : `Newsletters sent to the ${name} community from beehiiv.`;
   return (
     <div ref={ref} className="fade-section">
       <button
         type="button"
         className="brand-card-button"
         style={style}
-        aria-label={`${name}: see the email campaigns`}
+        aria-label={`${name}: see the ${kind}`}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
         onClick={() => dialogRef.current?.showModal()}
@@ -543,14 +578,50 @@ function BrandCard({ image, name, campaigns }) {
         <div className="campaign-dialog-inner">
           <header className="campaign-dialog-head">
             <div>
-              <h2 id={`${name}-campaigns-title`} className="campaign-dialog-title">{name} email campaigns</h2>
-              <p className="campaign-dialog-sub">Newsletters sent to the {name} community from beehiiv.</p>
+              <h2 id={`${name}-campaigns-title`} className="campaign-dialog-title">
+                {name} {title}
+              </h2>
+              <p className="campaign-dialog-sub">
+                {sub}
+                {guide && (
+                  <>
+                    {" "}
+                    <a className="campaign-link" href={guide.pdf} target="_blank" rel="noreferrer">
+                      Open the PDF ↗
+                    </a>
+                  </>
+                )}
+              </p>
             </div>
             <button type="button" className="campaign-dialog-close" aria-label="Close" onClick={() => dialogRef.current?.close()}>
               ×
             </button>
           </header>
-          {campaigns.map((c) => (
+          {guide && (
+            <div className="ig-grid ig-grid--single">
+              {guide.pages.map((page) => (
+                <figure key={page.src} className="ig-post">
+                  <img src={page.src} alt={page.alt} loading="lazy" />
+                  <figcaption>{page.caption}</figcaption>
+                </figure>
+              ))}
+            </div>
+          )}
+          {posts && (
+            <div className="ig-grid">
+              {posts.map((post) => (
+                <figure key={post.src} className="ig-post">
+                  {post.poster ? (
+                    <video src={post.src} poster={post.poster} controls muted playsInline preload="none" />
+                  ) : (
+                    <img src={post.src} alt={post.alt} loading="lazy" />
+                  )}
+                  <figcaption>{post.caption}</figcaption>
+                </figure>
+              ))}
+            </div>
+          )}
+          {campaigns?.map((c) => (
             <article key={c.url} className="campaign">
               <div className="campaign-meta">
                 <p className="campaign-title">{c.title}</p>
@@ -754,7 +825,8 @@ const styles = {
   },
   brandCard: {
     borderRadius: 24,
-    padding: 24,
+    /* 48px of room around each board on desktop, easing down on phones. */
+    padding: "clamp(16px, 4vw, 48px)",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
