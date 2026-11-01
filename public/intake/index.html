@@ -1,0 +1,1651 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="robots" content="noindex"><style>[hidden]{display:none!important}html{box-sizing:border-box;height:100%;padding-top:env(safe-area-inset-top);background:var(--bg-top)}</style></head><body>
+<title>intake prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&display=swap">
+<style>
+/* Layout: one phone-sized app. On desktop it sits in a device frame beside a prototype panel; on phones it fills the screen. */
+:root{
+  /* Palette from the brief */
+  --mist:#D5FFFF; --aqua:#B9F3F2; --cherry:#B21B1D; --snow:#FBFFFF; --sea:#83C3C4;
+
+  --bg:#FBFFFF; --surface:#FFFFFF; --card:#DDF8F7; --card-2:#EAFDFD;
+  --field:#F0FBFB; --field-focus:#FFFFFF; --line:#D3E9E9; --line-strong:#9CCBCC;
+  --ink:#0F2526; --muted:#56706F; --faint:#86A0A0; --accent-ink:#2C7476;
+  --brand:#B21B1D; --brand-tint:#FBEAEA;
+  --cta-bg:#0F2526; --cta-ink:#FBFFFF;
+  --select-bg:#D5FFFF; --select-line:#2C7476;
+  --backdrop-a:#D5FFFF; --backdrop-b:#B9F3F2; --frame:#0F2526;
+  --shadow:0 30px 80px -30px rgba(15,37,38,.35), 0 8px 24px -12px rgba(15,37,38,.18);
+  --scrim:rgba(15,37,38,.32);
+  /* Soft-depth layer: borderless porcelain cards on a tinted ground */
+  --bg-top:#FBFFFF; --bg-bot:#ECF7F7;
+  --shadow-card:0 1px 2px rgba(15,37,38,.05), 0 12px 30px -14px rgba(15,37,38,.22);
+  --cta-top:#0F2526; --cta-bot:#3E5A5B; --cta-shadow:0 16px 30px -14px rgba(15,37,38,.55);
+  --wheel-band:#E3F4F4; --badge-bg:#DDF6F5;
+
+  --font:'Outfit', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --ease-out:cubic-bezier(0.23,1,0.32,1);
+  --ease-in-out:cubic-bezier(0.77,0,0.175,1);
+  --ease-drawer:cubic-bezier(0.32,0.72,0,1);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0B1D1E; --surface:#112728; --card:#163A3B; --card-2:#12302F;
+    --field:#14302F; --field-focus:#183837; --line:#21403F; --line-strong:#3B6667;
+    --ink:#E6FBFB; --muted:#9FBFBF; --faint:#6E8F8F; --accent-ink:#8FD6D7;
+    --brand:#E5524F; --brand-tint:#3A1C1C;
+    --cta-bg:#D5FFFF; --cta-ink:#0B1D1E;
+    --select-bg:#173F40; --select-line:#8FD6D7;
+    --backdrop-a:#081617; --backdrop-b:#0F2A2B; --frame:#000000;
+    --shadow:0 30px 80px -30px rgba(0,0,0,.7), 0 8px 24px -12px rgba(0,0,0,.5);
+    --scrim:rgba(0,0,0,.5);
+    --bg-top:#0F2526; --bg-bot:#091A1B;
+    --shadow-card:inset 0 1px 0 rgba(255,255,255,.05), 0 12px 30px -14px rgba(0,0,0,.7);
+    --cta-top:#E6FFFF; --cta-bot:#A9E6E5; --cta-shadow:0 16px 30px -14px rgba(0,0,0,.7);
+    --wheel-band:#1B3E3F; --badge-bg:#173B3C;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0B1D1E; --surface:#112728; --card:#163A3B; --card-2:#12302F;
+  --field:#14302F; --field-focus:#183837; --line:#21403F; --line-strong:#3B6667;
+  --ink:#E6FBFB; --muted:#9FBFBF; --faint:#6E8F8F; --accent-ink:#8FD6D7;
+  --brand:#E5524F; --brand-tint:#3A1C1C;
+  --cta-bg:#D5FFFF; --cta-ink:#0B1D1E;
+  --select-bg:#173F40; --select-line:#8FD6D7;
+  --backdrop-a:#081617; --backdrop-b:#0F2A2B; --frame:#000000;
+  --shadow:0 30px 80px -30px rgba(0,0,0,.7), 0 8px 24px -12px rgba(0,0,0,.5);
+  --scrim:rgba(0,0,0,.5);
+  --bg-top:#0F2526; --bg-bot:#091A1B;
+  --shadow-card:inset 0 1px 0 rgba(255,255,255,.05), 0 12px 30px -14px rgba(0,0,0,.7);
+  --cta-top:#E6FFFF; --cta-bot:#A9E6E5; --cta-shadow:0 16px 30px -14px rgba(0,0,0,.7);
+  --wheel-band:#1B3E3F; --badge-bg:#173B3C;
+  color-scheme:dark;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0; font-family:var(--font); color:var(--ink);
+  background:radial-gradient(120% 90% at 20% 0%, var(--backdrop-a), var(--backdrop-b));
+  -webkit-font-smoothing:antialiased; -webkit-tap-highlight-color:transparent;
+}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+input,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent-ink);outline-offset:2px}
+
+/* ---------- Page layout ---------- */
+.wrap{
+  min-height:100%; display:grid; grid-template-columns:minmax(0,320px) auto; justify-content:center;
+  align-items:center; gap:56px; padding-block:24px;
+  padding-left:max(16px, env(safe-area-inset-left, 0px)); padding-right:max(16px, env(safe-area-inset-right, 0px));
+}
+.panel{display:flex;flex-direction:column;gap:22px;min-width:0}
+.panel .logo{display:flex;align-items:center;gap:10px;font-size:22px;font-weight:500;letter-spacing:-.01em}
+.panel h2{margin:0;font-weight:400;font-size:15px;line-height:1.5;color:var(--muted);text-wrap:pretty}
+.panel-group{display:flex;flex-direction:column;gap:8px}
+.panel-label{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:500}
+.spec-switch{display:flex;flex-wrap:wrap;gap:6px}
+.spec-switch button{font-size:13px;padding:6px 11px;border-radius:999px;border:1px solid var(--line-strong);background:var(--surface);transition:background-color 150ms ease, transform 160ms var(--ease-out)}
+.spec-switch button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.spec-switch button:active,.panel-actions button:active{transform:scale(.97)}
+.panel-actions{display:flex;flex-wrap:wrap;gap:6px}
+.panel-actions button{font-size:13px;padding:7px 12px;border-radius:10px;background:var(--surface);border:1px solid var(--line);transition:transform 160ms var(--ease-out)}
+.swatches{display:flex;gap:6px}
+.swatches span{width:28px;height:28px;border-radius:8px;border:1px solid var(--line)}
+.panel small{color:var(--muted);font-size:12px;line-height:1.5}
+
+.device{
+  width:390px; height:min(844px, calc(100vh - 48px)); border-radius:54px; padding:11px;
+  background:var(--frame); box-shadow:var(--shadow); position:relative;
+}
+.app{
+  position:relative; width:100%; height:100%; border-radius:44px; overflow:hidden;
+  background:linear-gradient(to bottom, var(--bg-top), var(--bg-bot)); display:flex; flex-direction:column; isolation:isolate;
+}
+.statusbar{height:46px;flex:none;display:flex;align-items:flex-end;justify-content:space-between;padding:0 30px 6px 34px;font-size:15px;font-weight:600}
+.statusbar svg{display:block}
+.sb-icons{display:flex;gap:6px;align-items:center}
+
+@media (max-width:1023px){ .panel{display:none} .wrap{grid-template-columns:auto} }
+@media (max-width:520px){
+  .wrap{display:block;padding:0;min-height:0;height:100%}
+  .device{width:100%;height:100%;border-radius:0;padding:0;box-shadow:none;background:var(--bg)}
+  .app{border-radius:0}
+  .statusbar{display:none}
+}
+
+/* ---------- App chrome ---------- */
+.nav{flex:none;height:54px;display:grid;grid-template-columns:44px 1fr 44px;align-items:center;padding:0 10px;border-bottom:1px solid transparent;transition:border-color 200ms ease}
+.nav.ruled{border-bottom-color:var(--line)}
+.icon-btn{width:44px;height:44px;display:grid;place-items:center;border-radius:12px;transition:transform 160ms var(--ease-out), opacity 200ms ease}
+.icon-btn:active{transform:scale(.92)}
+.icon-btn[aria-hidden="true"]{opacity:0;pointer-events:none}
+.nav-title{justify-self:center;display:flex;flex-direction:column;align-items:center;gap:1px;min-width:0}
+.sec-btn{display:flex;align-items:center;gap:4px;font-size:17px;font-weight:500;padding:4px 8px;border-radius:10px;transition:transform 160ms var(--ease-out)}
+.sec-btn:active{transform:scale(.97)}
+.sec-btn[disabled]{cursor:default}
+.sec-btn[disabled] .chev{display:none}
+.nav-sub{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+
+.progress{flex:none;display:flex;gap:4px;padding:0 22px 8px;height:12px;transition:opacity 200ms ease}
+.progress[data-off="true"]{opacity:0}
+.seg-bar{flex:1;height:4px;border-radius:4px;background:var(--line);overflow:hidden}
+.seg-bar i{display:block;height:100%;background:var(--brand);transform-origin:left;transform:scaleX(0);transition:transform 420ms var(--ease-out)}
+
+.stage{position:relative;flex:1;min-height:0}
+.screen{
+  position:absolute; inset:0; overflow-y:auto; overscroll-behavior:contain;
+  padding:18px 22px 150px; -webkit-overflow-scrolling:touch;
+  transition:transform 280ms var(--ease-out), opacity 220ms var(--ease-out), filter 220ms ease;
+}
+.screen.pre{opacity:0;transform:translateX(calc(var(--dir,1) * 28px));filter:blur(2px)}
+.screen.out{opacity:0;transform:translateX(calc(var(--dir,1) * -28px));filter:blur(2px);transition-duration:200ms;pointer-events:none}
+.screen::-webkit-scrollbar{display:none}
+
+.foot{
+  position:absolute;left:0;right:0;bottom:0;z-index:5;
+  padding:28px 20px calc(18px + env(safe-area-inset-bottom, 0px));
+  background:linear-gradient(to top, var(--bg-bot) 62%, color-mix(in srgb, var(--bg-bot) 0%, transparent));
+  display:flex;flex-direction:column;align-items:stretch;gap:6px;
+}
+.cta{
+  height:60px;border-radius:999px;color:var(--cta-ink);
+  background:linear-gradient(to bottom, var(--cta-top), var(--cta-bot));
+  box-shadow:var(--cta-shadow), inset 0 1px 0 rgba(255,255,255,.14);
+  font-size:18px;font-weight:500;letter-spacing:.005em;
+  transition:transform 160ms var(--ease-out), opacity 200ms ease, box-shadow 200ms ease;
+}
+.cta:active{transform:scale(.97)}
+.cta:disabled{opacity:.28;cursor:not-allowed;transform:none;box-shadow:none}
+.link-btn{height:40px;font-size:15px;color:var(--accent-ink);font-weight:500;border-radius:12px;transition:transform 160ms var(--ease-out)}
+.link-btn:active{transform:scale(.97)}
+
+/* ---------- Typography in screens ---------- */
+.eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:500;margin:6px 0 10px}
+.h1{font-size:32px;line-height:1.12;font-weight:600;letter-spacing:-.025em;margin:0 0 12px;text-wrap:balance}
+.h1 em,.h-xl em{font-style:normal;color:var(--accent-ink)}
+.sub{font-size:17px;line-height:1.45;color:var(--muted);margin:0 0 26px;text-wrap:pretty}
+.h-xl{font-size:38px;line-height:1.08;font-weight:600;letter-spacing:-.03em;margin:0 0 14px;text-wrap:balance}
+
+/* entrance stagger on first paint of a screen */
+.rise{animation:rise 360ms var(--ease-out) both;animation-delay:calc(var(--i,0) * 35ms)}
+@keyframes rise{from{opacity:0;transform:translateY(8px)}}
+
+/* ---------- Inputs ---------- */
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:22px 12px}
+.fwrap{grid-column:span 2;min-width:0}
+.fwrap.half{grid-column:span 1}
+.fwrap.reveal{animation:rise 260ms var(--ease-out) both}
+.inp{position:relative}
+/* static label row: label left, live context right */
+.flabel{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin:0 4px 9px;min-width:0}
+.flabel label{font-size:15px;font-weight:500;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.flabel .meta{font-size:15px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap;flex:none}
+.flabel .meta.filled{color:var(--accent-ink)}
+.inp input,.inp textarea{
+  width:100%;height:62px;border-radius:22px;border:1.5px solid transparent;background:var(--surface);
+  padding:0 20px;font-size:18px;outline:none;box-shadow:var(--shadow-card);
+  transition:border-color 160ms ease, box-shadow 200ms ease;
+}
+.inp textarea{height:132px;resize:none;line-height:1.4;padding:16px 20px}
+.inp input::placeholder,.inp textarea::placeholder{color:var(--faint);opacity:1}
+.inp input:focus,.inp textarea:focus{border-color:var(--select-line);box-shadow:var(--shadow-card), 0 0 0 4px color-mix(in srgb, var(--sea) 25%, transparent)}
+.inp.err input{border-color:var(--brand)}
+.ferr{font-size:13px;color:var(--brand);margin:6px 4px 0}
+
+/* wheel date picker */
+.wheel{position:relative;display:grid;grid-template-columns:1.1fr .8fr 1.1fr;padding:0 10px;border-radius:24px;background:var(--surface);box-shadow:var(--shadow-card)}
+.wband{position:absolute;left:10px;right:10px;top:50%;height:44px;transform:translateY(-50%);border-radius:14px;background:var(--wheel-band);pointer-events:none}
+.wcol{position:relative;z-index:1;height:220px;overflow-y:auto;overscroll-behavior:contain;scroll-snap-type:y mandatory;scrollbar-width:none;
+  -webkit-mask-image:linear-gradient(transparent, #000 32%, #000 68%, transparent);mask-image:linear-gradient(transparent, #000 32%, #000 68%, transparent);border-radius:14px}
+.wcol::-webkit-scrollbar{display:none}
+.wpad{height:88px}
+.witem{height:44px;display:grid;place-items:center;scroll-snap-align:center;font-size:22px;color:var(--muted);font-variant-numeric:tabular-nums;cursor:pointer;user-select:none;will-change:transform,opacity}
+.witem.on{color:var(--ink);font-weight:500}
+
+/* section badge on question screens */
+.qbadge{width:60px;height:60px;border-radius:50%;background:var(--badge-bg);color:var(--accent-ink);display:grid;place-items:center;margin:2px 0 18px}
+.opt{font-size:12px;color:var(--faint);font-weight:400}
+
+.seg-label{font-size:15px;font-weight:500;color:var(--muted);margin:0 4px 10px}
+.seg{display:flex;flex-wrap:wrap;gap:8px}
+.pill{
+  min-height:44px;padding:0 16px;border-radius:999px;border:1.5px solid transparent;background:var(--surface);box-shadow:var(--shadow-card);
+  font-size:15px;transition:transform 160ms var(--ease-out), background-color 160ms ease, border-color 160ms ease;
+}
+.pill:active{transform:scale(.97)}
+.pill.on{background:var(--select-bg);border-color:var(--select-line);color:var(--ink)}
+
+.toggle-row{display:flex;align-items:center;justify-content:space-between;min-height:62px;padding:0 16px 0 20px;border-radius:22px;background:var(--surface);box-shadow:var(--shadow-card);font-size:17px}
+.switch{width:51px;height:31px;border-radius:999px;background:var(--line-strong);position:relative;transition:background-color 200ms ease;flex:none}
+.switch::after{content:"";position:absolute;top:2px;left:2px;width:27px;height:27px;border-radius:50%;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.2);transition:transform 240ms var(--ease-out)}
+.switch[aria-checked="true"]{background:var(--accent-ink)}
+.switch[aria-checked="true"]::after{transform:translateX(20px)}
+
+.stepper-row{display:flex;align-items:center;justify-content:space-between;min-height:62px;padding:0 10px 0 20px;border-radius:22px;background:var(--surface);box-shadow:var(--shadow-card)}
+.stepper-row span{font-size:16px;color:var(--muted)}
+.stepper{display:flex;align-items:center;gap:6px}
+.stepper button{width:40px;height:40px;border-radius:12px;background:var(--surface);border:1px solid var(--line);font-size:20px;line-height:1;transition:transform 160ms var(--ease-out)}
+.stepper button:active{transform:scale(.92)}
+.stepper output{min-width:28px;text-align:center;font-size:18px;font-weight:500;font-variant-numeric:tabular-nums}
+
+/* choice rows */
+.options{display:flex;flex-direction:column;gap:10px}
+.opt-row{
+  display:flex;align-items:center;justify-content:space-between;gap:14px;text-align:left;
+  min-height:62px;padding:14px 20px;border-radius:22px;border:1.5px solid transparent;background:var(--surface);box-shadow:var(--shadow-card);
+  font-size:18px;transition:transform 160ms var(--ease-out), background-color 180ms ease, border-color 180ms ease;
+}
+.opt-row:active{transform:scale(.98)}
+.opt-row .radio{width:24px;height:24px;border-radius:50%;border:1.5px solid var(--line-strong);flex:none;display:grid;place-items:center;transition:border-color 180ms ease, background-color 180ms ease}
+.opt-row .radio svg{opacity:0;transform:scale(.6);transition:opacity 160ms ease, transform 200ms var(--ease-out)}
+.opt-row.on{background:var(--select-bg);border-color:var(--select-line)}
+.opt-row.on .radio{background:var(--accent-ink);border-color:var(--accent-ink)}
+.opt-row.on .radio svg{opacity:1;transform:scale(1)}
+.opt-row small{display:block;font-size:14px;color:var(--muted);margin-top:2px}
+
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip{
+  min-height:46px;padding:0 16px;border-radius:999px;border:1.5px solid transparent;background:var(--surface);box-shadow:var(--shadow-card);
+  font-size:16px;display:inline-flex;align-items:center;gap:8px;
+  transition:transform 160ms var(--ease-out), background-color 160ms ease, border-color 160ms ease;
+}
+.chip:active{transform:scale(.97)}
+.chip .ck{width:0;overflow:hidden;display:inline-grid;transition:width 200ms var(--ease-out)}
+.chip.on{background:var(--select-bg);border-color:var(--select-line)}
+.chip.on .ck{width:16px}
+.chip.none{border-style:dashed;border-color:var(--line-strong);box-shadow:none;background:transparent}
+.chip.none.on{background:var(--select-bg);border-color:var(--select-line);border-style:solid}
+
+/* specialty tiles */
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tile{
+  text-align:left;padding:16px 14px 14px;border-radius:20px;border:1.5px solid transparent;background:var(--surface);box-shadow:var(--shadow-card);
+  display:flex;flex-direction:column;gap:10px;min-height:118px;
+  transition:transform 160ms var(--ease-out), background-color 180ms ease, border-color 180ms ease;
+}
+.tile:active{transform:scale(.97)}
+.tile .ic{width:40px;height:40px;border-radius:12px;background:var(--card);display:grid;place-items:center;color:var(--accent-ink)}
+.tile b{font-weight:500;font-size:16px;display:block}
+.tile span{font-size:13px;color:var(--muted);line-height:1.35}
+.tile.on{background:var(--select-bg);border-color:var(--select-line)}
+
+/* hero card (Hers-style) */
+.hero-card{background:var(--card);border-radius:28px;padding:22px 22px 20px;margin:4px 0 14px}
+.badge{display:inline-flex;align-items:center;gap:6px;height:30px;padding:0 12px;border-radius:999px;background:var(--aqua);color:#0F2526;font-size:14px;font-weight:500}
+.hero-card h3{font-size:30px;font-weight:500;letter-spacing:-.015em;line-height:1.1;margin:16px 0 18px}
+.plan-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.plan-list li{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0;border-top:1px solid color-mix(in srgb, var(--accent-ink) 18%, transparent);font-size:16px}
+.plan-list li span:last-child{color:var(--muted);font-size:14px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.plan-foot{margin-top:14px;font-size:16px}
+.fine{font-size:14px;line-height:1.45;color:var(--muted);margin:0}
+.fine b{color:var(--ink);font-weight:600}
+
+.appt{background:var(--card);border-radius:24px;padding:18px 20px;display:flex;flex-direction:column;gap:4px;margin:6px 0 22px}
+.appt .k{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-ink);font-weight:500}
+.appt .v{font-size:20px;font-weight:500}
+.appt .m{font-size:15px;color:var(--muted)}
+.trust{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px}
+.trust li{display:flex;gap:12px;align-items:flex-start;font-size:16px;line-height:1.35}
+.trust li svg{flex:none;color:var(--accent-ink);margin-top:1px}
+.trust li span small{display:block;color:var(--muted);font-size:14px}
+
+.brand-mark{display:inline-flex;align-items:center;gap:8px;font-weight:500;font-size:18px;letter-spacing:-.01em}
+.brand-dot{width:26px;height:26px;border-radius:8px;background:var(--brand);display:grid;place-items:center}
+
+/* scale */
+.scale-wrap{background:var(--card-2);border-radius:24px;padding:22px 20px 18px}
+.scale-num{display:flex;align-items:baseline;gap:10px;margin-bottom:14px}
+.scale-num b{font-size:64px;line-height:1;font-weight:400;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.scale-num span{font-size:18px;color:var(--muted)}
+input[type=range].range{
+  -webkit-appearance:none;appearance:none;width:100%;height:36px;background:transparent;margin:0;
+}
+input[type=range].range::-webkit-slider-runnable-track{height:8px;border-radius:8px;background:linear-gradient(to right, var(--accent-ink) var(--p,0%), var(--line) var(--p,0%))}
+input[type=range].range::-moz-range-track{height:8px;border-radius:8px;background:linear-gradient(to right, var(--accent-ink) var(--p,0%), var(--line) var(--p,0%))}
+input[type=range].range::-webkit-slider-thumb{-webkit-appearance:none;width:32px;height:32px;border-radius:50%;background:var(--surface);border:2px solid var(--accent-ink);margin-top:-12px;box-shadow:0 4px 12px rgba(15,37,38,.18);transition:transform 160ms var(--ease-out)}
+input[type=range].range::-moz-range-thumb{width:28px;height:28px;border-radius:50%;background:var(--surface);border:2px solid var(--accent-ink)}
+input[type=range].range:active::-webkit-slider-thumb{transform:scale(1.1)}
+.scale-ends{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-top:4px}
+
+/* list (medications) */
+.add-row{display:flex;gap:8px}
+.add-row .inp{flex:1}
+.add-btn{width:62px;height:62px;border-radius:22px;background:linear-gradient(to bottom, var(--cta-top), var(--cta-bot));box-shadow:var(--cta-shadow);color:var(--cta-ink);display:grid;place-items:center;flex:none;transition:transform 160ms var(--ease-out), opacity 200ms ease}
+.add-btn:active{transform:scale(.94)}
+.add-btn:disabled{opacity:.25}
+.items{display:flex;flex-direction:column;gap:8px;margin:14px 0}
+.item{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:54px;padding:0 8px 0 16px;border-radius:14px;background:var(--select-bg);border:1.5px solid var(--select-line);font-size:17px;animation:rise 240ms var(--ease-out) both}
+.item button{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;color:var(--muted)}
+.sugg-label{font-size:14px;color:var(--muted);margin:18px 2px 10px}
+
+/* yes/no follow-up */
+.followup{display:grid;grid-template-rows:0fr;transition:grid-template-rows 280ms var(--ease-out)}
+.followup > div{overflow:hidden;min-height:0}
+.followup.open{grid-template-rows:1fr}
+.followup .fields{padding-top:18px}
+.followup.open .fields{animation:rise 280ms var(--ease-out) both}
+
+/* scan */
+.scan-slots{display:flex;flex-direction:column;gap:14px}
+.slot{
+  position:relative;aspect-ratio:1.586;max-width:100%;border-radius:20px;border:1.5px dashed var(--line-strong);
+  background:var(--card-2);display:grid;place-items:center;overflow:hidden;text-align:center;
+  transition:transform 160ms var(--ease-out), border-color 200ms ease;
+}
+.slot:active{transform:scale(.98)}
+.slot .slot-inner{display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--muted);font-size:15px}
+.slot .slot-inner b{color:var(--ink);font-weight:500;font-size:17px}
+.slot .cam{width:52px;height:52px;border-radius:16px;background:var(--surface);display:grid;place-items:center;color:var(--accent-ink)}
+.slot.scanning::after{content:"";position:absolute;left:0;right:0;top:0;height:40%;background:linear-gradient(to bottom, transparent, color-mix(in srgb, var(--sea) 55%, transparent));animation:scanline 1.1s linear infinite}
+@keyframes scanline{from{transform:translateY(-100%)}to{transform:translateY(250%)}}
+.slot.done{border-style:solid;border-color:transparent;padding:0}
+.ins-card{position:absolute;inset:0;padding:18px 20px;text-align:left;display:flex;flex-direction:column;justify-content:space-between;color:#0F2526;background:linear-gradient(135deg, #B9F3F2, #83C3C4 70%, #6FB2B4);animation:cardIn 380ms var(--ease-out) both}
+.ins-card.back{background:linear-gradient(135deg, #D5FFFF, #B9F3F2)}
+@keyframes cardIn{from{opacity:0;transform:scale(.96);filter:blur(4px)}}
+.ins-card .top{display:flex;justify-content:space-between;align-items:center;font-weight:600;font-size:16px}
+.ins-card .mid{font-size:13px;opacity:.75;letter-spacing:.04em;text-transform:uppercase}
+.ins-card .num{font-size:20px;font-weight:500;letter-spacing:.06em;font-variant-numeric:tabular-nums}
+.ins-card .row{display:flex;gap:22px;font-size:13px}
+.ins-card .row b{display:block;font-size:15px;font-weight:500}
+.ins-card .bars{display:flex;flex-direction:column;gap:7px}
+.ins-card .bars i{display:block;height:7px;border-radius:4px;background:rgba(15,37,38,.18)}
+.retake{position:absolute;right:12px;bottom:12px;z-index:2;font-size:13px;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.75);color:#0F2526}
+
+/* notes */
+.note{margin-top:22px;padding:14px 16px;border-radius:16px;background:var(--card-2);font-size:14px;line-height:1.45;color:var(--muted);display:flex;gap:10px}
+.note svg{flex:none;color:var(--accent-ink);margin-top:1px}
+.note b{color:var(--ink);font-weight:600}
+
+/* review */
+.rv{display:flex;flex-direction:column;gap:14px}
+.rv-card{border-radius:24px;background:var(--surface);box-shadow:var(--shadow-card);overflow:hidden}
+.rv-head{display:flex;align-items:center;justify-content:space-between;padding:16px 18px 8px}
+.rv-head b{font-weight:500;font-size:17px}
+.rv-head span{font-size:13px;color:var(--accent-ink);display:inline-flex;align-items:center;gap:4px}
+.rv-row{display:grid;grid-template-columns:1fr auto;align-items:center;gap:12px;width:100%;text-align:left;padding:11px 18px;border-top:1px solid var(--line);transition:background-color 150ms ease}
+.rv-row:active{background:var(--card-2)}
+.rv-row .l{font-size:13px;color:var(--muted)}
+.rv-row .v{font-size:16px;line-height:1.35;margin-top:2px;overflow-wrap:anywhere}
+.rv-row .v.empty{color:var(--faint)}
+.rv-row svg{color:var(--faint)}
+
+/* consent + signature */
+.consents{display:flex;flex-direction:column;gap:10px;margin-bottom:22px}
+.consent{border-radius:18px;border:1.5px solid transparent;background:var(--surface);box-shadow:var(--shadow-card);transition:border-color 180ms ease, background-color 180ms ease}
+.consent.on{border-color:var(--select-line);background:var(--select-bg)}
+.consent-top{display:flex;align-items:flex-start;gap:12px;width:100%;text-align:left;padding:15px 16px}
+.box{width:24px;height:24px;border-radius:7px;border:1.5px solid var(--line-strong);flex:none;display:grid;place-items:center;margin-top:1px;transition:background-color 160ms ease,border-color 160ms ease}
+.box svg{opacity:0;transform:scale(.6);transition:opacity 150ms ease, transform 200ms var(--ease-out)}
+.consent.on .box{background:var(--accent-ink);border-color:var(--accent-ink)}
+.consent.on .box svg{opacity:1;transform:scale(1)}
+.consent-top b{display:block;font-weight:500;font-size:16px}
+.consent-top span{display:block;font-size:14px;color:var(--muted);line-height:1.45;margin-top:3px}
+.sig-label{display:flex;justify-content:space-between;align-items:baseline;font-size:14px;color:var(--muted);margin:0 2px 8px}
+.sig-label button{color:var(--accent-ink);font-weight:500;font-size:14px;padding:6px}
+.sig{position:relative;height:170px;border-radius:20px;background:var(--field);border:1.5px solid var(--line);overflow:hidden;touch-action:none}
+.sig canvas{position:absolute;inset:0;width:100%;height:100%;cursor:crosshair}
+.sig .ph{position:absolute;left:20px;right:20px;bottom:38px;border-bottom:1.5px solid var(--line-strong);font-size:14px;color:var(--faint);padding-bottom:6px;pointer-events:none;transition:opacity 200ms ease}
+.sig.has .ph{opacity:0}
+.sig-meta{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin:8px 2px 0}
+
+/* done */
+.done{display:flex;flex-direction:column;align-items:flex-start;padding-top:30px}
+.done-check{width:76px;height:76px;border-radius:24px;background:var(--card);display:grid;place-items:center;margin-bottom:26px;animation:pop 420ms var(--ease-out) both}
+@keyframes pop{from{opacity:0;transform:scale(.9)}}
+.done-check path{stroke-dasharray:40;stroke-dashoffset:40;animation:draw 480ms 180ms var(--ease-out) forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+
+/* splash: "intake" wordmark. The n draws itself in like handwriting; the other letters rise around it; the i's dot hops once. */
+.app[data-page="splash"] .nav{visibility:hidden}
+.foot{transition:opacity 300ms ease}
+.app[data-page="splash"] .foot{opacity:0;pointer-events:none}
+.splash{position:absolute;inset:0;display:grid;place-items:center;padding-bottom:64px;cursor:pointer}
+.wordmark{width:min(60%,232px);height:auto;overflow:visible;color:var(--accent-ink);transition:transform 240ms var(--ease-out), opacity 200ms ease}
+.wordmark.leaving{transform:scale(.96);opacity:0}
+.wm-i,.wm-n{stroke-dasharray:1;stroke-dashoffset:1}
+.wm-i{animation:draw 360ms 120ms var(--ease-out) forwards}
+.wm-n{stroke:var(--brand);animation:draw 900ms 320ms var(--ease-in-out) forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+.wm-dot{transform-box:fill-box;transform-origin:center;animation:dotIn 380ms 420ms var(--ease-out) both, hop 560ms 1560ms var(--ease-out)}
+@keyframes dotIn{from{opacity:0;transform:scale(.4)}}
+@keyframes hop{40%{transform:translateY(-8px)}}
+.wm-l{opacity:0;animation:wmIn 440ms var(--ease-out) forwards;animation-delay:calc(760ms + var(--i) * 70ms)}
+@keyframes wmIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion: reduce){
+  .wm-i,.wm-n,.wm-dot,.wm-l{animation:none;stroke-dashoffset:0;opacity:1}
+}
+
+/* intro: health profile orbit */
+.screen{overflow-x:hidden}
+.intro{text-align:center;margin-top:-16px}
+.intro .kicker{font-size:16px;color:var(--muted);margin:8px 0 10px}
+.intro .h1{font-size:32px;margin:0 auto 4px;max-width:320px}
+/* sized to the shorter of the screen width and the space left above the button */
+.orbit{position:relative;aspect-ratio:1;margin:6px 0 4px 50%;transform:translateX(-50%);
+  width:min(calc(100% + 44px), calc(100vh - 400px));width:min(calc(100% + 44px), calc(100svh - 350px))}
+/* Intro choreography (first-run only, so it can carry some delight):
+   rings + glow fade up → core pops → sections radiate out from the core, clockwise → labels → idle float + sonar ripple.
+   Leaving pulls the sections back into the core before the screen slides away. */
+.orbit{container-type:inline-size}
+.ring{position:absolute;left:50%;top:50%;border-radius:50%;border:1.5px dashed var(--line-strong);opacity:.7;transform:translate(-50%,-50%)}
+.ring.r1{width:56%;height:56%;animation:ringIn 700ms ease-out both, spin 90s linear infinite}
+.ring.r2{width:84%;height:84%;animation:ringIn 700ms 80ms ease-out both, spin 140s linear infinite reverse}
+.ring.r3{width:116%;height:116%;opacity:.45;animation:ringIn 700ms 160ms ease-out both}
+@keyframes ringIn{from{opacity:0}}
+@keyframes spin{to{transform:translate(-50%,-50%) rotate(360deg)}}
+.glow{position:absolute;left:50%;top:50%;width:66%;height:66%;border-radius:50%;transform:translate(-50%,-50%);background:radial-gradient(circle, var(--aqua) 0%, color-mix(in srgb, var(--aqua) 45%, transparent) 40%, transparent 70%);
+  animation:glowIn 900ms var(--ease-out) both, breathe 6s 1.2s cubic-bezier(.45,0,.55,1) infinite alternate}
+@keyframes glowIn{from{opacity:0;transform:translate(-50%,-50%) scale(.6)}}
+@keyframes breathe{to{transform:translate(-50%,-50%) scale(1.08)}}
+.core{position:absolute;left:50%;top:50%;width:30%;aspect-ratio:1;border-radius:50%;transform:translate(-50%,-50%);background:var(--accent-ink);color:#fff;display:grid;place-items:center;box-shadow:0 0 0 10px color-mix(in srgb, var(--sea) 30%, transparent);animation:corePop 560ms 120ms var(--ease-out) both}
+@keyframes corePop{from{opacity:0;transform:translate(-50%,-50%) scale(.9)}}
+.core{box-shadow:0 0 0 4px var(--surface), 0 0 0 12px color-mix(in srgb, var(--sea) 30%, transparent)}
+.core .avatar{display:block;width:100%;height:100%;border-radius:50%;object-fit:cover;object-position:50% 35%}
+.core::before,.core::after{content:"";position:absolute;inset:0;border-radius:50%;border:1.5px solid var(--sea);opacity:0;pointer-events:none;animation:ripple 3.6s 1.4s var(--ease-out) infinite}
+.core::after{animation-delay:3.2s}
+@keyframes ripple{0%{opacity:.55;transform:scale(1)}100%{opacity:0;transform:scale(2.2)}}
+.node{position:absolute;transform:translate(-50%,-50%)}
+/* --dx/--dy: distance from this node's slot back to the orbit center, in % of the orbit (1cqi = 1%) */
+.node-in{display:flex;flex-direction:column;align-items:center;gap:5px;
+  animation:radiate 720ms var(--ease-out) both;animation-delay:calc(380ms + var(--i) * 60ms)}
+@keyframes radiate{from{opacity:0;transform:translate(calc(var(--dx) * 1cqi), calc(var(--dy) * 1cqi)) scale(.4)}}
+.node-in > span{animation:labelIn 320ms ease both;animation-delay:calc(760ms + var(--i) * 60ms)}
+@keyframes labelIn{from{opacity:0;transform:translateY(-3px)}}
+.node .dot{animation:bob var(--fd, 5s) cubic-bezier(.45,0,.55,1) infinite alternate;animation-delay:calc(1.4s + var(--i) * 0.35s)}
+@keyframes bob{to{transform:translateY(-4px)}}
+.orbit.leaving .node-in{animation:none;opacity:0;transform:translate(calc(var(--dx) * 1cqi), calc(var(--dy) * 1cqi)) scale(.4);transition:transform 260ms var(--ease-in-out), opacity 220ms ease}
+.orbit.leaving .node-in > span{animation:none;opacity:0;transition:opacity 120ms ease}
+.orbit.leaving .core{animation:none;transform:translate(-50%,-50%) scale(1.06);transition:transform 260ms var(--ease-in-out)}
+.node .dot{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:var(--surface);border:1.5px solid var(--line-strong);color:var(--ink);box-shadow:0 6px 16px -8px rgba(15,37,38,.35)}
+.node.sm .dot{width:38px;height:38px}
+.node.fill .dot{background:var(--accent-ink);border-color:var(--accent-ink);color:#fff}
+.node.alert .dot{background:var(--brand);border-color:var(--brand);color:#fff}
+.node.soft .dot{background:var(--mist);border-color:var(--sea);color:#0F2526}
+.node span{font-size:11.5px;font-weight:500;color:var(--muted);white-space:nowrap;background:color-mix(in srgb, var(--bg) 80%, transparent);padding:1px 6px;border-radius:6px}
+
+/* check-in pass: the QR reveals top to bottom, then one scan sweep passes over it */
+.done{padding-top:8px}
+.done .appt{align-self:stretch}
+.qr-card{position:relative;display:flex;flex-direction:column;align-items:center;gap:16px;padding:24px 22px 18px;margin:0 0 16px;border-radius:28px;background:var(--surface);box-shadow:var(--shadow-card);width:100%}
+.qr-box{position:relative;width:min(62%,210px);aspect-ratio:1;border-radius:16px;overflow:hidden;background:#fff;box-shadow:0 0 0 1px var(--line)}
+.qr-box svg{display:block;width:100%;height:100%;animation:qrReveal 700ms 300ms var(--ease-out) both}
+@keyframes qrReveal{from{clip-path:inset(0 0 100% 0)}}
+.qr-box::after{content:"";position:absolute;left:0;right:0;top:0;height:28%;pointer-events:none;opacity:0;
+  background:linear-gradient(to bottom, transparent, color-mix(in srgb, var(--sea) 55%, transparent), transparent);animation:qrSweep 1000ms 1050ms var(--ease-in-out) both}
+@keyframes qrSweep{0%{opacity:1;transform:translateY(-100%)}90%{opacity:1}100%{opacity:0;transform:translateY(360%)}}
+.qr-fallback{position:absolute;inset:0;display:grid;place-items:center;font-size:22px;font-weight:600;color:#0F2526;letter-spacing:.06em}
+.qr-meta{display:flex;flex-direction:column;align-items:center;gap:3px;text-align:center}
+.qr-meta .k{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-ink);font-weight:500}
+.qr-meta b{font-size:20px;font-weight:600;letter-spacing:-.01em}
+.qr-meta span{font-size:15px;color:var(--muted);font-variant-numeric:tabular-nums}
+.qr-meta .qr-code{margin-top:4px;padding:4px 12px;border-radius:999px;background:var(--wheel-band);color:var(--ink);font-weight:600;letter-spacing:.08em}
+.qr-hint{display:flex;align-items:center;gap:6px;margin:0;font-size:13px;color:var(--muted)}
+.qr-hint svg{color:var(--accent-ink)}
+@media (prefers-reduced-motion: reduce){ .qr-box svg{animation:none} .qr-box::after{display:none} }
+
+/* toast */
+.toast{
+  position:absolute;left:50%;top:112px;z-index:30;transform:translate(-50%,-8px);opacity:0;
+  padding:10px 16px 10px 12px;border-radius:999px;background:var(--ink);color:var(--bg);font-size:14px;
+  display:flex;align-items:center;gap:8px;white-space:nowrap;pointer-events:none;
+  transition:opacity 220ms ease, transform 320ms var(--ease-out);
+}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.toast .tk{width:20px;height:20px;border-radius:50%;background:var(--brand);display:grid;place-items:center;color:#fff}
+@media (max-width:520px){ .toast{top:calc(70px + env(safe-area-inset-top, 0px))} }
+
+/* sheet */
+.scrim{position:absolute;inset:0;z-index:40;background:var(--scrim);opacity:0;transition:opacity 260ms ease}
+.scrim.show{opacity:1}
+.sheet{
+  position:absolute;left:0;right:0;bottom:0;z-index:41;background:var(--surface);border-radius:28px 28px 0 0;
+  padding:8px 22px calc(22px + env(safe-area-inset-bottom, 0px));max-height:82%;overflow-y:auto;
+  transform:translateY(100%);transition:transform 420ms var(--ease-drawer);
+}
+.sheet.show{transform:translateY(0)}
+.sheet.closing{transition:transform 240ms var(--ease-out)}
+.grab{width:100%;height:28px;display:grid;place-items:center;cursor:grab;touch-action:none}
+.grab i{width:38px;height:5px;border-radius:5px;background:var(--line-strong)}
+.sheet h4{font-size:24px;font-weight:500;letter-spacing:-.01em;margin:4px 0 6px}
+.sheet p{font-size:16px;color:var(--muted);line-height:1.45;margin:0 0 20px}
+.sheet-actions{display:flex;flex-direction:column;gap:8px}
+.sheet .cta{width:100%}
+.sec-list{list-style:none;padding:0;margin:8px 0 6px;display:flex;flex-direction:column}
+.sec-list button{width:100%;display:flex;align-items:center;gap:14px;padding:13px 4px;border-top:1px solid var(--line);text-align:left;font-size:17px;transition:transform 160ms var(--ease-out)}
+.sec-list li:first-child button{border-top:0}
+.sec-list button:active{transform:scale(.98)}
+.sec-list .st{width:26px;height:26px;border-radius:50%;flex:none;display:grid;place-items:center;border:1.5px solid var(--line-strong);font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.sec-list .st.done{background:var(--accent-ink);border-color:var(--accent-ink);color:#fff}
+.sec-list .st.cur{border-color:var(--brand);color:var(--brand)}
+.sec-list .meta{margin-left:auto;font-size:13px;color:var(--muted)}
+
+@media (prefers-reduced-motion: reduce){
+  .screen,.screen.pre,.screen.out{transform:none!important;filter:none!important}
+  .rise,.fwrap.reveal,.item,.followup.open .fields,.node-in,.core{animation:fadeOnly 200ms ease both}
+  .ring,.glow,.node .dot,.core::before,.core::after,.node-in > span{animation:none!important}
+  @keyframes fadeOnly{from{opacity:0}}
+  .sheet{transition:opacity 200ms ease;transform:none;opacity:0}
+  .sheet.show{opacity:1}
+  .slot.scanning::after{animation:none;opacity:.5;height:100%}
+  .toast{transform:translate(-50%,0)}
+}
+</style>
+
+<div class="wrap">
+  <aside class="panel" aria-label="Prototype controls">
+    <div class="logo"><span class="brand-dot"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>intake</div>
+    <h2>A conversational pre-visit intake. One topic per screen, single-choice answers advance on tap, and skip logic hides anything that doesn't apply.</h2>
+    <div class="panel-group">
+      <div class="panel-label">Visit type</div>
+      <div class="spec-switch" id="specSwitch"></div>
+    </div>
+    <div class="panel-group">
+      <div class="panel-label">Jump to</div>
+      <div class="panel-actions" id="jumpTo"></div>
+    </div>
+    <div class="panel-group">
+      <div class="panel-label">Prototype</div>
+      <div class="panel-actions">
+        <button type="button" id="fillSample">Fill sample answers</button>
+        <button type="button" id="resetAll">Start over</button>
+      </div>
+      <small>Sample answers are fictional. Answers save in this browser only.</small>
+    </div>
+    <div class="panel-group">
+      <div class="panel-label">Palette</div>
+      <div class="swatches"><span style="background:#D5FFFF"></span><span style="background:#B9F3F2"></span><span style="background:#B21B1D"></span><span style="background:#FBFFFF"></span><span style="background:#83C3C4"></span></div>
+    </div>
+  </aside>
+
+  <div class="device">
+    <div class="app" id="app" data-page="splash">
+      <div class="statusbar" aria-hidden="true">
+        <span>9:41</span>
+        <span class="sb-icons">
+          <svg width="18" height="12" viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg>
+          <svg width="16" height="12" viewBox="0 0 16 12" fill="currentColor"><path d="M8 2.2c2.3 0 4.4.9 6 2.4l1.2-1.3A10.4 10.4 0 0 0 8 .4 10.4 10.4 0 0 0 .8 3.3L2 4.6a8.6 8.6 0 0 1 6-2.4zm0 3.6c1.3 0 2.5.5 3.4 1.3l1.2-1.3A6.7 6.7 0 0 0 8 4a6.7 6.7 0 0 0-4.6 1.8l1.2 1.3c.9-.8 2.1-1.3 3.4-1.3zM8 9.4l1.8-1.9a2.6 2.6 0 0 0-3.6 0z"/></svg>
+          <svg width="27" height="13" viewBox="0 0 27 13" fill="none"><rect x=".5" y=".5" width="23" height="12" rx="3.5" stroke="currentColor" opacity=".4"/><rect x="2" y="2" width="20" height="9" rx="2" fill="currentColor"/><rect x="25" y="4.5" width="1.5" height="4" rx=".75" fill="currentColor" opacity=".4"/></svg>
+        </span>
+      </div>
+      <nav class="nav" id="nav">
+        <button type="button" class="icon-btn" id="backBtn" aria-label="Back"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+        <div class="nav-title">
+          <button type="button" class="sec-btn" id="secBtn"><span id="secTitle">Intake</span><svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></button>
+        </div>
+        <button type="button" class="icon-btn" id="closeBtn" aria-label="Save and exit"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+      </nav>
+      <div class="progress" id="progress"></div>
+      <main class="stage" id="stage"></main>
+      <footer class="foot" id="foot">
+        <button type="button" class="cta" id="cta">Continue</button>
+        <button type="button" class="link-btn" id="cta2" hidden></button>
+      </footer>
+      <div class="toast" id="toast" role="status" aria-live="polite"><span class="tk"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><span id="toastText"></span></div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+<script>
+(() => {
+/* ================= Icons ================= */
+const sv = (p, s = 24, w = 1.7) => `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${p}</svg>`;
+const IC = {
+  steth: '<path d="M6 3v5a4 4 0 0 0 8 0V3"/><path d="M10 12v3a5 5 0 0 0 10 0v-2"/><circle cx="20" cy="11" r="2"/>',
+  tooth: '<path d="M7 3C4.5 3 3 5 3 7.5c0 3 1.5 4.5 2 7.5.4 2.6.8 6 2.5 6s1.8-4 2.5-6c.3-1 1.7-1 2 0 .7 2 .8 6 2.5 6s2.1-3.4 2.5-6c.5-3 2-4.5 2-7.5C21 5 19.5 3 17 3c-2 0-3 1-5 1S9 3 7 3z"/>',
+  leaf: '<path d="M5 19C5 11 11 5 20 5c0 9-6 15-14 15"/><path d="M5 19l8-8"/>',
+  sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
+  flower: '<circle cx="12" cy="9" r="5"/><path d="M12 14v7M9 18h6"/>',
+  heart: '<path d="M12 20s-7-4.4-9-9a4.8 4.8 0 0 1 9-3 4.8 4.8 0 0 1 9 3c-2 4.6-9 9-9 9z"/><path d="M6 11.5h3l1.5-2.5 2.5 4.5 1.5-2h3.5"/>',
+  joint: '<circle cx="6.5" cy="17.5" r="3"/><circle cx="17.5" cy="6.5" r="3"/><path d="M8.6 15.4l6.8-6.8"/>',
+  mind: '<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/><path d="M12 15.5s-3-1.8-3-3.8a1.6 1.6 0 0 1 3-.8 1.6 1.6 0 0 1 3 .8c0 2-3 3.8-3 3.8z"/>',
+  child: '<circle cx="12" cy="8" r="4"/><path d="M5 21a7 7 0 0 1 14 0"/><path d="M10.5 8h.01M13.5 8h.01"/>',
+  eye: '<path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>',
+  run: '<circle cx="14" cy="4.5" r="1.8"/><path d="M8 21l3-6 3 2v5M6 11l3-3h4l2 3 3 1M11 15l1-5"/>',
+  check: '<path d="M5 12.5l4.5 4.5L19 7.5"/>',
+  lock: '<rect x="4" y="10" width="16" height="11" rx="3"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/>',
+  clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+  save: '<path d="M4 12a8 8 0 1 0 2.3-5.7L4 8.6"/><path d="M4 4v4.6h4.6"/>',
+  camera: '<path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/>',
+  plus: '<path d="M12 5v14M5 12h14"/>',
+  x: '<path d="M6 6l12 12M18 6L6 18"/>',
+  chevR: '<path d="M9 5l7 7-7 7"/>',
+  info: '<circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/>',
+  pen: '<path d="M4 20h4L19 9l-4-4L4 16z"/>',
+  cal: '<rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/>',
+  user: '<circle cx="12" cy="8" r="4"/><path d="M4.5 20.5a7.5 7.5 0 0 1 15 0"/>',
+  phone: '<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/>',
+  siren: '<path d="M7 18v-6a5 5 0 0 1 10 0v6"/><path d="M5 18h14v3H5zM12 3v2M4.2 6.2l1.4 1.4M19.8 6.2l-1.4 1.4"/>',
+  card: '<rect x="2.5" y="5" width="19" height="14" rx="3"/><path d="M2.5 10h19M6 15h4"/>',
+  clip: '<rect x="5" y="4" width="14" height="17" rx="2.5"/><path d="M9 4V3h6v1M9 10h6M9 14h6M9 18h3"/>',
+  pill: '<rect x="3" y="8.5" width="18" height="7" rx="3.5" transform="rotate(-45 12 12)"/><path d="M9.5 9.5l5 5"/>',
+  alert: '<path d="M12 4l9 16H3z"/><path d="M12 10v4M12 17h.01"/>',
+  family: '<circle cx="8" cy="7" r="3"/><circle cx="17" cy="9" r="2.4"/><path d="M2.5 20a5.5 5.5 0 0 1 11 0M13.5 20a4 4 0 0 1 7.5-1.8"/>'
+};
+
+/* ================= State ================= */
+const KEY = 'mira-intake-v1';
+let A = {}, S = { page: 'intro', returnTo: null };
+try { const s = JSON.parse(localStorage.getItem(KEY) || 'null'); if (s) { A = s.A || {}; S.page = s.page || 'intro'; } } catch (e) {}
+const save = () => { try { localStorage.setItem(KEY, JSON.stringify({ A, page: S.page })); } catch (e) {} };
+
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const self = () => !A.who || A.who === 'Myself';
+const parseDate = s => {
+  const m = /^(\d{2})\/(\d{2})\/(\d{4})$/.exec(s || ''); if (!m) return null;
+  const d = new Date(+m[3], +m[1] - 1, +m[2]);
+  if (d.getMonth() !== +m[1] - 1 || d.getDate() !== +m[2] || +m[3] < 1900 || d > new Date()) return null;
+  return d;
+};
+const age = () => { const d = parseDate(A.dob); if (!d) return null; const n = new Date(); let a = n.getFullYear() - d.getFullYear(); if (n < new Date(n.getFullYear(), d.getMonth(), d.getDate())) a--; return a; };
+const isMinor = () => { const a = age(); return a !== null && a < 18; };
+
+/* ================= Content ================= */
+const F = (k, label, o = {}) => ({ k, label, ...o });
+const fields = (id, title, flds, o = {}) => ({ id, type: 'fields', title, fields: flds, ...o });
+const choice = (id, k, title, options, o = {}) => ({ id, type: 'choice', k, title, options, ...o });
+const multi = (id, k, title, options, o = {}) => ({ id, type: 'multi', k, title, options, ...o });
+const scale = (id, k, title, o = {}) => ({ id, type: 'scale', k, title, ...o });
+const yesno = (id, k, title, o = {}) => ({ id, type: 'yesno', k, title, ...o });
+const PAIN = 'On a scale of 0 to 10, how *bad is the pain*?';
+const FREQ = ['Not at all', 'Several days', 'More than half the days', 'Nearly every day'];
+const AREAS = ['Neck', 'Shoulder', 'Back', 'Elbow', 'Wrist or hand', 'Hip', 'Knee', 'Ankle or foot'];
+const LAST = ['Within a year', '1–2 years ago', '3+ years ago', 'Never', 'Not sure'];
+
+const ABOUT = [
+  choice('who', 'who', 'Who is this *intake* for?', ['Myself', 'My child', 'Someone I care for'], { sub: "We'll word the questions to match.", label: 'Filling out for' }),
+  fields('name', "Let's start with {your} *name*", [
+    F('first', 'First name', { ac: 'given-name' }), F('last', 'Last name', { ac: 'family-name' }),
+    F('mi', 'Middle initial', { half: 1, optional: 1, max: 1 }), F('nick', 'Goes by', { half: 1, optional: 1 })
+  ], { sub: 'As it appears on {your} insurance card.', label: 'Name' }),
+  fields('dob', "When's {your} *birthday*?", [
+    F('dob', 'Date of birth', { type: 'wheel', hint: () => { const a = age(); return a === null ? '' : `age ${a}`; } })
+  ], { sub: 'Scroll each column, or tap a value.', label: 'Date of birth' }),
+  choice('sex', 'sex', 'What sex {were} *assigned at birth*?', ['Female', 'Male', 'Intersex', 'Prefer not to say'], { sub: 'This helps your provider read labs and choose screenings.', label: 'Sex at birth' }),
+  choice('marital', 'marital', "What's {your} *marital status*?", ['Single', 'Married', 'Domestic partner', 'Divorced', 'Separated', 'Widowed'], { when: () => !isMinor(), label: 'Marital status' }),
+  fields('work', 'Where {do_l} *work or study*?', [
+    F('employer', 'Employer', { optional: 1, ac: 'organization' }), F('occupation', 'Occupation', { optional: 1, ac: 'organization-title' }),
+    F('student', 'Full-time student?', { type: 'seg', options: ['No', 'Yes'], optional: 1 }),
+    F('school', 'Name of school', { optional: 1, showIf: a => a.student === 'Yes' })
+  ], { when: () => !isMinor(), label: 'Work & school' }),
+  fields('ids', 'Any *ID numbers* to add?', [
+    F('ssn', 'Social Security number', { type: 'ssn', optional: 1 }),
+    F('dl', "Driver's license #", { optional: 1, half: 1 }), F('dlstate', 'State', { type: 'state', optional: 1, half: 1 })
+  ], { sub: 'All optional. Your clinic only uses these for billing.', label: 'IDs' })
+];
+
+const CONTACT = [
+  fields('address', 'Where {do_l} *live*?', [
+    F('street', 'Street address', { ac: 'address-line1' }),
+    F('apt', 'Apt or suite', { half: 1, optional: 1, ac: 'address-line2' }), F('zip', 'ZIP code', { type: 'zip', half: 1, ac: 'postal-code' }),
+    F('city', 'City', { half: 1, ac: 'address-level2' }), F('state', 'State', { type: 'state', half: 1, ac: 'address-level1' })
+  ], { sub: "Type the ZIP and we'll fill in the city.", label: 'Address' }),
+  fields('phone', "What's the best *number* to reach {you_o}?", [
+    F('mobile', 'Mobile phone', { type: 'tel', ac: 'tel' }), F('homephone', 'Home or work phone', { type: 'tel', optional: 1 }),
+    F('contact', 'How should we reach out?', { type: 'seg', options: ['Text', 'Call', 'Email'] })
+  ], { label: 'Phone' }),
+  fields('email', 'And {your} *email*?', [
+    F('email', 'Email address', { type: 'email', ac: 'email' }),
+    F('remind', 'Appointment reminders', { type: 'toggle', def: true }), F('news', 'Practice newsletter', { type: 'toggle' })
+  ], { sub: "We'll send a copy of this intake here.", label: 'Email' })
+];
+
+const EMER = [
+  fields('emer', 'Who should we call in an *emergency*?', [
+    F('ec_name', 'Full name', { ac: 'off' }),
+    F('ec_rel', 'Relationship', { type: 'seg', options: ['Spouse or partner', 'Parent', 'Child', 'Sibling', 'Friend', 'Other'] }),
+    F('ec_phone', 'Phone', { type: 'tel' })
+  ], { sub: 'Someone other than {you_o}, ideally.', label: 'Emergency contact' })
+];
+
+const GUARD = [
+  fields('guardian', "Who's the *responsible adult*?", [
+    F('g_first', 'First name', { half: 1 }), F('g_last', 'Last name', { half: 1 }),
+    F('g_rel', 'Relationship to patient', { type: 'seg', options: ['Mother', 'Father', 'Step-parent', 'Legal guardian', 'Other'] }),
+    F('g_phone', 'Phone', { type: 'tel' })
+  ], { sub: 'Needed because the patient is under 18.', label: 'Responsible party' }),
+  choice('residency', 'g_res', 'Where does the patient *mostly live*?', ['With both parents', 'With mom', 'With dad', 'Shared custody', 'With a guardian'], { label: 'Primary residency' })
+];
+
+const hasIns = a => a.ins_has === 'Yes';
+const INS = [
+  choice('has', 'ins_has', 'Do {you} have *{plan}*?', ['Yes', "No, I'll pay myself"], { label: 'Coverage' }),
+  { id: 'scan', type: 'scan', title: 'Scan {your} *{plan} card*', sub: "We'll read the details so you don't have to type them.", when: hasIns, label: 'Card', noReview: true },
+  fields('plan', 'Check the *plan details*', [
+    F('ins_plan', 'Plan name'), F('ins_member', 'Member ID'),
+    F('ins_group', 'Group #', { half: 1 }), F('ins_phone', 'Plan phone', { type: 'tel', half: 1, optional: 1 })
+  ], { when: hasIns, sub: a => a.ins_scanned ? "We filled these in from {your} card. Make sure they're right." : "You'll find these on the front of {your} card.", label: 'Plan' }),
+  fields('subscriber', "Who's the *primary member* on the plan?", [
+    F('ins_rel', "Patient's relationship to the member", { type: 'seg', options: ['Self', 'Spouse', 'Parent', 'Other'] }),
+    F('sub_name', "Member's full name", { showIf: a => a.ins_rel && a.ins_rel !== 'Self' }),
+    F('sub_dob', "Member's date of birth", { type: 'date', showIf: a => a.ins_rel && a.ins_rel !== 'Self' })
+  ], { when: hasIns, label: 'Primary member' }),
+  yesno('secondary', 'ins_sec', 'Any *secondary* {plan}?', { when: hasIns, followUp: [F('sec_plan', 'Plan name'), F('sec_member', 'Member ID')], label: 'Secondary plan' })
+];
+
+const HEALTH = [
+  multi('cond', 'conditions', 'Has a doctor ever told {you_o} {you_have} *any of these*?', ['High blood pressure', 'Diabetes', 'Asthma', 'Heart disease', 'Thyroid condition', 'Arthritis', 'Depression or anxiety', 'Cancer', 'Bleeding disorder', 'Hepatitis', 'Kidney disease'], { none: 'None of these', sub: 'Tap all that apply.', label: 'Conditions' }),
+  { id: 'meds', type: 'list', k: 'meds', title: 'What *medications* {do_l} take?', sub: 'Include vitamins and supplements. Dose is optional.', suggestions: ['Lisinopril', 'Metformin', 'Atorvastatin', 'Levothyroxine', 'Ibuprofen', 'Birth control', 'Multivitamin'], noneLabel: "I don't take any", label: 'Medications' },
+  multi('allergy', 'allergies', 'Any *allergies*?', ['Penicillin', 'Sulfa drugs', 'Codeine', 'Aspirin', 'Latex', 'Local anesthetic', 'Iodine', 'Peanuts or tree nuts'], { none: 'No known allergies', label: 'Allergies' })
+];
+
+const SPECS = [
+  { id: 'primary', name: 'Primary care', blurb: 'Physicals, sick visits, follow-ups', icon: 'steth', plan: 'health insurance', visit: 'Your visit', screens: [
+    choice('pc_reason', 'pc_reason', "What's the *main reason* for this visit?", ['Annual physical', 'Sick visit', 'Follow-up', 'New concern', 'Medication refill'], { label: 'Reason' }),
+    fields('pc_concern', "Tell us *what's going on*", [F('pc_detail', 'Symptoms, when they started, anything that helps', { type: 'textarea' })], { when: a => a.pc_reason && a.pc_reason !== 'Annual physical', label: 'Details' }),
+    fields('pc_life', 'A few *everyday habits*', [
+      F('pc_smoke', 'Tobacco or vaping', { type: 'seg', options: ['Never', 'Used to', 'Currently'] }),
+      F('pc_alc', 'Alcohol', { type: 'seg', options: ['None', 'Socially', 'Weekly', 'Daily'] }),
+      F('pc_ex', 'Exercise', { type: 'seg', options: ['Rarely', '1–2× a week', '3+× a week'] })
+    ], { sub: 'Just a snapshot. There are no wrong answers.', label: 'Habits' }),
+    multi('pc_fam', 'pc_fam', 'Does anything run in {your} *family*?', ['Heart disease', 'Diabetes', 'Cancer', 'Stroke', 'High blood pressure', 'Mental illness'], { none: 'None or not sure', label: 'Family history' }),
+    choice('pc_vax', 'pc_vax', 'Are {your} *vaccines* up to date?', ['Yes', 'Not sure', 'No'], { label: 'Vaccines' })
+  ] },
+  { id: 'dental', name: 'Dental', blurb: 'Cleanings, pain, cosmetic work', icon: 'tooth', plan: 'dental insurance', visit: 'Dental visit', consent: [['xray', 'Dental X-rays', 'I agree to diagnostic X-rays when my dentist recommends them.']], screens: [
+    choice('dn_reason', 'dn_reason', 'What brings {you_o} *to the dentist*?', ['Cleaning and checkup', 'Tooth pain', 'Broken or chipped tooth', 'Cosmetic', 'Second opinion'], { label: 'Reason' }),
+    scale('dn_pain', 'dn_pain', PAIN, { when: a => /pain|Broken/.test(a.dn_reason || ''), label: 'Pain' }),
+    choice('dn_last', 'dn_last', 'When was {your} *last dental visit*?', ['Within 6 months', '6–12 months ago', '1–3 years ago', '3+ years ago', 'Never'], { label: 'Last visit' }),
+    multi('dn_sym', 'dn_sym', 'Noticed any of *these*?', ['Bleeding gums', 'Sensitivity to hot or cold', 'Grinding or clenching', 'Jaw pain or clicking', 'Bad breath', 'Dry mouth'], { none: 'None of these', label: 'Symptoms' }),
+    yesno('dn_premed', 'dn_premed', 'Has a doctor said {you_o} need *antibiotics before dental work*?', { sub: 'Common after a joint replacement or with some heart conditions.', label: 'Pre-medication' }),
+    choice('dn_anx', 'dn_anx', 'How {do_l} feel about *dental visits*?', ['Relaxed', 'A little nervous', 'Very anxious'], { sub: "We'll plan around it.", label: 'Comfort' })
+  ] },
+  { id: 'acu', name: 'Acupuncture', blurb: 'Integrative and traditional care', icon: 'leaf', plan: 'health insurance', visit: 'Acupuncture visit', consent: [['acu', 'Acupuncture and related therapies', 'I understand treatment uses fine, sterile, single-use needles and may include cupping or heat. Mild bruising, soreness or lightheadedness can happen. I have shared any pregnancy, bleeding disorder or pacemaker.']], screens: [
+    fields('ac_complaint', 'What *brings {you_o} in*?', [
+      F('ac_detail', 'Describe the main concern', { type: 'textarea' }),
+      F('ac_dur', 'How long has this been going on?', { type: 'seg', options: ['Days', 'Weeks', 'Months', 'Years'] })
+    ], { label: 'Main concern' }),
+    multi('ac_area', 'ac_area', 'Which *areas* should we focus on?', ['Neck and shoulders', 'Back', 'Headaches', 'Joints', 'Digestion', 'Sleep', 'Stress', 'Fertility'], { label: 'Focus areas' }),
+    scale('ac_pain', 'ac_pain', 'How much is it *affecting {your} day*?', { ends: ['Not at all', 'Completely'], label: 'Impact' }),
+    yesno('ac_prior', 'ac_prior', '{have} had *acupuncture* before?', { followUp: [F('ac_prior_res', 'How did it go?', { type: 'seg', options: ['It helped', "It didn't help", 'Not sure'] })], label: 'Prior acupuncture' }),
+    multi('ac_safe', 'ac_safe', 'Do any of *these* apply?', ['Pregnant or might be', 'Pacemaker', 'Bleeding disorder or blood thinners', 'Nervous about needles'], { none: 'None of these', sub: 'These change which points and techniques are safe.', label: 'Safety' })
+  ] },
+  { id: 'derm', name: 'Dermatology', blurb: 'Skin, hair and nail concerns', icon: 'sun', plan: 'health insurance', visit: 'Skin visit', screens: [
+    choice('dm_reason', 'dm_reason', "What's the *skin concern*?", ['Mole or spot check', 'Acne', 'Rash or itching', 'Eczema or psoriasis', 'Hair or nails', 'Cosmetic'], { label: 'Concern' }),
+    multi('dm_where', 'dm_where', '*Where* on {your} body?', ['Face', 'Scalp', 'Neck', 'Chest', 'Back', 'Arms', 'Hands', 'Legs', 'Feet'], { label: 'Location' }),
+    choice('dm_dur', 'dm_dur', 'How *long* has it been there?', ['Under a month', '1–6 months', '6–12 months', 'Over a year'], { label: 'Duration' }),
+    fields('dm_skin', 'A little about {your} *skin*', [
+      F('dm_type', 'In the sun, {you_l}…', { type: 'seg', options: ['Burn easily', 'Sometimes burn', 'Rarely burn'] }),
+      F('dm_spf', 'Sunscreen', { type: 'seg', options: ['Daily', 'Sometimes', 'Rarely'] }),
+      F('dm_hx', 'Ever had skin cancer?', { type: 'seg', options: ['No', 'Yes', 'Not sure'] })
+    ], { label: 'Skin profile' })
+  ] },
+  { id: 'obgyn', name: 'OB/GYN', blurb: "Annual exams, pregnancy, women's health", icon: 'flower', plan: 'health insurance', visit: 'OB/GYN visit', screens: [
+    choice('ob_reason', 'ob_reason', 'What is this *visit for*?', ['Annual exam', 'Pregnancy care', 'Birth control', 'Period concerns', 'Menopause', 'Something else'], { label: 'Reason' }),
+    fields('ob_lmp', 'When did {your} *last period* start?', [F('ob_lmp', 'First day of last period', { type: 'date', optional: 1 })], { sub: 'Your best guess is fine.', label: 'Last period' }),
+    fields('ob_preg', 'Any *pregnancy history*?', [
+      F('ob_now', 'Currently pregnant?', { type: 'seg', options: ['No', 'Yes', 'Not sure'] }),
+      F('ob_g', 'Pregnancies', { type: 'stepper' }), F('ob_p', 'Births', { type: 'stepper' })
+    ], { label: 'Pregnancy' }),
+    choice('ob_bc', 'ob_bc', 'Current *birth control*?', ['None', 'Pill', 'IUD', 'Implant', 'Condoms', 'Other'], { label: 'Birth control' }),
+    choice('ob_pap', 'ob_pap', 'When was {your} *last Pap test*?', ['Within 3 years', 'Over 3 years ago', 'Never', 'Not sure'], { label: 'Last Pap test' })
+  ] },
+  { id: 'cardio', name: 'Cardiology', blurb: 'Heart and blood pressure', icon: 'heart', plan: 'health insurance', visit: 'Heart visit', screens: [
+    multi('cd_sym', 'cd_sym', 'Have {you} had *any of these*?', ['Chest pain or pressure', 'Racing or skipped beats', 'Shortness of breath', 'Dizziness or fainting', 'Swollen legs', 'Unusual tiredness'], { none: 'None of these', label: 'Symptoms' }),
+    choice('cd_when', 'cd_when', '*When* do they happen?', ['At rest', 'With activity', 'At night', 'No pattern'], { when: a => (a.cd_sym || []).length && !(a.cd_sym || []).includes('None of these'), label: 'Timing' }),
+    fields('cd_bp', 'Know a recent *blood pressure* reading?', [F('cd_sys', 'Top (systolic)', { type: 'num', half: 1, optional: 1 }), F('cd_dia', 'Bottom (diastolic)', { type: 'num', half: 1, optional: 1 })], { sub: 'Skip this if you don’t have one handy.', label: 'Blood pressure' }),
+    multi('cd_risk', 'cd_risk', 'Any of these *risk factors*?', ['Smoke or vape', 'High cholesterol', 'Diabetes', 'Family heart disease before 60'], { none: 'None of these', label: 'Risk factors' }),
+    fields('cd_ref', 'Who *referred* {you_o}?', [F('cd_doc', 'Referring doctor', { optional: 1 })], { label: 'Referred by' })
+  ] },
+  { id: 'ortho', name: 'Orthopedics', blurb: 'Bones, joints and injuries', icon: 'joint', plan: 'health insurance', visit: 'Ortho visit', screens: [
+    choice('or_area', 'or_area', '*Where* is the problem?', AREAS, { label: 'Area' }),
+    fields('or_how', 'Tell us *how it started*', [
+      F('or_side', 'Side', { type: 'seg', options: ['Left', 'Right', 'Both'] }),
+      F('or_cause', 'Cause', { type: 'seg', options: ['An injury', 'Came on slowly', 'Not sure'] }),
+      F('or_note', 'What happened? (optional)', { type: 'textarea', optional: 1 })
+    ], { label: 'Onset' }),
+    scale('or_pain', 'or_pain', PAIN, { label: 'Pain' }),
+    multi('or_img', 'or_img', 'Any *imaging* so far?', ['X-ray', 'MRI', 'CT scan'], { none: 'None yet', label: 'Imaging' }),
+    multi('or_worse', 'or_worse', 'What makes it *worse*?', ['Walking', 'Stairs', 'Sitting', 'Lifting', 'Sleeping', 'Exercise'], { label: 'Aggravated by' })
+  ] },
+  { id: 'mental', name: 'Mental health', blurb: 'Therapy and psychiatry', icon: 'mind', plan: 'health insurance', visit: 'Your visit', screens: [
+    multi('mh_reason', 'mh_reason', 'What would {you} like *support with*?', ['Anxiety', 'Low mood', 'Stress', 'Sleep', 'Relationships', 'Grief', 'Focus or ADHD'], { label: 'Focus' }),
+    choice('mh_phq1', 'mh_phq1', 'Over the last 2 weeks, how often {have_l} had *little interest or pleasure* in doing things?', FREQ, { crisis: 1, label: 'Interest' }),
+    choice('mh_phq2', 'mh_phq2', 'How often {have_l} felt *down, depressed or hopeless*?', FREQ, { sub: 'Over the last 2 weeks.', crisis: 1, label: 'Mood' }),
+    choice('mh_gad', 'mh_gad', 'How often {have_l} felt *nervous, anxious or on edge*?', FREQ, { sub: 'Over the last 2 weeks.', crisis: 1, label: 'Anxiety' }),
+    yesno('mh_prior', 'mh_prior', '{have} worked with a *therapist* before?', { label: 'Prior therapy' })
+  ] },
+  { id: 'peds', name: 'Pediatrics', blurb: 'Babies, kids and teens', icon: 'child', plan: 'health insurance', visit: 'Pediatric visit', screens: [
+    choice('pd_reason', 'pd_reason', "What's this *visit* for?", ['Well-child checkup', 'Sick visit', 'Vaccines', 'Sports physical', 'Behavior or development'], { label: 'Reason' }),
+    fields('pd_birth', 'A bit about *birth history*', [
+      F('pd_term', 'Born', { type: 'seg', options: ['Full term', 'Premature', 'Not sure'] }),
+      F('pd_comp', 'Any complications?', { type: 'seg', options: ['No', 'Yes', 'Not sure'] })
+    ], { label: 'Birth history' }),
+    choice('pd_vax', 'pd_vax', 'Are *vaccines* up to date?', ['Yes', 'Not sure', 'No'], { label: 'Vaccines' }),
+    multi('pd_dev', 'pd_dev', 'Any *concerns* to talk about?', ['Speech', 'Sleep', 'Eating', 'Behavior', 'Learning', 'Growth'], { none: 'Nothing right now', label: 'Concerns' }),
+    fields('pd_school', 'School or *daycare*', [F('pd_sname', 'School or daycare name', { optional: 1 }), F('pd_grade', 'Grade', { half: 1, optional: 1 })], { label: 'School' })
+  ] },
+  { id: 'eye', name: 'Optometry', blurb: 'Eye exams, glasses, contacts', icon: 'eye', plan: 'vision insurance', visit: 'Eye exam', screens: [
+    choice('ey_reason', 'ey_reason', 'What brings {you_o} *in*?', ['Routine eye exam', 'Contact lens fitting', 'Vision changes', 'Eye irritation', 'Diabetic eye exam'], { label: 'Reason' }),
+    multi('ey_wear', 'ey_wear', 'What {do_l} *wear* now?', ['Glasses', 'Contacts'], { none: 'Neither', label: 'Eyewear' }),
+    multi('ey_sym', 'ey_sym', 'Noticed any of *these*?', ['Blurry far away', 'Blurry up close', 'Headaches', 'Dry or itchy eyes', 'Floaters or flashes', 'Light sensitivity'], { none: 'None of these', label: 'Symptoms' }),
+    choice('ey_last', 'ey_last', 'When was {your} *last eye exam*?', LAST, { label: 'Last exam' }),
+    multi('ey_hx', 'ey_hx', 'Any of these in {you_o} or {your} *family*?', ['Glaucoma', 'Macular degeneration', 'Cataracts', 'Diabetes'], { none: 'None of these', label: 'Eye history' })
+  ] },
+  { id: 'pt', name: 'Physical therapy', blurb: 'Rehab, mobility, recovery', icon: 'run', plan: 'health insurance', visit: 'PT visit', screens: [
+    choice('pt_area', 'pt_area', 'What *area* are we working on?', AREAS, { label: 'Area' }),
+    yesno('pt_ref', 'pt_ref', '{do} have a *referral*?', { followUp: [F('pt_doc', 'Referring provider')], label: 'Referral' }),
+    scale('pt_pain', 'pt_pain', PAIN, { label: 'Pain' }),
+    multi('pt_goals', 'pt_goals', 'What are {your} *goals*?', ['Less pain', 'Back to a sport', 'Walk farther', 'Lift without pain', 'Recover from surgery', 'Better balance'], { label: 'Goals' }),
+    choice('pt_act', 'pt_act', 'How *active* {are} day to day?', ['Mostly sitting', 'Lightly active', 'Active', 'Training for a sport'], { label: 'Activity' })
+  ] }
+];
+const spec = () => SPECS.find(s => s.id === A.spec) || SPECS[0];
+
+const fmt = (s) => {
+  if (typeof s === 'function') s = s(A);
+  const me = self(), sp = spec();
+  return esc(s)
+    .replace(/\{plan\}/g, sp.plan)
+    .replace(/\{your\}/g, me ? 'your' : 'their').replace(/\{Your\}/g, me ? 'Your' : 'Their')
+    .replace(/\{you_o\}/g, me ? 'you' : 'them').replace(/\{you_l\}/g, me ? 'you' : 'they')
+    .replace(/\{you_have\}/g, me ? 'have' : 'have had')
+    .replace(/\{you\}/g, me ? 'you' : 'they')
+    .replace(/\{were\}/g, me ? 'were you' : 'were they')
+    .replace(/\{do\}/g, me ? 'Do you' : 'Do they').replace(/\{do_l\}/g, me ? 'do you' : 'do they')
+    .replace(/\{are\}/g, me ? 'are you' : 'are they')
+    .replace(/\{have\}/g, me ? 'Have you' : 'Have they').replace(/\{have_l\}/g, me ? 'have you' : 'have they')
+    .replace(/\*(.+?)\*/g, '<em>$1</em>');
+};
+
+/* ================= Flow ================= */
+function sections() {
+  const sp = spec();
+  const list = [
+    { id: 'about', title: 'About you', screens: ABOUT },
+    { id: 'contact', title: 'Contact', screens: CONTACT },
+    { id: 'emergency', title: 'Emergency contact', screens: EMER },
+    { id: 'guardian', title: 'Parent or guardian', screens: GUARD, when: isMinor },
+    { id: 'insurance', title: 'Insurance', screens: INS },
+    { id: 'health', title: 'Health history', screens: HEALTH },
+    { id: 'visit', title: sp.visit, screens: sp.screens }
+  ].filter(s => !s.when || s.when());
+  list.forEach(s => { s.live = s.screens.filter(q => !q.when || q.when(A)); });
+  return list;
+}
+function pages() {
+  const p = [{ id: 'splash' }, { id: 'intro' }, { id: 'welcome' }, { id: 'specialty' }, { id: 'overview' }];
+  sections().forEach((s, si, all) => s.live.forEach((q, qi) => p.push({ id: s.id + '.' + q.id, sec: s, q, si, qi, total: all.length })));
+  p.push({ id: 'review' }, { id: 'sign' }, { id: 'done' });
+  return p;
+}
+const findPage = id => { const p = pages(); return p.find(x => x.id === id) || p[0]; };
+const minutes = () => Math.max(3, Math.round(sections().reduce((n, s) => n + s.live.length, 0) * 0.3));
+
+/* ================= Validation ================= */
+const digits = v => String(v || '').replace(/\D/g, '');
+function fieldValid(f) {
+  if (f.showIf && !f.showIf(A)) return true;
+  const v = A[f.k];
+  if (f.type === 'toggle' || f.type === 'stepper') return true;
+  const empty = v === undefined || v === null || String(v).trim() === '';
+  if (empty) return !!f.optional;
+  switch (f.type) {
+    case 'email': return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+    case 'tel': return digits(v).length === 10;
+    case 'date': case 'wheel': return !!parseDate(v);
+    case 'zip': return digits(v).length === 5;
+    case 'state': return /^[A-Z]{2}$/.test(v);
+    case 'ssn': return digits(v).length === 9;
+    default: return true;
+  }
+}
+const fieldError = f => ({ email: 'Check the email format, like name@example.com.', tel: 'Enter a 10-digit phone number.', date: 'Use MM/DD/YYYY with a real date.', zip: 'ZIP codes have 5 digits.', state: 'Use the 2-letter state, like CA.', ssn: 'Enter all 9 digits.' }[f.type] || 'Required.');
+function screenValid(q) {
+  switch (q.type) {
+    case 'fields': return q.fields.every(fieldValid);
+    case 'choice': return !!A[q.k];
+    case 'multi': return q.optional || (A[q.k] || []).length > 0;
+    case 'scale': return A[q.k] !== undefined;
+    case 'list': return (A[q.k] || []).length > 0 || !!A[q.k + '_none'];
+    case 'yesno': return A[q.k] === 'No' || (A[q.k] === 'Yes' && (q.followUp || []).every(fieldValid));
+    case 'scan': return !!A.ins_front;
+  }
+  return true;
+}
+const allOptional = q => q.type === 'fields' && q.fields.every(f => f.optional || f.type === 'toggle' || f.type === 'stepper');
+const anyFilled = q => q.fields.some(f => f.type !== 'toggle' && f.type !== 'stepper' && String(A[f.k] ?? '').trim());
+
+/* ================= Masks ================= */
+function mask(type, v) {
+  const d = digits(v);
+  switch (type) {
+    case 'tel': return d.length === 0 ? '' : d.length < 4 ? `(${d}` : d.length < 7 ? `(${d.slice(0, 3)}) ${d.slice(3)}` : `(${d.slice(0, 3)}) ${d.slice(3, 6)}-${d.slice(6, 10)}`;
+    case 'date': return [d.slice(0, 2), d.slice(2, 4), d.slice(4, 8)].filter(Boolean).join('/');
+    case 'ssn': return [d.slice(0, 3), d.slice(3, 5), d.slice(5, 9)].filter(Boolean).join('-');
+    case 'zip': return d.slice(0, 5);
+    case 'num': return d.slice(0, 3);
+    case 'state': return v.replace(/[^a-z]/gi, '').slice(0, 2).toUpperCase();
+  }
+  return v;
+}
+const ZIPS = { '94110': ['San Francisco', 'CA'], '10001': ['New York', 'NY'], '60614': ['Chicago', 'IL'], '78704': ['Austin', 'TX'], '98101': ['Seattle', 'WA'], '90026': ['Los Angeles', 'CA'], '96813': ['Honolulu', 'HI'], '02139': ['Cambridge', 'MA'], '80205': ['Denver', 'CO'] };
+const PH = { tel: '(555) 555-0123', email: 'name@example.com', date: 'MM/DD/YYYY', zip: '94110', state: 'CA', ssn: '123-45-6789', num: '120' };
+const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const YEARS = (() => { const y = new Date().getFullYear(); return Array.from({ length: y - 1899 }, (_, i) => y - i); })();
+const INPUT = { tel: ['tel', 'tel'], email: ['email', 'email'], date: ['text', 'numeric'], zip: ['text', 'numeric'], ssn: ['text', 'numeric'], num: ['text', 'numeric'], state: ['text', 'text'] };
+
+/* ================= Renderers ================= */
+const header = (q, i = 0) => `
+  <h1 class="h1 rise" style="--i:${i}">${fmt(q.title)}</h1>
+  ${q.sub ? `<p class="sub rise" style="--i:${i + 1}">${fmt(q.sub)}</p>` : '<div style="height:14px"></div>'}`;
+
+function fieldHTML(f, filledTag) {
+  const v = A[f.k];
+  const vis = !f.showIf || f.showIf(A);
+  const cls = `fwrap${f.half ? ' half' : ''}`;
+  const lbl = fmt(f.label);
+  const opt = f.optional ? ' <span class="opt">Optional</span>' : '';
+  let inner;
+  if (f.type === 'seg') {
+    inner = `<div class="seg-label">${lbl}${opt}</div><div class="seg" role="radiogroup" aria-label="${esc(f.label)}">${f.options.map(o => `<button type="button" class="pill${v === o ? ' on' : ''}" role="radio" aria-checked="${v === o}" data-seg="${f.k}" data-v="${esc(o)}">${esc(o)}</button>`).join('')}</div>`;
+  } else if (f.type === 'toggle') {
+    const on = v === undefined ? !!f.def : !!v;
+    if (v === undefined) A[f.k] = on;
+    inner = `<div class="toggle-row"><span id="lb-${f.k}">${lbl}</span><button type="button" class="switch" role="switch" aria-labelledby="lb-${f.k}" aria-checked="${on}" data-toggle="${f.k}"></button></div>`;
+  } else if (f.type === 'stepper') {
+    const n = +v || 0;
+    inner = `<div class="stepper-row"><span>${lbl}</span><div class="stepper"><button type="button" data-step="${f.k}" data-d="-1" aria-label="Fewer">−</button><output id="out-${f.k}">${n}</output><button type="button" data-step="${f.k}" data-d="1" aria-label="More">+</button></div></div>`;
+  } else if (f.type === 'wheel') {
+    inner = `<div class="flabel"><label id="lb-${f.k}">${lbl}</label><span class="meta" data-hint="${f.k}">${esc(f.hint ? f.hint() : '')}</span></div>${wheelHTML(f)}`;
+  } else {
+    const [type, mode] = INPUT[f.type] || ['text', 'text'];
+    const meta = filledTag && v ? '<span class="meta filled">From card</span>'
+      : f.hint ? `<span class="meta" data-hint="${f.k}">${esc(f.hint())}</span>`
+      : f.optional ? '<span class="meta">Optional</span>' : '';
+    const ph = esc(f.ph ?? PH[f.type] ?? '');
+    const ctrl = f.type === 'textarea'
+      ? `<textarea id="f-${f.k}" data-k="${f.k}" placeholder="${ph}" rows="4">${esc(v)}</textarea>`
+      : `<input id="f-${f.k}" data-k="${f.k}" data-type="${f.type || 'text'}" type="${type}" inputmode="${mode}" autocomplete="${f.ac || 'off'}" ${f.max ? `maxlength="${f.max}"` : ''} ${f.type === 'state' ? 'autocapitalize="characters"' : ''} placeholder="${ph}" value="${esc(v)}">`;
+    inner = `<div class="flabel"><label for="f-${f.k}">${lbl}</label>${meta}</div><div class="inp">${ctrl}</div><div class="ferr" data-err="${f.k}" hidden></div>`;
+  }
+  return `<div class="${cls}" data-f="${f.k}" ${vis ? '' : 'hidden'}>${inner}</div>`;
+}
+
+const radio = `<span class="radio">${sv(IC.check, 14, 3).replace('currentColor', '#fff')}</span>`;
+const ck = `<span class="ck">${sv(IC.check, 16, 2.6)}</span>`;
+
+// Month / Day / Year wheel. Rows are 44px; two rows of padding put row i at the center when scrollTop = i * 44.
+const WH = 44;
+function wheelHTML(f) {
+  const col = (id, label, items) => `<div class="wcol" data-wcol="${id}" role="spinbutton" tabindex="0" aria-label="${label}"><div class="wpad"></div>${items.map((t, i) => `<div class="witem" data-i="${i}">${t}</div>`).join('')}<div class="wpad"></div></div>`;
+  return `<div class="wheel" data-wheel="${f.k}" role="group" aria-labelledby="lb-${f.k}"><div class="wband"></div>${col('m', 'Month', MONTHS)}${col('d', 'Day', Array.from({ length: 31 }, (_, i) => i + 1))}${col('y', 'Year', YEARS)}</div>`;
+}
+function initWheels(el) {
+  el.querySelectorAll('.wheel').forEach(w => {
+    const k = w.dataset.wheel;
+    const cols = { m: w.querySelector('[data-wcol="m"]'), d: w.querySelector('[data-wcol="d"]'), y: w.querySelector('[data-wcol="y"]') };
+    const d0 = parseDate(A[k]);
+    const start = d0 ? { m: d0.getMonth(), d: d0.getDate() - 1, y: YEARS.indexOf(d0.getFullYear()) } : { m: 0, d: 0, y: YEARS.indexOf(1990) };
+    const idx = c => Math.round(c.scrollTop / WH);
+    const paint = c => {
+      const at = c.scrollTop / WH;
+      c.querySelectorAll('.witem').forEach((it, j) => {
+        const dist = Math.abs(j - at);
+        if (dist > 3.5) { if (it.style.opacity !== '0') it.style.opacity = 0; return; }
+        it.style.opacity = Math.max(0.15, 1 - dist * 0.3);
+        it.style.transform = `scale(${1 - Math.min(dist, 3) * 0.07})`;
+        it.classList.toggle('on', dist < 0.5);
+      });
+    };
+    let ready = false;
+    const commit = () => {
+      const m = idx(cols.m), y = YEARS[idx(cols.y)];
+      let d = idx(cols.d);
+      const max = new Date(y, m + 1, 0).getDate();
+      if (d + 1 > max) { d = max - 1; cols.d.scrollTo({ top: d * WH, behavior: 'smooth' }); }
+      A[k] = `${String(m + 1).padStart(2, '0')}/${String(d + 1).padStart(2, '0')}/${y}`;
+      cols.m.setAttribute('aria-valuetext', MONTHS[m]); cols.d.setAttribute('aria-valuetext', d + 1); cols.y.setAttribute('aria-valuetext', y);
+      save(); refresh();
+    };
+    Object.values(cols).forEach(c => {
+      c.scrollTop = start[c.dataset.wcol] * WH; paint(c);
+      let raf, t;
+      c.addEventListener('scroll', () => {
+        cancelAnimationFrame(raf); raf = requestAnimationFrame(() => paint(c));
+        clearTimeout(t); if (ready) t = setTimeout(commit, 140);
+      }, { passive: true });
+      c.addEventListener('click', e => {
+        const it = e.target.closest('.witem'); if (!it) return;
+        if (idx(c) === +it.dataset.i) commit(); else c.scrollTo({ top: +it.dataset.i * WH, behavior: 'smooth' });
+      });
+      c.addEventListener('keydown', e => {
+        if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp') return;
+        e.preventDefault(); c.scrollBy({ top: e.key === 'ArrowDown' ? WH : -WH, behavior: 'smooth' });
+      });
+    });
+    setTimeout(() => { ready = true; }, 250);
+  });
+}
+const SEC_ICON = { about: 'user', contact: 'phone', emergency: 'siren', guardian: 'family', insurance: 'card', health: 'clip' };
+
+function qHTML(p) {
+  const q = p.q;
+  const eyebrow = `<div class="qbadge rise">${sv(IC[SEC_ICON[p.sec.id] || spec().icon], 28, 1.8)}</div><div class="eyebrow rise">${esc(p.sec.title)} · ${p.qi + 1} of ${p.sec.live.length}</div>`;
+  let body = '';
+  switch (q.type) {
+    case 'fields':
+      body = `<div class="fields rise" style="--i:2">${q.fields.map(f => fieldHTML(f, q.id === 'plan' && A.ins_scanned)).join('')}</div>`;
+      break;
+    case 'choice':
+      body = `<div class="options" role="radiogroup">${q.options.map((o, i) => `<button type="button" class="opt-row rise${A[q.k] === o ? ' on' : ''}" style="--i:${i + 2}" role="radio" aria-checked="${A[q.k] === o}" data-choice="${q.k}" data-v="${esc(o)}"><span>${esc(o)}</span>${radio}</button>`).join('')}</div>`;
+      break;
+    case 'multi': {
+      const sel = A[q.k] || [];
+      const opts = q.options.concat(q.none ? [q.none] : []);
+      body = `<div class="chips rise" style="--i:2">${opts.map(o => `<button type="button" class="chip${sel.includes(o) ? ' on' : ''}${o === q.none ? ' none' : ''}" aria-pressed="${sel.includes(o)}" data-multi="${q.k}" data-v="${esc(o)}" ${o === q.none ? 'data-none="1"' : ''}>${ck}${esc(o)}</button>`).join('')}</div>`;
+      break;
+    }
+    case 'scale': {
+      const v = A[q.k];
+      const ends = q.ends || ['No pain', 'Worst pain'];
+      body = `<div class="scale-wrap rise" style="--i:2"><div class="scale-num"><b id="scaleNum">${v ?? '–'}</b><span id="scaleWord">${v === undefined ? 'Drag to rate' : scaleWord(v, q)}</span></div>
+        <input class="range" id="range-${q.k}" type="range" min="0" max="10" step="1" value="${v ?? 0}" data-scale="${q.k}" style="--p:${(v ?? 0) * 10}%" aria-label="Rating from 0 to 10">
+        <div class="scale-ends"><span>0 · ${esc(ends[0])}</span><span>10 · ${esc(ends[1])}</span></div></div>`;
+      break;
+    }
+    case 'list': {
+      const items = A[q.k] || [];
+      body = `<div class="rise" style="--i:2"><form class="add-row" data-addform="${q.k}"><div class="inp"><input id="f-add" data-addinp="1" type="text" placeholder="Name and dose, e.g. Zyrtec 10 mg" aria-label="Add a medication" autocomplete="off" enterkeyhint="done"></div><button class="add-btn" type="submit" aria-label="Add medication" disabled>${sv(IC.plus, 22, 2.2)}</button></form>
+        <div class="items" id="items">${items.map((m, i) => itemHTML(m, i)).join('')}</div>
+        <div class="sugg-label">Common</div>
+        <div class="chips">${q.suggestions.filter(s => !items.includes(s)).map(s => `<button type="button" class="chip" data-suggest="${q.k}" data-v="${esc(s)}">${sv(IC.plus, 14, 2.2)}${esc(s)}</button>`).join('')}
+          <button type="button" class="chip none${A[q.k + '_none'] ? ' on' : ''}" aria-pressed="${!!A[q.k + '_none']}" data-listnone="${q.k}">${ck}${esc(q.noneLabel)}</button></div></div>`;
+      break;
+    }
+    case 'yesno':
+      body = `<div class="options" role="radiogroup">${['Yes', 'No'].map((o, i) => `<button type="button" class="opt-row rise${A[q.k] === o ? ' on' : ''}" style="--i:${i + 2}" role="radio" aria-checked="${A[q.k] === o}" data-yn="${q.k}" data-v="${o}"><span>${o}</span>${radio}</button>`).join('')}</div>
+        ${q.followUp ? `<div class="followup${A[q.k] === 'Yes' ? ' open' : ''}" id="followup"><div><div class="fields">${q.followUp.map(f => fieldHTML(f)).join('')}</div></div></div>` : ''}`;
+      break;
+    case 'scan':
+      body = `<div class="scan-slots rise" style="--i:2">${slotHTML('front')}${slotHTML('back')}</div>
+        <div class="note rise" style="--i:3">${sv(IC.lock, 18)}<span>The photo stays with {clinic}. Prototype only: no camera opens and no image is taken.</span></div>`.replace('{clinic}', 'your clinic');
+      break;
+  }
+  const crisis = q.crisis ? `<div class="note">${sv(IC.info, 18)}<span><b>Need help now?</b> Call or text 988 to reach the Suicide &amp; Crisis Lifeline any time. If you're in danger, call 911.</span></div>` : '';
+  return eyebrow + header(q, 1) + body + crisis;
+}
+const itemHTML = (m, i) => `<div class="item"><span>${esc(m)}</span><button type="button" data-remove="${i}" aria-label="Remove ${esc(m)}">${sv(IC.x, 18, 2)}</button></div>`;
+const scaleWord = (v, q) => q.ends ? (v === 0 ? q.ends[0] : v <= 3 ? 'A little' : v <= 6 ? 'Moderately' : v <= 9 ? 'A lot' : q.ends[1]) : (v === 0 ? 'No pain' : v <= 3 ? 'Mild' : v <= 6 ? 'Moderate' : v <= 9 ? 'Severe' : 'Worst possible');
+
+function slotHTML(side) {
+  const st = A['ins_' + side];
+  if (st) {
+    const sp = spec();
+    const card = side === 'front'
+      ? `<div class="ins-card"><div class="top"><span>${sp.id === 'dental' ? 'Brightsmile Dental' : sp.id === 'eye' ? 'Clearview Vision' : 'Bluewave Health'}</span><span style="font-size:12px;font-weight:500;opacity:.7">PPO</span></div>
+         <div><div class="mid">Member ID</div><div class="num">BWX 4821 7730</div></div>
+         <div class="row"><span>Group<b>88120</b></span><span>Member<b>${esc((A.first || 'Alex') + ' ' + (A.last || 'Morgan'))}</b></span></div></div>`
+      : `<div class="ins-card back"><div class="top"><span style="font-size:14px">Member services</span><span style="font-size:13px;font-weight:500">(800) 555-0142</span></div><div class="bars"><i style="width:92%"></i><i style="width:78%"></i><i style="width:84%"></i><i style="width:60%"></i></div></div>`;
+    return `<div class="slot done" aria-label="${side} of card captured">${card}<button type="button" class="retake" data-scan="${side}" data-retake="1">Retake</button></div>`;
+  }
+  const locked = side === 'back' && !A.ins_front;
+  return `<button type="button" class="slot" data-scan="${side}" ${locked ? 'disabled style="opacity:.5"' : ''}><span class="slot-inner"><span class="cam">${sv(IC.camera, 24)}</span><b>${side === 'front' ? 'Front of card' : 'Back of card'}</b><span>${side === 'front' ? 'Tap to scan' : locked ? 'Scan the front first' : 'Tap to scan · optional'}</span></span></button>`;
+}
+
+// Each node is one part of the EHR profile the intake fills. Position is % of the orbit square.
+const PROFILE = () => [
+  ['About you', 'user', 'out', 50, 13],
+  ['Contact', 'phone', 'fill', 82, 24],
+  ['Emergency', 'siren', 'alert sm', 92, 55],
+  ['Insurance', 'card', 'soft', 77, 84],
+  ['Medications', 'pill', 'out', 46, 92],
+  ['Allergies', 'alert', 'alert sm', 19, 79],
+  ['Health history', 'clip', 'fill', 11, 48],
+  ['Family history', 'family', 'out sm', 22, 20],
+  [spec().name, spec().icon, 'soft sm', 75, 63]
+];
+// Monoline "intake" wordmark: x-height 22–60, ascenders from y≈4, 9-unit round strokes.
+function splashHTML() {
+  return `<div class="splash" data-splash="1">
+    <svg class="wordmark" viewBox="-6 -6 222 72" role="img" aria-label="intake">
+      <g fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
+        <path class="wm-i" pathLength="1" d="M5 60V26"/>
+        <circle class="wm-dot" cx="5" cy="8" r="5.5" fill="currentColor" stroke="none"/>
+        <path class="wm-n" pathLength="1" d="M20 60V34C20 26 25 22 32 22C39 22 44 26 44 34V60"/>
+        <g class="wm-l" style="--i:0"><path d="M66 8V50C66 57 70 60 76 60"/><path d="M58 24H76"/></g>
+        <g class="wm-l" style="--i:1"><circle cx="102" cy="42" r="18"/><path d="M120 24V60"/></g>
+        <g class="wm-l" style="--i:2"><path d="M136 4V60M158 25L138 45M145 39L160 60"/></g>
+        <path class="wm-l" style="--i:3" d="M172 42H208A18 18 0 1 0 202 55"/>
+      </g>
+    </svg>
+  </div>`;
+}
+let splashT;
+function leaveSplash() {
+  if (!current || current.id !== 'splash' || S.leavingSplash) return;
+  S.leavingSplash = true; clearTimeout(splashT);
+  const w = stage.querySelector('.screen:not(.out) .wordmark'); if (w) w.classList.add('leaving');
+  setTimeout(() => { S.leavingSplash = false; S.quiet = true; go('intro', 1); }, 220);
+}
+
+// Patient avatar for the profile center. Photo: Unsplash (Unsplash License), embedded so it loads in the artifact.
+const AVATAR = `<img class="avatar" alt="" width="240" height="240" src="data:image/jpeg;base64,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">`;
+function introHTML() {
+  return `<div class="intro">
+    <div class="kicker rise">Introducing your health profile</div>
+    <h1 class="h1 rise" style="--i:1">Everything your care team <em>needs to know</em></h1>
+    <div class="orbit" aria-label="Sections in your health profile: ${PROFILE().map(n => esc(n[0])).join(', ')}" role="img">
+      <div class="ring r3"></div><div class="ring r2"></div><div class="glow"></div><div class="ring r1"></div>
+      <div class="core">${AVATAR}</div>
+      ${PROFILE().map(([l, ic, v, x, y], i) => `<div class="node ${v}" style="left:${x}%;top:${y}%"><div class="node-in" style="--i:${i};--dx:${50 - x};--dy:${50 - y};--fd:${(4.2 + (i % 4) * 0.6).toFixed(1)}s"><div class="dot">${sv(IC[ic], v.includes('sm') ? 18 : 21, 1.8)}</div><span>${esc(l)}</span></div></div>`).join('')}
+    </div>  </div>`;
+}
+function welcomeHTML() {
+  return `<div class="brand-mark rise" style="margin:6px 0 34px"><span class="brand-dot">${sv(IC.plus, 14, 3).replace('currentColor', '#fff')}</span>Harbor Health</div>
+    <h1 class="h-xl rise" style="--i:1">Skip the clipboard. <em>Check in from here.</em></h1>
+    <p class="sub rise" style="--i:2">Answer a few questions before your visit. Your care team sees everything before you arrive.</p>
+    <div class="appt rise" style="--i:3"><span class="k">Upcoming visit</span><span class="v">Thu, Nov 5 · 9:30 AM</span><span class="m">Dr. Rivera · Harbor Health, Suite 210</span></div>
+    <ul class="trust">
+      <li class="rise" style="--i:4">${sv(IC.clock, 22)}<span>About ${minutes()} minutes<small>Most questions are one tap.</small></span></li>
+      <li class="rise" style="--i:5">${sv(IC.save, 22)}<span>Saves as you go<small>Stop anytime and pick up where you left off.</small></span></li>
+      <li class="rise" style="--i:6">${sv(IC.lock, 22)}<span>Private and encrypted<small>Shared only with your care team.</small></span></li>
+    </ul>`;
+}
+function specialtyHTML() {
+  return `<h1 class="h1 rise">What kind of <em>visit</em> is this?</h1>
+    <p class="sub rise" style="--i:1">Your clinic's link usually sets this for you. Pick one to preview its questions.</p>
+    <div class="tiles">${SPECS.map((s, i) => `<button type="button" class="tile rise${A.spec === s.id ? ' on' : ''}" style="--i:${i + 2}" data-spec="${s.id}" aria-pressed="${A.spec === s.id}"><span class="ic">${sv(IC[s.icon], 22)}</span><span><b>${esc(s.name)}</b><span>${esc(s.blurb)}</span></span></button>`).join('')}</div>`;
+}
+function overviewHTML() {
+  const sp = spec(), secs = sections();
+  return `<h1 class="h1 rise">Here's <em>what we'll ask</em></h1>
+    <p class="sub rise" style="--i:1">Based on your visit type, a few short sections. Skip logic hides anything that doesn't apply.</p>
+    <div class="hero-card rise" style="--i:2">
+      <span class="badge">${sv(IC[sp.icon], 16, 2)}${esc(sp.name)}</span>
+      <h3>${esc(sp.name)} intake</h3>
+      <ul class="plan-list">${secs.map(s => {
+        const n = s.live.length, m = s.screens.filter(q => !q.when || q.when(A) || q.when === hasIns).length;
+        return `<li><span>${esc(s.title)}</span><span>${m > n ? `up to ${m} steps` : `${n} ${n === 1 ? 'step' : 'steps'}`}</span></li>`;
+      }).join('')}<li><span>Review and sign</span><span>2 steps</span></li></ul>
+      <div class="plan-foot">About ${minutes()} minutes</div>
+    </div>
+    <p class="fine rise" style="--i:3"><b>Optional questions can be skipped.</b> You can review and edit every answer before you sign.</p>`;
+}
+
+function summarize(q) {
+  const v = k => A[k];
+  switch (q.type) {
+    case 'fields': return q.fields.filter(f => !f.showIf || f.showIf(A)).map(f => {
+      const x = v(f.k);
+      if (f.type === 'toggle') return x ? f.label : '';
+      if (f.type === 'stepper') return `${f.label}: ${+x || 0}`;
+      if (f.type === 'ssn' && x) return '•••-••-' + digits(x).slice(-4);
+      return x ? String(x) : '';
+    }).filter(Boolean).join(' · ');
+    case 'choice': return v(q.k) || '';
+    case 'multi': return (v(q.k) || []).join(', ');
+    case 'scale': return v(q.k) === undefined ? '' : `${v(q.k)} of 10`;
+    case 'list': return (v(q.k) || []).length ? v(q.k).join(', ') : (A[q.k + '_none'] ? 'None' : '');
+    case 'yesno': return [v(q.k), ...(v(q.k) === 'Yes' ? (q.followUp || []).map(f => v(f.k)) : [])].filter(Boolean).join(' · ');
+  }
+  return '';
+}
+function reviewHTML() {
+  const secs = sections();
+  return `<h1 class="h1 rise">Does everything <em>look right</em>?</h1>
+    <p class="sub rise" style="--i:1">Tap any answer to change it.</p>
+    <div class="rv">${secs.map((s, i) => {
+      const done = s.live.every(screenValid);
+      return `<section class="rv-card rise" style="--i:${i + 2}"><div class="rv-head"><b>${esc(s.title)}</b>${done ? `<span>${sv(IC.check, 14, 2.6)}Complete</span>` : '<span style="color:var(--brand)">Needs answers</span>'}</div>
+      ${s.live.filter(q => !q.noReview).map(q => { const sm = summarize(q); return `<button type="button" class="rv-row" data-edit="${s.id}.${q.id}"><span><span class="l">${esc(q.label || q.id)}</span><span class="v${sm ? '' : ' empty'}" style="display:block">${esc(sm || (screenValid(q) ? 'Skipped' : 'Not answered'))}</span></span>${sv(IC.chevR, 18, 2)}</button>`; }).join('')}</section>`;
+    }).join('')}</div>`;
+}
+
+const CONSENTS = () => {
+  const list = [
+    ['privacy', 'Notice of privacy practices', 'I can review how Harbor Health uses and protects my health information.'],
+    ['treat', 'Consent to evaluate and treat', 'I agree to examination and treatment by Harbor Health providers.'],
+    ['financial', 'Financial responsibility', 'I assign my insurance benefits to Harbor Health and understand I owe anything my plan does not cover.']
+  ].concat(spec().consent || []);
+  if (!self()) list.push(['rep', "Authorized to sign", "I'm the patient's parent, legal guardian or authorized representative."]);
+  return list;
+};
+let sigData = null;
+function signHTML() {
+  const name = [A.first, A.last].filter(Boolean).join(' ');
+  const signer = self() ? name : [A.g_first, A.g_last].filter(Boolean).join(' ') || 'Parent or guardian';
+  const c = A.consent || {};
+  return `<h1 class="h1 rise">Last step: <em>review and sign</em></h1>
+    <p class="sub rise" style="--i:1">Tap each item to agree.</p>
+    <div class="consents">${CONSENTS().map(([k, t, d], i) => `<div class="consent rise${c[k] ? ' on' : ''}" style="--i:${i + 2}"><button type="button" class="consent-top" data-consent="${k}" role="checkbox" aria-checked="${!!c[k]}"><span class="box">${sv(IC.check, 14, 3).replace('currentColor', '#fff')}</span><span><b>${esc(t)}</b><span>${esc(d)}</span></span></button></div>`).join('')}</div>
+    <div class="sig-label rise" style="--i:6"><span>Sign with your finger</span><button type="button" data-clearsig="1">Clear</button></div>
+    <div class="sig rise${sigData ? ' has' : ''}" style="--i:6" id="sig"><canvas id="sigCanvas" aria-label="Signature pad"></canvas><div class="ph">${esc(signer || 'Your signature')}</div></div>
+    <div class="sig-meta"><span>${esc(signer)}</span><span>${new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span></div>`;
+}
+// Check-in code staff scan at the front desk. Derived from the patient's name and birthday so it stays the same on every visit.
+function checkinCode() {
+  const s = `${A.first || ''}${A.last || ''}${A.dob || ''}`.toLowerCase();
+  let h = 7; for (const c of s) h = (h * 31 + c.charCodeAt(0)) % 100000;
+  return 'HH-' + String(h).padStart(5, '0');
+}
+// The QR encodes a check-in link (example.com domain: prototype only). Falls back to the typed code if the QR library didn't load.
+function qrSVG(text) {
+  if (!window.qrcode) return `<span class="qr-fallback">${esc(text.split('/').pop())}</span>`;
+  const q = window.qrcode(0, 'M'); q.addData(text); q.make();
+  const n = q.getModuleCount(); let d = '';
+  for (let r = 0; r < n; r++) for (let c = 0; c < n; c++) if (q.isDark(r, c)) d += `M${c},${r}h1v1h-1z`;
+  return `<svg viewBox="-3 -3 ${n + 6} ${n + 6}" shape-rendering="crispEdges" role="img" aria-label="Check-in QR code"><rect x="-3" y="-3" width="${n + 6}" height="${n + 6}" fill="#fff"/><path d="${d}" fill="#0F2526"/></svg>`;
+}
+function doneHTML() {
+  const name = [A.first, A.last].filter(Boolean).join(' ') || 'Patient';
+  const code = checkinCode();
+  return `<div class="done">
+    <h1 class="h-xl rise" style="--i:1">You're all set${A.first ? ', ' + esc(self() ? A.first : (A.g_first || A.first)) : ''}.</h1>
+    <p class="sub rise" style="--i:2">Show this code at the front desk. Staff scan it to pull your intake straight into your chart.</p>
+    <div class="qr-card rise" style="--i:3">
+      <div class="qr-box">${qrSVG(`https://intake.example.com/checkin/${code}`)}</div>
+      <div class="qr-meta"><span class="k">Check-in pass</span><b>${esc(name)}</b><span>${esc(A.dob || '')}${A.dob ? ' · ' : ''}${esc(spec().name)}</span><span class="qr-code">${code}</span></div>
+      <p class="qr-hint">${sv(IC.sun, 16, 2)}Turn brightness up for a quick scan.</p>
+    </div>
+    <div class="appt rise" style="--i:4"><span class="k">See you soon</span><span class="v">Thu, Nov 5 · 9:30 AM</span><span class="m">Dr. Rivera · Harbor Health, Suite 210</span></div>
+    <p class="fine rise" style="--i:5">We sent a copy to ${esc(A.email || 'your email')}. Next visit, you'll only confirm what changed.</p></div>`;
+}
+
+/* ================= Chrome ================= */
+const $ = id => document.getElementById(id);
+const stage = $('stage'), cta = $('cta'), cta2 = $('cta2');
+let current = null, lock = false;
+
+function updateChrome(p) {
+  const isQ = !!p.q, post = p.id === 'review' || p.id === 'sign';
+  $('app').dataset.page = p.id;
+  $('backBtn').setAttribute('aria-hidden', p.id === 'intro' || p.id === 'splash' || p.id === 'done' ? 'true' : 'false');
+  $('closeBtn').setAttribute('aria-hidden', p.id === 'done' || p.id === 'intro' || p.id === 'splash' ? 'true' : 'false');
+  $('secTitle').textContent = isQ ? p.sec.title : post ? (p.id === 'review' ? 'Review' : 'Sign') : p.id === 'done' ? 'Done' : p.id === 'intro' || p.id === 'splash' ? '' : p.id === 'welcome' ? 'Check-in' : 'Intake';
+  $('secBtn').disabled = !(isQ || post);
+  $('nav').classList.toggle('ruled', isQ || post);
+
+  const secs = sections(), prog = $('progress');
+  prog.dataset.off = String(!(isQ || post));
+  if (prog.children.length !== secs.length) prog.innerHTML = secs.map(() => '<span class="seg-bar"><i></i></span>').join('');
+  [...prog.children].forEach((b, i) => {
+    let f = 0;
+    if (post) f = 1; else if (isQ) f = i < p.si ? 1 : i === p.si ? Math.max(0.08, p.qi / p.sec.live.length) : 0;
+    b.firstChild.style.transform = `scaleX(${f})`;
+  });
+  updateCTA(p);
+}
+function updateCTA(p = current) {
+  cta2.hidden = true; cta.hidden = false;
+  if (p.id === 'splash') { cta.disabled = true; return; }
+  if (p.id === 'intro') { cta.textContent = 'Get started'; cta.disabled = false; cta2.hidden = false; cta2.textContent = 'Skip'; return; }
+  if (p.id === 'welcome') { cta.textContent = A.spec && S.started ? 'Continue' : 'Get started'; cta.disabled = false; return; }
+  if (p.id === 'specialty') { cta.textContent = 'Continue'; cta.disabled = !A.spec; return; }
+  if (p.id === 'overview') { cta.textContent = 'Start'; cta.disabled = false; return; }
+  if (p.id === 'review') { const ok = sections().every(s => s.live.every(screenValid)); cta.textContent = ok ? 'Looks good' : 'Finish missing answers'; cta.disabled = false; return; }
+  if (p.id === 'sign') { const ok = CONSENTS().every(([k]) => (A.consent || {})[k]) && !!sigData; cta.textContent = 'Submit intake'; cta.disabled = !ok; return; }
+  if (p.id === 'done') { cta.textContent = 'Start a new intake'; cta.disabled = false; return; }
+  const q = p.q;
+  cta.textContent = S.returnTo ? 'Save' : 'Continue';
+  cta.disabled = !screenValid(q);
+  if (allOptional(q) && !anyFilled(q)) cta.textContent = S.returnTo ? 'Save' : 'Skip for now';
+  if (q.type === 'scan') { cta2.hidden = false; cta2.textContent = 'Enter details by hand'; }
+  if (q.type === 'multi' && q.optional && !(A[q.k] || []).length) cta.textContent = 'Skip';
+}
+
+function go(id, dir = 1) {
+  const prev = current;
+  const p = findPage(id);
+  S.page = p.id; save();
+  current = p;
+  stage.style.setProperty('--dir', dir);
+  const el = document.createElement('div');
+  el.className = 'screen pre';
+  el.innerHTML = pageHTML(p);
+  if (prev) {
+    const old = stage.querySelector('.screen:not(.out)');
+    if (old) { old.classList.add('out'); setTimeout(() => old.remove(), 220); }
+  }
+  stage.appendChild(el);
+  requestAnimationFrame(() => requestAnimationFrame(() => el.classList.remove('pre')));
+  updateChrome(p);
+  afterRender(p, el);
+  if (prev && prev.sec && dir === 1 && (!p.sec || p.sec.id !== prev.sec.id) && !S.quiet) toast(`${prev.sec.title} saved`);
+  S.quiet = false;
+}
+function pageHTML(p) {
+  if (p.q) return qHTML(p);
+  return { splash: splashHTML, intro: introHTML, welcome: welcomeHTML, specialty: specialtyHTML, overview: overviewHTML, review: reviewHTML, sign: signHTML, done: doneHTML }[p.id]();
+}
+function next() {
+  if (S.returnTo) { const r = S.returnTo; S.returnTo = null; S.quiet = true; return go(r, -1); }
+  const ps = pages(), i = ps.findIndex(x => x.id === current.id);
+  if (i < ps.length - 1) go(ps[i + 1].id, 1);
+}
+function back() {
+  if (S.returnTo) { const r = S.returnTo; S.returnTo = null; return go(r, -1); }
+  const ps = pages(), i = ps.findIndex(x => x.id === current.id);
+  if (i > 0) go(ps[i - 1].id, -1);
+}
+function afterRender(p, el) {
+  if (p.id === 'sign') initSig(el);
+  initWheels(el);
+  clearTimeout(splashT);
+  if (p.id === 'splash') splashT = setTimeout(leaveSplash, matchMedia('(prefers-reduced-motion: reduce)').matches ? 1200 : 2500);
+  const first = el.querySelector('input[data-k]:not([type=range])');
+  if (first && !first.value && matchMedia('(hover: hover) and (pointer: fine)').matches) setTimeout(() => first.focus({ preventScroll: true }), 300);
+}
+
+/* ================= Interaction ================= */
+function refresh() {
+  const el = stage.querySelector('.screen:not(.out)');
+  if (!el || !current.q) { updateCTA(); return; }
+  const q = current.q;
+  const flds = q.type === 'fields' ? q.fields : q.followUp || [];
+  flds.forEach(f => {
+    const w = el.querySelector(`[data-f="${f.k}"]`); if (!w) return;
+    const vis = !f.showIf || f.showIf(A);
+    if (vis && w.hidden) { w.hidden = false; w.classList.add('reveal'); } else if (!vis) w.hidden = true;
+    const h = el.querySelector(`[data-hint="${f.k}"]`); if (h && f.hint) h.textContent = f.hint();
+  });
+  updateCTA();
+}
+function setErr(input) {
+  const q = current.q; if (!q) return;
+  const f = (q.fields || q.followUp || []).find(x => x.k === input.dataset.k); if (!f) return;
+  const box = stage.querySelector(`[data-err="${f.k}"]`);
+  const bad = String(A[f.k] ?? '').trim() !== '' && !fieldValid(f);
+  input.parentElement.classList.toggle('err', bad);
+  if (box) { box.hidden = !bad; box.textContent = bad ? fieldError(f) : ''; }
+}
+
+stage.addEventListener('input', e => {
+  const t = e.target;
+  if (t.dataset.k) {
+    const type = t.dataset.type;
+    if (type && type !== 'text' && type !== 'email') { const m = mask(type, t.value); if (m !== t.value) t.value = m; }
+    A[t.dataset.k] = t.value;
+    if (t.dataset.k === 'zip' && ZIPS[t.value]) {
+      const [c, s] = ZIPS[t.value];
+      ['city', 'state'].forEach((k, i) => { const inp = $('f-' + k); if (inp && !inp.value) { inp.value = A[k] = i ? s : c; } });
+    }
+    if (t.parentElement.classList.contains('err')) setErr(t);
+    save(); refresh();
+  } else if (t.dataset.scale) {
+    const v = +t.value; A[t.dataset.scale] = v; t.style.setProperty('--p', v * 10 + '%');
+    $('scaleNum').textContent = v; $('scaleWord').textContent = scaleWord(v, current.q);
+    save(); updateCTA();
+  } else if (t.dataset.addinp) {
+    t.form.querySelector('.add-btn').disabled = !t.value.trim();
+  }
+});
+stage.addEventListener('focusout', e => { if (e.target.dataset && e.target.dataset.k) setErr(e.target); });
+stage.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && e.target.matches('input[data-k]')) {
+    e.preventDefault();
+    const ins = [...stage.querySelectorAll('.screen:not(.out) input[data-k]')].filter(x => !x.closest('[hidden]'));
+    const i = ins.indexOf(e.target);
+    if (i < ins.length - 1) ins[i + 1].focus(); else if (!cta.disabled) next(); else e.target.blur();
+  }
+});
+stage.addEventListener('submit', e => {
+  e.preventDefault();
+  const f = e.target, k = f.dataset.addform, inp = f.querySelector('input'), v = inp.value.trim();
+  if (!v) return;
+  addItem(k, v); inp.value = ''; f.querySelector('.add-btn').disabled = true; inp.focus();
+});
+function addItem(k, v) {
+  A[k] = (A[k] || []).concat(v); A[k + '_none'] = false; save();
+  rerenderBody();
+}
+function rerenderBody() {
+  const el = stage.querySelector('.screen:not(.out)');
+  const y = el.scrollTop; el.innerHTML = pageHTML(current); el.scrollTop = y;
+  el.querySelectorAll('.rise').forEach(x => x.style.animation = 'none');
+  updateCTA();
+}
+
+stage.addEventListener('click', e => {
+  if (e.target.closest('[data-splash]')) return leaveSplash();
+  const b = e.target.closest('button'); if (!b) return;
+  const d = b.dataset;
+  if (d.choice) {
+    if (lock) return;
+    A[d.choice] = d.v; save();
+    b.parentElement.querySelectorAll('.opt-row').forEach(x => { const on = x === b; x.classList.toggle('on', on); x.setAttribute('aria-checked', on); });
+    updateCTA(); lock = true;
+    setTimeout(() => { lock = false; next(); }, 260);
+  } else if (d.yn) {
+    A[d.yn] = d.v; save();
+    b.parentElement.querySelectorAll('.opt-row').forEach(x => { const on = x === b; x.classList.toggle('on', on); x.setAttribute('aria-checked', on); });
+    const fu = $('followup');
+    if (fu) { fu.classList.toggle('open', d.v === 'Yes'); updateCTA(); if (d.v === 'Yes') setTimeout(() => { const i = fu.querySelector('input'); if (i && matchMedia('(hover: hover)').matches) i.focus({ preventScroll: true }); }, 280); }
+    if (!fu || d.v === 'No') { updateCTA(); if (lock) return; lock = true; setTimeout(() => { lock = false; next(); }, 260); }
+  } else if (d.multi) {
+    const q = current.q; let sel = A[d.multi] || [];
+    if (d.none) sel = sel.includes(d.v) ? [] : [d.v];
+    else { sel = sel.filter(x => x !== q.none); sel = sel.includes(d.v) ? sel.filter(x => x !== d.v) : sel.concat(d.v); }
+    A[d.multi] = sel; save();
+    b.parentElement.querySelectorAll('.chip').forEach(x => { const on = sel.includes(x.dataset.v); x.classList.toggle('on', on); x.setAttribute('aria-pressed', on); });
+    updateCTA();
+    if (d.none && sel.length) { if (lock) return; lock = true; setTimeout(() => { lock = false; next(); }, 280); }
+  } else if (d.seg) {
+    A[d.seg] = d.v; save();
+    b.parentElement.querySelectorAll('.pill').forEach(x => { const on = x === b; x.classList.toggle('on', on); x.setAttribute('aria-checked', on); });
+    refresh();
+  } else if (d.toggle) {
+    A[d.toggle] = !A[d.toggle]; b.setAttribute('aria-checked', A[d.toggle]); save();
+  } else if (d.step) {
+    A[d.step] = Math.max(0, Math.min(20, (+A[d.step] || 0) + +d.d)); $('out-' + d.step).textContent = A[d.step]; save();
+  } else if (d.spec) {
+    if (lock) return;
+    if (A.spec !== d.spec) { A.spec = d.spec; $('progress').innerHTML = ''; }
+    save(); syncPanel();
+    stage.querySelectorAll('.tile').forEach(x => { const on = x === b; x.classList.toggle('on', on); x.setAttribute('aria-pressed', on); });
+    updateCTA(); lock = true;
+    setTimeout(() => { lock = false; next(); }, 260);
+  } else if (d.suggest) {
+    addItem(d.suggest, d.v);
+  } else if (d.remove !== undefined) {
+    const k = current.q.k; A[k] = (A[k] || []).filter((_, i) => i !== +d.remove); save(); rerenderBody();
+  } else if (d.listnone) {
+    const k = d.listnone; A[k + '_none'] = !A[k + '_none']; if (A[k + '_none']) A[k] = []; save(); rerenderBody();
+    if (A[k + '_none']) { lock = true; setTimeout(() => { lock = false; next(); }, 280); }
+  } else if (d.scan) {
+    scan(d.scan, b);
+  } else if (d.edit) {
+    S.returnTo = 'review'; go(d.edit, 1);
+  } else if (d.consent) {
+    A.consent = A.consent || {}; A.consent[d.consent] = !A.consent[d.consent]; save();
+    b.parentElement.classList.toggle('on', A.consent[d.consent]); b.setAttribute('aria-checked', A.consent[d.consent]);
+    updateCTA();
+  } else if (d.clearsig) {
+    sigData = null; const c = $('sigCanvas'); c.getContext('2d').clearRect(0, 0, c.width, c.height); $('sig').classList.remove('has'); updateCTA();
+  }
+});
+
+function scan(side, btn) {
+  if (btn.disabled) return;
+  if (btn.dataset.retake) { delete A['ins_' + side]; if (side === 'front') { delete A.ins_back; A.ins_scanned = false; } save(); rerenderBody(); return; }
+  btn.classList.add('scanning');
+  btn.querySelector('.slot-inner span:last-child').textContent = 'Reading card…';
+  setTimeout(() => {
+    A['ins_' + side] = true;
+    if (side === 'front') {
+      const sp = spec();
+      Object.assign(A, { ins_scanned: true, ins_plan: sp.id === 'dental' ? 'Brightsmile Dental PPO' : sp.id === 'eye' ? 'Clearview Vision Plus' : 'Bluewave Health PPO', ins_member: 'BWX 4821 7730', ins_group: '88120', ins_phone: '(800) 555-0142' });
+      toast('Plan details filled in');
+    }
+    save(); rerenderBody();
+  }, 1200);
+}
+
+cta.addEventListener('click', () => {
+  if (cta.disabled) return;
+  const p = current;
+  if (p.id === 'intro') {
+    // pull the sections back into the profile, then move on
+    const o = stage.querySelector('.orbit');
+    if (!o || lock || matchMedia('(prefers-reduced-motion: reduce)').matches) return lock || go('welcome');
+    lock = true; o.classList.add('leaving');
+    return setTimeout(() => { lock = false; go('welcome'); }, 240);
+  }
+  if (p.id === 'welcome') { S.started = true; return go(A.spec ? 'overview' : 'specialty'); }
+  if (p.id === 'review') {
+    const miss = pages().find(x => x.q && !screenValid(x.q));
+    if (miss) { S.returnTo = 'review'; return go(miss.id, 1); }
+    return next();
+  }
+  if (p.id === 'done') { A = {}; sigData = null; save(); $('progress').innerHTML = ''; syncPanel(); return go('intro', -1); }
+  next();
+});
+cta2.addEventListener('click', () => {
+  if (current.id === 'intro') { S.started = true; return go(A.spec ? 'overview' : 'specialty'); }
+  if (current.q && current.q.type === 'scan') { A.ins_scanned = false; next(); }
+});
+$('backBtn').addEventListener('click', back);
+$('secBtn').addEventListener('click', sectionsSheet);
+$('closeBtn').addEventListener('click', exitSheet);
+
+/* ================= Signature ================= */
+function initSig(el) {
+  const c = el.querySelector('#sigCanvas'), wrap = el.querySelector('#sig');
+  const fit = () => {
+    const r = c.getBoundingClientRect(); if (!r.width) return;
+    const dpr = window.devicePixelRatio || 1;
+    c.width = r.width * dpr; c.height = r.height * dpr;
+    const ctx = c.getContext('2d'); ctx.scale(dpr, dpr);
+    ctx.lineCap = 'round'; ctx.lineJoin = 'round'; ctx.lineWidth = 2.4;
+    ctx.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue('--ink').trim() || '#0F2526';
+    if (sigData) { const img = new Image(); img.onload = () => ctx.drawImage(img, 0, 0, r.width, r.height); img.src = sigData; }
+  };
+  setTimeout(fit, 30);
+  let drawing = false, pid = null, pts = [];
+  const pos = e => { const r = c.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top]; };
+  c.addEventListener('pointerdown', e => {
+    if (drawing) return; // ignore extra fingers
+    drawing = true; pid = e.pointerId; c.setPointerCapture(pid); pts = [pos(e)];
+    const ctx = c.getContext('2d'); ctx.beginPath(); ctx.moveTo(...pts[0]);
+    wrap.classList.add('has');
+  });
+  c.addEventListener('pointermove', e => {
+    if (!drawing || e.pointerId !== pid) return;
+    const p = pos(e); pts.push(p);
+    const ctx = c.getContext('2d');
+    if (pts.length > 2) { const a = pts[pts.length - 2]; const m = [(a[0] + p[0]) / 2, (a[1] + p[1]) / 2]; ctx.quadraticCurveTo(a[0], a[1], m[0], m[1]); ctx.stroke(); ctx.beginPath(); ctx.moveTo(...m); }
+  });
+  const end = e => { if (!drawing || e.pointerId !== pid) return; drawing = false; if (pts.length > 1) { sigData = c.toDataURL(); updateCTA(); } };
+  c.addEventListener('pointerup', end); c.addEventListener('pointercancel', end);
+}
+
+/* ================= Toast & sheets ================= */
+let toastT;
+function toast(msg) {
+  const t = $('toast'); $('toastText').textContent = msg;
+  t.classList.add('show'); clearTimeout(toastT);
+  toastT = setTimeout(() => t.classList.remove('show'), 2000);
+}
+function openSheet(html, bind) {
+  const app = $('app');
+  const scrim = document.createElement('div'); scrim.className = 'scrim';
+  const sh = document.createElement('div'); sh.className = 'sheet'; sh.setAttribute('role', 'dialog'); sh.setAttribute('aria-modal', 'true');
+  sh.innerHTML = `<div class="grab" aria-hidden="true"><i></i></div>${html}`;
+  app.append(scrim, sh);
+  requestAnimationFrame(() => requestAnimationFrame(() => { scrim.classList.add('show'); sh.classList.add('show'); }));
+  const close = () => {
+    sh.classList.add('closing'); sh.style.transform = 'translateY(100%)'; scrim.classList.remove('show');
+    setTimeout(() => { sh.remove(); scrim.remove(); }, 260);
+    document.removeEventListener('keydown', onKey);
+  };
+  const onKey = e => { if (e.key === 'Escape') close(); };
+  document.addEventListener('keydown', onKey);
+  scrim.addEventListener('click', close);
+  // drag to dismiss: distance or a quick flick
+  const grab = sh.querySelector('.grab'); let y0 = null, t0 = 0, dy = 0, pid = null;
+  grab.addEventListener('pointerdown', e => { if (y0 !== null) return; y0 = e.clientY; t0 = Date.now(); pid = e.pointerId; grab.setPointerCapture(pid); sh.style.transition = 'none'; });
+  grab.addEventListener('pointermove', e => { if (y0 === null || e.pointerId !== pid) return; dy = e.clientY - y0; const t = dy < 0 ? -Math.pow(-dy, 0.6) : dy; sh.style.transform = `translateY(${t}px)`; });
+  const up = e => {
+    if (y0 === null || e.pointerId !== pid) return;
+    const v = Math.abs(dy) / Math.max(1, Date.now() - t0);
+    sh.style.transition = '';
+    if (dy > 90 || (dy > 10 && v > 0.11)) close(); else sh.style.transform = '';
+    y0 = null; dy = 0;
+  };
+  grab.addEventListener('pointerup', up); grab.addEventListener('pointercancel', up);
+  bind && bind(sh, close);
+  return close;
+}
+function sectionsSheet() {
+  if ($('secBtn').disabled) return;
+  const secs = sections(), curSec = current.sec ? current.sec.id : null;
+  const html = `<h4>Sections</h4><p>Jump to any section. Your answers are saved.</p><ul class="sec-list">${secs.map((s, i) => {
+    const done = s.live.every(screenValid), cur = s.id === curSec;
+    return `<li><button type="button" data-jump="${s.id}"><span class="st${done ? ' done' : cur ? ' cur' : ''}">${done ? sv(IC.check, 13, 3) : i + 1}</span>${esc(s.title)}<span class="meta">${s.live.filter(screenValid).length}/${s.live.length}</span></button></li>`;
+  }).join('')}<li><button type="button" data-jump="review"><span class="st">${sv(IC.pen, 13, 2)}</span>Review and sign</button></li></ul>`;
+  openSheet(html, (sh, close) => sh.addEventListener('click', e => {
+    const b = e.target.closest('[data-jump]'); if (!b) return;
+    close(); S.returnTo = null;
+    if (b.dataset.jump === 'review') return go('review', 1);
+    const s = sections().find(x => x.id === b.dataset.jump);
+    const q = s.live.find(x => !screenValid(x)) || s.live[0];
+    S.quiet = true; go(s.id + '.' + q.id, 1);
+  }));
+}
+function exitSheet() {
+  openSheet(`<h4>Finish later?</h4><p>Your answers are saved on this device. Open your clinic's link again to pick up right here.</p><div class="sheet-actions"><button type="button" class="cta" data-a="stay">Keep going</button><button type="button" class="link-btn" data-a="leave">Save and exit</button></div>`,
+    (sh, close) => sh.addEventListener('click', e => {
+      const a = e.target.closest('[data-a]'); if (!a) return; close();
+      if (a.dataset.a === 'leave') { S.quiet = true; go('welcome', -1); toast('Progress saved'); }
+    }));
+}
+
+/* ================= Prototype panel ================= */
+const SAMPLE = { first: 'Alex', last: 'Morgan', mi: 'J', dob: '04/12/1991', sex: 'Female', marital: 'Married', employer: 'Lumen Studio', occupation: 'Designer', student: 'No',
+  street: '1450 Valencia St', apt: '3B', zip: '94110', city: 'San Francisco', state: 'CA', mobile: '(415) 555-0187', contact: 'Text', email: 'alex.morgan@example.com',
+  ec_name: 'Jordan Morgan', ec_rel: 'Spouse or partner', ec_phone: '(415) 555-0123', ins_has: 'Yes', ins_rel: 'Self', ins_sec: 'No', ins_plan: 'Bluewave Health PPO', ins_member: 'BWX 4821 7730', ins_group: '88120',
+  g_first: 'Sam', g_last: 'Morgan', g_rel: 'Mother', g_phone: '(415) 555-0144', g_res: 'With both parents', pc_detail: 'Sore throat and a cough for about five days.', ac_detail: 'Lower back tension that gets worse after long days at a desk.', who: 'Myself' };
+// target: open that page quietly instead of Review (used by #sample/<specialty>/<page> deep links).
+function fillSample(target) {
+  A.spec = A.spec || 'primary';
+  Object.assign(A, SAMPLE);
+  if (A.spec === 'peds') Object.assign(A, { who: 'My child', first: 'Riley', dob: '06/03/2017', ec_rel: 'Parent' });
+  A.meds = ['Multivitamin']; A.conditions = ['None of these']; A.allergies = ['Penicillin'];
+  sections().forEach(s => s.screens.forEach(q => {
+    if (q.when && !q.when(A)) return;
+    if (q.type === 'choice' && !A[q.k]) A[q.k] = q.options[0];
+    if (q.type === 'multi' && !(A[q.k] || []).length) A[q.k] = [q.options[1] || q.options[0]];
+    if (q.type === 'scale' && A[q.k] === undefined) A[q.k] = 4;
+    if (q.type === 'yesno' && !A[q.k]) A[q.k] = 'No';
+    if (q.type === 'fields') q.fields.forEach(f => { if (A[f.k] === undefined && f.type === 'seg' && !f.optional) A[f.k] = f.options[0]; if (A[f.k] === undefined && !f.optional && !f.type) A[f.k] = 'Dr. Patel'; if (f.type === 'textarea' && !A[f.k]) A[f.k] = 'Started a few weeks ago and comes and goes.'; });
+  }));
+  A.ins_front = true; A.ins_scanned = true;
+  save(); $('progress').innerHTML = ''; S.quiet = true;
+  if (typeof target === 'string') { go(target, 1); return; }
+  go('review', 1); toast('Sample answers filled');
+}
+function syncPanel() {
+  $('specSwitch').querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.s === A.spec)));
+}
+$('specSwitch').innerHTML = SPECS.map(s => `<button type="button" data-s="${s.id}" aria-pressed="${A.spec === s.id}">${esc(s.name)}</button>`).join('');
+$('specSwitch').addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return;
+  A.spec = b.dataset.s; save(); syncPanel(); $('progress').innerHTML = ''; S.returnTo = null;
+  const s = sections().find(x => x.id === 'visit'); S.quiet = true; go('visit.' + s.live[0].id, 1);
+});
+const JUMPS = [['Splash', 'splash'], ['Intro', 'intro'], ['Welcome', 'welcome'], ['Visit type', 'specialty'], ['About you', 'about'], ['Insurance', 'insurance'], ['Health history', 'health'], ['Visit questions', 'visit'], ['Review', 'review'], ['Sign', 'sign']];
+$('jumpTo').innerHTML = JUMPS.map(([l, id]) => `<button type="button" data-j="${id}">${l}</button>`).join('');
+$('jumpTo').addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return; S.returnTo = null; S.quiet = true;
+  const id = b.dataset.j, s = sections().find(x => x.id === id);
+  go(s ? s.id + '.' + s.live[0].id : id, 1);
+});
+$('fillSample').addEventListener('click', fillSample);
+$('resetAll').addEventListener('click', () => { A = {}; sigData = null; save(); $('progress').innerHTML = ''; syncPanel(); S.quiet = true; go('intro', -1); });
+
+/* boot. Hash links: #splash, #intro, #<page id>, #sample, or #sample/<specialty>/<page id> */
+const HASH = decodeURIComponent(location.hash.slice(1)).split('/');
+if (HASH[0] === 'sample' && HASH.length > 1) {
+  A = { spec: HASH[1] }; fillSample(HASH[2] || 'review');
+} else {
+  const direct = HASH[0] && HASH[0] !== 'sample' && findPage(HASH[0]).id === HASH[0] ? HASH[0] : null;
+  go(direct || (['splash', 'intro', 'done', 'sign'].includes(S.page) ? 'splash' : S.page), 1);
+  if (HASH[0] === 'sample') fillSample();
+}
+})();
+</script>
+
+</body></html>
