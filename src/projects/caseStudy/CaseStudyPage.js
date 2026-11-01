@@ -476,7 +476,11 @@ export default function CaseStudyPage({ meta, nav, blocks, custom }) {
 
           <div
             className={`cs-hero${meta.hero.bleed ? " cs-hero--bleed" : ""}`}
-            style={meta.hero.bg ? { background: meta.hero.bg } : undefined}
+            style={
+              meta.hero.bg || meta.hero.radius
+                ? { background: meta.hero.bg, borderRadius: meta.hero.radius, "--cs-radius": meta.hero.radius }
+                : undefined
+            }
           >
             {meta.hero.video ? (
               /* Optional looping clip pinned over the still, same as the home cards. */

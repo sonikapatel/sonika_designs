@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
-import SiteShell, { NavLink } from "./SiteShell";
+import SiteShell from "./SiteShell";
 import HomeaseHouse from "./projects/homease/HomeaseHouse";
 
 /* Company wordmarks live in public/images/logos, each cropped to its ink. They
@@ -402,7 +402,7 @@ export default function Home() {
   const toolsRef = useFadeIn();
 
   return (
-    <SiteShell nav={<NavLink to="/about">About</NavLink>}>
+    <SiteShell>
         {/* Intro: portrait on the left, copy on the right, kept short so the work
             starts above the fold. */}
         <section ref={introRef} className="fade-section home-intro">
