@@ -151,7 +151,7 @@ body.home-bg::before {
    on the right, left-aligned and short enough that the work starts above the fold. */
 .home-intro {
   display: grid;
-  grid-template-columns: 200px minmax(0, 1fr);
+  grid-template-columns: 264px minmax(0, 1fr);
   align-items: start;
   gap: 40px;
 }
@@ -215,7 +215,7 @@ body.home-bg::before {
   }
 
   .home-portrait {
-    width: 120px;
+    width: 160px;
   }
 
   .home-intro-title {
@@ -531,6 +531,44 @@ body.home-bg::before {
 @media (max-width: 600px) {
   .campaign-dialog-inner {
     padding: 16px;
+  }
+}
+
+/* Instagram posts in the brand dialog: two up, each at its own shape. */
+.ig-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+/* Brand guide pages are 16:9 slides, so they run one per row. */
+.ig-grid--single {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.ig-post {
+  margin: 0;
+}
+
+.ig-post img,
+.ig-post video {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  border: 1px solid #E6E2DB;
+  background: #E6E2DB;
+}
+
+.ig-post figcaption {
+  margin-top: 8px;
+  font-size: 14px;
+  color: #555;
+}
+
+@media (max-width: 600px) {
+  .ig-grid {
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 
