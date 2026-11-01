@@ -147,83 +147,83 @@ body.home-bg::before {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
-/* Past companies under the intro: real marks, greyed and muted so they read as
-   a quiet strip rather than compete with the work. */
-.logo-strip {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 32px;
-  margin: var(--space-block) 0 0;
-  padding: 0;
-  list-style: none;
-}
-
-/* Home intro: heading, lead and logo strip centred on the page. The lead keeps
-   its 36em measure and is centred as a block in Home.js (its margins are inline). */
+/* Home intro: a square portrait on the left, the heading, lead and work history
+   on the right, left-aligned and short enough that the work starts above the fold. */
 .home-intro {
-  text-align: center;
+  display: grid;
+  grid-template-columns: 200px minmax(0, 1fr);
+  align-items: start;
+  gap: 40px;
 }
 
-.home-intro .logo-strip {
-  justify-content: center;
+.home-portrait {
+  aspect-ratio: 1;
+  border: 1px solid #EBE8E4;
+  border-radius: 16px;
+  background: #2A1A1E;
+  overflow: hidden;
 }
 
-.logo-strip img {
+.home-portrait img {
   display: block;
-  filter: grayscale(1);
-  opacity: 0.5;
-  transition: opacity 0.2s ease;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-.logo-strip li:hover img {
-  opacity: 0.8;
+.home-intro-title {
+  margin: 0 0 16px;
+  font-size: 40px;
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: #111;
 }
 
-.logo-strip-copy {
-  display: none;
+.home-intro-lead {
+  margin: 0;
+  max-width: 40em;
+  font-size: 17px;
+  line-height: 1.6;
+  color: #4E4E4E;
 }
 
-/* Desktop: the strip runs as a slow, constant loop (linear, since it never starts
-   or stops), fading out at both edges. Hovering holds it so a mark can be read. */
-@media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
-  /* Held to the lead's measure (36em at 19px) and centred under it, so the loop
-     runs inside the same column as the copy above rather than edge to edge. */
-  .logo-marquee {
-    max-width: 684px;
-    overflow: hidden;
-    margin: var(--space-block) auto 0;
-    -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
-    mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
-  }
-
-  .home-intro .logo-marquee .logo-strip {
-    flex-wrap: nowrap;
-    justify-content: flex-start;
-    width: max-content;
-    gap: 0;
-    margin: 0;
-    animation: logo-scroll 60s linear infinite;
-  }
-
-  /* Spacing sits on each mark rather than in the flex gap, so both halves are
-     exactly the same width and the loop has no seam. */
-  .logo-marquee .logo-strip li {
-    padding-right: 56px;
-  }
-
-  .logo-strip-copy {
-    display: block;
-  }
-
-  .logo-marquee:hover .logo-strip {
-    animation-play-state: paused;
-  }
+.home-intro-lead strong {
+  font-weight: 500;
+  color: #2A2A2A;
 }
 
-@keyframes logo-scroll {
-  to {
-    transform: translateX(-50%);
+.home-intro-history {
+  margin-top: 12px;
+}
+
+/* Wordmarks sit in the sentence like words, at roughly text height. */
+.home-intro-logo {
+  display: inline-block;
+  width: auto;
+  margin-left: 2px;
+  vertical-align: middle;
+  position: relative;
+  top: -1px;
+}
+
+/* Phones: the portrait shrinks and sits above the copy. */
+@media (max-width: 600px) {
+  .home-intro {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+  }
+
+  .home-portrait {
+    width: 120px;
+  }
+
+  .home-intro-title {
+    font-size: 32px;
+  }
+
+  .home-intro-lead {
+    font-size: 16px;
   }
 }
 
@@ -249,65 +249,6 @@ body.home-bg::before {
    shrink to its first letters. */
 .work-head > :first-child {
   flex: 1 1 240px;
-}
-
-/* With the industry pills below, they sit close under the heading row. */
-.work-head:has(+ .work-tabs-row) {
-  margin-bottom: 0;
-}
-
-.work-tabs-row {
-  display: flex;
-  justify-content: flex-start;
-  margin-bottom: var(--grid-gutter);
-}
-
-.industry-nav {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  gap: 4px;
-}
-
-/* Same pill as the Work tabs, one size down. */
-.industry-pill {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 6px;
-  border: none;
-  background: transparent;
-  padding: 6px 14px;
-  border-radius: 20px;
-  font: inherit;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 1.5;
-  color: rgba(0, 0, 0, 0.62);
-  text-align: left;
-  white-space: nowrap;
-  cursor: pointer;
-  transition: background-color 0.15s ease, color 0.15s ease;
-}
-
-.industry-pill:hover {
-  color: #111;
-}
-
-.industry-pill[aria-pressed="true"] {
-  background: #e6e2db;
-  color: #111;
-}
-
-.industry-pill:focus-visible {
-  outline: 2px solid #111;
-  outline-offset: 2px;
-}
-
-.industry-pill-count {
-  font-size: 12px;
-  color: rgba(0, 0, 0, 0.62);
-  font-variant-numeric: tabular-nums;
 }
 
 /* Typewriter heading ("I've built"): the typed text sits over an invisible copy
@@ -396,11 +337,6 @@ body.home-bg::before {
     grid-template-columns: minmax(0, 1fr);
   }
 
-  /* Phones: the pills drop under the tabs and start from the left. */
-  .industry-nav {
-    justify-content: flex-start;
-  }
-
   .about-row {
     flex-direction: column;
     align-items: stretch;
@@ -443,20 +379,16 @@ body.home-bg::before {
 .home-card-link {
   display: block;
   text-decoration: none;
-  border-radius: 24px;
+  color: inherit;
+  border-radius: 16px;
 }
 
+/* A flat tile with a hairline edge; the clip playing on hover is the only motion. */
 .home-card-tile {
   position: relative;
-  border-radius: 24px;
+  border: 1px solid #EBE8E4;
+  border-radius: 16px;
   overflow: hidden;
-  transition: transform 0.2s ease;
-}
-
-.home-card-link:hover .home-card-tile,
-.home-card-link:focus-visible .home-card-tile,
-.home-card-tile:hover {
-  transform: translateY(-4px);
 }
 
 .home-card-image {
@@ -665,68 +597,55 @@ body.home-bg::before {
   }
 }
 
-.home-card-overlay {
-  position: absolute;
-  inset: 0;
+.home-card-caption {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-end;
-  gap: 8px;
-  /* Matches the 24px inset the value cards use. */
-  padding: 24px;
-  text-align: left;
-  /* Darkens only behind the copy, so the clip playing above it stays visible. */
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.35) 35%, rgba(0, 0, 0, 0) 65%);
-  opacity: 0;
-  transition: opacity 0.25s ease;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 16px;
+  margin-top: 12px;
 }
 
-.home-card-link:hover .home-card-overlay,
-.home-card-link:focus-visible .home-card-overlay,
-.home-card-tile:hover .home-card-overlay {
-  opacity: 1;
-}
-
-/* Touch devices never fire hover, so the copy would be unreachable there. */
-@media (hover: none) {
-  .home-card-overlay {
-    opacity: 1;
-  }
-}
-
-/* Readers who ask for less motion still get the reveal, just without the lift. */
-@media (prefers-reduced-motion: reduce) {
-  .home-card-link:hover .home-card-tile,
-  .home-card-link:focus-visible .home-card-tile,
-  .home-card-tile:hover {
-    transform: none;
-  }
-}
-
-.home-card-overlay-title {
+.home-card-description {
   margin: 0;
-  font-size: 22px;
-  font-weight: 500;
-  letter-spacing: -0.01em;
-  color: #fff;
-}
-
-.home-card-overlay-text {
-  margin: 0;
+  min-width: 0;
   font-size: 14px;
-  line-height: 1.5;
-  color: #fff;
-  max-width: 44ch;
+  font-weight: 500;
+  line-height: 1.4;
+  color: #111;
 }
 
-@media (max-width: 600px) {
-  .home-card-overlay-title {
-    font-size: 18px;
-  }
+.home-card-tags {
+  display: flex;
+  flex-shrink: 0;
+  gap: 6px;
+}
 
-  .home-card-overlay-text {
-    font-size: 13px;
+/* Small monospace labels: the project name in its brand colour, the industry in
+   muted caps. */
+.home-card-tag {
+  padding: 4px 8px;
+  border: 1px solid #E3DFD8;
+  border-radius: 5px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 11px;
+  line-height: 1.3;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #6B655D;
+  white-space: nowrap;
+}
+
+.home-card-tag--name {
+  text-transform: none;
+  letter-spacing: 0;
+  color: #333;
+}
+
+/* On phones the tags drop under the description. */
+@media (max-width: 600px) {
+  .home-card-caption {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }
 
