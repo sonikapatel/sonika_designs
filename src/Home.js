@@ -280,6 +280,24 @@ const CARDS = {
       slug: "homease",
       fullWidth: true,
     },
+    {
+      company: "intake",
+      description: "Patient intake you fill out once, not at every front desk",
+      bg: "#2C7476",
+      image: "/images/intake/intake-card.png",
+      /* The splash and health profile recorded from the iOS prototype, pinned over the
+         phone at the same rect as the Homease card (858,72 / 281×608 on 1354×556). */
+      video: {
+        src: "/images/intake/cover.mp4",
+        left: "63.37%",
+        top: "12.95%",
+        width: "20.75%",
+        height: "109.35%",
+        radius: "8.36% / 3.86%",
+      },
+      slug: "intake",
+      fullWidth: true,
+    },
   ],
   Brands: [
     {
