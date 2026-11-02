@@ -1041,6 +1041,12 @@
     margin-bottom: 64px;
   }
 
+  /* Full-bleed covers stay edge to edge on phones too, so their rounded
+     corners line up with the text column. */
+  .cs-hero--bleed {
+    padding: 0;
+  }
+
   .cs-block {
     margin-bottom: 64px;
   }
