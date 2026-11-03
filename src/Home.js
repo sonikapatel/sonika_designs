@@ -444,7 +444,7 @@ export default function Home() {
                   {group.role} at{" "}
                   {group.items.map((item, j) => (
                     <React.Fragment key={item.company}>
-                      {j > 0 && (j === group.items.length - 1 ? " and " : ", ")}
+                      {j > 0 && (j === group.items.length - 1 ? " and " : " ")}
                       <img
                         className="home-intro-logo"
                         src={item.logo}
