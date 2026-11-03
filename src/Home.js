@@ -435,9 +435,10 @@ export default function Home() {
             <p className="home-intro-lead">
               I'm a marketing and UX/UI design specialist who cares deeply about <strong>making genuinely valuable products</strong>. I've designed tools that help clinicians prescribe medications, small businesses get funding, credit unions to experience intuitive software, and managers coach their teams.
             </p>
-            {/* Roles in order, with each company's wordmark standing in for its name. */}
+            {/* Current role first, then past roles in order, with each company's
+                wordmark standing in for its name. */}
             <p className="home-intro-lead home-intro-history">
-              Previously{" "}
+              Currently AI UX/UI Engineer at <abbr title="World Wide Technology" style={{ textDecoration: "none" }}>WWT</abbr>. Previously{" "}
               {ROLE_GROUPS.map((group, i) => (
                 <React.Fragment key={group.role}>
                   {i > 0 && (i === ROLE_GROUPS.length - 1 ? ", and " : ", ")}
