@@ -78,7 +78,7 @@ export const PROJECTS = [
     company: "Criteria",
     title: "AI-powered coaching for managers",
     tags: ["UX Research", "Design Systems"],
-    role: "Senior Product Designer",
+    role: "UX Designer",
     status: "2025",
     bannerBg: "#16112E",
     bannerImage: "/images/banner_images/Criteria_Header.png",
@@ -88,7 +88,7 @@ export const PROJECTS = [
       { text: "Criteria’s post-hire suite, Develop, gives managers real-time, personalized coaching at scale. I designed the core experience for a new company bet: an AI-powered coaching product that surfaces relevant insights and recommends actions directly within a manager’s workflow. The product expanded Criteria’s talent management offering beyond pre-hire assessments, creating an experience that supports managers across the employee lifecycle." },
   
     ],
-    team: [{ name: "Sonika Patel", role: "Senior Designer" }, { name: "Bryan Romero", role: "Engineer" }],
+    team: [{ name: "Sonika Patel", role: "Designer" }, { name: "Bryan Romero", role: "Engineer" }],
     context: { label: "criteriacorp.com/weekly-manager-check-ins", url: "https://www.criteriacorp.com/develop/weekly-manager-check-ins" },
     sections: [
       {
@@ -252,7 +252,7 @@ export const PROJECTS = [
       { text: "Honeybee Health set out to simplify the e-prescription flow for independent physicians — reducing friction, optimizing for privacy, and enabling faster care.", bold: true },
       { text: " I designed an prescribing experience prototype tailored to the clinical context and workflow of busy practitioners. From leading research with 7 clinicians, to forming hypotheses, synthesizing information and 0->1 designing Nectar and creating a design system, I led the end-to-end design processes." },
     ],
-    team: [{ name: "Sonika Patel", role: "Senior Designer" }],
+    team: [{ name: "Sonika Patel", role: "Designer" }],
     context: { label: "honeybeehealth.com", url: "https://www.honeybeehealth.com" },
     sections: [
       {
