@@ -10,7 +10,7 @@ import HomeaseHouse from "./projects/homease/HomeaseHouse";
    trims the heavy, solid Philosophie wordmark so it doesn't read larger. */
 const LOGO_AREA = 1024; // px², a 64 × 16 box, so a wordmark sits in a line of text
 const EXPERIENCE = [
-  { company: "Criteria",        logo: "/images/logos/criteria-wordmark.png",    aspect: 4.0,  role: "Senior UX Designer" },
+  { company: "Criteria",        logo: "/images/logos/criteria-wordmark.png",    aspect: 4.0,  role: "UX Designer" },
   { company: "Honeybee Health", logo: "/images/logos/honeybee-wordmark.png",    aspect: 3.57, role: "Product Designer" },
   { company: "Square (Block)",  logo: "/images/logos/square-wordmark.svg",      aspect: 4.0,  role: "Product Designer" },
   { company: "Philosophie",     logo: "/images/logos/philosophie-wordmark.svg", aspect: 8.93, scale: 0.85, role: "Product Designer" },
@@ -433,7 +433,7 @@ export default function Home() {
               Hello <span className="wave-emoji" role="img" aria-label="waving hand">👋🏼</span> I'm Sonika.
             </h1>
             <p className="home-intro-lead">
-              I'm a marketing and UX/UI design specialist who cares deeply about <strong>making genuinely valuable products</strong>. I've designed tools that help clinicians prescribe medications, small businesses get funding, credit unions to experience intuitive software, and managers coach their teams.
+              I'm a marketing and AI-native UX/UI specialist who cares deeply about <strong>making genuinely valuable products</strong>. I've designed tools that help clinicians prescribe medications, small businesses get funding, credit unions to experience intuitive software, and managers coach their teams.
             </p>
             {/* Roles in order, with each company's wordmark standing in for its name. */}
             <p className="home-intro-lead home-intro-history">
