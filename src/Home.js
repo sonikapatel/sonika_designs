@@ -433,7 +433,7 @@ export default function Home() {
               Hello <span className="wave-emoji" role="img" aria-label="waving hand">👋🏼</span> I'm Sonika.
             </h1>
             <p className="home-intro-lead">
-              I'm a marketing and UX/UI design specialist who cares deeply about <strong>making genuinely valuable products</strong>. I've designed tools that help clinicians prescribe medications, small businesses get funding, credit unions to experience intuitive software, and managers coach their teams.
+              I'm a marketing and AI-native UX/UI specialist who cares deeply about <strong>making genuinely valuable products</strong>. I've designed tools that help clinicians prescribe medications, small businesses get funding, credit unions to experience intuitive software, and managers coach their teams.
             </p>
             {/* Roles in order, with each company's wordmark standing in for its name. */}
             <p className="home-intro-lead home-intro-history">
