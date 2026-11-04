@@ -13,8 +13,6 @@ export const HOMEASE = {
     alt: "The Homease wordmark beside the Ask screen of the iOS app",
     bleed: true,
     bg: "transparent",
-    /* Rounded like the Homease card on the home page. */
-    radius: "16px",
     video: {
       src: "/images/homease/cover.mp4",
       left: "63.37%",
