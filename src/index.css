@@ -314,6 +314,11 @@ body.home-bg::before {
   .values-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+
+  /* An odd last tile takes the whole row instead of leaving a gap. */
+  .values-grid > :last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
 }
 
 @media (max-width: 600px) {
@@ -394,12 +399,6 @@ body.home-bg::before {
 .home-card-image {
   display: block;
   width: 100%;
-}
-
-/* A still wider than its slot (Co-op) is cut to the Square tile's 1014×798. */
-.home-card-image--crop {
-  aspect-ratio: 1014 / 798;
-  object-fit: cover;
 }
 
 /* Optional clip pinned over the still (see the cards in Home.js). It stays
@@ -643,13 +642,23 @@ body.home-bg::before {
   margin-top: 12px;
 }
 
+.home-card-copy {
+  min-width: 0;
+}
+
 .home-card-description {
   margin: 0;
-  min-width: 0;
   font-size: 14px;
   font-weight: 500;
   line-height: 1.4;
   color: #111;
+}
+
+.home-card-result {
+  margin: 2px 0 0;
+  font-size: 13px;
+  line-height: 1.4;
+  color: #6B6B6B;
 }
 
 .home-card-tags {
