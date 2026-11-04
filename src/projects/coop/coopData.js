@@ -64,7 +64,7 @@ export const COOP_BLOCKS = [
       {
         label: "Impact",
         outcome: true,
-        lines: ["Reduced time spent per member by 20%", "Reduced customer service calls by 10%"],
+        lines: ["Reduced time spent per member by 28%", "Reduced customer service calls by 10%"],
       },
     ],
   },
@@ -211,7 +211,7 @@ export const COOP_BLOCKS = [
     id: "outcomes",
     variant: "default",
     eyebrow: "Outcomes",
-    body: [[{ text: "We launched a new experience with beta customers, simplifying training and improving overall efficiency for representatives. Customers saw improvement and value in the redesigned product experience, resulting in " }, { text: "a 20% reduction in navigation time and 10% increase in resolved service calls", bold: true }, { text: "." }]],
+    body: [[{ text: "We launched a new experience with beta customers, simplifying training and improving overall efficiency for representatives. Customers saw improvement and value in the redesigned product experience, resulting in " }, { text: "a 28% reduction in navigation time and 10% increase in resolved service calls", bold: true }, { text: "." }]],
   },
   {
     variant: "media",

@@ -46,22 +46,10 @@ const SKILLS = [
 
 const VALUES = [
   {
-    title: "Balance",
-    bg: "#B8C4B2",
-    textColor: "#2A2A2A",
-    description: "Not just in visual form, but in interacting with product stakeholders and balancing user needs with a business.",
-  },
-  {
     title: "Systems Thinking",
     bg: "#FFFFFF",
     textColor: "#2A2A2A",
     description: "I apply a system-driven approach to designing large-scale applications.",
-  },
-  {
-    title: "Collaboration",
-    bg: "#E4E4E4",
-    textColor: "#2A2A2A",
-    description: "Design is a collaborative sport. I align stakeholders to ensure the design process is inclusive.",
   },
   {
     title: "Intentionality",
@@ -74,12 +62,6 @@ const VALUES = [
     bg: "#2D2D2D",
     textColor: "#FFFFFF",
     description: "Great products start with understanding people. I design by uncovering the behaviors and frustrations behind user's actions.",
-  },
-  {
-    title: "Diversity",
-    bg: "#E4E4E4",
-    textColor: "#2A2A2A",
-    description: "I believe work comes from different perspectives, listening to customers, and being exposed to a variety of disciplines.",
   },
 ];
 
@@ -165,28 +147,9 @@ const TABS = ["Products", "Brands", "Playground"];
 const CARDS = {
   Products: [
     {
-      company: "Fika",
-      description: "Engaging creative connection IRL through coffee",
-      industry: "Community",
-      bg: "#4B44AF",
-      image: "/images/fika123.png",
-      /* The landing page scrolling top to bottom at a constant speed, captured
-         frame by frame from the fika-march-code frontend in headless Chrome at
-         1440×762, played in the still's browser window. Position/size mirror the
-         window's rect in the Figma card (23,56 / 291×154 on a 337×265 tile). */
-      video: {
-        src: "/images/fika/fika-landing.mp4",
-        left: "6.825%",
-        top: "21.13%",
-        width: "86.35%",
-        height: "58.11%",
-        radius: "2.3% / 4.3%",
-      },
-      slug: "fika",
-    },
-    {
       company: "Criteria",
       description: "Personalized AI coaching for more effective management",
+      result: "+48% activation",
       industry: "HR Tech",
       bg: "#16112E",
       /* The still's dashboard window is dashboard.mov's first frame, so the clip
@@ -213,6 +176,7 @@ const CARDS = {
     {
       company: "Square",
       description: "Empowering small businesses with flexible financing.",
+      result: "40% increase in conversion in 3 months",
       industry: "Financial",
       bg: "#3D5445",
       image: "/images/Square_full.png",
@@ -221,18 +185,30 @@ const CARDS = {
       slug: "square",
     },
     {
-      company: "Co-op Solutions",
-      description: "Modernizing legacy credit union software",
-      industry: "Financial",
-      image: "/images/Springboard.png",
-      /* The wide still is cropped to the other tiles' shape so it sits beside
-         Square, holding on the member sidebar and cardholder table. */
-      crop: { position: "32% 0" },
-      slug: "coop",
+      company: "Fika",
+      description: "Engaging creative connection IRL through coffee",
+      result: "Onboarding funnel +32%",
+      industry: "Community",
+      bg: "#4B44AF",
+      image: "/images/fika123.png",
+      /* The landing page scrolling top to bottom at a constant speed, captured
+         frame by frame from the fika-march-code frontend in headless Chrome at
+         1440×762, played in the still's browser window. Position/size mirror the
+         window's rect in the Figma card (23,56 / 291×154 on a 337×265 tile). */
+      video: {
+        src: "/images/fika/fika-landing.mp4",
+        left: "6.825%",
+        top: "21.13%",
+        width: "86.35%",
+        height: "58.11%",
+        radius: "2.3% / 4.3%",
+      },
+      slug: "fika",
     },
     {
       company: "Honeybee Health",
       description: "Enabling physicians to prescribe medications while protecting patient privacy",
+      result: "Dispensing time improved 72%",
       industry: "Healthcare",
       bg: "#0D1917",
       image: "/images/HBH.png",
@@ -248,6 +224,15 @@ const CARDS = {
         radius: 0,
       },
       slug: "hbh-3",
+    },
+    {
+      company: "Co-op Solutions",
+      description: "Modernizing legacy credit union software",
+      result: "Navigation time cut 28%",
+      industry: "Financial",
+      image: "/images/Springboard.png",
+      slug: "coop",
+      fullWidth: true,
     },
   ],
   /* Self-initiated concepts and prototypes. */
@@ -490,6 +475,7 @@ export default function Home() {
                       key={card.company}
                       company={card.company}
                       description={card.description}
+                      result={card.result}
                       industry={card.industry}
                       accent={card.bg}
                       image={card.image}
@@ -498,7 +484,6 @@ export default function Home() {
                       noMotion={card.noMotion}
                       house={card.house}
                       slug={card.slug}
-                      crop={card.crop}
                       fullWidth={card.fullWidth}
                     />
                   ))
@@ -662,7 +647,7 @@ function BrandCard({ image, name, campaigns, posts, guide }) {
    autoplay as before; readers who ask for less motion keep the still. */
 const prefersStill = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-function ProjectCard({ company, description, industry, accent, image, video, layer, house, noMotion, slug, crop, fullWidth }) {
+function ProjectCard({ company, description, result, industry, accent, image, video, layer, house, noMotion, slug, fullWidth }) {
   const ref = useFadeIn();
   const videoRef = useRef(null);
   const [playing, setPlaying] = useState(false);
@@ -697,8 +682,7 @@ function ProjectCard({ company, description, industry, accent, image, video, lay
       <img
         src={image}
         alt=""
-        className={crop ? "home-card-image home-card-image--crop" : "home-card-image"}
-        style={crop ? { objectPosition: crop.position } : undefined}
+        className="home-card-image"
         onError={(e) => {
           e.currentTarget.style.display = "none";
         }}
@@ -739,7 +723,10 @@ function ProjectCard({ company, description, industry, accent, image, video, lay
 
   const caption = (
     <div className="home-card-caption">
-      <p className="home-card-description">{description}</p>
+      <div className="home-card-copy">
+        <p className="home-card-description">{description}</p>
+        {result && <p className="home-card-result">{result}</p>}
+      </div>
       <div className="home-card-tags">
         <span className="home-card-tag home-card-tag--name" style={accent ? { color: accent } : undefined}>
           {company}
