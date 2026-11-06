@@ -1,27 +1,14 @@
-/* Foo Bar only: engineering-paper ground — a fine 5px grid, a stronger line every
-   80px and a small crosshair where the 80px lines cross. Drawn in CSS instead of a
-   bitmap so it stays sharp at any width. */
-.fb-page .cs-page {
-  background-color: #f0f0f0;
-  background-image:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cpath d='M36.5 40h7M40 36.5v7' stroke='%238c8c8c' stroke-width='1'/%3E%3C/svg%3E"),
-    linear-gradient(to right, rgba(0, 0, 0, 0.08) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(0, 0, 0, 0.08) 1px, transparent 1px),
-    linear-gradient(to right, rgba(0, 0, 0, 0.045) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(0, 0, 0, 0.045) 1px, transparent 1px);
-  background-size: 80px 80px, 80px 80px, 80px 80px, 5px 5px, 5px 5px;
-  /* The crosshair tile is centred, so shift it half a cell to sit on the 80px lines. */
-  background-position: -40px -40px, 0 0, 0 0, 0 0, 0 0;
-}
+/* Foo Bar only. The page sits on the site's plain white ground like the other
+   case studies; these rules keep the type accessible. */
 
-/* Accessible type on the grid. The site's secondary grey (#6a6a6a) drops to 3.98:1
-   where it crosses an 80px line, under WCAG AA's 4.5:1. #4f4f4f stays at least 6:1
-   on the paper, the 5px lines and the 80px lines. */
+/* Body copy in #4f4f4f (8.1:1 on white) instead of the site's #6a6a6a (5.4:1),
+   for a comfortable margin above WCAG AA's 4.5:1. */
 .fb-page .cs-page {
+  background: #fff;
   --cs-body: #4f4f4f;
 }
 
-/* The smallest labels go up to 14px so nothing sits on the grid at 12–13px. */
+/* The smallest labels go up to 14px so nothing on the page is set at 12–13px. */
 .fb-page .cs-nav-group,
 .fb-page .cs-stat-caption,
 .fb-page .cs-media-note,
@@ -29,19 +16,9 @@
   font-size: 14px;
 }
 
-/* Text never sits on a grid line or crosshair: a soft halo in the paper colour
-   clears the grid just around each letter, so the page keeps its graph-paper look. */
-.fb-page .cs-main {
-  text-shadow:
-    0 0 2px #f0f0f0,
-    0 0 4px #f0f0f0,
-    0 0 6px #f0f0f0;
-}
-
-/* People who ask their system for more contrast get the plain paper, no grid. */
+/* People who ask their system for more contrast get a darker body grey. */
 @media (prefers-contrast: more) {
   .fb-page .cs-page {
-    background-image: none;
     --cs-body: #303030;
   }
 }
