@@ -283,6 +283,17 @@ const CARDS = {
       slug: "intake",
       fullWidth: true,
     },
+    {
+      company: "Foo Bar",
+      description: "A taproom beer brand for engineers, designed from scratch with AI",
+      bg: "#F2EFE6",
+      /* foo.bar in dark ink beside three cans running off the bottom edge, on an
+         embossed cotton-paper ground. The cans come from the Foo Bar Figma file
+         (Portfolio export / foobar-card); the paper is composited in at 1354×556. */
+      image: "/images/foobar/foobar-card.jpg",
+      slug: "foobar",
+      fullWidth: true,
+    },
   ],
   Brands: [
     {

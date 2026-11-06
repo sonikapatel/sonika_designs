@@ -9,6 +9,7 @@ import SquarePage from "./projects/square/SquarePage";
 import HomeasePage from "./projects/homease/HomeasePage";
 import CoopPage from "./projects/coop/CoopPage";
 import IntakePage from "./projects/intake/IntakePage";
+import FoobarPage from "./projects/foobar/FoobarPage";
 import { Analytics } from "@vercel/analytics/react";
 
 export default function App() {
@@ -33,6 +34,7 @@ export default function App() {
         <Route path="/projects/homease" element={<HomeasePage />} />
         <Route path="/projects/coop" element={<CoopPage />} />
         <Route path="/projects/intake" element={<IntakePage />} />
+        <Route path="/projects/foobar" element={<FoobarPage />} />
         <Route path="/projects/:slug" element={<ProjectPage />} />
       </Routes>
       <Analytics />
