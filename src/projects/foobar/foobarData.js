@@ -108,6 +108,14 @@ export const FOOBAR_BLOCKS = [
   {
     variant: "media",
     bare: true,
+    src: "/images/foobar/foobar-carrier.jpg",
+    alt: "A black Foo Bar 6-pack carrier holding orange, rust and olive cans, with the bottle mark, the foo.bar wordmark and a five-color stripe for the lineup",
+    caption:
+      "The mixed 6-pack carrier. Its stripe carries one band per beer, so the whole lineup shows up on the shelf even when only three cans face out.",
+  },
+  {
+    variant: "media",
+    bare: true,
     src: "/images/foobar/foobar-plinths.jpg",
     alt: "Foo Bar cans on a cream block and stone plinths in a studio set",
     caption: "The same components, staged in a studio set with the cans on plinths at three heights.",
