@@ -100,10 +100,10 @@ export const FOOBAR_BLOCKS = [
   {
     variant: "media",
     bare: true,
-    src: "/images/foobar/foobar-desk.jpg",
-    alt: "A large Logger Lager can on a wooden desk beside a monitor showing the label being built in a code editor",
+    src: "/images/foobar/foobar-desk-photo.jpg",
+    alt: "A rust can-shaped mini fridge stocked with Std.out Stout and Logger Lager on a wooden desk, beside a monitor showing the label being built in a code editor",
     caption:
-      "The label as code. In the visual IDE, each beer is a component: change the ground, the pattern or the stroke, and the can on the right updates with it.",
+      "The label as code, in a real room. In the visual IDE, each beer is a component: change the ground, the pattern or the stroke, and the can in the fridge updates with it.",
   },
   {
     variant: "media",
