@@ -39,6 +39,7 @@ export const CRITERIA_NAV = [
       { id: "ic-incentive", label: "Giving ICs a Reason" },
       { id: "design-system", label: "Design System" },
       { id: "merchandising", label: "In-Product Merchandising" },
+      { id: "system", label: "System Before + After" },
       { id: "impact", label: "Impact" },
     ],
   },
@@ -334,6 +335,122 @@ export const CRITERIA_BLOCKS = [
     variant: "merchandising",
     caption:
       "Exploring ways of showcasing inactive products, so Check-Ins could introduce itself inside a dashboard managers already use before their account turned it on. An interactive rebuild of the merchandising screens on the manager dashboard. Click Learn more to explore the merchandising experience, which 28% of existing Develop users checked out during the four-week rollout.",
+  },
+  {
+    id: "system",
+    variant: "side-to-side",
+    eyebrow: "The system, before and after",
+    body: [
+      "Check-Ins v1 worked as one pipeline: a chat in Develop became scores, and those scores flowed up to managers and leaders. The constraints above made that the right way to launch, but ICs carried the system and got little back.",
+      "Looking at it as a whole, I’d propose keeping Coach Bo and the org-chart permissions while changing three things: where the check-in happens, what the signal is made of, and what each role receives. This is my proposed direction, not something that shipped.",
+    ],
+  },
+  {
+    variant: "system-diagram",
+    views: [
+      {
+        key: "before",
+        tab: "Before",
+        status: "Check-Ins v1, as shipped",
+        capture: {
+          title: "Coach Bo in Develop",
+          body: "ICs answer three weekly questions in chat, but have to remember to open another product.",
+          tag: "Gap",
+        },
+        signal: {
+          title: "Sentiment analysis",
+          body: "Answers become mood, progress and readiness scores, each linked to its source answers. Red, yellow and green states can still read as verdicts.",
+          tag: "Gap",
+        },
+        delivery: [
+          {
+            role: "IC",
+            title: "Little comes back",
+            body: "The growth timeline was explored but not shipped.",
+            tag: "Gap",
+          },
+          {
+            role: "Manager",
+            title: "Dashboard in Develop",
+            body: "Scores week over week, plus 1:1 prep with strengths and motivators from pre-hire assessments.",
+          },
+          {
+            role: "C-suite",
+            title: "Emailed digest",
+            body: "A high-level read on how teams are doing, scoped to the teams that roll up to them.",
+          },
+        ],
+        loop: {
+          title: "Open loop",
+          body: "Every insight depends on ICs checking in, but most of the value flows up the org chart.",
+          tag: "Gap",
+        },
+        foundation: [
+          {
+            title: "HRIS org chart",
+            body: "Sets reporting lines and who can see each digest.",
+          },
+          {
+            title: "No SSO yet",
+            body: "Teams, Slack and calendar delivery stayed out of reach.",
+            tag: "Gap",
+          },
+        ],
+      },
+      {
+        key: "after",
+        tab: "After (proposed)",
+        status: "Proposed direction, not shipped",
+        capture: {
+          title: "Coach Bo where people work",
+          body: "ICs answer in Teams or Slack, with Develop as the fallback. It’s the same conversation in every channel.",
+          tag: "Changed",
+        },
+        signal: {
+          title: "Context layer",
+          body: "Answers become blockers, wins, projects, shout-outs and a four-week trend. Sentiment is one input, and every signal cites the answers behind it.",
+          tag: "Changed",
+        },
+        delivery: [
+          {
+            role: "IC",
+            title: "Career History",
+            body: "Each check-in adds projects and shout-outs to a record they own.",
+            tag: "New",
+          },
+          {
+            role: "Manager",
+            title: "1:1 prep in the calendar",
+            body: "Talking points come first in Outlook or Google Calendar, with trends and early flags in Develop.",
+            tag: "Changed",
+          },
+          {
+            role: "C-suite",
+            title: "Trend digest",
+            body: "Rolled-up team health and burnout trends, without individual check-ins.",
+            tag: "Changed",
+          },
+        ],
+        loop: {
+          title: "Closed loop",
+          body: "ICs get value every week, which supports the habit. Managers flag signals that look wrong, which improves the next read.",
+          tag: "New",
+        },
+        foundation: [
+          {
+            title: "HRIS org chart",
+            body: "Still sets reporting lines and permissions, with no manual setup.",
+          },
+          {
+            title: "SSO and shared identity",
+            body: "Links one person across channels. This comes first, since the channel and calendar work depend on it.",
+            tag: "New",
+          },
+        ],
+      },
+    ],
+    caption:
+      "A simplified product view of Check-Ins for ICs, managers and the C-suite. Moving into Teams would also mean an app review and a separate build per platform, so I’d sequence SSO and the IC record first.",
   },
   {
     id: "impact",
