@@ -5,6 +5,7 @@ import CareerHistory from "./careerHistory";
 import CheckInFlow from "./checkInFlow";
 import Merchandising from "./merchandising";
 import SolutionConcepts from "./solutionConcepts";
+import SystemDiagram from "./systemDiagram";
 import { JobStories, ChannelOptions, Reflections } from "./storyBlocks";
 
 const CUSTOM_BLOCKS = {
@@ -16,6 +17,7 @@ const CUSTOM_BLOCKS = {
   "channel-options": ChannelOptions,
   reflections: Reflections,
   merchandising: Merchandising,
+  "system-diagram": SystemDiagram,
 };
 
 export default function CriteriaPage() {
