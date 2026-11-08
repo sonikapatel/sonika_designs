@@ -161,6 +161,12 @@ export const HOMEASE_BLOCKS = [
   {
     variant: "media",
     autoplay: true,
+    bare: true,
+    src: "/images/homease/matches-cinematic.mp4",
+  },
+  {
+    variant: "media",
+    autoplay: true,
     ground: "#F3E8E1",
     radius: 20,
     src: "/images/homease/email.mp4",
