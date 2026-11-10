@@ -234,6 +234,17 @@ const CARDS = {
       slug: "coop",
       fullWidth: true,
     },
+    {
+      company: "PartsTech",
+      description: "Helping upgraded repair shops discover the tire features they paid for",
+      industry: "Automotive",
+      bg: "#121D45",
+      /* The tire search with the out-the-door pricing beacon open, on PartsTech's
+         navy at the Co-op card's 2070×795. The screen runs off the bottom edge. */
+      image: "/images/partstech/partstech-card.jpg",
+      slug: "partstech",
+      fullWidth: true,
+    },
   ],
   /* Self-initiated concepts and prototypes. */
   Playground: [
