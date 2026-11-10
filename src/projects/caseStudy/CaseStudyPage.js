@@ -204,6 +204,16 @@ function Block({ block, custom }) {
                 ))}
               </ol>
             )}
+            {block.agenda && (
+              <ol className="cs-agenda">
+                {block.agenda.map((step) => (
+                  <li key={step.title}>
+                    <p className="cs-agenda-title">{step.title}</p>
+                    <p className="cs-agenda-body">{step.body}</p>
+                  </li>
+                ))}
+              </ol>
+            )}
           </div>
         </div>
       );

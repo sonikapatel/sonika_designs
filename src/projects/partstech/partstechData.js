@@ -72,12 +72,27 @@ export const PARTSTECH_BLOCKS = [
     variant: "side-to-side",
     eyebrow: "The Workshop",
     body: "The workshop was built to get designers thinking about feature discovery for recently upgraded customers, both in general and specifically for tires. Each part was timeboxed.",
-    orderedList: [
-      "Current state, 5 minutes: how Plus and Complete shops learn about features today, through marketing, onboarding and plan comparison.",
-      "The broader problem, 15 minutes: each designer looked for product education on the web, such as how Figma announces new features, and brought back what worked.",
-      "Context, 5 minutes: the problem, the usage data and the design challenge for tires.",
-      "Lo-fi ideation, 15 minutes: sketches specific to tires, then asking how each idea could work for every feature.",
-      "Share-out, 15 minutes: how each idea carries from tires to introducing every feature in PartsTech.",
+    agenda: [
+      {
+        title: "Current state",
+        body: "How Plus and Complete shops learn about features today.",
+      },
+      {
+        title: "The broader problem",
+        body: "Each designer found product education they liked on the web.",
+      },
+      {
+        title: "Context",
+        body: "The problem, the usage data and the design challenge.",
+      },
+      {
+        title: "Lo-fi ideation",
+        body: "Sketches for tires, then for every feature.",
+      },
+      {
+        title: "Share-out",
+        body: "How each idea scales across PartsTech.",
+      },
     ],
   },
   {
