@@ -10,7 +10,6 @@ import HomeasePage from "./projects/homease/HomeasePage";
 import CoopPage from "./projects/coop/CoopPage";
 import IntakePage from "./projects/intake/IntakePage";
 import FoobarPage from "./projects/foobar/FoobarPage";
-import PartstechPage from "./projects/partstech/PartstechPage";
 import { Analytics } from "@vercel/analytics/react";
 
 export default function App() {
@@ -36,7 +35,6 @@ export default function App() {
         <Route path="/projects/coop" element={<CoopPage />} />
         <Route path="/projects/intake" element={<IntakePage />} />
         <Route path="/projects/foobar" element={<FoobarPage />} />
-        <Route path="/projects/partstech" element={<PartstechPage />} />
         <Route path="/projects/:slug" element={<ProjectPage />} />
       </Routes>
       <Analytics />
