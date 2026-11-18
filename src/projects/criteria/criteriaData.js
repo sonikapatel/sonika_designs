@@ -219,7 +219,6 @@ export const CRITERIA_BLOCKS = [
     ],
   },
   {
-  {
     id: "ai-uncertainty",
     variant: "side-to-side",
     eyebrow: "Designing for AI uncertainty",
@@ -243,6 +242,7 @@ export const CRITERIA_BLOCKS = [
       },
     ],
   },
+  {
     id: "onboarding",
     variant: "side-to-side",
     eyebrow: "Onboarding + Admin Setup",
