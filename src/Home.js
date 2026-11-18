@@ -314,6 +314,7 @@ const CARDS = {
       name: "Beauty in Balance",
       /* Clicking the card opens the Instagram posts and event visuals. */
       posts: [
+        { src: "/images/bib/bib-website.mp4", poster: "/images/bib/bib-website-poster.jpg", caption: "Website" },
         { src: "/images/bib/bib-brand-intro.jpg", caption: "Brand intro post", alt: "Beauty in Balance intro post: career, community, wellness" },
         { src: "/images/bib/bib-brand-video.mp4", poster: "/images/bib/bib-brand-video-poster.jpg", caption: "Brand video" },
         { src: "/images/bib/bib-signature-series.jpg", caption: "The Signature Series launch", alt: "The Signature Series by Beauty in Balance post" },
