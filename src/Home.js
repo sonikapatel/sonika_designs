@@ -625,14 +625,17 @@ function BrandCard({ image, name, campaigns, posts, guide }) {
               {posts.map((post) => (
                 <figure key={post.src || post.reel} className="ig-post">
                   {post.reel ? (
-                    <iframe
-                      className="ig-reel"
-                      src={`https://www.instagram.com/reel/${post.reel}/embed/`}
-                      title={`${name} reel: ${post.caption}`}
-                      loading="lazy"
-                      allow="autoplay; encrypted-media; picture-in-picture"
-                      allowFullScreen
-                    />
+                    <div className="ig-reel-frame">
+                      <iframe
+                        className="ig-reel"
+                        src={`https://www.instagram.com/reel/${post.reel}/embed/`}
+                        title={`${name} reel: ${post.caption}`}
+                        loading="lazy"
+                        scrolling="no"
+                        allow="autoplay; encrypted-media; picture-in-picture"
+                        allowFullScreen
+                      />
+                    </div>
                   ) : post.poster ? (
                     <video src={post.src} poster={post.poster} controls muted playsInline preload="none" />
                   ) : (
