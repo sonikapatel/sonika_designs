@@ -299,15 +299,14 @@ const CARDS = {
     {
       image: "/images/fika1.png",
       name: "Fika",
-      /* Clicking the card opens the newsletters sent to the community from beehiiv. */
-      campaigns: [
-        {
-          title: "Join the table",
-          subtitle: "Grab your latte or matcha or tea!",
-          date: "Apr 2, 2026",
-          image: "/images/fika/fika_email_join_the_table.jpg",
-          url: "https://fikacreativesco.beehiiv.com/p/join-the-table-32a2",
-        },
+      /* Clicking the card opens reels from @fikacreatives.co, played through
+         Instagram's own embed. */
+      posts: [
+        { reel: "DX7pBBsS6z0", caption: "Brand video: Fika is not a cafe" },
+        { reel: "DW64Ks0jxsc", caption: "How to Fika in 3 simple steps" },
+        { reel: "DWRs8rOE-Xq", caption: "Can AI replace creativity?" },
+        { reel: "DVZJ01zgVOO", caption: "Frieze Week" },
+        { reel: "DXhln3gD4pW", caption: "Cowork with Fika Creatives at Union Cowork" },
       ],
     },
     {
@@ -624,8 +623,17 @@ function BrandCard({ image, name, campaigns, posts, guide }) {
           {posts && (
             <div className="ig-grid">
               {posts.map((post) => (
-                <figure key={post.src} className="ig-post">
-                  {post.poster ? (
+                <figure key={post.src || post.reel} className="ig-post">
+                  {post.reel ? (
+                    <iframe
+                      className="ig-reel"
+                      src={`https://www.instagram.com/reel/${post.reel}/embed/`}
+                      title={`${name} reel: ${post.caption}`}
+                      loading="lazy"
+                      allow="autoplay; encrypted-media; picture-in-picture"
+                      allowFullScreen
+                    />
+                  ) : post.poster ? (
                     <video src={post.src} poster={post.poster} controls muted playsInline preload="none" />
                   ) : (
                     <img src={post.src} alt={post.alt} loading="lazy" />
