@@ -29,6 +29,7 @@ export const CRITERIA_NAV = [
       { id: "roles", label: "Who We Designed For" },
       { id: "coach-bo", label: "Coach Bo" },
       { id: "designing-for-trust", label: "Designing for Trust" },
+      { id: "ai-uncertainty", label: "Designing for AI Uncertainty" },
     ],
   },
   {
@@ -216,6 +217,30 @@ export const CRITERIA_BLOCKS = [
     body: [
       "The research gave the trust problem its answer: a score was only as useful as the reason behind it. So every signal explains itself. Each mood and progress score links back to the check-in answers it came from, and 1:1 prep leads with talking points drawn from those answers, not the number.",
       "The red, yellow and green states stayed in v1, which is why leading with talking points is on my list of what I’d do differently.",
+    ],
+  },
+  {
+    id: "ai-uncertainty",
+    variant: "side-to-side",
+    eyebrow: "Designing for AI uncertainty",
+    lead: "Coach Bo’s reads could be wrong, so the design never asked managers to take them on faith.",
+    agenda: [
+      {
+        title: "Design the conversation, not just the screen",
+        body: "I designed Coach Bo’s conversation flow: the three weekly questions, their order, and a follow-up asking who helped, so every answer had a job downstream. Engineering turned that flow into the prompts.",
+      },
+      {
+        title: "Show where every score came from",
+        body: "Each mood and progress score links back to the check-in answers behind it, so a manager can check the AI’s read against what the employee actually said.",
+      },
+      {
+        title: "Lead with what was said, not the score",
+        body: "1:1 prep opens with blockers and wins from the employee’s own answers, so an inaccurate score can’t set the agenda for the conversation.",
+      },
+      {
+        title: "Let managers correct the read (proposed)",
+        body: "In the v2 direction I proposed, managers can flag a signal that looks wrong, and that flag improves the next read. This was not shipped.",
+      },
     ],
   },
   {
