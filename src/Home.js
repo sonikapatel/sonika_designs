@@ -47,18 +47,23 @@ const SKILLS = [
 const VALUES = [
   {
     title: "Systems Thinking",
+    icon: "systems",
     bg: "#FFFFFF",
     textColor: "#2A2A2A",
     description: "I apply a system-driven approach to designing large-scale applications.",
   },
   {
     title: "Intentionality",
+    icon: "intent",
+    /* Its icon sits above the title; the other two sit below. */
+    iconAbove: true,
     bg: "#FFFFFF",
     textColor: "#2A2A2A",
     description: "I focus on reducing unnecessary complexity, and creating experiences that feel purposeful rather than just polished.",
   },
   {
     title: "Empathy",
+    icon: "empathy",
     bg: "#2D2D2D",
     textColor: "#FFFFFF",
     description: "Great products start with understanding people. I design by uncovering the behaviors and frustrations behind user's actions.",
@@ -69,7 +74,55 @@ const VALUES = [
 /* Touch screens never hover, so a tap toggles the card there instead. */
 const canHover = typeof window !== "undefined" && window.matchMedia("(hover: hover)").matches;
 
-function ValueCard({ title, description, bg, textColor }) {
+/* Abstract line icons for the value cards, drawn on a 32px grid in the card's
+   text color. Systems: nodes wired into one network. Intentionality: a wandering
+   line that straightens and lands on a single point. Empathy: two circles
+   overlapping, a shared space between two people. */
+function ValueIcon({ name, color }) {
+  const common = {
+    width: 32,
+    height: 32,
+    viewBox: "0 0 32 32",
+    fill: "none",
+    stroke: color,
+    strokeWidth: 1.5,
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    "aria-hidden": true,
+  };
+  if (name === "systems") {
+    return (
+      <svg {...common}>
+        <path d="M6 6 L16 16 L26 6 M6 26 L16 16 L26 26 M6 6 L6 26 M26 6 L26 26" opacity="0.45" />
+        <circle cx="6" cy="6" r="2.5" fill={color} stroke="none" />
+        <circle cx="26" cy="6" r="2.5" fill={color} stroke="none" />
+        <circle cx="6" cy="26" r="2.5" fill={color} stroke="none" />
+        <circle cx="26" cy="26" r="2.5" fill={color} stroke="none" />
+        <circle cx="16" cy="16" r="4" />
+      </svg>
+    );
+  }
+  if (name === "intent") {
+    return (
+      <svg {...common}>
+        <path d="M3 22 C6 12, 9 28, 12 18 S16 16, 19 16 L25 16" />
+        <circle cx="27.5" cy="16" r="2.5" fill={color} stroke="none" />
+      </svg>
+    );
+  }
+  if (name === "empathy") {
+    return (
+      <svg {...common}>
+        <circle cx="12" cy="16" r="8" />
+        <circle cx="20" cy="16" r="8" />
+        <path d="M16 9.1 A8 8 0 0 1 16 22.9 A8 8 0 0 1 16 9.1 Z" fill={color} stroke="none" opacity="0.35" />
+      </svg>
+    );
+  }
+  return null;
+}
+
+function ValueCard({ title, description, bg, textColor, icon, iconAbove }) {
   const [flipped, setFlipped] = useState(false);
   const needsBorder = bg === "#FFFFFF";
   return (
@@ -100,7 +153,9 @@ function ValueCard({ title, description, bg, textColor }) {
           flexDirection: "column",
           justifyContent: "space-between",
         }}>
+          {icon && iconAbove && <ValueIcon name={icon} color={textColor} />}
           <p style={{ margin: 0, fontSize: 16, fontWeight: 500, color: textColor, fontFamily: "'TT', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" }}>{title}</p>
+          {icon && !iconAbove && <ValueIcon name={icon} color={textColor} />}
         </div>
         {/* Back */}
         <div style={{
