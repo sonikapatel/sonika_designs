@@ -550,3 +550,198 @@
   gap: 6px;
   padding: 7px 12px 7px 7px;
 }
+
+/* ── The leader's weekly digest: four rolled-up tiles ── */
+
+.ob-digest {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ob-tiles {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.ob-tile {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px 14px;
+  border: 1px solid var(--ui-line);
+  border-radius: 10px;
+  background: #fff;
+}
+
+.ob-tile-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ui-muted);
+}
+
+.ob-tile-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.ob-tile-value {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--ui-ink);
+}
+
+.ob-tile.is-warn .ob-tile-value {
+  color: #b45309;
+}
+
+.ob-tile.is-good .ob-tile-value {
+  color: #1f7a4a;
+}
+
+.ob-tile-note {
+  font-size: 12px;
+  color: var(--ui-muted);
+}
+
+.ob-spark {
+  flex-shrink: 0;
+  stroke: var(--ui-navy);
+}
+
+.ob-spark.is-warn {
+  stroke: #d97706;
+}
+
+.ob-spark.is-good {
+  stroke: #1f9d5b;
+}
+
+.ob-teams {
+  list-style: none;
+  margin: 2px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.ob-teams li {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--ui-ink);
+}
+
+.ob-dir {
+  font-weight: 600;
+  white-space: nowrap;
+  color: var(--ui-muted);
+}
+
+.ob-dir.is-good {
+  color: #1f7a4a;
+}
+
+.ob-dir.is-warn {
+  color: #b45309;
+}
+
+/* ── The manager's 1:1 prep, as in the inbox concept ── */
+
+.ob-prep {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 14px 16px;
+  border: 1px solid var(--ui-line);
+  border-radius: 10px;
+  background: #fff;
+}
+
+.ob-prep-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--ui-ink);
+}
+
+.ob-points {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ob-points li {
+  padding: 8px 12px;
+  border-left: 3px solid var(--cf-accent);
+  border-radius: 4px;
+  background: #f6f7fd;
+}
+
+.ob-points li.is-warn {
+  border-left-color: #d97706;
+  background: #fdf7ec;
+}
+
+.ob-point-text {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ui-ink);
+}
+
+.ob-point-why {
+  margin-top: 2px !important;
+  font-size: 12px;
+  color: var(--ui-muted);
+}
+
+/* ── Video prototype: the flow plays itself, so nothing on it is interactive ── */
+
+.ob-video {
+  pointer-events: none;
+  user-select: none;
+  transition: opacity 500ms var(--ease-out);
+}
+
+.ob-video.is-out {
+  opacity: 0;
+}
+
+/* Buttons are static spans here; these give them their button look and the
+   press the playback shows before each step. */
+.ob .ob-primary,
+.ob .ob-skip {
+  display: inline-block;
+}
+
+.ob .ob-primary.is-disabled {
+  opacity: 0.35;
+}
+
+.ob .ob-primary.is-pressed {
+  transform: scale(0.96);
+  opacity: 0.85;
+}
+
+.ob .ob-primary {
+  transition: opacity 150ms ease, transform 160ms var(--ease-out);
+}
+
+.ob-field {
+  line-height: 1.45;
+}
+
+.ob-field.is-empty {
+  color: var(--ui-faint);
+}
+
+.ob .cf-input {
+  align-items: center;
+}

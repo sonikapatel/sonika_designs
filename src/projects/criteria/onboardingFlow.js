@@ -2,12 +2,13 @@ import React, { useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import { Rail, ProjectCard, useFitScale, SCREEN_W, SCREEN_H } from "./careerHistory";
 import { SCRIPT, PROJECT, Typing } from "./checkInFlow";
+import { PREP_POINTS } from "./solutionConcepts";
 import "./criteria.css";
 import "./checkInFlow.css";
 import "./onboardingFlow.css";
 
-/* A proposed next version of Check-Ins admin onboarding, playable in the case
-   study. It was not shipped. It applies "The first 30 seconds: how to show value
+/* A proposed next version of Check-Ins admin onboarding, playing in the case study
+   as a video prototype: it runs itself on a loop, nothing to click. It was not shipped. It applies "The first 30 seconds: how to show value
    in AI product onboarding" (UX Collective) to the shipped steps:
 
    1. Your goal      one purposeful question that shapes the rest, and the org
@@ -65,13 +66,13 @@ const LEVELS = [
     id: "manager",
     role: "Managers",
     title: "1:1 prep",
-    body: "Talking points for each direct report: wins, blockers and the support they asked for, each linked to the answer behind it.",
+    body: "Talking points for each direct report before their 1:1, each with the reason behind it from their check-ins.",
   },
   {
     id: "leader",
     role: "Leaders",
-    title: "Trend digest",
-    body: "Team health and burnout trends for every team that rolls up to them, never individual check-ins.",
+    title: "Weekly digest",
+    body: "Org health, team health, burnout trends and the wins worth celebrating, for every team that rolls up to them. Never individual check-ins.",
   },
 ];
 
@@ -160,8 +161,72 @@ function TeamStep({ team, setTeam, reduce }) {
   );
 }
 
-function LevelsStep({ level, setLevel, seen, team, reduce }) {
-  const t = TEAMS.find((x) => x.id === team) || TEAMS[0];
+/* The leader's weekly digest for the sample org: four tiles, each a rolled-up read
+   with its last four weeks. Sample figures, like the rest of the sample org. */
+const DIGEST = [
+  { id: "org", label: "Org health", value: "Steady", note: `${ORG.name}, 6 teams`, trend: [62, 64, 63, 65], tone: "neutral" },
+  { id: "burnout", label: "Burnout trend", value: "Rising on Sales", note: "3 weeks in a row", trend: [20, 26, 31, 38], tone: "warn" },
+  { id: "celebrate", label: "Worth celebrating", value: "27 projects shipped", note: "18 shout-outs this week", trend: [18, 21, 24, 27], tone: "good" },
+];
+
+const TEAM_HEALTH = [
+  { team: "Customer Success", dir: "Improving", arrow: "↑", tone: "good" },
+  { team: "Product Design", dir: "Steady", arrow: "→", tone: "neutral" },
+  { team: "Sales", dir: "Dipping", arrow: "↓", tone: "warn" },
+];
+
+function Spark({ points, tone }) {
+  const w = 64;
+  const h = 20;
+  const min = Math.min(...points);
+  const max = Math.max(...points);
+  const y = (v) => h - 2 - ((v - min) / (max - min || 1)) * (h - 4);
+  const d = points.map((v, i) => `${(i * w) / (points.length - 1)},${y(v)}`).join(" ");
+  return (
+    <svg className={`ob-spark is-${tone}`} width={w} height={h} viewBox={`0 0 ${w} ${h}`} aria-hidden="true">
+      <polyline points={d} fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+function Digest() {
+  const [org, burnout, celebrate] = DIGEST;
+  const tile = (t) => (
+    <div key={t.id} className={`ob-tile is-${t.tone}`}>
+      <p className="ob-tile-label">{t.label}</p>
+      <div className="ob-tile-row">
+        <p className="ob-tile-value">{t.value}</p>
+        <Spark points={t.trend} tone={t.tone} />
+      </div>
+      <p className="ob-tile-note">{t.note}</p>
+    </div>
+  );
+  return (
+    <div className="ob-digest">
+      <p className="ob-label">Weekly digest · {ORG.name} · last 4 weeks</p>
+      <div className="ob-tiles">
+        {tile(org)}
+        <div className="ob-tile">
+          <p className="ob-tile-label">Team health</p>
+          <ul className="ob-teams">
+            {TEAM_HEALTH.map((t) => (
+              <li key={t.team}>
+                {t.team}
+                <span className={`ob-dir is-${t.tone}`}>
+                  {t.arrow} {t.dir}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        {tile(burnout)}
+        {tile(celebrate)}
+      </div>
+    </div>
+  );
+}
+
+function LevelsStep({ level, setLevel, seen, reduce }) {
   const l = LEVELS.find((x) => x.id === level);
   return (
     <>
@@ -196,31 +261,23 @@ function LevelsStep({ level, setLevel, seen, team, reduce }) {
               <ProjectCard project={PROJECT} still />
             </div>
           )}
+          {/* The 1:1 prep from the case study's inbox concept (solutionConcepts.js). */}
           {l.id === "manager" && (
-            <div className="ob-sample-card ob-mini">
-              <p className="ob-label">Monday 1:1 prep · {t.label}</p>
-              <p>
-                <span>Win</span>Finished the Coach Bo onboarding requirements
-              </p>
-              <p>
-                <span>Support</span>Engineering handoff for the specs
-              </p>
+            <div className="ob-prep">
+              <p className="ob-label">1:1 prep · Krishna Desai</p>
+              <p className="ob-prep-title">Prepare for your next 1:1 with Krishna.</p>
+              <p className="ob-tile-note">On par for a promotion in Q1 2026 · over the past 4 weeks</p>
+              <ul className="ob-points">
+                {PREP_POINTS.map((p) => (
+                  <li key={p.text} className={p.tone === "warn" ? "is-warn" : undefined}>
+                    <p className="ob-point-text">{p.text}</p>
+                    <p className="ob-point-why">Why: {p.why}</p>
+                  </li>
+                ))}
+              </ul>
             </div>
           )}
-          {l.id === "leader" && (
-            <div className="ob-sample-card ob-mini">
-              <p className="ob-label">Weekly digest · {ORG.name}</p>
-              <p>
-                <span>Covers</span>Every team that rolls up to them in the org chart
-              </p>
-              <p>
-                <span>Shows</span>Team health and burnout trends over four weeks
-              </p>
-              <p>
-                <span>Never</span>Anyone’s individual check-in
-              </p>
-            </div>
-          )}
+          {l.id === "leader" && <Digest />}
         </motion.div>
       ) : (
         <p className="ob-help ob-level-hint">Pick a level to see a sample of what they get.</p>
@@ -229,7 +286,7 @@ function LevelsStep({ level, setLevel, seen, team, reduce }) {
   );
 }
 
-function TryStep({ sent, send, thinking, reduce }) {
+function TryStep({ sent, draft, thinking, reduce }) {
   const log = useRef(null);
   useEffect(() => {
     const el = log.current;
@@ -243,7 +300,7 @@ function TryStep({ sent, send, thinking, reduce }) {
       <p className="ob-q">Try a check-in yourself</p>
       <p className="ob-help">Answer the way your team will. Your answers become the brief in the next step.</p>
       <div className="ob-chat">
-        <div className="ob-log" ref={log} aria-live="polite">
+        <div className="ob-log" ref={log}>
           {TRY.slice(0, sent).map((s) => (
             <React.Fragment key={s.reply}>
               <p className="cf-bo">{s.bo[s.bo.length - 1]}</p>
@@ -262,30 +319,18 @@ function TryStep({ sent, send, thinking, reduce }) {
             </motion.p>
           )}
         </div>
-        <form
-          className={`cf-input${ready ? " is-typing" : ""}`}
-          onSubmit={(e) => {
-            e.preventDefault();
-            if (ready) send();
-          }}
-        >
-          <input
-            className="cf-field"
-            readOnly
-            value={ready ? step.reply : ""}
-            placeholder={sent === TRY.length ? "Check-in complete" : "Type your response…"}
-            aria-label="Your response"
-          />
-          <button type="submit" className="cf-send" aria-label="Send" disabled={!ready}>
-            ↑
-          </button>
-        </form>
+        <div className={`cf-input${draft ? " is-typing" : ""}`}>
+          <span className={`cf-field ob-field${draft ? "" : " is-empty"}`}>
+            {draft || (sent === TRY.length ? "Check-in complete" : "Type your response…")}
+          </span>
+          <span className="cf-send">↑</span>
+        </div>
       </div>
     </>
   );
 }
 
-function LaunchStep({ team, launched, launch, reduce }) {
+function LaunchStep({ team, launched, press, reduce }) {
   const t = TEAMS.find((x) => x.id === team) || TEAMS[0];
   return (
     <>
@@ -315,9 +360,7 @@ function LaunchStep({ team, launched, launch, reduce }) {
           </div>
         </motion.div>
       ) : (
-        <button type="button" className="ob-primary ob-launch" onClick={launch}>
-          Launch to {t.label}
-        </button>
+        <span className={`ob-primary ob-launch${press ? " is-pressed" : ""}`}>Launch to {t.label}</span>
       )}
     </>
   );
@@ -361,7 +404,7 @@ function Journey({ step, done, goal, team, reduce }) {
         )}
         {done[2] && (
           <motion.p className="ob-help" {...fade(reduce)}>
-            Leaders see rolled-up trends, never individual check-ins.
+            Leaders see org and team health, burnout trends and wins, never individual check-ins.
           </motion.p>
         )}
       </div>
@@ -369,108 +412,122 @@ function Journey({ step, done, goal, team, reduce }) {
   );
 }
 
+/* ── The playback ──
+   The flow plays itself like a video prototype: an admin picks a goal, imports the
+   org, picks a pilot team, looks at what each level gets, answers a check-in and
+   launches, then it starts over. Each beat is the state the screen should show and
+   how long it holds; `type` beats type the next answer into the input instead.
+   Later beats inherit everything set by earlier ones. */
+
+const CHAR_MS = 22;
+
+const BEATS = [
+  { step: 0, ms: 1000 },
+  { goal: "prep", ms: 900 },
+  { sync: "syncing", ms: 1100 },
+  { sync: "done", ms: 1600 },
+  { press: true, ms: 300 },
+  { step: 1, press: false, ms: 900 },
+  { team: "cs", ms: 2200 },
+  { press: true, ms: 300 },
+  { step: 2, press: false, ms: 900 },
+  { level: "ic", ms: 2600 },
+  { level: "manager", ms: 4200 },
+  { level: "leader", ms: 4400 },
+  { press: true, ms: 300 },
+  { step: 3, press: false, sent: 0, ms: 900 },
+  { type: true },
+  { sent: 1, thinking: true, ms: 750 },
+  { thinking: false, ms: 600 },
+  { type: true },
+  { sent: 2, thinking: true, ms: 750 },
+  { thinking: false, ms: 1300 },
+  { press: true, ms: 300 },
+  { step: 4, press: false, ms: 2600 },
+  { press: true, ms: 300 },
+  { launched: true, press: false, ms: 3200 },
+  { out: true, ms: 500 },
+];
+
+const START = { step: 0, goal: null, sync: "idle", team: null, level: null, sent: 0, thinking: false, launched: false, press: false, out: false };
+
+// The screen's state at each beat: the start, plus every beat up to it.
+const FRAMES = BEATS.reduce((acc, beat) => {
+  const prev = acc.length ? acc[acc.length - 1] : START;
+  const { ms, type, ...set } = beat;
+  acc.push({ ...prev, ...set, type: !!type, out: !!set.out, ms });
+  return acc;
+}, []);
+
+// Reduced motion holds on the finished, launched setup.
+const LAST = FRAMES.length - 2;
+
+function useInView(ref) {
+  const [inView, setInView] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return undefined;
+    const io = new IntersectionObserver(([e]) => setInView(e.isIntersecting), { threshold: 0.25 });
+    io.observe(el);
+    return () => io.disconnect();
+  }, [ref]);
+  return inView;
+}
+
+const noop = () => {};
+
 export default function OnboardingFlow({ block }) {
   const fit = useRef(null);
   const scale = useFitScale(fit);
   const reduce = useReducedMotion();
-  const timer = useRef(null);
+  const inView = useInView(fit);
 
-  const [step, setStep] = useState(0);
-  const [goal, setGoal] = useState(null);
-  const [synced, setSynced] = useState(false);
-  const [syncing, setSyncing] = useState(false);
-  const [team, setTeam] = useState(null);
-  const [level, setLevel] = useState(null);
-  const [seen, setSeen] = useState([]);
-  const [sent, setSent] = useState(0);
-  const [thinking, setThinking] = useState(false);
-  const [launched, setLaunched] = useState(false);
+  const [beat, setBeat] = useState(0);
+  const [typed, setTyped] = useState(0);
   const [run, setRun] = useState(0);
 
-  useEffect(() => () => clearTimeout(timer.current), []);
-
-  const done = [goal && synced, !!team, seen.length === LEVELS.length, sent === TRY.length, launched];
-
-  const pickLevel = (id) => {
-    setLevel(id);
-    setSeen((s) => (s.includes(id) ? s : [...s, id]));
-  };
-  const canNext = done[step] && step < STEPS.length - 1;
-
-  const sync = () => {
-    setSyncing(true);
-    timer.current = setTimeout(() => {
-      setSyncing(false);
-      setSynced(true);
-    }, reduce ? 0 : 900);
-  };
-
-  const send = () => {
-    setSent((n) => n + 1);
-    setThinking(true);
-    timer.current = setTimeout(() => setThinking(false), reduce ? 0 : 750);
-  };
-
-  // The defaults a recommended setup would pick, so the admin can jump ahead.
-  const applyDefaults = () => {
-    if (step === 0) {
-      setGoal(goal || "prep");
-      setSynced(true);
+  // Step through the beats while the prototype is on screen.
+  useEffect(() => {
+    if (reduce || !inView) return undefined;
+    const f = FRAMES[beat];
+    if (f.type) {
+      const reply = TRY[f.sent].reply;
+      const t = setTimeout(
+        () => {
+          if (typed < reply.length) setTyped(typed + 1);
+          else {
+            setTyped(0);
+            setBeat(beat + 1);
+          }
+        },
+        typed < reply.length ? CHAR_MS : 450
+      );
+      return () => clearTimeout(t);
     }
-    if (step === 1) setTeam(team || "design");
-    if (step === 2) setSeen(LEVELS.map((l) => l.id));
-    setStep(step + 1);
-  };
+    const t = setTimeout(() => {
+      if (beat === FRAMES.length - 1) {
+        setBeat(0);
+        setRun((r) => r + 1);
+      } else setBeat(beat + 1);
+    }, f.ms);
+    return () => clearTimeout(t);
+  }, [beat, typed, inView, reduce]);
 
-  const restart = () => {
-    clearTimeout(timer.current);
-    setStep(0);
-    setGoal(null);
-    setSynced(false);
-    setSyncing(false);
-    setTeam(null);
-    setLevel(null);
-    setSeen([]);
-    setSent(0);
-    setThinking(false);
-    setLaunched(false);
-    setRun((r) => r + 1);
-  };
+  const f = FRAMES[reduce ? LAST : beat];
+  const levelIndex = LEVELS.findIndex((l) => l.id === f.level);
+  const seen = f.step > 2 ? LEVELS.map((l) => l.id) : LEVELS.slice(0, levelIndex + 1).map((l) => l.id);
+  const done = [f.step > 0, f.step > 1, f.step > 2, f.step > 3, f.launched];
+  const draft = f.type ? TRY[f.sent].reply.slice(0, typed) : "";
 
   return (
     <figure className="ch cf ob">
       <div className="cs-media-frame cf-frame">
-        <div className="cf-bar">
-          <ol className="cf-steps" aria-label="Onboarding steps">
-            {STEPS.map((s, i) => (
-              <React.Fragment key={s}>
-                {i > 0 && (
-                  <li className="cf-arrow" aria-hidden="true">
-                    →
-                  </li>
-                )}
-                <li>
-                  <button
-                    type="button"
-                    className={`cf-step${step === i ? " is-on" : ""}`}
-                    aria-current={step === i ? "step" : undefined}
-                    disabled={i > 0 && !done.slice(0, i).every(Boolean)}
-                    onClick={() => setStep(i)}
-                  >
-                    <span className="cf-num">{i + 1}</span> {s}
-                  </button>
-                </li>
-              </React.Fragment>
-            ))}
-          </ol>
-          {(goal || synced) && (
-            <button type="button" className="cf-replay" onClick={restart}>
-              ↺ Start over
-            </button>
-          )}
-        </div>
-
-        <div className="ch-fit" ref={fit} style={{ height: SCREEN_H * scale }}>
+        <div
+          className={`ch-fit ob-video${f.out ? " is-out" : ""}`}
+          ref={fit}
+          style={{ height: SCREEN_H * scale }}
+          aria-hidden="true"
+        >
           <div
             className="ch-frame"
             style={{ width: SCREEN_W, height: SCREEN_H, transform: `scale(${scale})` }}
@@ -483,52 +540,43 @@ export default function OnboardingFlow({ block }) {
                   <span className="ob-sample">Sample org · {ORG.name}</span>
                 </div>
 
-                <motion.div key={`${run}-${step}`} className="ob-card" {...fade(reduce)}>
+                <motion.div key={`${run}-${f.step}`} className="ob-card" {...fade(reduce)}>
                   <p className="ob-stepnum">
-                    Step {step + 1} of {STEPS.length}
+                    Step {f.step + 1} of {STEPS.length}
                   </p>
-                  {step === 0 && (
+                  {f.step === 0 && (
                     <GoalStep
-                      goal={goal}
-                      setGoal={setGoal}
-                      synced={synced}
-                      sync={sync}
-                      syncing={syncing}
+                      goal={f.goal}
+                      setGoal={noop}
+                      synced={f.sync === "done"}
+                      sync={noop}
+                      syncing={f.sync === "syncing"}
                       reduce={reduce}
                     />
                   )}
-                  {step === 1 && <TeamStep team={team} setTeam={setTeam} reduce={reduce} />}
-                  {step === 2 && (
-                    <LevelsStep level={level} setLevel={pickLevel} seen={seen} team={team} reduce={reduce} />
-                  )}
-                  {step === 3 && <TryStep sent={sent} send={send} thinking={thinking} reduce={reduce} />}
-                  {step === 4 && (
-                    <LaunchStep team={team} launched={launched} launch={() => setLaunched(true)} reduce={reduce} />
-                  )}
+                  {f.step === 1 && <TeamStep team={f.team} setTeam={noop} reduce={reduce} />}
+                  {f.step === 2 && <LevelsStep level={f.level} setLevel={noop} seen={seen} reduce={reduce} />}
+                  {f.step === 3 && <TryStep sent={f.sent} draft={draft} thinking={f.thinking} reduce={reduce} />}
+                  {f.step === 4 && <LaunchStep team={f.team} launched={f.launched} press={f.press} reduce={reduce} />}
 
-                  {step < STEPS.length - 1 && (
+                  {f.step < STEPS.length - 1 && (
                     <div className="ob-foot">
-                      {step < 3 ? (
-                        <button type="button" className="ob-skip" onClick={applyDefaults}>
-                          Skip, use recommended {["setup", "team", "access"][step]}
-                        </button>
+                      {f.step < 3 ? (
+                        <span className="ob-skip">Skip, use recommended {["setup", "team", "access"][f.step]}</span>
                       ) : (
                         <span />
                       )}
-                      <button
-                        type="button"
-                        className="ob-primary"
-                        disabled={!canNext}
-                        onClick={() => setStep(step + 1)}
+                      <span
+                        className={`ob-primary${done[f.step] ? "" : " is-disabled"}${f.press ? " is-pressed" : ""}`}
                       >
                         Continue
-                      </button>
+                      </span>
                     </div>
                   )}
                 </motion.div>
               </div>
 
-              <Journey step={step} done={done} goal={goal} team={team} reduce={reduce} />
+              <Journey step={f.step} done={done} goal={f.goal} team={f.team} reduce={reduce} />
             </div>
           </div>
         </div>
