@@ -287,7 +287,7 @@ export const CRITERIA_BLOCKS = [
   {
     variant: "onboarding-flow",
     caption:
-      "A proposed onboarding flow you can click through, using a sample org. Pick a goal and the side panel promises what Check-Ins will do for you; pick a pilot team to see the first question Bo will ask it; see the insight each level of the org gets from the same check-ins, from an employee’s Career History to a leader’s rolled-up digest; answer a check-in yourself, then see it come back as your manager’s Monday 1:1 brief before launching.",
+      "A video prototype of the proposed onboarding, playing with a sample org. The admin picks a goal and the side panel promises what Check-Ins will do for them, imports the org, picks a pilot team and sees the first question Bo will ask it, then sees the insight each level of the org gets from the same check-ins: an employee’s Career History, a manager’s 1:1 prep, and a leader’s weekly digest of org and team health, burnout trends and wins. Finally they answer a check-in themselves and launch.",
   },
   {
     id: "research-to-product",
