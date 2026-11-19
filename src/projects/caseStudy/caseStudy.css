@@ -1,6 +1,6 @@
 /* Portfolio case-study detail page.
 
-   Visual system modelled on naomilaureece.ca/case-studies/varick, set in Figtree:
+   Visual system modelled on naomilaureece.ca/case-studies/varick, set in Schibsted Grotesk:
    a white page, ink and one grey for type, a #f7f7f7 surface for media, 4px
    corners, a slim sticky section nav beside a 720px reading column, and 96px
    between sections. Originally laid out from Figma node 1486:5717.
@@ -29,7 +29,7 @@
   background: #fff;
   color: #202020;
   min-height: 100vh;
-  font-family: "Figtree", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: "Schibsted Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   letter-spacing: -0.01em;
 }
 
