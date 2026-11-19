@@ -441,10 +441,14 @@ body.home-bg::before {
 
 /* A brand tile that opens its email campaigns. */
 .brand-card-button {
-  display: flex;
+  display: block;
   width: 100%;
+  padding: 0;
   border: 0;
+  background: none;
+  color: inherit;
   font: inherit;
+  text-align: left;
   cursor: pointer;
 }
 
@@ -636,29 +640,30 @@ body.home-bg::before {
   }
 }
 
-/* Cards without a clip (Co-op, the brand tiles) get a slow push-in instead. */
-.home-card-tile--still .home-card-image,
-.brand-card-image {
+/* Every card, product or brand, gets the same slow push-in to 1.1x on hover.
+   The zoom lives on a layer that fills the tile, so it always grows from the
+   middle of the square, whatever crop or framing the artwork inside uses. */
+.home-card-zoom {
+  position: absolute;
+  inset: 0;
   transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* Hover zoom only where a real pointer hovers; a tap on a phone would otherwise
    leave the image stuck zoomed. Keyboard focus gets it everywhere. */
 @media (hover: hover) and (pointer: fine) {
-  .home-card-link:hover .home-card-tile--still .home-card-image,
-  .home-card-tile--still:hover .home-card-image,
-  .brand-card-image:hover {
-    transform: scale(1.04);
+  .home-card-link:hover .home-card-zoom,
+  .home-card-tile:hover .home-card-zoom {
+    transform: scale(1.1);
   }
 }
 
-.home-card-link:focus-visible .home-card-tile--still .home-card-image {
-  transform: scale(1.04);
+.home-card-link:focus-visible .home-card-zoom {
+  transform: scale(1.1);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .home-card-tile--still .home-card-image,
-  .brand-card-image {
+  .home-card-zoom {
     transition: none;
     transform: none !important;
   }
@@ -901,4 +906,68 @@ code {
 .proj-inline-link:hover {
   color: #2E2878;
   border-bottom-color: #2E2878;
+}
+
+/* ── Work gallery: square cards in a pinned horizontal track ──
+   Every project and brand card is a square. On desktop the work section pins
+   (position: sticky) and the page's vertical scroll slides the track sideways;
+   usePinnedTrack in Home.js sets the region's height and the track's transform.
+   The track bleeds to both viewport edges but starts and ends on the page
+   column, so the first and last cards line up with everything above. On phones
+   the cards simply stack. */
+:root {
+  --card-size: clamp(280px, calc(100vh - 300px), 480px);
+}
+
+.home-card-tile {
+  aspect-ratio: 1 / 1;
+}
+
+/* --crop picks which part of wide art stays in the square: 0% keeps the left
+   edge, 50% (the default) the middle, 100% the right edge. Cards set it with
+   their `crop` field in Home.js. */
+.home-card-stage {
+  position: absolute;
+  top: 0;
+  left: var(--crop, 50%);
+  height: 100%;
+  transform: translateX(calc(-1 * var(--crop, 50%)));
+}
+
+.home-card-stage .home-card-image {
+  width: auto;
+  height: 100%;
+  max-width: none;
+}
+
+body.home-bg {
+  overflow-x: clip;
+}
+
+@media (min-width: 601px) {
+  /* Pinned while the track slides; usePinnedTrack sets its top so it sits
+     centered in the viewport. */
+  .work-sticky {
+    position: sticky;
+    top: 0;
+  }
+
+  .work-viewport {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    overflow: clip;
+  }
+
+  .project-grid.project-track {
+    display: flex;
+    gap: var(--grid-gutter);
+    width: max-content;
+    padding-inline: max(var(--page-pad), calc((100vw - var(--page-max)) / 2 + var(--page-pad)));
+    will-change: transform;
+  }
+
+  .project-track > * {
+    flex: none;
+    width: var(--card-size);
+  }
 }
