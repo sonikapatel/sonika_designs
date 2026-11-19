@@ -1,20 +1,23 @@
 import React, { useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
-import { Rail, useFitScale, SCREEN_W, SCREEN_H } from "./careerHistory";
-import { SCRIPT, Typing } from "./checkInFlow";
+import { Rail, ProjectCard, useFitScale, SCREEN_W, SCREEN_H } from "./careerHistory";
+import { SCRIPT, PROJECT, Typing } from "./checkInFlow";
 import "./criteria.css";
 import "./checkInFlow.css";
 import "./onboardingFlow.css";
 
 /* A proposed next version of Check-Ins admin onboarding, playable in the case
    study. It was not shipped. It applies "The first 30 seconds: how to show value
-   in AI product onboarding" (UX Collective) to the four shipped steps:
+   in AI product onboarding" (UX Collective) to the shipped steps:
 
    1. Your goal      one purposeful question that shapes the rest, and the org
                      filled in from the HRIS instead of typed in
    2. Pilot team     start with one team; preview the first question Bo will ask it
-   3. Try it         the admin answers a check-in themselves
-   4. Launch         their own answers come back as the manager's 1:1 brief, then launch
+   3. Who sees what  the insight each level of the org gets, with a sample of each;
+                     access follows the HRIS org chart (the shipped "Who receives
+                     insights" step, shown as outcomes instead of permissions)
+   4. Try it         the admin answers a check-in themselves
+   5. Launch         their own answers come back as the manager's 1:1 brief, then launch
 
    The panel on the right is the shipped "Onboarding Journey" side panel, with a
    promise underneath that updates as the admin answers, so each step gives
@@ -48,7 +51,31 @@ const TEAMS = [
   { id: "design", label: "Product Design", people: 9, question: "What did you finish or hand off this week?" },
 ];
 
-const STEPS = ["Your goal", "Pilot team", "Try it", "Launch"];
+/* What each level of the organization gets from the same check-ins, as in the
+   proposed system earlier in the case study. Access is inherited from the HRIS org
+   chart: a leader's digest covers every team that rolls up to them. */
+const LEVELS = [
+  {
+    id: "ic",
+    role: "Employees",
+    title: "Career History",
+    body: "Each check-in adds their projects and shout-outs to a record they own.",
+  },
+  {
+    id: "manager",
+    role: "Managers",
+    title: "1:1 prep",
+    body: "Talking points for each direct report: wins, blockers and the support they asked for, each linked to the answer behind it.",
+  },
+  {
+    id: "leader",
+    role: "Leaders",
+    title: "Trend digest",
+    body: "Team health and burnout trends for every team that rolls up to them, never individual check-ins.",
+  },
+];
+
+const STEPS = ["Your goal", "Pilot team", "Who sees what", "Try it", "Launch"];
 
 // The admin's own check-in: two of the Coach Bo check-in's questions.
 const TRY = [SCRIPT[0], SCRIPT[2]];
@@ -128,6 +155,75 @@ function TeamStep({ team, setTeam, reduce }) {
           <p className="ob-label">Bo’s first question for {t.label}</p>
           <p className="cf-bo">{t.question}</p>
         </motion.div>
+      )}
+    </>
+  );
+}
+
+function LevelsStep({ level, setLevel, seen, team, reduce }) {
+  const t = TEAMS.find((x) => x.id === team) || TEAMS[0];
+  const l = LEVELS.find((x) => x.id === level);
+  return (
+    <>
+      <p className="ob-q">What each level of your org gets</p>
+      <p className="ob-help">
+        The same check-ins become a different insight at each level. Access follows your org chart, so there’s
+        nothing to set up by hand.
+      </p>
+      <div className="ob-levels" role="tablist" aria-label="Levels">
+        {LEVELS.map((x) => (
+          <button
+            key={x.id}
+            type="button"
+            role="tab"
+            aria-selected={level === x.id}
+            className={`ob-level${level === x.id ? " is-on" : ""}`}
+            onClick={() => setLevel(x.id)}
+          >
+            <span className="ob-level-role">
+              {seen.includes(x.id) && <span className="ob-level-seen" aria-label="Reviewed">✓</span>}
+              {x.role}
+            </span>
+            <span className="ob-level-title">{x.title}</span>
+          </button>
+        ))}
+      </div>
+      {l ? (
+        <motion.div key={l.id} className="ob-preview ob-level-preview" role="tabpanel" {...fade(reduce)}>
+          <p className="ob-help ob-level-body">{l.body}</p>
+          {l.id === "ic" && (
+            <div className="ob-sample-card">
+              <ProjectCard project={PROJECT} still />
+            </div>
+          )}
+          {l.id === "manager" && (
+            <div className="ob-sample-card ob-mini">
+              <p className="ob-label">Monday 1:1 prep · {t.label}</p>
+              <p>
+                <span>Win</span>Finished the Coach Bo onboarding requirements
+              </p>
+              <p>
+                <span>Support</span>Engineering handoff for the specs
+              </p>
+            </div>
+          )}
+          {l.id === "leader" && (
+            <div className="ob-sample-card ob-mini">
+              <p className="ob-label">Weekly digest · {ORG.name}</p>
+              <p>
+                <span>Covers</span>Every team that rolls up to them in the org chart
+              </p>
+              <p>
+                <span>Shows</span>Team health and burnout trends over four weeks
+              </p>
+              <p>
+                <span>Never</span>Anyone’s individual check-in
+              </p>
+            </div>
+          )}
+        </motion.div>
+      ) : (
+        <p className="ob-help ob-level-hint">Pick a level to see a sample of what they get.</p>
       )}
     </>
   );
@@ -263,6 +359,11 @@ function Journey({ step, done, goal, team, reduce }) {
             Starting with {t.label}, {t.people} people.
           </motion.p>
         )}
+        {done[2] && (
+          <motion.p className="ob-help" {...fade(reduce)}>
+            Leaders see rolled-up trends, never individual check-ins.
+          </motion.p>
+        )}
       </div>
     </aside>
   );
@@ -279,6 +380,8 @@ export default function OnboardingFlow({ block }) {
   const [synced, setSynced] = useState(false);
   const [syncing, setSyncing] = useState(false);
   const [team, setTeam] = useState(null);
+  const [level, setLevel] = useState(null);
+  const [seen, setSeen] = useState([]);
   const [sent, setSent] = useState(0);
   const [thinking, setThinking] = useState(false);
   const [launched, setLaunched] = useState(false);
@@ -286,7 +389,12 @@ export default function OnboardingFlow({ block }) {
 
   useEffect(() => () => clearTimeout(timer.current), []);
 
-  const done = [goal && synced, !!team, sent === TRY.length, launched];
+  const done = [goal && synced, !!team, seen.length === LEVELS.length, sent === TRY.length, launched];
+
+  const pickLevel = (id) => {
+    setLevel(id);
+    setSeen((s) => (s.includes(id) ? s : [...s, id]));
+  };
   const canNext = done[step] && step < STEPS.length - 1;
 
   const sync = () => {
@@ -310,6 +418,7 @@ export default function OnboardingFlow({ block }) {
       setSynced(true);
     }
     if (step === 1) setTeam(team || "design");
+    if (step === 2) setSeen(LEVELS.map((l) => l.id));
     setStep(step + 1);
   };
 
@@ -320,6 +429,8 @@ export default function OnboardingFlow({ block }) {
     setSynced(false);
     setSyncing(false);
     setTeam(null);
+    setLevel(null);
+    setSeen([]);
     setSent(0);
     setThinking(false);
     setLaunched(false);
@@ -387,16 +498,19 @@ export default function OnboardingFlow({ block }) {
                     />
                   )}
                   {step === 1 && <TeamStep team={team} setTeam={setTeam} reduce={reduce} />}
-                  {step === 2 && <TryStep sent={sent} send={send} thinking={thinking} reduce={reduce} />}
-                  {step === 3 && (
+                  {step === 2 && (
+                    <LevelsStep level={level} setLevel={pickLevel} seen={seen} team={team} reduce={reduce} />
+                  )}
+                  {step === 3 && <TryStep sent={sent} send={send} thinking={thinking} reduce={reduce} />}
+                  {step === 4 && (
                     <LaunchStep team={team} launched={launched} launch={() => setLaunched(true)} reduce={reduce} />
                   )}
 
                   {step < STEPS.length - 1 && (
                     <div className="ob-foot">
-                      {step < 2 ? (
+                      {step < 3 ? (
                         <button type="button" className="ob-skip" onClick={applyDefaults}>
-                          Skip, use recommended {step === 0 ? "setup" : "team"}
+                          Skip, use recommended {["setup", "team", "access"][step]}
                         </button>
                       ) : (
                         <span />
