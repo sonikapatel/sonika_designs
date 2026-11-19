@@ -451,6 +451,7 @@ const CARDS = {
       description: "Connecting creatives over coffee IRL, inspired by the Swedish ritual",
       industry: "Community",
       frame: [2676, 820, 1603, 0, 1074, 820],
+      panels: [[1604, 0, 652, 820], [2280, 0, 396, 400], [2280, 424, 396, 396]],
       /* Clicking the card opens reels from @fikacreatives.co, played through
          Instagram's own embed. */
       posts: [
@@ -467,6 +468,7 @@ const CARDS = {
       description: "A wellness brand for multihyphenates balancing career and creative work",
       industry: "Wellness",
       frame: [2676, 823, 1719, 0, 946, 824],
+      panels: [[1720, 0, 460, 820], [2204, 4, 460, 816]],
       /* Clicking the card opens the Instagram posts and event visuals. */
       posts: [
         { src: "/images/bib/bib-website.mp4", poster: "/images/bib/bib-website-poster.jpg", caption: "Website" },
@@ -482,6 +484,7 @@ const CARDS = {
       description: "An Indian simmer sauce brand to pair with a variety of dishes",
       industry: "Simmer sauce",
       frame: [2676, 817, 1873, 0, 774, 774],
+      panels: [[1872, 0, 776, 776]],
     },
     {
       image: "/images/motion1.png",
@@ -489,6 +492,7 @@ const CARDS = {
       description: "A Range Rover coffee cart concept with Pakistani-inspired flavors",
       industry: "Coffee cart",
       frame: [2682, 817, 1222, 0, 1460, 818],
+      panels: [[1224, 0, 844, 816], [2112, 0, 568, 808]],
     },
     {
       image: "/images/ortho1.png",
@@ -496,6 +500,10 @@ const CARDS = {
       description: "A Hawaiian-inspired clinic built on beauty, balance and breath",
       industry: "Orthodontics",
       frame: [2676, 816, 1835, 0, 842, 816],
+      panels: [[1836, 0, 840, 816]],
+      /* Its panel is rounder than the rest; this fills the corners the shared
+         radius uncovers, in the panel's own color over the page. */
+      panelFill: "#F3EDE9",
       /* Clicking the card opens the brand and graphic style guide, one page per
          slide, rendered from the PDF in /images/lokahi. */
       guide: {
@@ -664,6 +672,8 @@ export default function Home() {
                       description={card.description}
                       industry={card.industry}
                       frame={card.frame}
+                      panels={card.panels}
+                      panelFill={card.panelFill}
                       campaigns={card.campaigns}
                       posts={card.posts}
                       guide={card.guide}
@@ -735,6 +745,10 @@ export default function Home() {
   );
 }
 
+/* Every brand panel is clipped to the same corner radius, as a fraction of the
+   tile (18px on a 480px card), whatever radius its artwork was exported with. */
+const PANEL_RADIUS = 0.0375;
+
 /* Places a board so the box [x, y, w, h] inside it fits a square tile, centered,
    inset by `pad` (a fraction of the tile) on the box's longer side. */
 function frameStyle([boardW, boardH, x, y, w, h], pad = 0.08) {
@@ -750,10 +764,29 @@ function frameStyle([boardW, boardH, x, y, w, h], pad = 0.08) {
   };
 }
 
-function BrandCard({ image, name, description, industry, frame, campaigns, posts, guide }) {
+/* A clip path of the board's panels, each a rounded rect at PANEL_RADIUS. It is
+   in the board image's own box (objectBoundingBox), so the radius is converted
+   per axis from tile units to that box. */
+function PanelClip({ id, frame: [boardW, boardH, , , w, h], panels, pad = 0.08 }) {
+  const fit = (1 - 2 * pad) / Math.max(w, h);
+  const rx = PANEL_RADIUS / (boardW * fit);
+  const ry = PANEL_RADIUS / (boardH * fit);
+  return (
+    <svg width="0" height="0" style={{ position: "absolute" }} aria-hidden="true">
+      <clipPath id={id} clipPathUnits="objectBoundingBox">
+        {panels.map(([x, y, pw, ph]) => (
+          <rect key={`${x}-${y}`} x={x / boardW} y={y / boardH} width={pw / boardW} height={ph / boardH} rx={rx} ry={ry} />
+        ))}
+      </clipPath>
+    </svg>
+  );
+}
+
+function BrandCard({ image, name, description, industry, frame, panels, panelFill, campaigns, posts, guide }) {
   const ref = useFadeIn();
   const dialogRef = useRef(null);
   const clickable = Boolean(campaigns || posts || guide);
+  const clipId = `brand-panels-${String(name || image).replace(/[^a-z0-9]/gi, "")}`;
   const kind = guide ? "brand and graphic styles" : posts ? "Instagram posts" : "email campaigns";
 
   /* Same square tile and caption as the product cards. The board's own copy
@@ -765,7 +798,16 @@ function BrandCard({ image, name, description, industry, frame, campaigns, posts
   const tile = (
     <div className="home-card-tile home-card-tile--still">
       <div className="home-card-zoom">
-        <img src={image} alt="" className="home-card-image" style={frame ? frameStyle(frame) : undefined} />
+        {frame && panels ? (
+          <>
+            <PanelClip id={clipId} frame={frame} panels={panels} />
+            <div style={{ ...frameStyle(frame), clipPath: `url(#${clipId})`, background: panelFill }}>
+              <img src={image} alt="" className="home-card-image" style={{ height: "100%" }} />
+            </div>
+          </>
+        ) : (
+          <img src={image} alt="" className="home-card-image" style={frame ? frameStyle(frame) : undefined} />
+        )}
       </div>
     </div>
   );
