@@ -142,6 +142,88 @@ function useFadeIn() {
   return ref;
 }
 
+/* Pinned horizontal gallery for the work cards. On desktop the section sticks to
+   the viewport while the page scrolls past it, and that vertical distance drives
+   the card track sideways: the region is made exactly as tall as one viewport
+   plus the track's overflow, so the last card arrives as the pin releases. On
+   phones (600px and under) nothing is pinned and the cards stack (index.css). */
+function usePinnedTrack(key) {
+  const regionRef = useRef(null);
+  const viewportRef = useRef(null);
+  const trackRef = useRef(null);
+
+  useEffect(() => {
+    const region = regionRef.current;
+    const viewport = viewportRef.current;
+    const track = trackRef.current;
+    if (!region || !viewport || !track) return;
+    const wide = window.matchMedia("(min-width: 601px)");
+    const sticky = region.firstElementChild;
+    let overflow = 0;
+    let pinTop = 0;
+    let frame = 0;
+
+    const update = () => {
+      frame = 0;
+      if (!overflow) {
+        track.style.transform = "";
+        return;
+      }
+      const top = region.getBoundingClientRect().top;
+      const progress = Math.min(1, Math.max(0, (pinTop - top) / overflow));
+      track.style.transform = `translate3d(${-progress * overflow}px, 0, 0)`;
+    };
+    /* The pinned block is only as tall as its content and is centered in the
+       viewport while it is pinned, so the section ends right after the cards
+       instead of leaving a viewport's worth of empty space before the next one. */
+    const measure = () => {
+      overflow = wide.matches ? Math.max(0, track.scrollWidth - viewport.clientWidth) : 0;
+      const pinH = sticky.offsetHeight;
+      pinTop = Math.max(0, (window.innerHeight - pinH) / 2);
+      sticky.style.top = overflow ? `${pinTop}px` : "";
+      region.style.height = overflow ? `${pinH + overflow}px` : "";
+      update();
+    };
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+    /* Tabbing to a card that is still off to the side scrolls the page to the
+       point where the track has brought it into view. */
+    const onFocus = (e) => {
+      if (!overflow) return;
+      const card = [...track.children].find((c) => c.contains(e.target));
+      if (!card) return;
+      const pad = parseFloat(getComputedStyle(track).paddingLeft) || 0;
+      const progress = Math.min(1, Math.max(0, (card.offsetLeft - pad) / overflow));
+      const regionTop = region.getBoundingClientRect().top + window.scrollY;
+      window.scrollTo({ top: regionTop - pinTop + progress * overflow });
+    };
+
+    const resize = new ResizeObserver(measure);
+    resize.observe(track);
+    resize.observe(viewport);
+    resize.observe(sticky);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", measure);
+    wide.addEventListener("change", measure);
+    track.addEventListener("focusin", onFocus);
+    measure();
+    return () => {
+      cancelAnimationFrame(frame);
+      resize.disconnect();
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", measure);
+      wide.removeEventListener("change", measure);
+      track.removeEventListener("focusin", onFocus);
+      region.style.height = "";
+      sticky.style.top = "";
+      track.style.transform = "";
+    };
+  }, [key]);
+
+  return { regionRef, viewportRef, trackRef };
+}
+
 const TABS = ["Products", "Brands", "Playground"];
 
 const CARDS = {
@@ -231,6 +313,8 @@ const CARDS = {
       result: "Navigation time cut 28%",
       industry: "Financial",
       image: "/images/Springboard.png",
+      /* Wide art in a square card: keep the member sidebar and account header in frame. */
+      crop: "36%",
       slug: "coop",
       fullWidth: true,
     },
@@ -245,6 +329,8 @@ const CARDS = {
          (Figma node 107:5363). The outline sits at 385.6,208.7 / 132.1×125.3 on
          the 1354×556 tile. */
       image: "/images/homease/homease-card-plain.png",
+      /* Wide art in a square card: keep the Homease wordmark in frame. */
+      crop: "13%",
       house: {
         left: "28.479%",
         top: "37.536%",
@@ -270,6 +356,8 @@ const CARDS = {
       description: "Patient intake you fill out once, not at every front desk",
       bg: "#2C7476",
       image: "/images/intake/intake-card.png",
+      /* Wide art in a square card: keep the intake wordmark in frame. */
+      crop: "12%",
       /* The splash and health profile recorded from the iOS prototype, pinned over the
          phone at the same rect as the Homease card (858,72 / 281×608 on 1354×556). */
       video: {
@@ -291,6 +379,8 @@ const CARDS = {
          embossed cotton-paper ground. The cans come from the Foo Bar Figma file
          (Portfolio export / foobar-card); the paper is composited in at 1354×556. */
       image: "/images/foobar/foobar-card.jpg",
+      /* Wide art in a square card: keep the foo.bar wordmark in frame. */
+      crop: "15%",
       slug: "foobar",
       fullWidth: true,
     },
@@ -299,6 +389,9 @@ const CARDS = {
     {
       image: "/images/fika1.png",
       name: "Fika",
+      description: "Connecting creatives over coffee IRL, inspired by the Swedish ritual",
+      industry: "Community",
+      frame: [2676, 820, 1603, 0, 1074, 820],
       /* Clicking the card opens reels from @fikacreatives.co, played through
          Instagram's own embed. */
       posts: [
@@ -312,6 +405,9 @@ const CARDS = {
     {
       image: "/images/Bib1.png",
       name: "Beauty in Balance",
+      description: "A wellness brand for multihyphenates balancing career and creative work",
+      industry: "Wellness",
+      frame: [2676, 823, 1719, 0, 946, 824],
       /* Clicking the card opens the Instagram posts and event visuals. */
       posts: [
         { src: "/images/bib/bib-website.mp4", poster: "/images/bib/bib-website-poster.jpg", caption: "Website" },
@@ -321,11 +417,26 @@ const CARDS = {
         { src: "/images/bib/bib-tour-pillars.jpg", caption: "Signature Series tour", alt: "Post reading: Each pillar of branding, revealed soon" },
       ],
     },
-    { image: "/images/jaal2.png" },
-    { image: "/images/motion1.png" },
+    {
+      image: "/images/jaal2.png",
+      name: "Jal Sauces",
+      description: "An Indian simmer sauce brand to pair with a variety of dishes",
+      industry: "Simmer sauce",
+      frame: [2676, 817, 1873, 0, 774, 774],
+    },
+    {
+      image: "/images/motion1.png",
+      name: "Motion Coffee Co.",
+      description: "A Range Rover coffee cart concept with Pakistani-inspired flavors",
+      industry: "Coffee cart",
+      frame: [2682, 817, 1222, 0, 1460, 818],
+    },
     {
       image: "/images/ortho1.png",
       name: "Lokahi Orthodontics",
+      description: "A Hawaiian-inspired clinic built on beauty, balance and breath",
+      industry: "Orthodontics",
+      frame: [2676, 816, 1835, 0, 842, 816],
       /* Clicking the card opens the brand and graphic style guide, one page per
          slide, rendered from the PDF in /images/lokahi. */
       guide: {
@@ -412,6 +523,7 @@ export default function Home() {
 
   const introRef = useFadeIn();
   const workRef = useFadeIn();
+  const { regionRef, viewportRef, trackRef } = usePinnedTrack(activeTab);
   const valuesRef = useFadeIn();
   const toolsRef = useFadeIn();
 
@@ -459,6 +571,8 @@ export default function Home() {
 
         {/* Work */}
         <section ref={workRef} className="fade-section">
+          <div ref={regionRef} className="work-region">
+          <div className="work-sticky">
           {/* Heading on the left, tabs on the right of the same row. */}
           <div className="work-head">
             <SectionHeading typewriter title="I've built" subtitle="Selected products, brands and side projects." />
@@ -475,11 +589,26 @@ export default function Home() {
             </div>
           </div>
 
-          <div className={activeTab === "Brands" ? "project-grid project-grid--single" : "project-grid"} aria-live="polite">
+          <div ref={viewportRef} className="work-viewport">
+          <div
+            ref={trackRef}
+            className={activeTab === "Brands" ? "project-grid project-track project-grid--single" : "project-grid project-track"}
+            aria-live="polite"
+          >
             {cards.length > 0 ? (
               activeTab === "Brands"
                 ? cards.map((card) => (
-                    <BrandCard key={card.image} image={card.image} name={card.name} campaigns={card.campaigns} posts={card.posts} guide={card.guide} />
+                    <BrandCard
+                      key={card.image}
+                      image={card.image}
+                      name={card.name}
+                      description={card.description}
+                      industry={card.industry}
+                      frame={card.frame}
+                      campaigns={card.campaigns}
+                      posts={card.posts}
+                      guide={card.guide}
+                    />
                   ))
                 : cards.map((card) => (
                     <ProjectCard
@@ -496,11 +625,15 @@ export default function Home() {
                       house={card.house}
                       slug={card.slug}
                       fullWidth={card.fullWidth}
+                      crop={card.crop}
                     />
                   ))
             ) : (
               <p style={styles.empty}>Coming soon</p>
             )}
+          </div>
+          </div>
+          </div>
           </div>
         </section>
 
@@ -542,28 +675,64 @@ export default function Home() {
   );
 }
 
-function BrandCard({ image, name, campaigns, posts, guide }) {
-  const [hovered, setHovered] = useState(false);
+/* Places a board so the box [x, y, w, h] inside it fits a square tile, centered,
+   inset by `pad` (a fraction of the tile) on the box's longer side. */
+function frameStyle([boardW, boardH, x, y, w, h], pad = 0.08) {
+  const fit = (1 - 2 * pad) / Math.max(w, h);
+  const pct = (n) => `${n * 100}%`;
+  return {
+    position: "absolute",
+    maxWidth: "none",
+    width: pct(boardW * fit),
+    height: pct(boardH * fit),
+    left: pct(0.5 - (x + w / 2) * fit),
+    top: pct(0.5 - (y + h / 2) * fit),
+  };
+}
+
+function BrandCard({ image, name, description, industry, frame, campaigns, posts, guide }) {
   const ref = useFadeIn();
   const dialogRef = useRef(null);
-  const style = {
-    ...styles.brandCard,
-    background: hovered ? "#F7F3EC" : "transparent",
-    transition: "background-color 150ms ease, opacity 500ms var(--ease-out), transform 500ms var(--ease-out)",
-  };
-  const img = <img src={image} alt="" className="brand-card-image" style={styles.brandImage} />;
+  const clickable = Boolean(campaigns || posts || guide);
+  const kind = guide ? "brand and graphic styles" : posts ? "Instagram posts" : "email campaigns";
 
-  if (!campaigns && !posts && !guide) {
+  /* Same square tile and caption as the product cards. The board's own copy
+     (category, name, blurb) moves into the caption, so the tile shows only the
+     visuals from the right of each board, whole: `frame` is the board's size and
+     the box around those visuals, [boardW, boardH, x, y, w, h] in pixels, and the
+     box is scaled to fit the square with a margin on every side. The boards have
+     transparent backgrounds, so the margin is simply the page. */
+  const tile = (
+    <div className="home-card-tile home-card-tile--still">
+      <div className="home-card-zoom">
+        <img src={image} alt="" className="home-card-image" style={frame ? frameStyle(frame) : undefined} />
+      </div>
+    </div>
+  );
+  const caption = (
+    <div className="home-card-caption">
+      <div className="home-card-copy">
+        {description && <p className="home-card-description">{description}</p>}
+        {clickable && <p className="home-card-result">See the {kind}</p>}
+      </div>
+      <div className="home-card-tags">
+        {name && <span className="home-card-tag home-card-tag--name">{name}</span>}
+        {industry && <span className="home-card-tag">{industry}</span>}
+      </div>
+    </div>
+  );
+
+  if (!clickable) {
     return (
-      <div ref={ref} className="fade-section" style={style} onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}>
-        {img}
+      <div ref={ref} className="fade-section">
+        {tile}
+        {caption}
       </div>
     );
   }
 
   /* Cards with campaigns, posts or a guide are buttons that open a native dialog:
      it traps focus, closes on Escape, and a click on the backdrop closes it too. */
-  const kind = guide ? "brand and graphic styles" : posts ? "Instagram posts" : "email campaigns";
   const title = guide ? "brand and graphic styles" : posts ? "Instagram" : "email campaigns";
   const sub = guide
     ? `Logo, color, type and placements from the ${name} brand guide.`
@@ -574,14 +743,11 @@ function BrandCard({ image, name, campaigns, posts, guide }) {
     <div ref={ref} className="fade-section">
       <button
         type="button"
-        className="brand-card-button"
-        style={style}
-        aria-label={`${name}: see the ${kind}`}
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
+        className="brand-card-button home-card-link"
         onClick={() => dialogRef.current?.showModal()}
       >
-        {img}
+        {tile}
+        {caption}
       </button>
       <dialog
         ref={dialogRef}
@@ -670,7 +836,7 @@ function BrandCard({ image, name, campaigns, posts, guide }) {
    autoplay as before; readers who ask for less motion keep the still. */
 const prefersStill = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-function ProjectCard({ company, description, result, industry, accent, image, video, layer, house, noMotion, slug, fullWidth }) {
+function ProjectCard({ company, description, result, industry, accent, image, video, layer, house, noMotion, slug, fullWidth, crop }) {
   const ref = useFadeIn();
   const videoRef = useRef(null);
   const [playing, setPlaying] = useState(false);
@@ -702,6 +868,11 @@ function ProjectCard({ company, description, result, industry, accent, image, vi
      index.css). The caption names the project, so the still's alt stays empty. */
   const tile = (
     <div className={video || noMotion ? "home-card-tile" : "home-card-tile home-card-tile--still"}>
+      {/* The tile is square; the stage keeps the artwork's own proportions,
+          fills the tile's height and crops the sides, so the clip and layer
+          percentages below still line up with the still. */}
+      <div className="home-card-zoom">
+      <div className="home-card-stage" style={crop ? { "--crop": crop } : undefined}>
       <img
         src={image}
         alt=""
@@ -741,6 +912,8 @@ function ProjectCard({ company, description, result, industry, accent, image, vi
         />
       )}
       {house && <HomeaseHouse style={house} />}
+      </div>
+      </div>
     </div>
   );
 
@@ -850,18 +1023,6 @@ const styles = {
   tabActive: {
     background: "#E6E2DB",
     color: "#111",
-  },
-  brandCard: {
-    borderRadius: 24,
-    /* 48px of room around each board on desktop, easing down on phones. */
-    padding: "clamp(16px, 4vw, 48px)",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  brandImage: {
-    display: "block",
-    maxWidth: "100%",
   },
   brandsSubtitle: {
     margin: "0 0 20px",
