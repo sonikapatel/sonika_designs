@@ -11,21 +11,21 @@ import "./checkInFlow.css";
    project Bo logs to Friday of Krishna's Career History carries a shout-out. */
 
 // The project this check-in logs.
-const PROJECT = {
+export const PROJECT = {
   title: "Coach Bo onboarding requirements",
   links: ["Requirements Doc", "Onboarding Flows"],
   reviewer: "Aiyu Chen",
 };
 
 // The day the check-in lands on: Friday, the board's last column.
-const TODAY = WEEK.length - 1;
+export const TODAY = WEEK.length - 1;
 
 const THINK_MS = 750;
 
 /* The conversation, one step per question. Each answer waits in the input, already
    written, for the reader to send. Bo's questions are the shipped wording; the
    shout-out thread (the third question and Bo's reply to it) is the one addition. */
-const SCRIPT = [
+export const SCRIPT = [
   {
     bo: ["How are you feeling this week?"],
     reply:
@@ -53,7 +53,7 @@ const SCRIPT = [
 
 /* ── Chat ── */
 
-function Typing() {
+export function Typing() {
   return (
     <div className="cf-typing" aria-label="Coach Bo is typing">
       <span />
@@ -166,9 +166,11 @@ function Chat({ sent, onSend, onView, reduceMotion }) {
   );
 }
 
-/* ── Career History, with the logged project landing on today ── */
+/* ── Career History, with the logged project landing on today ──
+   SCRIPT, PROJECT, Typing and Board are also used by the home page's animated
+   Criteria cover (CoachBoCard.js), so the two always match. */
 
-function Board({ project }) {
+export function Board({ project }) {
   return (
     <div className="ch-board">
       <div className="ch-head">
