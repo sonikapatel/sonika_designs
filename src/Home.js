@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import SiteShell from "./SiteShell";
 import HomeaseHouse from "./projects/homease/HomeaseHouse";
+import CoachBoCard from "./projects/criteria/CoachBoCard";
 
 /* Company wordmarks live in public/images/logos, each cropped to its ink. They
    sit in a greyed-out strip under the intro, sized to one shared area rather
@@ -289,6 +290,9 @@ const CARDS = {
       result: "+48% activation",
       industry: "HR Tech",
       bg: "#16112E",
+      /* The tile plays a looping, coded Coach Bo check-in (CoachBoCard.js)
+         instead of the still and clip below, which stay as the fallback. */
+      scene: "coach-bo",
       /* The still's dashboard window is dashboard.mov's first frame, so the clip
          takes over seamlessly on hover. It plays in that window (87,108 /
          798×459 on the 1011×795 tile), and the "Prepare for your next 1:1" panel,
@@ -681,6 +685,7 @@ export default function Home() {
                       slug={card.slug}
                       fullWidth={card.fullWidth}
                       crop={card.crop}
+                      scene={card.scene}
                     />
                   ))
             ) : (
@@ -891,7 +896,7 @@ function BrandCard({ image, name, description, industry, frame, campaigns, posts
    autoplay as before; readers who ask for less motion keep the still. */
 const prefersStill = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-function ProjectCard({ company, description, result, industry, accent, image, video, layer, house, noMotion, slug, fullWidth, crop }) {
+function ProjectCard({ company, description, result, industry, accent, image, video, layer, house, noMotion, slug, fullWidth, crop, scene }) {
   const ref = useFadeIn();
   const videoRef = useRef(null);
   const [playing, setPlaying] = useState(false);
@@ -927,6 +932,9 @@ function ProjectCard({ company, description, result, industry, accent, image, vi
           fills the tile's height and crops the sides, so the clip and layer
           percentages below still line up with the still. */}
       <div className="home-card-zoom">
+      {scene === "coach-bo" ? (
+        <CoachBoCard />
+      ) : (
       <div className="home-card-stage" style={crop ? { "--crop": crop } : undefined}>
       <img
         src={image}
@@ -968,6 +976,7 @@ function ProjectCard({ company, description, result, industry, accent, image, vi
       )}
       {house && <HomeaseHouse style={house} />}
       </div>
+      )}
       </div>
     </div>
   );
