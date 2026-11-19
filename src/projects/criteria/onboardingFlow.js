@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import { Rail, ProjectCard, useFitScale, SCREEN_W, SCREEN_H } from "./careerHistory";
 import { SCRIPT, PROJECT, Typing } from "./checkInFlow";
+import { PREP_POINTS } from "./solutionConcepts";
 import "./criteria.css";
 import "./checkInFlow.css";
 import "./onboardingFlow.css";
@@ -65,13 +66,13 @@ const LEVELS = [
     id: "manager",
     role: "Managers",
     title: "1:1 prep",
-    body: "Talking points for each direct report: wins, blockers and the support they asked for, each linked to the answer behind it.",
+    body: "Talking points for each direct report before their 1:1, each with the reason behind it from their check-ins.",
   },
   {
     id: "leader",
     role: "Leaders",
-    title: "Trend digest",
-    body: "Team health and burnout trends for every team that rolls up to them, never individual check-ins.",
+    title: "Weekly digest",
+    body: "Org health, team health, burnout trends and the wins worth celebrating, for every team that rolls up to them. Never individual check-ins.",
   },
 ];
 
@@ -160,8 +161,72 @@ function TeamStep({ team, setTeam, reduce }) {
   );
 }
 
-function LevelsStep({ level, setLevel, seen, team, reduce }) {
-  const t = TEAMS.find((x) => x.id === team) || TEAMS[0];
+/* The leader's weekly digest for the sample org: four tiles, each a rolled-up read
+   with its last four weeks. Sample figures, like the rest of the sample org. */
+const DIGEST = [
+  { id: "org", label: "Org health", value: "Steady", note: `${ORG.name}, 6 teams`, trend: [62, 64, 63, 65], tone: "neutral" },
+  { id: "burnout", label: "Burnout trend", value: "Rising on Sales", note: "3 weeks in a row", trend: [20, 26, 31, 38], tone: "warn" },
+  { id: "celebrate", label: "Worth celebrating", value: "27 projects shipped", note: "18 shout-outs this week", trend: [18, 21, 24, 27], tone: "good" },
+];
+
+const TEAM_HEALTH = [
+  { team: "Customer Success", dir: "Improving", arrow: "↑", tone: "good" },
+  { team: "Product Design", dir: "Steady", arrow: "→", tone: "neutral" },
+  { team: "Sales", dir: "Dipping", arrow: "↓", tone: "warn" },
+];
+
+function Spark({ points, tone }) {
+  const w = 64;
+  const h = 20;
+  const min = Math.min(...points);
+  const max = Math.max(...points);
+  const y = (v) => h - 2 - ((v - min) / (max - min || 1)) * (h - 4);
+  const d = points.map((v, i) => `${(i * w) / (points.length - 1)},${y(v)}`).join(" ");
+  return (
+    <svg className={`ob-spark is-${tone}`} width={w} height={h} viewBox={`0 0 ${w} ${h}`} aria-hidden="true">
+      <polyline points={d} fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+function Digest() {
+  const [org, burnout, celebrate] = DIGEST;
+  const tile = (t) => (
+    <div key={t.id} className={`ob-tile is-${t.tone}`}>
+      <p className="ob-tile-label">{t.label}</p>
+      <div className="ob-tile-row">
+        <p className="ob-tile-value">{t.value}</p>
+        <Spark points={t.trend} tone={t.tone} />
+      </div>
+      <p className="ob-tile-note">{t.note}</p>
+    </div>
+  );
+  return (
+    <div className="ob-digest">
+      <p className="ob-label">Weekly digest · {ORG.name} · last 4 weeks</p>
+      <div className="ob-tiles">
+        {tile(org)}
+        <div className="ob-tile">
+          <p className="ob-tile-label">Team health</p>
+          <ul className="ob-teams">
+            {TEAM_HEALTH.map((t) => (
+              <li key={t.team}>
+                {t.team}
+                <span className={`ob-dir is-${t.tone}`}>
+                  {t.arrow} {t.dir}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        {tile(burnout)}
+        {tile(celebrate)}
+      </div>
+    </div>
+  );
+}
+
+function LevelsStep({ level, setLevel, seen, reduce }) {
   const l = LEVELS.find((x) => x.id === level);
   return (
     <>
@@ -196,31 +261,23 @@ function LevelsStep({ level, setLevel, seen, team, reduce }) {
               <ProjectCard project={PROJECT} still />
             </div>
           )}
+          {/* The 1:1 prep from the case study's inbox concept (solutionConcepts.js). */}
           {l.id === "manager" && (
-            <div className="ob-sample-card ob-mini">
-              <p className="ob-label">Monday 1:1 prep · {t.label}</p>
-              <p>
-                <span>Win</span>Finished the Coach Bo onboarding requirements
-              </p>
-              <p>
-                <span>Support</span>Engineering handoff for the specs
-              </p>
+            <div className="ob-prep">
+              <p className="ob-label">1:1 prep · Krishna Desai</p>
+              <p className="ob-prep-title">Prepare for your next 1:1 with Krishna.</p>
+              <p className="ob-tile-note">On par for a promotion in Q1 2026 · over the past 4 weeks</p>
+              <ul className="ob-points">
+                {PREP_POINTS.map((p) => (
+                  <li key={p.text} className={p.tone === "warn" ? "is-warn" : undefined}>
+                    <p className="ob-point-text">{p.text}</p>
+                    <p className="ob-point-why">Why: {p.why}</p>
+                  </li>
+                ))}
+              </ul>
             </div>
           )}
-          {l.id === "leader" && (
-            <div className="ob-sample-card ob-mini">
-              <p className="ob-label">Weekly digest · {ORG.name}</p>
-              <p>
-                <span>Covers</span>Every team that rolls up to them in the org chart
-              </p>
-              <p>
-                <span>Shows</span>Team health and burnout trends over four weeks
-              </p>
-              <p>
-                <span>Never</span>Anyone’s individual check-in
-              </p>
-            </div>
-          )}
+          {l.id === "leader" && <Digest />}
         </motion.div>
       ) : (
         <p className="ob-help ob-level-hint">Pick a level to see a sample of what they get.</p>
@@ -361,7 +418,7 @@ function Journey({ step, done, goal, team, reduce }) {
         )}
         {done[2] && (
           <motion.p className="ob-help" {...fade(reduce)}>
-            Leaders see rolled-up trends, never individual check-ins.
+            Leaders see org and team health, burnout trends and wins, never individual check-ins.
           </motion.p>
         )}
       </div>
@@ -499,7 +556,7 @@ export default function OnboardingFlow({ block }) {
                   )}
                   {step === 1 && <TeamStep team={team} setTeam={setTeam} reduce={reduce} />}
                   {step === 2 && (
-                    <LevelsStep level={level} setLevel={pickLevel} seen={seen} team={team} reduce={reduce} />
+                    <LevelsStep level={level} setLevel={pickLevel} seen={seen} reduce={reduce} />
                   )}
                   {step === 3 && <TryStep sent={sent} send={send} thinking={thinking} reduce={reduce} />}
                   {step === 4 && (
