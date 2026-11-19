@@ -10,6 +10,33 @@ import "./caseStudy.css";
    standard Figma section variants comes in through `custom`, keyed by variant name.
    ───────────────────────────────────────────────────────────── */
 
+/* Each section fades up once as it scrolls into view, matching the home page
+   (.fade-section in index.css). threshold 0 plus a bottom margin, rather than a
+   percentage, so very tall sections still trigger. */
+function FadeIn({ className, children, ...rest }) {
+  const ref = useRef(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          el.classList.add("is-visible");
+          observer.disconnect();
+        }
+      },
+      { threshold: 0, rootMargin: "0px 0px -10% 0px" }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+  return (
+    <div ref={ref} className={`fade-section ${className || ""}`.trim()} {...rest}>
+      {children}
+    </div>
+  );
+}
+
 /* Reads the position of every anchored block on scroll and reports the last one whose
    top has passed the highlight line. An IntersectionObserver would be tidier, but the
    blocks vary from ~120px to ~660px tall, so "which section is intersecting" is often
@@ -520,14 +547,14 @@ export default function CaseStudyPage({ meta, nav, blocks, custom }) {
 
           <div className="cs-blocks">
             {blocks.map((block, i) => (
-              <div
+              <FadeIn
                 key={block.id || `${block.variant}-${i}`}
                 id={block.id}
                 className={block.className ? `cs-block ${block.className}` : "cs-block"}
                 style={block.gapAfter ? { marginBottom: block.gapAfter } : undefined}
               >
                 <Block block={block} custom={custom} />
-              </div>
+              </FadeIn>
             ))}
           </div>
         </main>

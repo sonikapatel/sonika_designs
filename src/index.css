@@ -866,9 +866,11 @@ body.home-bg::before {
   }
 }
 
+/* transform: none (not translateY(0)) so a revealed section stops being a
+   containing block for any fixed or sticky children inside it. */
 .fade-section.is-visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: none;
 }
 
 body {
