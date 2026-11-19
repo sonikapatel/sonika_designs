@@ -85,7 +85,7 @@ function ValueCard({ title, description, bg, textColor }) {
         height: "100%",
         transformStyle: "preserve-3d",
         transform: flipped ? "rotateY(180deg)" : "rotateY(0deg)",
-        transition: "transform 0.45s cubic-bezier(0.4, 0, 0.2, 1)",
+        transition: "transform 400ms var(--ease-in-out)",
       }}>
         {/* Front */}
         <div style={{
@@ -549,7 +549,7 @@ function BrandCard({ image, name, campaigns, posts, guide }) {
   const style = {
     ...styles.brandCard,
     background: hovered ? "#F7F3EC" : "transparent",
-    transition: "background 0.2s ease, opacity 0.65s ease, transform 0.65s ease",
+    transition: "background-color 150ms ease, opacity 500ms var(--ease-out), transform 500ms var(--ease-out)",
   };
   const img = <img src={image} alt="" className="brand-card-image" style={styles.brandImage} />;
 
@@ -845,7 +845,7 @@ const styles = {
     color: "rgba(0,0,0,0.62)",
     cursor: "pointer",
     fontFamily: "inherit",
-    transition: "background 0.15s, color 0.15s",
+    transition: "background-color 150ms ease, color 150ms ease",
   },
   tabActive: {
     background: "#E6E2DB",
