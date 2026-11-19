@@ -66,3 +66,16 @@
   padding: 2px 0;
   overflow-wrap: anywhere;
 }
+
+/* The case study's chat column is 600px wide; the cover's screen is narrower, so
+   the column fits it instead, with the same 32px margin on both sides. */
+.cbo .cf-chat {
+  min-width: 0;
+}
+
+.cbo .cf-head,
+.cbo .cf-log,
+.cbo .cf-input {
+  width: calc(100% - 64px);
+  max-width: none;
+}
