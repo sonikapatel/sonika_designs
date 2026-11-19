@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import SiteShell from "./SiteShell";
 import HomeaseHouse from "./projects/homease/HomeaseHouse";
 import CoachBoCard from "./projects/criteria/CoachBoCard";
+import SquareSliderCard from "./projects/square/SquareSliderCard";
 
 /* Company wordmarks live in public/images/logos, each cropped to its ink. They
    sit in a greyed-out strip under the intro, sized to one shared area rather
@@ -282,6 +283,12 @@ function usePinnedTrack(key) {
 
 const TABS = ["Products", "Brands", "Playground"];
 
+/* Filter pills for the domains product design postings ask for most (B2B SaaS,
+   fintech, AI, healthcare and consumer lead TrueUp's 2026 design job counts), so
+   a recruiter can jump to the work that matches their role. Each card lists its
+   domains in `domains`; a tab shows only the pills it has work for. */
+const DOMAINS = ["AI", "Fintech", "Enterprise", "Healthcare", "Consumer"];
+
 const CARDS = {
   Products: [
     {
@@ -313,6 +320,7 @@ const CARDS = {
         height: "56.352%",
       },
       slug: "criteria",
+      domains: ["AI", "Enterprise"],
     },
     {
       company: "Square",
@@ -321,9 +329,11 @@ const CARDS = {
       industry: "Financial",
       bg: "#3D5445",
       image: "/images/Square_full.png",
-      /* Stays still on hover: no clip and no push-in. */
+      /* The offer panel's slider moves on its own; no clip and no push-in. */
       noMotion: true,
+      scene: "square-slider",
       slug: "square",
+      domains: ["Fintech", "Enterprise"],
     },
     {
       company: "Fika",
@@ -345,6 +355,7 @@ const CARDS = {
         radius: "2.3% / 4.3%",
       },
       slug: "fika",
+      domains: ["Consumer"],
     },
     {
       company: "Honeybee Health",
@@ -365,6 +376,7 @@ const CARDS = {
         radius: 0,
       },
       slug: "hbh-3",
+      domains: ["Healthcare"],
     },
     {
       company: "Co-op Solutions",
@@ -375,6 +387,7 @@ const CARDS = {
       /* Wide art in a square card: keep the member sidebar and account header in frame. */
       crop: "36%",
       slug: "coop",
+      domains: ["Fintech", "Enterprise"],
       fullWidth: true,
     },
   ],
@@ -408,6 +421,7 @@ const CARDS = {
         radius: "8.36% / 3.86%",
       },
       slug: "homease",
+      domains: ["Consumer"],
       fullWidth: true,
     },
     {
@@ -428,6 +442,7 @@ const CARDS = {
         radius: "8.36% / 3.86%",
       },
       slug: "intake",
+      domains: ["Healthcare", "Consumer"],
       fullWidth: true,
     },
     {
@@ -441,6 +456,7 @@ const CARDS = {
       /* Wide art in a square card: keep the foo.bar wordmark in frame. */
       crop: "15%",
       slug: "foobar",
+      domains: ["AI", "Consumer"],
       fullWidth: true,
     },
   ],
@@ -586,11 +602,14 @@ function SectionHeading({ title, subtitle, typewriter }) {
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState("Products");
-  const cards = CARDS[activeTab];
+  const [domain, setDomain] = useState(null);
+  const tabCards = CARDS[activeTab];
+  const domains = DOMAINS.filter((d) => tabCards.some((c) => c.domains?.includes(d)));
+  const cards = domain ? tabCards.filter((c) => c.domains?.includes(domain)) : tabCards;
 
   const introRef = useFadeIn();
   const workRef = useFadeIn();
-  const { regionRef, viewportRef, trackRef } = usePinnedTrack(activeTab);
+  const { regionRef, viewportRef, trackRef } = usePinnedTrack(`${activeTab}-${domain}`);
   const valuesRef = useFadeIn();
   const toolsRef = useFadeIn();
 
@@ -648,13 +667,32 @@ export default function Home() {
                 <button
                   key={tab}
                   style={tab === activeTab ? { ...styles.tab, ...styles.tabActive } : styles.tab}
-                  onClick={() => setActiveTab(tab)}
+                  onClick={() => {
+                    setActiveTab(tab);
+                    setDomain(null);
+                  }}
                 >
                   {tab}
                 </button>
               ))}
             </div>
           </div>
+
+          {domains.length > 0 && (
+            <div className="work-filters" role="group" aria-label="Filter by domain">
+              {[null, ...domains].map((d) => (
+                <button
+                  key={d || "all"}
+                  type="button"
+                  className="work-filter"
+                  aria-pressed={domain === d}
+                  onClick={() => setDomain(d)}
+                >
+                  {d || "All"}
+                </button>
+              ))}
+            </div>
+          )}
 
           <div ref={viewportRef} className="work-viewport">
           <div
@@ -1017,6 +1055,7 @@ function ProjectCard({ company, description, result, industry, accent, image, vi
         />
       )}
       {house && <HomeaseHouse style={house} />}
+      {scene === "square-slider" && <SquareSliderCard />}
       </div>
       )}
       </div>

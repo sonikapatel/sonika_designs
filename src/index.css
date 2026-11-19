@@ -239,8 +239,6 @@ body.home-bg::before {
   row-gap: 8px;
 }
 
-/* Work: the tabs on the left and, on Products, the industry filter pills on the
-   right of the same row. */
 /* "I've built" heading on the left, the Products/Brands/Playground tabs on the
    right; wraps so the tabs drop under the heading on narrow screens. */
 .work-head {
@@ -250,6 +248,51 @@ body.home-bg::before {
   flex-wrap: wrap;
   gap: 8px 24px;
   margin-bottom: var(--grid-gutter);
+}
+
+/* Domain filter pills under the heading (DOMAINS in Home.js). Outlined like the
+   card tags at rest, filled like the active tab when picked. */
+.work-head:has(+ .work-filters) {
+  margin-bottom: 16px;
+}
+
+.work-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: var(--grid-gutter);
+}
+
+.work-filter {
+  padding: 6px 14px;
+  border: 1px solid #E3DFD8;
+  border-radius: 999px;
+  background: transparent;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.4;
+  color: rgba(0, 0, 0, 0.62);
+  cursor: pointer;
+  transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease,
+    transform 160ms var(--ease-out);
+}
+
+@media (hover: hover) {
+  .work-filter:hover {
+    border-color: #CFC9BF;
+    color: #111;
+  }
+}
+
+.work-filter:active {
+  transform: scale(0.97);
+}
+
+.work-filter[aria-pressed="true"] {
+  background: #E6E2DB;
+  border-color: #E6E2DB;
+  color: #111;
 }
 
 /* The heading types itself in, so give it room up front instead of letting it
