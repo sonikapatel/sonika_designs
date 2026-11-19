@@ -49,11 +49,18 @@
   font-weight: 600;
   color: var(--cs-body);
   cursor: pointer;
-  transition: background 0.2s, color 0.2s, border-color 0.2s;
+  transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease,
+    transform 160ms var(--ease-out);
 }
 
-.st-role-tab:hover:not(.is-active) {
-  background: var(--cs-ground);
+@media (hover: hover) and (pointer: fine) {
+  .st-role-tab:hover:not(.is-active) {
+    background: var(--cs-ground);
+  }
+}
+
+.st-role-tab:active {
+  transform: scale(0.97);
 }
 
 .st-role-tab.is-active {

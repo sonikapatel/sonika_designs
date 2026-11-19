@@ -51,7 +51,7 @@
   font-weight: 500;
   padding: 8px 14px 8px 8px;
   border-radius: 999px;
-  transition: background 0.2s, color 0.2s;
+  transition: background-color 150ms ease, color 150ms ease;
 }
 
 .cf .cf-step.is-on {
@@ -99,8 +99,18 @@
   padding: 8px 4px;
 }
 
-.cf .cf-replay:hover {
-  color: var(--cs-accent);
+@media (hover: hover) and (pointer: fine) {
+  .cf .cf-replay:hover {
+    color: var(--cs-accent);
+  }
+}
+
+.cf .cf-replay {
+  transition: color 150ms ease, transform 160ms var(--ease-out);
+}
+
+.cf .cf-replay:active {
+  transform: scale(0.96);
 }
 
 /* ── Chat screen ── */

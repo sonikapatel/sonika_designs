@@ -76,7 +76,7 @@
   color: var(--cs-body);
   text-decoration: none;
   flex-shrink: 0;
-  transition: color 0.2s ease;
+  transition: color 150ms ease;
 }
 
 .cs-back img {
@@ -130,7 +130,7 @@
   text-align: left;
   width: 100%;
   cursor: pointer;
-  transition: color 0.2s ease, border-color 0.2s ease;
+  transition: color 150ms ease, border-color 150ms ease;
 }
 
 .cs-nav-link:hover {
@@ -642,11 +642,17 @@
   background: #fff;
   color: #111;
   cursor: pointer;
-  transition: opacity 0.2s, background 0.2s;
+  transition: opacity 150ms ease, background-color 150ms ease, transform 160ms var(--ease-out);
 }
 
-.cs-carousel-arrows button:hover:not(:disabled) {
-  background: var(--cs-ground);
+@media (hover: hover) and (pointer: fine) {
+  .cs-carousel-arrows button:hover:not(:disabled) {
+    background: var(--cs-ground);
+  }
+}
+
+.cs-carousel-arrows button:active:not(:disabled) {
+  transform: scale(0.94);
 }
 
 .cs-carousel-arrows button:disabled {
