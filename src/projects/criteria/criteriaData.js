@@ -280,6 +280,16 @@ export const CRITERIA_BLOCKS = [
       "A working demo of onboarding setup with different states for in-progress and complete steps, using the visual identity across products and the design system I created in Figma, translated to Typescript components.",
   },
   {
+    variant: "side-to-side",
+    eyebrow: "What I’d change next: show value sooner (proposed)",
+    body: "The shipped setup asked admins for effort at every step and gave value back only at launch. Applying research on AI product onboarding, I’d open with one question about the admin’s goal and shape the rest around it, bring the org in from the HRIS instead of typing it, start with a pilot team, and let the admin answer a check-in themselves so the first 1:1 brief they see is built from their own words. This direction was not built.",
+  },
+  {
+    variant: "onboarding-flow",
+    caption:
+      "A proposed onboarding flow you can click through, using a sample org. Pick a goal and the side panel promises what Check-Ins will do for you; pick a pilot team to see the first question Bo will ask it; answer a check-in yourself, then see it come back as your manager’s Monday 1:1 brief before launching.",
+  },
+  {
     id: "research-to-product",
     variant: "side-to-side",
     eyebrow: "From research to experience",
