@@ -30,6 +30,11 @@
 
   /* Shared height for the values flip cards so they can be retuned in one place. */
   --flip-card-height: 128px;
+
+  /* Motion: a strong ease-out for things entering or answering a press, and an
+     ease-in-out for things already on screen that move. */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
 }
 
 /* ── Home page layout ── */
@@ -89,11 +94,13 @@ body.home-bg::before {
   font-size: 14px;
   color: #111;
   text-decoration: none;
-  transition: color 0.15s ease;
+  transition: color 150ms ease;
 }
 
-.home-nav-link:hover {
-  color: #6B6B6B;
+@media (hover: hover) and (pointer: fine) {
+  .home-nav-link:hover {
+    color: #6B6B6B;
+  }
 }
 
 .home-sections {
@@ -386,6 +393,12 @@ body.home-bg::before {
   text-decoration: none;
   color: inherit;
   border-radius: 16px;
+  transition: transform 160ms var(--ease-out);
+}
+
+/* Cards answer a press: a small give confirms the click before the page changes. */
+.home-card-link:active {
+  transform: scale(0.985);
 }
 
 /* A flat tile with a hairline edge; the clip playing on hover is the only motion. */
@@ -411,7 +424,7 @@ body.home-bg::before {
   border-radius: 6px;
   pointer-events: none;
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: opacity 200ms ease;
 }
 
 .home-card-video.is-playing {
@@ -451,8 +464,30 @@ body.home-bg::before {
   overflow: auto;
 }
 
+/* The dialog eases in from just under full size; modals scale from the centre
+   because they are not anchored to the card that opened them. */
+.campaign-dialog[open] {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 200ms var(--ease-out), transform 240ms var(--ease-out);
+}
+
+@starting-style {
+  .campaign-dialog[open] {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+}
+
 .campaign-dialog::backdrop {
   background: rgba(17, 17, 17, 0.5);
+  transition: background-color 200ms ease;
+}
+
+@starting-style {
+  .campaign-dialog[open]::backdrop {
+    background: rgba(17, 17, 17, 0);
+  }
 }
 
 .campaign-dialog-inner {
@@ -491,6 +526,17 @@ body.home-bg::before {
   line-height: 1;
   color: #111;
   cursor: pointer;
+  transition: background-color 150ms ease, transform 160ms var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .campaign-dialog-close:hover {
+    background: #DAD5CC;
+  }
+}
+
+.campaign-dialog-close:active {
+  transform: scale(0.92);
 }
 
 .campaign-dialog-close:focus-visible,
@@ -596,10 +642,17 @@ body.home-bg::before {
   transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.home-card-link:hover .home-card-tile--still .home-card-image,
-.home-card-link:focus-visible .home-card-tile--still .home-card-image,
-.home-card-tile--still:hover .home-card-image,
-.brand-card-image:hover {
+/* Hover zoom only where a real pointer hovers; a tap on a phone would otherwise
+   leave the image stuck zoomed. Keyboard focus gets it everywhere. */
+@media (hover: hover) and (pointer: fine) {
+  .home-card-link:hover .home-card-tile--still .home-card-image,
+  .home-card-tile--still:hover .home-card-image,
+  .brand-card-image:hover {
+    transform: scale(1.04);
+  }
+}
+
+.home-card-link:focus-visible .home-card-tile--still .home-card-image {
   transform: scale(1.04);
 }
 
@@ -608,6 +661,16 @@ body.home-bg::before {
   .brand-card-image {
     transition: none;
     transform: none !important;
+  }
+
+  .home-card-link:active,
+  .campaign-dialog-close:active {
+    transform: none;
+  }
+
+  .campaign-dialog[open] {
+    transition: opacity 200ms ease;
+    transform: none;
   }
 }
 
@@ -772,6 +835,12 @@ body.home-bg::before {
   animation: wave 2.5s ease-in-out infinite;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .wave-emoji {
+    animation: none;
+  }
+}
+
 @keyframes wave {
   0% { transform: rotate(0deg); }
   10% { transform: rotate(14deg); }
@@ -785,8 +854,16 @@ body.home-bg::before {
 
 .fade-section {
   opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.65s ease, transform 0.65s ease;
+  transform: translateY(12px);
+  transition: opacity 500ms var(--ease-out), transform 500ms var(--ease-out);
+}
+
+/* Reduced motion keeps the fade, which helps reading, and drops the rise. */
+@media (prefers-reduced-motion: reduce) {
+  .fade-section {
+    transform: none;
+    transition: opacity 300ms ease;
+  }
 }
 
 .fade-section.is-visible {
@@ -815,7 +892,7 @@ code {
   color: #4B44AF;
   text-decoration: none;
   border-bottom: 1px solid rgba(75, 68, 175, 0.35);
-  transition: color 0.2s ease, border-color 0.2s ease;
+  transition: color 150ms ease, border-color 150ms ease;
 }
 
 .proj-rich-text a:hover,
