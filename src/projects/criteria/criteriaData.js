@@ -37,6 +37,7 @@ export const CRITERIA_NAV = [
     items: [
       { id: "onboarding", label: "Onboarding + Admin Setup" },
       { id: "research-to-product", label: "From Research to Experience" },
+      { id: "research", label: "Research" },
       { id: "ic-incentive", label: "Giving ICs a Reason" },
       { id: "design-system", label: "Design System" },
       { id: "merchandising", label: "In-Product Merchandising" },
@@ -321,8 +322,9 @@ export const CRITERIA_BLOCKS = [
       "A demo of the manager dashboard, built around what managers care about most when reviewing their direct reports. The red, yellow and green states come from the mood scores Coach Bo synthesizes.",
   },
   {
+    id: "research",
     variant: "side-to-side",
-    eyebrow: "What managers said after launch",
+    eyebrow: "Research: what managers said after launch",
     body: "Once Check-Ins was in use inside Criteria, I interviewed four managers and leaders and one individual contributor across People, Customer Success and Account Management. It was a preliminary round, separate from the card sort, and it showed where the dashboard held up and where it didn’t.",
     orderedList: [
       "Mood and the overall score were the signals managers read. Three of the four set aside at least one of progress, readiness, burnout or turnover risk as unclear, less relevant or too loosely defined.",
