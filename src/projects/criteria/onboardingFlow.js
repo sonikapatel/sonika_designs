@@ -165,7 +165,7 @@ function TeamStep({ team, setTeam, reduce }) {
    with its last four weeks. Sample figures, like the rest of the sample org. */
 const DIGEST = [
   { id: "org", label: "Org health", value: "Steady", note: `${ORG.name}, 6 teams`, trend: [62, 64, 63, 65], tone: "neutral" },
-  { id: "burnout", label: "Burnout trend", value: "Rising on Sales", note: "3 weeks in a row", trend: [20, 26, 31, 38], tone: "warn" },
+  { id: "burnout", label: "Burnout signals", value: "Rising on Sales", note: "Skipped check-ins, 3 weeks", trend: [20, 26, 31, 38], tone: "warn" },
   { id: "celebrate", label: "Worth celebrating", value: "27 projects shipped", note: "18 shout-outs this week", trend: [18, 21, 24, 27], tone: "good" },
 ];
 
