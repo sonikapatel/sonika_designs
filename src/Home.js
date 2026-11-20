@@ -445,20 +445,6 @@ const CARDS = {
       domains: ["Healthcare", "Consumer"],
       fullWidth: true,
     },
-    {
-      company: "Foo Bar",
-      description: "A taproom beer brand for engineers, designed from scratch with AI",
-      bg: "#F2EFE6",
-      /* foo.bar in dark ink beside three cans running off the bottom edge, on an
-         embossed cotton-paper ground. The cans come from the Foo Bar Figma file
-         (Portfolio export / foobar-card); the paper is composited in at 1354×556. */
-      image: "/images/foobar/foobar-card.jpg",
-      /* Wide art in a square card: keep the foo.bar wordmark in frame. */
-      crop: "15%",
-      slug: "foobar",
-      domains: ["AI", "Consumer"],
-      fullWidth: true,
-    },
   ],
   Brands: [
     {
