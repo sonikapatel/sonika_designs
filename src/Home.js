@@ -329,6 +329,8 @@ const CARDS = {
       industry: "Financial",
       bg: "#3D5445",
       image: "/images/Square_full.png",
+      /* The three panels (219,75 / 603×647 on the 1014×798 still) fit the inset. */
+      fit: [1014, 798, 219, 75, 603, 647],
       /* The offer panel's slider moves on its own; no clip and no push-in. */
       noMotion: true,
       scene: "square-slider",
@@ -342,6 +344,11 @@ const CARDS = {
       industry: "Community",
       bg: "#4B44AF",
       image: "/images/fika123.png",
+      /* The browser window (69,168 / 873×461), cropped square around the headline,
+         on the still's linen (fika-linen.jpg, mirrored so it tiles). */
+      screen: [1011, 795, 69, 168, 873, 461],
+      focus: 0.5,
+      ground: "url(/images/fika/fika-linen.jpg) 0 0 / 130.8% auto",
       /* The landing page scrolling top to bottom at a constant speed, captured
          frame by frame from the fika-march-code frontend in headless Chrome at
          1440×762, played in the still's browser window. Position/size mirror the
@@ -364,6 +371,10 @@ const CARDS = {
       industry: "Healthcare",
       bg: "#0D1917",
       image: "/images/HBH.png",
+      /* The app window (126,204 / 885×591), running off the right edge. */
+      screen: [1011, 795, 126, 204, 885, 591],
+      ground: "linear-gradient(180deg, #9cbaed 0%, #c0d4f5 55%, #e4effc 100%)",
+      bleed: true,
       /* HBH_Prototype.mov from the case study, the same E-prescription screen.
          Pinned to the app window in the still (126,204 on the 1011×795 tile) at
          the clip's own 1.9:1, so it runs off the right edge as the still does. */
@@ -384,10 +395,28 @@ const CARDS = {
       result: "Navigation time cut 28%",
       industry: "Financial",
       image: "/images/Springboard.png",
-      /* Wide art in a square card: keep the member sidebar and account header in frame. */
-      crop: "36%",
+      /* The app window (468,138 / 1077×657), running off the right edge. */
+      screen: [2070, 795, 468, 138, 1077, 657],
+      ground: "#333930",
+      bleed: true,
       slug: "coop",
       domains: ["Fintech", "Enterprise"],
+      fullWidth: true,
+    },
+    {
+      company: "PartsTech",
+      description: "Helping upgraded repair shops discover the tire features they paid for",
+      industry: "Automotive",
+      bg: "#121D45",
+      /* The tire search with the out-the-door pricing beacon open, on PartsTech's
+         navy at the Co-op card's 2070×795. The screen runs off the bottom edge. */
+      image: "/images/partstech/partstech-card.jpg",
+      /* The app window (334,110 / 1399×685), running off the right edge. */
+      screen: [2070, 795, 334, 110, 1399, 685],
+      ground: "radial-gradient(70% 60% at 50% 0%, #3651a2 0%, #102044 100%)",
+      bleed: true,
+      slug: "partstech",
+      domains: ["Enterprise"],
       fullWidth: true,
     },
   ],
@@ -720,6 +749,11 @@ export default function Home() {
                       fullWidth={card.fullWidth}
                       crop={card.crop}
                       scene={card.scene}
+                      screen={card.screen}
+                      focus={card.focus}
+                      ground={card.ground}
+                      fit={card.fit}
+                      bleed={card.bleed}
                     />
                   ))
             ) : (
@@ -957,12 +991,81 @@ function BrandCard({ image, name, description, industry, frame, panels, panelFil
   );
 }
 
+/* Every product screen sits the same distance from the tile's edge: SCREEN_INSET
+   of the tile on all four sides (the Brands tiles use the same 8%).
+   - `screen` [stillW, stillH, x, y, w, h]: the app window's box in the still. The
+     window is cropped to a square at the inset and laid on `ground`; `focus`
+     (0–1) slides the crop along the screen's longer side. Clips and layers are
+     placed in % of the still, so they move with it.
+   - `fit` [stillW, stillH, x, y, w, h]: a group of panels already on its own ground
+     (Square). The still is scaled so the group fits inside the inset, centered.
+   - `bleed`: enterprise screens keep the inset on the top, left and bottom and
+     run off the right edge, so more of the wide app shows.
+   Without either, the still fills the tile's height as before (`crop`). */
+const SCREEN_INSET = 0.08;
+
+function Framing({ screen, focus = 0, ground, fit, crop, bleed, children }) {
+  if (screen && bleed) {
+    /* Inset top, left and bottom; the screen runs off the tile's right edge. The
+       window is (1 - inset) wide and (1 - 2 × inset) tall, and the screen's
+       height fills it. */
+    const [stillW, stillH, x, y, , h] = screen;
+    const tall = 1 - 2 * SCREEN_INSET;
+    const wide = 1 - SCREEN_INSET;
+    const pctX = (n) => `${(n / h) * (tall / wide) * 100}%`;
+    const pctY = (n) => `${(n / h) * 100}%`;
+    return (
+      <div className="home-card-ground" style={{ background: ground }}>
+        <div className="home-card-window home-card-window--bleed">
+          <div
+            className="home-card-frame"
+            style={{ width: pctX(stillW), height: pctY(stillH), left: pctX(-x), top: pctY(-y) }}
+          >
+            {children}
+          </div>
+        </div>
+      </div>
+    );
+  }
+  if (screen) {
+    const [stillW, stillH, x, y, w, h] = screen;
+    const side = Math.min(w, h);
+    const offX = w > h ? focus * (w - h) : 0;
+    const offY = h > w ? focus * (h - w) : 0;
+    const pct = (n) => `${(n / side) * 100}%`;
+    return (
+      <div className="home-card-ground" style={{ background: ground }}>
+        <div className="home-card-window">
+          <div
+            className="home-card-frame"
+            style={{ width: pct(stillW), height: pct(stillH), left: pct(-(x + offX)), top: pct(-(y + offY)) }}
+          >
+            {children}
+          </div>
+        </div>
+      </div>
+    );
+  }
+  if (fit) {
+    return (
+      <div className="home-card-frame" style={frameStyle(fit, SCREEN_INSET)}>
+        {children}
+      </div>
+    );
+  }
+  return (
+    <div className="home-card-stage" style={crop ? { "--crop": crop } : undefined}>
+      {children}
+    </div>
+  );
+}
+
 /* Card clips sit hidden and paused until the card is hovered or focused, then
    fade in and play from the start. Touch screens can't hover, so there they
    autoplay as before; readers who ask for less motion keep the still. */
 const prefersStill = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-function ProjectCard({ company, description, result, industry, accent, image, video, layer, house, noMotion, slug, fullWidth, crop, scene }) {
+function ProjectCard({ company, description, result, industry, accent, image, video, layer, house, noMotion, slug, fullWidth, crop, scene, screen, focus, ground, fit, bleed }) {
   const ref = useFadeIn();
   const videoRef = useRef(null);
   const [playing, setPlaying] = useState(false);
@@ -1001,7 +1104,7 @@ function ProjectCard({ company, description, result, industry, accent, image, vi
       {scene === "coach-bo" ? (
         <CoachBoCard />
       ) : (
-      <div className="home-card-stage" style={crop ? { "--crop": crop } : undefined}>
+      <Framing screen={screen} focus={focus} ground={ground} fit={fit} crop={crop} bleed={bleed}>
       <img
         src={image}
         alt=""
@@ -1042,7 +1145,7 @@ function ProjectCard({ company, description, result, industry, accent, image, vi
       )}
       {house && <HomeaseHouse style={house} />}
       {scene === "square-slider" && <SquareSliderCard />}
-      </div>
+      </Framing>
       )}
       </div>
     </div>

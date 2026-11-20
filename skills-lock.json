@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "skills": {
+    "pd-portfolio-review": {
+      "source": "leonardobetti/pd-portfolio-review",
+      "sourceType": "github",
+      "skillPath": "skills/pd-portfolio-review/SKILL.md",
+      "computedHash": "3be12d0b31aa034e2261c5419ac02e5b3b81635a72c2a4e7a23f7af5b9ae16aa"
+    },
+    "system-design": {
+      "source": "anthropics/knowledge-work-plugins",
+      "sourceType": "github",
+      "skillPath": "engineering/skills/system-design/SKILL.md",
+      "computedHash": "5915b5f79ae74f20473c4922075b091f290374d26b26c927af9c767102424ac4"
+    }
+  }
+}
