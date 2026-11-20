@@ -1,6 +1,6 @@
 /* Portfolio case-study detail page.
 
-   Visual system modelled on naomilaureece.ca/case-studies/varick, set in Figtree:
+   Visual system modelled on naomilaureece.ca/case-studies/varick, set in Schibsted Grotesk:
    a white page, ink and one grey for type, a #f7f7f7 surface for media, 4px
    corners, a slim sticky section nav beside a 720px reading column, and 96px
    between sections. Originally laid out from Figma node 1486:5717.
@@ -29,7 +29,7 @@
   background: #fff;
   color: #202020;
   min-height: 100vh;
-  font-family: "Figtree", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: "Schibsted Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   letter-spacing: -0.01em;
 }
 
@@ -304,6 +304,47 @@
   content: counter(cs-ol) ".";
   position: absolute;
   left: 0;
+}
+
+/* Agenda — timed steps stacked as rows: number and title, a short description
+   under it, hairlines between. */
+.cs-agenda {
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: cs-agenda;
+  border-top: 1px solid var(--cs-rule);
+}
+
+.cs-agenda li {
+  position: relative;
+  padding: 16px 0 16px 40px;
+  border-bottom: 1px solid var(--cs-rule);
+  counter-increment: cs-agenda;
+}
+
+.cs-agenda li::before {
+  content: counter(cs-agenda, decimal-leading-zero);
+  position: absolute;
+  left: 0;
+  top: 17px;
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+  color: var(--cs-body);
+}
+
+.cs-agenda-title {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--cs-accent);
+}
+
+.cs-agenda-body {
+  margin: 4px 0 0;
+  font-size: 15px;
+  line-height: 1.45;
+  color: var(--cs-body);
 }
 
 /* 3 column — one eyebrow over three equal takeaways. */

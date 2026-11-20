@@ -1,0 +1,222 @@
+/* Before and after system diagram. Same tokens and white-card-on-rule treatment as the
+   job stories and channel options, so it reads as page content rather than product UI.
+   The tabs reuse .st-role-tab from storyBlocks.css. */
+
+.sd-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 0;
+}
+
+.sd-stage {
+  display: grid;
+  overflow: hidden;
+}
+
+.sd-panel {
+  grid-area: 1 / 1;
+  min-width: 0;
+  padding: 20px;
+  border-radius: var(--cs-radius);
+  background: var(--cs-ground);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease;
+}
+
+.sd-panel.is-active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.sd-status {
+  margin: 0 0 16px;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: #111;
+}
+
+.sd-view {
+  display: flex;
+  flex-direction: column;
+}
+
+.sd-row {
+  display: grid;
+  grid-template-columns: 76px minmax(0, 1fr);
+  gap: 12px;
+}
+
+.sd-row--connector {
+  color: #8a8a8a;
+}
+
+.sd-label {
+  margin: 0;
+  padding-top: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--cs-body);
+}
+
+.sd-cells {
+  min-width: 0;
+}
+
+.sd-arrow {
+  display: block;
+}
+
+.sd-single,
+.sd-branch-single {
+  display: flex;
+  justify-content: center;
+  padding: 5px 0;
+}
+
+/* One stem, a bar from the first column's center to the last, and an arrow per role. */
+.sd-branch {
+  position: relative;
+  padding-top: 11px;
+}
+
+.sd-branch::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  height: 8px;
+  border-left: 1.25px solid currentColor;
+}
+
+.sd-branch::after {
+  content: "";
+  position: absolute;
+  top: 8px;
+  left: calc(100% / 6);
+  right: calc(100% / 6);
+  border-top: 1.25px solid currentColor;
+}
+
+.sd-branch-arrows {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  justify-items: center;
+  margin-top: -3px;
+  padding-bottom: 5px;
+}
+
+.sd-branch-single {
+  display: none;
+}
+
+.sd-roles {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.sd-pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.sd-foundation {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px dashed #d9d9d9;
+}
+
+.sd-node {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 12px;
+  border: 1px solid var(--cs-rule);
+  border-radius: 8px;
+  background: #fff;
+}
+
+.sd-node--new,
+.sd-node--changed {
+  border-color: #202020;
+}
+
+.sd-node--gap {
+  border-color: #e7c9a9;
+  background: #fffaf5;
+}
+
+.sd-role {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--cs-body);
+}
+
+.sd-node-title {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.35;
+  color: #111;
+}
+
+.sd-node-body {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--cs-body);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sd-panel {
+    transition: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .sd-panel {
+    padding: 16px 12px;
+  }
+
+  .sd-row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 4px;
+  }
+
+  .sd-row--connector > span {
+    display: none;
+  }
+
+  .sd-label {
+    padding-top: 0;
+  }
+
+  .sd-roles,
+  .sd-pair {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .sd-branch {
+    padding-top: 0;
+  }
+
+  .sd-branch::before,
+  .sd-branch::after,
+  .sd-branch-arrows {
+    display: none;
+  }
+
+  .sd-branch-single {
+    display: flex;
+  }
+}

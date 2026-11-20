@@ -63,7 +63,7 @@ const INBOX_ROWS = 3;
 
 // From Krishna's 1:1 prep panel: next week's goal, blockers, goals tracking, and the
 // week-of-11/10 dip in sentiment.
-const PREP_POINTS = [
+export const PREP_POINTS = [
   {
     text: "Ask about the multiple dependencies for clearance.",
     why: "Blocker on redefining the check-ins experience for Beta launch",

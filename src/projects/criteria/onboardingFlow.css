@@ -1,0 +1,747 @@
+/* Proposed Check-Ins admin onboarding (onboardingFlow.js). It sits in the same
+   1100px app frame as the check-in and Career History (criteria.css), uses their
+   UI type scale and the check-in's lavender accent, and borrows the chat bubbles
+   and input from checkInFlow.css for the "Try it" step. */
+
+.ob button {
+  font: inherit;
+}
+
+.ob-screen {
+  flex: 1;
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 20px;
+  padding: 24px;
+  background: radial-gradient(circle at 100% 0%, #e2e4f6 0%, rgba(226, 228, 246, 0) 38%),
+    var(--ui-ground);
+}
+
+.ob-main {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.ob-titlebar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.ob-sample {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--ui-muted);
+  padding: 4px 10px;
+  border: 1px dashed var(--ui-faint);
+  border-radius: 999px;
+}
+
+/* ── Step card ── */
+
+.ob-card {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border: 1px solid var(--ui-line);
+  border-radius: 12px;
+  padding: 24px 28px;
+}
+
+.ob-stepnum {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ui-faint);
+}
+
+.ob-q {
+  margin-top: 10px !important;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--ui-ink);
+}
+
+.ob-q--second {
+  margin-top: 28px !important;
+}
+
+.ob-help {
+  margin-top: 4px !important;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--ui-muted);
+}
+
+.ob-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ui-muted);
+}
+
+.ob-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.ob .ob-option {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 14px;
+  border: 1px solid var(--ui-line);
+  border-radius: 999px;
+  background: #fff;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ui-ink);
+  cursor: pointer;
+  transition: border-color 150ms ease, background-color 150ms ease, transform 160ms var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .ob .ob-option:hover {
+    border-color: var(--cf-accent);
+  }
+}
+
+.ob .ob-option:active,
+.ob .ob-primary:active,
+.ob .ob-connect:active {
+  transform: scale(0.97);
+}
+
+.ob .ob-option.is-on {
+  border-color: var(--cf-accent);
+  background: #eef0fb;
+  color: var(--cf-accent);
+}
+
+.ob-count {
+  font-size: 11px;
+  color: var(--ui-muted);
+}
+
+.ob .ob-connect {
+  align-self: flex-start;
+  margin-top: 12px;
+  padding: 10px 16px;
+  border: 1px solid var(--ui-navy);
+  border-radius: 8px;
+  background: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ui-navy);
+  cursor: pointer;
+  transition: transform 160ms var(--ease-out);
+}
+
+.ob .ob-connect:disabled {
+  cursor: default;
+  color: var(--ui-muted);
+  border-color: var(--ui-line);
+}
+
+.ob-synced {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  margin-top: 12px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: #ecf8f1;
+}
+
+.ob-synced-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ui-ink);
+}
+
+.ob-check {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #1f9d5b;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.ob-preview {
+  margin-top: 20px;
+  padding: 14px 16px;
+  border-radius: 10px;
+  background: var(--ui-ground);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* ── Try it: a small check-in inside the card ── */
+
+.ob-chat {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.ob-log {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  scrollbar-width: thin;
+}
+
+.ob .cf-input {
+  width: auto;
+  max-width: none;
+}
+
+/* ── Launch ── */
+
+.ob-brief {
+  margin-top: 14px;
+  padding: 16px 18px;
+  border: 1px solid var(--ui-line);
+  border-radius: 10px;
+}
+
+.ob-brief ul {
+  list-style: none;
+  margin: 10px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ob-brief li {
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  gap: 12px;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--ui-ink);
+}
+
+.ob-brief li span {
+  font-size: 12px;
+  color: var(--ui-muted);
+}
+
+.ob-launched {
+  margin-top: 16px;
+}
+
+.ob .ob-launch {
+  align-self: flex-start;
+  margin-top: 16px;
+}
+
+/* ── Footer ── */
+
+.ob-foot {
+  margin-top: auto;
+  padding-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.ob .ob-skip {
+  border: 0;
+  background: none;
+  padding: 0;
+  font-size: 12px;
+  color: var(--ui-muted);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+.ob .ob-primary {
+  padding: 10px 18px;
+  border: 0;
+  border-radius: 8px;
+  background: var(--ui-navy);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 150ms ease, transform 160ms var(--ease-out);
+}
+
+.ob .ob-primary:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.ob .ob-option:focus-visible,
+.ob .ob-primary:focus-visible,
+.ob .ob-connect:focus-visible,
+.ob .ob-skip:focus-visible {
+  outline: 2px solid var(--cs-accent);
+  outline-offset: 2px;
+}
+
+/* ── Side panel ── */
+
+.ob-side {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background: #fff;
+  border: 1px solid var(--ui-line);
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.ob-side-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ui-ink);
+}
+
+.ob-journey {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.ob-j {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--ui-muted);
+}
+
+.ob-j-dot {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1px solid var(--ui-line);
+  font-size: 11px;
+  font-weight: 600;
+  transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease;
+}
+
+.ob-j.is-on {
+  color: var(--cf-accent);
+  font-weight: 600;
+}
+
+.ob-j.is-on .ob-j-dot {
+  background: var(--cf-accent);
+  border-color: var(--cf-accent);
+  color: #fff;
+}
+
+.ob-j.is-done {
+  color: var(--ui-ink);
+}
+
+.ob-j.is-done .ob-j-dot {
+  background: #ecf8f1;
+  border-color: #ecf8f1;
+  color: #1f9d5b;
+}
+
+.ob-promise {
+  margin-top: auto;
+  padding: 14px;
+  border-radius: 10px;
+  background: #eef0fb;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ob-promise-text {
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.45;
+  color: var(--ui-navy);
+}
+
+.ob-promise-text.is-empty {
+  font-weight: 400;
+  color: var(--ui-muted);
+}
+
+/* The 1100px screen is scaled down to the reading column, so this flow, which is
+   mostly words, runs a size up from the board's UI scale to stay legible. */
+.ob-screen { padding: 28px; gap: 24px; grid-template-columns: 1fr 330px; }
+.ob .ch-title { font-size: 24px; }
+.ob-sample { font-size: 13px; padding: 5px 12px; }
+.ob-card { padding: 32px 36px; border-radius: 14px; }
+.ob-stepnum, .ob-label { font-size: 12px; }
+.ob-q { font-size: 22px; margin-top: 12px !important; }
+.ob-q--second { margin-top: 36px !important; }
+.ob-help { font-size: 15px; margin-top: 6px !important; }
+.ob-options { gap: 10px; margin-top: 18px; }
+.ob .ob-option { font-size: 16px; padding: 12px 20px; }
+.ob-count { font-size: 14px; }
+.ob .ob-connect { font-size: 16px; padding: 13px 20px; margin-top: 16px; }
+.ob-synced { padding: 14px 18px; margin-top: 16px; }
+.ob-synced-title { font-size: 16px; }
+.ob-check { width: 26px; height: 26px; font-size: 14px; }
+.ob-preview { padding: 18px 20px; margin-top: 24px; }
+.ob .cf-bo, .ob .cf-me { font-size: 16px; }
+.ob .cf-input { font-size: 15px; padding: 8px 8px 8px 20px; }
+.ob .cf-send { width: 34px; height: 34px; }
+.ob-brief { padding: 20px 22px; margin-top: 18px; }
+.ob-brief ul { gap: 14px; margin-top: 14px; }
+.ob-brief li { font-size: 16px; grid-template-columns: 150px 1fr; }
+.ob-brief li span { font-size: 14px; }
+.ob .ob-skip { font-size: 15px; }
+.ob .ob-primary { font-size: 16px; padding: 12px 24px; }
+.ob-side { padding: 24px; gap: 20px; border-radius: 14px; }
+.ob-side-title { font-size: 16px; }
+.ob-journey { gap: 18px; }
+.ob-j { font-size: 16px; gap: 12px; }
+.ob-j-dot { width: 26px; height: 26px; font-size: 13px; }
+.ob-promise { padding: 18px; gap: 8px; }
+.ob-promise-text { font-size: 16px; }
+
+/* ── Who sees what: one tab per level of the org, with a sample of its insight ── */
+
+.ob-levels {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.ob .ob-level {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  padding: 14px 16px;
+  border: 1px solid var(--ui-line);
+  border-radius: 10px;
+  background: #fff;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 150ms ease, background-color 150ms ease, transform 160ms var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .ob .ob-level:hover {
+    border-color: var(--cf-accent);
+  }
+}
+
+.ob .ob-level:active {
+  transform: scale(0.97);
+}
+
+.ob .ob-level.is-on {
+  border-color: var(--cf-accent);
+  background: #eef0fb;
+}
+
+.ob .ob-level:focus-visible {
+  outline: 2px solid var(--cs-accent);
+  outline-offset: 2px;
+}
+
+.ob-level-role {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--ui-muted);
+}
+
+.ob-level-seen {
+  color: #1f9d5b;
+  font-weight: 700;
+}
+
+.ob-level-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--ui-ink);
+}
+
+.ob-level.is-on .ob-level-title {
+  color: var(--cf-accent);
+}
+
+.ob-level-preview {
+  margin-top: 16px;
+  gap: 14px;
+}
+
+.ob-level-body {
+  margin-top: 0 !important;
+  color: var(--ui-ink);
+}
+
+.ob-level-hint {
+  margin-top: 16px !important;
+}
+
+.ob-sample-card {
+  max-width: 340px;
+}
+
+.ob-mini {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 14px 16px;
+  border: 1px solid var(--ui-line);
+  border-radius: 10px;
+  background: #fff;
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--ui-ink);
+}
+
+.ob-mini p span {
+  display: inline-block;
+  width: 70px;
+  color: var(--ui-muted);
+}
+
+/* Five steps in the bar: drop the arrows and tighten the pills so each label
+   stays on one line. */
+.ob .cf-arrow {
+  display: none;
+}
+
+.ob .cf-steps {
+  gap: 2px;
+}
+
+.ob .cf-step {
+  white-space: nowrap;
+  font-size: 13px;
+  gap: 6px;
+  padding: 7px 12px 7px 7px;
+}
+
+/* ── The leader's weekly digest: four rolled-up tiles ── */
+
+.ob-digest {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ob-tiles {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.ob-tile {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px 14px;
+  border: 1px solid var(--ui-line);
+  border-radius: 10px;
+  background: #fff;
+}
+
+.ob-tile-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ui-muted);
+}
+
+.ob-tile-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.ob-tile-value {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--ui-ink);
+}
+
+.ob-tile.is-warn .ob-tile-value {
+  color: #b45309;
+}
+
+.ob-tile.is-good .ob-tile-value {
+  color: #1f7a4a;
+}
+
+.ob-tile-note {
+  font-size: 12px;
+  color: var(--ui-muted);
+}
+
+.ob-spark {
+  flex-shrink: 0;
+  stroke: var(--ui-navy);
+}
+
+.ob-spark.is-warn {
+  stroke: #d97706;
+}
+
+.ob-spark.is-good {
+  stroke: #1f9d5b;
+}
+
+.ob-teams {
+  list-style: none;
+  margin: 2px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.ob-teams li {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--ui-ink);
+}
+
+.ob-dir {
+  font-weight: 600;
+  white-space: nowrap;
+  color: var(--ui-muted);
+}
+
+.ob-dir.is-good {
+  color: #1f7a4a;
+}
+
+.ob-dir.is-warn {
+  color: #b45309;
+}
+
+/* ── The manager's 1:1 prep, as in the inbox concept ── */
+
+.ob-prep {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 14px 16px;
+  border: 1px solid var(--ui-line);
+  border-radius: 10px;
+  background: #fff;
+}
+
+.ob-prep-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--ui-ink);
+}
+
+.ob-points {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ob-points li {
+  padding: 8px 12px;
+  border-left: 3px solid var(--cf-accent);
+  border-radius: 4px;
+  background: #f6f7fd;
+}
+
+.ob-points li.is-warn {
+  border-left-color: #d97706;
+  background: #fdf7ec;
+}
+
+.ob-point-text {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ui-ink);
+}
+
+.ob-point-why {
+  margin-top: 2px !important;
+  font-size: 12px;
+  color: var(--ui-muted);
+}
+
+/* ── Video prototype: the flow plays itself, so nothing on it is interactive ── */
+
+.ob-video {
+  pointer-events: none;
+  user-select: none;
+  transition: opacity 500ms var(--ease-out);
+}
+
+.ob-video.is-out {
+  opacity: 0;
+}
+
+/* Buttons are static spans here; these give them their button look and the
+   press the playback shows before each step. */
+.ob .ob-primary,
+.ob .ob-skip {
+  display: inline-block;
+}
+
+.ob .ob-primary.is-disabled {
+  opacity: 0.35;
+}
+
+.ob .ob-primary.is-pressed {
+  transform: scale(0.96);
+  opacity: 0.85;
+}
+
+.ob .ob-primary {
+  transition: opacity 150ms ease, transform 160ms var(--ease-out);
+}
+
+.ob-field {
+  line-height: 1.45;
+}
+
+.ob-field.is-empty {
+  color: var(--ui-faint);
+}
+
+.ob .cf-input {
+  align-items: center;
+}

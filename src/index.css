@@ -42,7 +42,7 @@
   max-width: var(--page-max);
   margin: 0 auto;
   padding: var(--page-top) var(--page-pad) 64px;
-  font-family: "TT", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: "Schibsted Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   color: #111;
 }
 
@@ -239,8 +239,6 @@ body.home-bg::before {
   row-gap: 8px;
 }
 
-/* Work: the tabs on the left and, on Products, the industry filter pills on the
-   right of the same row. */
 /* "I've built" heading on the left, the Products/Brands/Playground tabs on the
    right; wraps so the tabs drop under the heading on narrow screens. */
 .work-head {
@@ -250,6 +248,51 @@ body.home-bg::before {
   flex-wrap: wrap;
   gap: 8px 24px;
   margin-bottom: var(--grid-gutter);
+}
+
+/* Domain filter pills under the heading (DOMAINS in Home.js). Outlined like the
+   card tags at rest, filled like the active tab when picked. */
+.work-head:has(+ .work-filters) {
+  margin-bottom: 16px;
+}
+
+.work-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: var(--grid-gutter);
+}
+
+.work-filter {
+  padding: 6px 14px;
+  border: 1px solid #E3DFD8;
+  border-radius: 999px;
+  background: transparent;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.4;
+  color: rgba(0, 0, 0, 0.62);
+  cursor: pointer;
+  transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease,
+    transform 160ms var(--ease-out);
+}
+
+@media (hover: hover) {
+  .work-filter:hover {
+    border-color: #CFC9BF;
+    color: #111;
+  }
+}
+
+.work-filter:active {
+  transform: scale(0.97);
+}
+
+.work-filter[aria-pressed="true"] {
+  background: #E6E2DB;
+  border-color: #E6E2DB;
+  color: #111;
 }
 
 /* The heading types itself in, so give it room up front instead of letting it
@@ -441,10 +484,14 @@ body.home-bg::before {
 
 /* A brand tile that opens its email campaigns. */
 .brand-card-button {
-  display: flex;
+  display: block;
   width: 100%;
+  padding: 0;
   border: 0;
+  background: none;
+  color: inherit;
   font: inherit;
+  text-align: left;
   cursor: pointer;
 }
 
@@ -636,29 +683,30 @@ body.home-bg::before {
   }
 }
 
-/* Cards without a clip (Co-op, the brand tiles) get a slow push-in instead. */
-.home-card-tile--still .home-card-image,
-.brand-card-image {
+/* Every card, product or brand, gets the same slow push-in to 1.1x on hover.
+   The zoom lives on a layer that fills the tile, so it always grows from the
+   middle of the square, whatever crop or framing the artwork inside uses. */
+.home-card-zoom {
+  position: absolute;
+  inset: 0;
   transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* Hover zoom only where a real pointer hovers; a tap on a phone would otherwise
    leave the image stuck zoomed. Keyboard focus gets it everywhere. */
 @media (hover: hover) and (pointer: fine) {
-  .home-card-link:hover .home-card-tile--still .home-card-image,
-  .home-card-tile--still:hover .home-card-image,
-  .brand-card-image:hover {
-    transform: scale(1.04);
+  .home-card-link:hover .home-card-zoom,
+  .home-card-tile:hover .home-card-zoom {
+    transform: scale(1.1);
   }
 }
 
-.home-card-link:focus-visible .home-card-tile--still .home-card-image {
-  transform: scale(1.04);
+.home-card-link:focus-visible .home-card-zoom {
+  transform: scale(1.1);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .home-card-tile--still .home-card-image,
-  .brand-card-image {
+  .home-card-zoom {
     transition: none;
     transform: none !important;
   }
@@ -716,15 +764,18 @@ body.home-bg::before {
   }
 }
 
+/* The description runs the full width of the card, with the tags on the line
+   below it. */
 .home-card-caption {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px 16px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
   margin-top: 12px;
 }
 
 .home-card-copy {
+  width: 100%;
   min-width: 0;
 }
 
@@ -768,14 +819,6 @@ body.home-bg::before {
   text-transform: none;
   letter-spacing: 0;
   color: #333;
-}
-
-/* On phones the tags drop under the description. */
-@media (max-width: 600px) {
-  .home-card-caption {
-    flex-direction: column;
-    align-items: flex-start;
-  }
 }
 
 /* ── Project page responsive layout ── */
@@ -875,7 +918,7 @@ body.home-bg::before {
 
 body {
   margin: 0;
-  font-family: 'TT', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  font-family: 'Schibsted Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -901,4 +944,99 @@ code {
 .proj-inline-link:hover {
   color: #2E2878;
   border-bottom-color: #2E2878;
+}
+
+/* ── Work gallery: square cards in a pinned horizontal track ──
+   Every project and brand card is a square. On desktop the work section pins
+   (position: sticky) and the page's vertical scroll slides the track sideways;
+   usePinnedTrack in Home.js sets the region's height and the track's transform.
+   The track bleeds to both viewport edges but starts and ends on the page
+   column, so the first and last cards line up with everything above. On phones
+   the cards simply stack. */
+:root {
+  --card-size: clamp(280px, calc(100vh - 300px), 480px);
+}
+
+.home-card-tile {
+  aspect-ratio: 1 / 1;
+}
+
+/* --crop picks which part of wide art stays in the square: 0% keeps the left
+   edge, 50% (the default) the middle, 100% the right edge. Cards set it with
+   their `crop` field in Home.js. */
+.home-card-stage {
+  position: absolute;
+  top: 0;
+  left: var(--crop, 50%);
+  height: 100%;
+  transform: translateX(calc(-1 * var(--crop, 50%)));
+}
+
+.home-card-stage .home-card-image {
+  width: auto;
+  height: 100%;
+  max-width: none;
+}
+
+/* Product screens sit in a window inset 8% from every edge of the tile (see
+   Framing in Home.js), so the gap between screen and ground matches on every card. */
+.home-card-ground {
+  position: absolute;
+  inset: 0;
+}
+
+.home-card-window {
+  position: absolute;
+  inset: 8%;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 18px 44px rgba(15, 20, 34, 0.25);
+}
+
+/* Enterprise screens run off the right edge instead of stopping at the inset. */
+.home-card-window--bleed {
+  right: 0;
+  border-radius: 8px 0 0 8px;
+}
+
+.home-card-frame {
+  position: absolute;
+}
+
+.home-card-frame .home-card-image {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+}
+
+body.home-bg {
+  overflow-x: clip;
+}
+
+@media (min-width: 601px) {
+  /* Pinned while the track slides; usePinnedTrack sets its top so it sits
+     centered in the viewport. */
+  .work-sticky {
+    position: sticky;
+    top: 0;
+  }
+
+  .work-viewport {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    overflow: clip;
+  }
+
+  .project-grid.project-track {
+    display: flex;
+    gap: var(--grid-gutter);
+    width: max-content;
+    padding-inline: max(var(--page-pad), calc((100vw - var(--page-max)) / 2 + var(--page-pad)));
+    will-change: transform;
+  }
+
+  .project-track > * {
+    flex: none;
+    width: var(--card-size);
+  }
 }

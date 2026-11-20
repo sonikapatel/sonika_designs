@@ -2,6 +2,8 @@ import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import SiteShell from "./SiteShell";
 import HomeaseHouse from "./projects/homease/HomeaseHouse";
+import CoachBoCard from "./projects/criteria/CoachBoCard";
+import SquareSliderCard from "./projects/square/SquareSliderCard";
 
 /* Company wordmarks live in public/images/logos, each cropped to its ink. They
    sit in a greyed-out strip under the intro, sized to one shared area rather
@@ -47,18 +49,23 @@ const SKILLS = [
 const VALUES = [
   {
     title: "Systems Thinking",
+    icon: "systems",
     bg: "#FFFFFF",
     textColor: "#2A2A2A",
     description: "I apply a system-driven approach to designing large-scale applications.",
   },
   {
     title: "Intentionality",
+    icon: "intent",
+    /* Its icon sits above the title; the other two sit below. */
+    iconAbove: true,
     bg: "#FFFFFF",
     textColor: "#2A2A2A",
     description: "I focus on reducing unnecessary complexity, and creating experiences that feel purposeful rather than just polished.",
   },
   {
     title: "Empathy",
+    icon: "empathy",
     bg: "#2D2D2D",
     textColor: "#FFFFFF",
     description: "Great products start with understanding people. I design by uncovering the behaviors and frustrations behind user's actions.",
@@ -69,7 +76,55 @@ const VALUES = [
 /* Touch screens never hover, so a tap toggles the card there instead. */
 const canHover = typeof window !== "undefined" && window.matchMedia("(hover: hover)").matches;
 
-function ValueCard({ title, description, bg, textColor }) {
+/* Abstract line icons for the value cards, drawn on a 32px grid in the card's
+   text color. Systems: nodes wired into one network. Intentionality: a wandering
+   line that straightens and lands on a single point. Empathy: two circles
+   overlapping, a shared space between two people. */
+function ValueIcon({ name, color }) {
+  const common = {
+    width: 32,
+    height: 32,
+    viewBox: "0 0 32 32",
+    fill: "none",
+    stroke: color,
+    strokeWidth: 1.5,
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    "aria-hidden": true,
+  };
+  if (name === "systems") {
+    return (
+      <svg {...common}>
+        <path d="M6 6 L16 16 L26 6 M6 26 L16 16 L26 26 M6 6 L6 26 M26 6 L26 26" opacity="0.45" />
+        <circle cx="6" cy="6" r="2.5" fill={color} stroke="none" />
+        <circle cx="26" cy="6" r="2.5" fill={color} stroke="none" />
+        <circle cx="6" cy="26" r="2.5" fill={color} stroke="none" />
+        <circle cx="26" cy="26" r="2.5" fill={color} stroke="none" />
+        <circle cx="16" cy="16" r="4" />
+      </svg>
+    );
+  }
+  if (name === "intent") {
+    return (
+      <svg {...common}>
+        <path d="M3 22 C6 12, 9 28, 12 18 S16 16, 19 16 L25 16" />
+        <circle cx="27.5" cy="16" r="2.5" fill={color} stroke="none" />
+      </svg>
+    );
+  }
+  if (name === "empathy") {
+    return (
+      <svg {...common}>
+        <circle cx="12" cy="16" r="8" />
+        <circle cx="20" cy="16" r="8" />
+        <path d="M16 9.1 A8 8 0 0 1 16 22.9 A8 8 0 0 1 16 9.1 Z" fill={color} stroke="none" opacity="0.35" />
+      </svg>
+    );
+  }
+  return null;
+}
+
+function ValueCard({ title, description, bg, textColor, icon, iconAbove }) {
   const [flipped, setFlipped] = useState(false);
   const needsBorder = bg === "#FFFFFF";
   return (
@@ -100,7 +155,9 @@ function ValueCard({ title, description, bg, textColor }) {
           flexDirection: "column",
           justifyContent: "space-between",
         }}>
-          <p style={{ margin: 0, fontSize: 16, fontWeight: 500, color: textColor, fontFamily: "'TT', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" }}>{title}</p>
+          {icon && iconAbove && <ValueIcon name={icon} color={textColor} />}
+          <p style={{ margin: 0, fontSize: 16, fontWeight: 500, color: textColor, fontFamily: "'Schibsted Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" }}>{title}</p>
+          {icon && !iconAbove && <ValueIcon name={icon} color={textColor} />}
         </div>
         {/* Back */}
         <div style={{
@@ -142,7 +199,95 @@ function useFadeIn() {
   return ref;
 }
 
+/* Pinned horizontal gallery for the work cards. On desktop the section sticks to
+   the viewport while the page scrolls past it, and that vertical distance drives
+   the card track sideways: the region is made exactly as tall as one viewport
+   plus the track's overflow, so the last card arrives as the pin releases. On
+   phones (600px and under) nothing is pinned and the cards stack (index.css). */
+function usePinnedTrack(key) {
+  const regionRef = useRef(null);
+  const viewportRef = useRef(null);
+  const trackRef = useRef(null);
+
+  useEffect(() => {
+    const region = regionRef.current;
+    const viewport = viewportRef.current;
+    const track = trackRef.current;
+    if (!region || !viewport || !track) return;
+    const wide = window.matchMedia("(min-width: 601px)");
+    const sticky = region.firstElementChild;
+    let overflow = 0;
+    let pinTop = 0;
+    let frame = 0;
+
+    const update = () => {
+      frame = 0;
+      if (!overflow) {
+        track.style.transform = "";
+        return;
+      }
+      const top = region.getBoundingClientRect().top;
+      const progress = Math.min(1, Math.max(0, (pinTop - top) / overflow));
+      track.style.transform = `translate3d(${-progress * overflow}px, 0, 0)`;
+    };
+    /* The pinned block is only as tall as its content and is centered in the
+       viewport while it is pinned, so the section ends right after the cards
+       instead of leaving a viewport's worth of empty space before the next one. */
+    const measure = () => {
+      overflow = wide.matches ? Math.max(0, track.scrollWidth - viewport.clientWidth) : 0;
+      const pinH = sticky.offsetHeight;
+      pinTop = Math.max(0, (window.innerHeight - pinH) / 2);
+      sticky.style.top = overflow ? `${pinTop}px` : "";
+      region.style.height = overflow ? `${pinH + overflow}px` : "";
+      update();
+    };
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+    /* Tabbing to a card that is still off to the side scrolls the page to the
+       point where the track has brought it into view. */
+    const onFocus = (e) => {
+      if (!overflow) return;
+      const card = [...track.children].find((c) => c.contains(e.target));
+      if (!card) return;
+      const pad = parseFloat(getComputedStyle(track).paddingLeft) || 0;
+      const progress = Math.min(1, Math.max(0, (card.offsetLeft - pad) / overflow));
+      const regionTop = region.getBoundingClientRect().top + window.scrollY;
+      window.scrollTo({ top: regionTop - pinTop + progress * overflow });
+    };
+
+    const resize = new ResizeObserver(measure);
+    resize.observe(track);
+    resize.observe(viewport);
+    resize.observe(sticky);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", measure);
+    wide.addEventListener("change", measure);
+    track.addEventListener("focusin", onFocus);
+    measure();
+    return () => {
+      cancelAnimationFrame(frame);
+      resize.disconnect();
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", measure);
+      wide.removeEventListener("change", measure);
+      track.removeEventListener("focusin", onFocus);
+      region.style.height = "";
+      sticky.style.top = "";
+      track.style.transform = "";
+    };
+  }, [key]);
+
+  return { regionRef, viewportRef, trackRef };
+}
+
 const TABS = ["Products", "Brands", "Playground"];
+
+/* Filter pills for the domains product design postings ask for most (B2B SaaS,
+   fintech, AI, healthcare and consumer lead TrueUp's 2026 design job counts), so
+   a recruiter can jump to the work that matches their role. Each card lists its
+   domains in `domains`; a tab shows only the pills it has work for. */
+const DOMAINS = ["AI", "Fintech", "Enterprise", "Healthcare", "Consumer"];
 
 const CARDS = {
   Products: [
@@ -152,6 +297,9 @@ const CARDS = {
       result: "+48% activation",
       industry: "HR Tech",
       bg: "#16112E",
+      /* The tile plays a looping, coded Coach Bo check-in (CoachBoCard.js)
+         instead of the still and clip below, which stay as the fallback. */
+      scene: "coach-bo",
       /* The still's dashboard window is dashboard.mov's first frame, so the clip
          takes over seamlessly on hover. It plays in that window (87,108 /
          798×459 on the 1011×795 tile), and the "Prepare for your next 1:1" panel,
@@ -172,6 +320,7 @@ const CARDS = {
         height: "56.352%",
       },
       slug: "criteria",
+      domains: ["AI", "Enterprise"],
     },
     {
       company: "Square",
@@ -180,9 +329,13 @@ const CARDS = {
       industry: "Financial",
       bg: "#3D5445",
       image: "/images/Square_full.png",
-      /* Stays still on hover: no clip and no push-in. */
+      /* The three panels (219,75 / 603×647 on the 1014×798 still) fit the inset. */
+      fit: [1014, 798, 219, 75, 603, 647],
+      /* The offer panel's slider moves on its own; no clip and no push-in. */
       noMotion: true,
+      scene: "square-slider",
       slug: "square",
+      domains: ["Fintech", "Enterprise"],
     },
     {
       company: "Fika",
@@ -191,6 +344,11 @@ const CARDS = {
       industry: "Community",
       bg: "#4B44AF",
       image: "/images/fika123.png",
+      /* The browser window (69,168 / 873×461), cropped square around the headline,
+         on the still's linen (fika-linen.jpg, mirrored so it tiles). */
+      screen: [1011, 795, 69, 168, 873, 461],
+      focus: 0.5,
+      ground: "url(/images/fika/fika-linen.jpg) 0 0 / 130.8% auto",
       /* The landing page scrolling top to bottom at a constant speed, captured
          frame by frame from the fika-march-code frontend in headless Chrome at
          1440×762, played in the still's browser window. Position/size mirror the
@@ -204,6 +362,7 @@ const CARDS = {
         radius: "2.3% / 4.3%",
       },
       slug: "fika",
+      domains: ["Consumer"],
     },
     {
       company: "Honeybee Health",
@@ -212,6 +371,10 @@ const CARDS = {
       industry: "Healthcare",
       bg: "#0D1917",
       image: "/images/HBH.png",
+      /* The app window (126,204 / 885×591), running off the right edge. */
+      screen: [1011, 795, 126, 204, 885, 591],
+      ground: "linear-gradient(180deg, #9cbaed 0%, #c0d4f5 55%, #e4effc 100%)",
+      bleed: true,
       /* HBH_Prototype.mov from the case study, the same E-prescription screen.
          Pinned to the app window in the still (126,204 on the 1011×795 tile) at
          the clip's own 1.9:1, so it runs off the right edge as the still does. */
@@ -224,6 +387,7 @@ const CARDS = {
         radius: 0,
       },
       slug: "hbh-3",
+      domains: ["Healthcare"],
     },
     {
       company: "Co-op Solutions",
@@ -231,7 +395,28 @@ const CARDS = {
       result: "Navigation time cut 28%",
       industry: "Financial",
       image: "/images/Springboard.png",
+      /* The app window (468,138 / 1077×657), running off the right edge. */
+      screen: [2070, 795, 468, 138, 1077, 657],
+      ground: "#333930",
+      bleed: true,
       slug: "coop",
+      domains: ["Fintech", "Enterprise"],
+      fullWidth: true,
+    },
+    {
+      company: "PartsTech",
+      description: "Helping upgraded repair shops discover the tire features they paid for",
+      industry: "Automotive",
+      bg: "#121D45",
+      /* The tire search with the out-the-door pricing beacon open, on PartsTech's
+         navy at the Co-op card's 2070×795. The screen runs off the bottom edge. */
+      image: "/images/partstech/partstech-card.jpg",
+      /* The app window (334,110 / 1399×685), running off the right edge. */
+      screen: [2070, 795, 334, 110, 1399, 685],
+      ground: "radial-gradient(70% 60% at 50% 0%, #3651a2 0%, #102044 100%)",
+      bleed: true,
+      slug: "partstech",
+      domains: ["Enterprise"],
       fullWidth: true,
     },
   ],
@@ -245,6 +430,8 @@ const CARDS = {
          (Figma node 107:5363). The outline sits at 385.6,208.7 / 132.1×125.3 on
          the 1354×556 tile. */
       image: "/images/homease/homease-card-plain.png",
+      /* Wide art in a square card: keep the Homease wordmark in frame. */
+      crop: "13%",
       house: {
         left: "28.479%",
         top: "37.536%",
@@ -263,6 +450,7 @@ const CARDS = {
         radius: "8.36% / 3.86%",
       },
       slug: "homease",
+      domains: ["Consumer"],
       fullWidth: true,
     },
     {
@@ -270,6 +458,8 @@ const CARDS = {
       description: "Patient intake you fill out once, not at every front desk",
       bg: "#2C7476",
       image: "/images/intake/intake-card.png",
+      /* Wide art in a square card: keep the intake wordmark in frame. */
+      crop: "12%",
       /* The splash and health profile recorded from the iOS prototype, pinned over the
          phone at the same rect as the Homease card (858,72 / 281×608 on 1354×556). */
       video: {
@@ -281,17 +471,7 @@ const CARDS = {
         radius: "8.36% / 3.86%",
       },
       slug: "intake",
-      fullWidth: true,
-    },
-    {
-      company: "Foo Bar",
-      description: "A taproom beer brand for engineers, designed from scratch with AI",
-      bg: "#F2EFE6",
-      /* foo.bar in dark ink beside three cans running off the bottom edge, on an
-         embossed cotton-paper ground. The cans come from the Foo Bar Figma file
-         (Portfolio export / foobar-card); the paper is composited in at 1354×556. */
-      image: "/images/foobar/foobar-card.jpg",
-      slug: "foobar",
+      domains: ["Healthcare", "Consumer"],
       fullWidth: true,
     },
   ],
@@ -299,6 +479,10 @@ const CARDS = {
     {
       image: "/images/fika1.png",
       name: "Fika",
+      description: "Connecting creatives over coffee IRL, inspired by the Swedish ritual",
+      industry: "Community",
+      frame: [2676, 820, 1603, 0, 1074, 820],
+      panels: [[1604, 0, 652, 820], [2280, 0, 396, 400], [2280, 424, 396, 396]],
       /* Clicking the card opens reels from @fikacreatives.co, played through
          Instagram's own embed. */
       posts: [
@@ -312,6 +496,10 @@ const CARDS = {
     {
       image: "/images/Bib1.png",
       name: "Beauty in Balance",
+      description: "A wellness brand for multihyphenates balancing career and creative work",
+      industry: "Wellness",
+      frame: [2676, 823, 1719, 0, 946, 824],
+      panels: [[1720, 0, 460, 820], [2204, 4, 460, 816]],
       /* Clicking the card opens the Instagram posts and event visuals. */
       posts: [
         { src: "/images/bib/bib-website.mp4", poster: "/images/bib/bib-website-poster.jpg", caption: "Website" },
@@ -321,11 +509,32 @@ const CARDS = {
         { src: "/images/bib/bib-tour-pillars.jpg", caption: "Signature Series tour", alt: "Post reading: Each pillar of branding, revealed soon" },
       ],
     },
-    { image: "/images/jaal2.png" },
-    { image: "/images/motion1.png" },
+    {
+      image: "/images/jaal2.png",
+      name: "Jal Sauces",
+      description: "An Indian simmer sauce brand to pair with a variety of dishes",
+      industry: "Simmer sauce",
+      frame: [2676, 817, 1873, 0, 774, 774],
+      panels: [[1872, 0, 776, 776]],
+    },
+    {
+      image: "/images/motion1.png",
+      name: "Motion Coffee Co.",
+      description: "A Range Rover coffee cart concept with Pakistani-inspired flavors",
+      industry: "Coffee cart",
+      frame: [2682, 817, 1222, 0, 1460, 818],
+      panels: [[1224, 0, 844, 816], [2112, 0, 568, 808]],
+    },
     {
       image: "/images/ortho1.png",
       name: "Lokahi Orthodontics",
+      description: "A Hawaiian-inspired clinic built on beauty, balance and breath",
+      industry: "Orthodontics",
+      frame: [2676, 816, 1835, 0, 842, 816],
+      panels: [[1836, 0, 840, 816]],
+      /* Its panel is rounder than the rest; this fills the corners the shared
+         radius uncovers, in the panel's own color over the page. */
+      panelFill: "#F3EDE9",
       /* Clicking the card opens the brand and graphic style guide, one page per
          slide, rendered from the PDF in /images/lokahi. */
       guide: {
@@ -408,10 +617,14 @@ function SectionHeading({ title, subtitle, typewriter }) {
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState("Products");
-  const cards = CARDS[activeTab];
+  const [domain, setDomain] = useState(null);
+  const tabCards = CARDS[activeTab];
+  const domains = DOMAINS.filter((d) => tabCards.some((c) => c.domains?.includes(d)));
+  const cards = domain ? tabCards.filter((c) => c.domains?.includes(domain)) : tabCards;
 
   const introRef = useFadeIn();
   const workRef = useFadeIn();
+  const { regionRef, viewportRef, trackRef } = usePinnedTrack(`${activeTab}-${domain}`);
   const valuesRef = useFadeIn();
   const toolsRef = useFadeIn();
 
@@ -429,7 +642,7 @@ export default function Home() {
               Hello <span className="wave-emoji" role="img" aria-label="waving hand">👋🏼</span> I'm Sonika.
             </h1>
             <p className="home-intro-lead">
-              I'm a marketing and AI-native UX/UI specialist who cares deeply about <strong>making genuinely valuable products</strong>. I've designed tools that help clinicians prescribe medications, small businesses get funding, credit unions to experience intuitive software, and managers coach their teams.
+              I'm an AI-native UX/UI designer who cares deeply about <strong>making genuinely valuable products</strong>. I've designed tools that help clinicians prescribe medications, small businesses get funding, credit unions experience intuitive software, and managers coach their teams.
             </p>
             {/* Roles in order, with each company's wordmark standing in for its name. */}
             <p className="home-intro-lead home-intro-history">
@@ -459,6 +672,8 @@ export default function Home() {
 
         {/* Work */}
         <section ref={workRef} className="fade-section">
+          <div ref={regionRef} className="work-region">
+          <div className="work-sticky">
           {/* Heading on the left, tabs on the right of the same row. */}
           <div className="work-head">
             <SectionHeading typewriter title="I've built" subtitle="Selected products, brands and side projects." />
@@ -467,7 +682,10 @@ export default function Home() {
                 <button
                   key={tab}
                   style={tab === activeTab ? { ...styles.tab, ...styles.tabActive } : styles.tab}
-                  onClick={() => setActiveTab(tab)}
+                  onClick={() => {
+                    setActiveTab(tab);
+                    setDomain(null);
+                  }}
                 >
                   {tab}
                 </button>
@@ -475,11 +693,44 @@ export default function Home() {
             </div>
           </div>
 
-          <div className={activeTab === "Brands" ? "project-grid project-grid--single" : "project-grid"} aria-live="polite">
+          {domains.length > 0 && (
+            <div className="work-filters" role="group" aria-label="Filter by domain">
+              {[null, ...domains].map((d) => (
+                <button
+                  key={d || "all"}
+                  type="button"
+                  className="work-filter"
+                  aria-pressed={domain === d}
+                  onClick={() => setDomain(d)}
+                >
+                  {d || "All"}
+                </button>
+              ))}
+            </div>
+          )}
+
+          <div ref={viewportRef} className="work-viewport">
+          <div
+            ref={trackRef}
+            className={activeTab === "Brands" ? "project-grid project-track project-grid--single" : "project-grid project-track"}
+            aria-live="polite"
+          >
             {cards.length > 0 ? (
               activeTab === "Brands"
                 ? cards.map((card) => (
-                    <BrandCard key={card.image} image={card.image} name={card.name} campaigns={card.campaigns} posts={card.posts} guide={card.guide} />
+                    <BrandCard
+                      key={card.image}
+                      image={card.image}
+                      name={card.name}
+                      description={card.description}
+                      industry={card.industry}
+                      frame={card.frame}
+                      panels={card.panels}
+                      panelFill={card.panelFill}
+                      campaigns={card.campaigns}
+                      posts={card.posts}
+                      guide={card.guide}
+                    />
                   ))
                 : cards.map((card) => (
                     <ProjectCard
@@ -496,11 +747,21 @@ export default function Home() {
                       house={card.house}
                       slug={card.slug}
                       fullWidth={card.fullWidth}
+                      crop={card.crop}
+                      scene={card.scene}
+                      screen={card.screen}
+                      focus={card.focus}
+                      ground={card.ground}
+                      fit={card.fit}
+                      bleed={card.bleed}
                     />
                   ))
             ) : (
               <p style={styles.empty}>Coming soon</p>
             )}
+          </div>
+          </div>
+          </div>
           </div>
         </section>
 
@@ -542,28 +803,96 @@ export default function Home() {
   );
 }
 
-function BrandCard({ image, name, campaigns, posts, guide }) {
-  const [hovered, setHovered] = useState(false);
+/* Every brand panel is clipped to the same corner radius, as a fraction of the
+   tile (18px on a 480px card), whatever radius its artwork was exported with. */
+const PANEL_RADIUS = 0.0375;
+
+/* Places a board so the box [x, y, w, h] inside it fits a square tile, centered,
+   inset by `pad` (a fraction of the tile) on the box's longer side. */
+function frameStyle([boardW, boardH, x, y, w, h], pad = 0.08) {
+  const fit = (1 - 2 * pad) / Math.max(w, h);
+  const pct = (n) => `${n * 100}%`;
+  return {
+    position: "absolute",
+    maxWidth: "none",
+    width: pct(boardW * fit),
+    height: pct(boardH * fit),
+    left: pct(0.5 - (x + w / 2) * fit),
+    top: pct(0.5 - (y + h / 2) * fit),
+  };
+}
+
+/* A clip path of the board's panels, each a rounded rect at PANEL_RADIUS. It is
+   in the board image's own box (objectBoundingBox), so the radius is converted
+   per axis from tile units to that box. */
+function PanelClip({ id, frame: [boardW, boardH, , , w, h], panels, pad = 0.08 }) {
+  const fit = (1 - 2 * pad) / Math.max(w, h);
+  const rx = PANEL_RADIUS / (boardW * fit);
+  const ry = PANEL_RADIUS / (boardH * fit);
+  return (
+    <svg width="0" height="0" style={{ position: "absolute" }} aria-hidden="true">
+      <clipPath id={id} clipPathUnits="objectBoundingBox">
+        {panels.map(([x, y, pw, ph]) => (
+          <rect key={`${x}-${y}`} x={x / boardW} y={y / boardH} width={pw / boardW} height={ph / boardH} rx={rx} ry={ry} />
+        ))}
+      </clipPath>
+    </svg>
+  );
+}
+
+function BrandCard({ image, name, description, industry, frame, panels, panelFill, campaigns, posts, guide }) {
   const ref = useFadeIn();
   const dialogRef = useRef(null);
-  const style = {
-    ...styles.brandCard,
-    background: hovered ? "#F7F3EC" : "transparent",
-    transition: "background-color 150ms ease, opacity 500ms var(--ease-out), transform 500ms var(--ease-out)",
-  };
-  const img = <img src={image} alt="" className="brand-card-image" style={styles.brandImage} />;
+  const clickable = Boolean(campaigns || posts || guide);
+  const clipId = `brand-panels-${String(name || image).replace(/[^a-z0-9]/gi, "")}`;
+  const kind = guide ? "brand and graphic styles" : posts ? "Instagram posts" : "email campaigns";
 
-  if (!campaigns && !posts && !guide) {
+  /* Same square tile and caption as the product cards. The board's own copy
+     (category, name, blurb) moves into the caption, so the tile shows only the
+     visuals from the right of each board, whole: `frame` is the board's size and
+     the box around those visuals, [boardW, boardH, x, y, w, h] in pixels, and the
+     box is scaled to fit the square with a margin on every side. The boards have
+     transparent backgrounds, so the margin is simply the page. */
+  const tile = (
+    <div className="home-card-tile home-card-tile--still">
+      <div className="home-card-zoom">
+        {frame && panels ? (
+          <>
+            <PanelClip id={clipId} frame={frame} panels={panels} />
+            <div style={{ ...frameStyle(frame), clipPath: `url(#${clipId})`, background: panelFill }}>
+              <img src={image} alt="" className="home-card-image" style={{ height: "100%" }} />
+            </div>
+          </>
+        ) : (
+          <img src={image} alt="" className="home-card-image" style={frame ? frameStyle(frame) : undefined} />
+        )}
+      </div>
+    </div>
+  );
+  const caption = (
+    <div className="home-card-caption">
+      <div className="home-card-copy">
+        {description && <p className="home-card-description">{description}</p>}
+        {clickable && <p className="home-card-result">See the {kind}</p>}
+      </div>
+      <div className="home-card-tags">
+        {name && <span className="home-card-tag home-card-tag--name">{name}</span>}
+        {industry && <span className="home-card-tag">{industry}</span>}
+      </div>
+    </div>
+  );
+
+  if (!clickable) {
     return (
-      <div ref={ref} className="fade-section" style={style} onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}>
-        {img}
+      <div ref={ref} className="fade-section">
+        {tile}
+        {caption}
       </div>
     );
   }
 
   /* Cards with campaigns, posts or a guide are buttons that open a native dialog:
      it traps focus, closes on Escape, and a click on the backdrop closes it too. */
-  const kind = guide ? "brand and graphic styles" : posts ? "Instagram posts" : "email campaigns";
   const title = guide ? "brand and graphic styles" : posts ? "Instagram" : "email campaigns";
   const sub = guide
     ? `Logo, color, type and placements from the ${name} brand guide.`
@@ -574,14 +903,11 @@ function BrandCard({ image, name, campaigns, posts, guide }) {
     <div ref={ref} className="fade-section">
       <button
         type="button"
-        className="brand-card-button"
-        style={style}
-        aria-label={`${name}: see the ${kind}`}
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
+        className="brand-card-button home-card-link"
         onClick={() => dialogRef.current?.showModal()}
       >
-        {img}
+        {tile}
+        {caption}
       </button>
       <dialog
         ref={dialogRef}
@@ -665,12 +991,81 @@ function BrandCard({ image, name, campaigns, posts, guide }) {
   );
 }
 
+/* Every product screen sits the same distance from the tile's edge: SCREEN_INSET
+   of the tile on all four sides (the Brands tiles use the same 8%).
+   - `screen` [stillW, stillH, x, y, w, h]: the app window's box in the still. The
+     window is cropped to a square at the inset and laid on `ground`; `focus`
+     (0–1) slides the crop along the screen's longer side. Clips and layers are
+     placed in % of the still, so they move with it.
+   - `fit` [stillW, stillH, x, y, w, h]: a group of panels already on its own ground
+     (Square). The still is scaled so the group fits inside the inset, centered.
+   - `bleed`: enterprise screens keep the inset on the top, left and bottom and
+     run off the right edge, so more of the wide app shows.
+   Without either, the still fills the tile's height as before (`crop`). */
+const SCREEN_INSET = 0.08;
+
+function Framing({ screen, focus = 0, ground, fit, crop, bleed, children }) {
+  if (screen && bleed) {
+    /* Inset top, left and bottom; the screen runs off the tile's right edge. The
+       window is (1 - inset) wide and (1 - 2 × inset) tall, and the screen's
+       height fills it. */
+    const [stillW, stillH, x, y, , h] = screen;
+    const tall = 1 - 2 * SCREEN_INSET;
+    const wide = 1 - SCREEN_INSET;
+    const pctX = (n) => `${(n / h) * (tall / wide) * 100}%`;
+    const pctY = (n) => `${(n / h) * 100}%`;
+    return (
+      <div className="home-card-ground" style={{ background: ground }}>
+        <div className="home-card-window home-card-window--bleed">
+          <div
+            className="home-card-frame"
+            style={{ width: pctX(stillW), height: pctY(stillH), left: pctX(-x), top: pctY(-y) }}
+          >
+            {children}
+          </div>
+        </div>
+      </div>
+    );
+  }
+  if (screen) {
+    const [stillW, stillH, x, y, w, h] = screen;
+    const side = Math.min(w, h);
+    const offX = w > h ? focus * (w - h) : 0;
+    const offY = h > w ? focus * (h - w) : 0;
+    const pct = (n) => `${(n / side) * 100}%`;
+    return (
+      <div className="home-card-ground" style={{ background: ground }}>
+        <div className="home-card-window">
+          <div
+            className="home-card-frame"
+            style={{ width: pct(stillW), height: pct(stillH), left: pct(-(x + offX)), top: pct(-(y + offY)) }}
+          >
+            {children}
+          </div>
+        </div>
+      </div>
+    );
+  }
+  if (fit) {
+    return (
+      <div className="home-card-frame" style={frameStyle(fit, SCREEN_INSET)}>
+        {children}
+      </div>
+    );
+  }
+  return (
+    <div className="home-card-stage" style={crop ? { "--crop": crop } : undefined}>
+      {children}
+    </div>
+  );
+}
+
 /* Card clips sit hidden and paused until the card is hovered or focused, then
    fade in and play from the start. Touch screens can't hover, so there they
    autoplay as before; readers who ask for less motion keep the still. */
 const prefersStill = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-function ProjectCard({ company, description, result, industry, accent, image, video, layer, house, noMotion, slug, fullWidth }) {
+function ProjectCard({ company, description, result, industry, accent, image, video, layer, house, noMotion, slug, fullWidth, crop, scene, screen, focus, ground, fit, bleed }) {
   const ref = useFadeIn();
   const videoRef = useRef(null);
   const [playing, setPlaying] = useState(false);
@@ -702,6 +1097,14 @@ function ProjectCard({ company, description, result, industry, accent, image, vi
      index.css). The caption names the project, so the still's alt stays empty. */
   const tile = (
     <div className={video || noMotion ? "home-card-tile" : "home-card-tile home-card-tile--still"}>
+      {/* The tile is square; the stage keeps the artwork's own proportions,
+          fills the tile's height and crops the sides, so the clip and layer
+          percentages below still line up with the still. */}
+      <div className="home-card-zoom">
+      {scene === "coach-bo" ? (
+        <CoachBoCard />
+      ) : (
+      <Framing screen={screen} focus={focus} ground={ground} fit={fit} crop={crop} bleed={bleed}>
       <img
         src={image}
         alt=""
@@ -741,6 +1144,10 @@ function ProjectCard({ company, description, result, industry, accent, image, vi
         />
       )}
       {house && <HomeaseHouse style={house} />}
+      {scene === "square-slider" && <SquareSliderCard />}
+      </Framing>
+      )}
+      </div>
     </div>
   );
 
@@ -850,18 +1257,6 @@ const styles = {
   tabActive: {
     background: "#E6E2DB",
     color: "#111",
-  },
-  brandCard: {
-    borderRadius: 24,
-    /* 48px of room around each board on desktop, easing down on phones. */
-    padding: "clamp(16px, 4vw, 48px)",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  brandImage: {
-    display: "block",
-    maxWidth: "100%",
   },
   brandsSubtitle: {
     margin: "0 0 20px",

@@ -37,9 +37,11 @@ export const CRITERIA_NAV = [
     items: [
       { id: "onboarding", label: "Onboarding + Admin Setup" },
       { id: "research-to-product", label: "From Research to Experience" },
+      { id: "research", label: "Research" },
       { id: "ic-incentive", label: "Giving ICs a Reason" },
       { id: "design-system", label: "Design System" },
       { id: "merchandising", label: "In-Product Merchandising" },
+      { id: "system", label: "System Before + After" },
       { id: "impact", label: "Impact" },
     ],
   },
@@ -215,7 +217,6 @@ export const CRITERIA_BLOCKS = [
     eyebrow: "Resolving the trust problem",
     body: [
       "The research gave the trust problem its answer: a score was only as useful as the reason behind it. So every signal explains itself. Each mood and progress score links back to the check-in answers it came from, and 1:1 prep leads with talking points drawn from those answers, not the number.",
-      "The red, yellow and green states stayed in v1, which is why leading with talking points is on my list of what I’d do differently.",
     ],
   },
   {
@@ -279,6 +280,16 @@ export const CRITERIA_BLOCKS = [
       "A working demo of onboarding setup with different states for in-progress and complete steps, using the visual identity across products and the design system I created in Figma, translated to Typescript components.",
   },
   {
+    variant: "side-to-side",
+    eyebrow: "What I’d change next: show value sooner (proposed)",
+    body: "The shipped setup asked admins for effort at every step and gave value back only at launch. Applying research on AI product onboarding, I’d open with one question about the admin’s goal and shape the rest around it, bring the org in from the HRIS instead of typing it, start with a pilot team, and let the admin answer a check-in themselves so the first 1:1 brief they see is built from their own words. This direction was not built.",
+  },
+  {
+    variant: "onboarding-flow",
+    caption:
+      "A video prototype of the proposed onboarding, playing with a sample org. The admin picks a goal and the side panel promises what Check-Ins will do for them, imports the org, picks a pilot team and sees the first question Bo will ask it, then sees the insight each level of the org gets from the same check-ins: an employee’s Career History, a manager’s 1:1 prep, and a leader’s weekly digest of org and team health, burnout trends and wins. Finally they answer a check-in themselves and launch.",
+  },
+  {
     id: "research-to-product",
     variant: "side-to-side",
     eyebrow: "From research to experience",
@@ -310,6 +321,18 @@ export const CRITERIA_BLOCKS = [
       "A demo of the manager dashboard, built around what managers care about most when reviewing their direct reports. The red, yellow and green states come from the mood scores Coach Bo synthesizes.",
   },
   {
+    id: "research",
+    variant: "side-to-side",
+    eyebrow: "Research: what managers said after launch",
+    body: "Once Check-Ins was in use inside Criteria, I interviewed four managers and leaders and one individual contributor across People, Customer Success and Account Management. It was a preliminary round, separate from the card sort, and it showed where the dashboard held up and where it didn’t.",
+    orderedList: [
+      "Mood and the overall score were the signals managers read. Three of the four set aside at least one of progress, readiness, burnout or turnover risk as unclear, less relevant or too loosely defined.",
+      "A score sent them to ask, not to conclude. Three of the four treated a dip as a reason to talk to the person, and wanted the trend to tell a bad week from a pattern.",
+      "The value grew with distance from the team. A manager of a ten-person team already knew who was unhappy, while a People leader said Check-Ins “opens up a blindspot” across the business.",
+      "People checked in when their manager answered. One team held 100% participation, and their manager put part of that down to replying to what they wrote.",
+    ],
+  },
+  {
     variant: "side-to-side",
     eyebrow: "Permissioning the executive digest",
     body: "The digest went by email to managers and the C-suite. Access was inherited from the HRIS org chart, from the bottom up: a leader’s digest covers every team that rolls up to them, with no admin setting it up by hand. That turned an access-control problem into something HR admins already maintain.",
@@ -320,6 +343,7 @@ export const CRITERIA_BLOCKS = [
     eyebrow: "Giving ICs a reason to check in",
     body: [
       "Every insight a manager or leader sees depends on employees checking in each week, but the first version gave ICs almost nothing back. Most of the value flowed up the org chart.",
+      "The interviews after launch pointed the same way. The individual contributor I spoke with reread each summary Coach Bo wrote to check what was being reported to their manager, and one manager said flatly: “I’m not going to use something unless it’s going to remind me to use it.”",
       "To close that loop, I explored a personal growth timeline. It turns each check-in into part of an IC’s own record, and lets them credit the teammates who helped. It was explored but not shipped.",
       "The timeline is fed by the check-in itself. Whatever an IC tells Coach Bo they finished becomes a project on their Career History, with the teammate they credited and links to the work, so there is no second place to log it.",
     ],
@@ -361,6 +385,122 @@ export const CRITERIA_BLOCKS = [
       "Exploring ways of showcasing inactive products, so Check-Ins could introduce itself inside a dashboard managers already use before their account turned it on. An interactive rebuild of the merchandising screens on the manager dashboard. Click Learn more to explore the merchandising experience, which 28% of existing Develop users checked out during the four-week rollout.",
   },
   {
+    id: "system",
+    variant: "side-to-side",
+    eyebrow: "The system, before and after",
+    body: [
+      "Check-Ins v1 worked as one pipeline: a chat in Develop became scores, and those scores flowed up to managers and leaders. The constraints above made that the right way to launch, but ICs carried the system and got little back.",
+      "Looking at it as a whole, I’d propose keeping Coach Bo and the org-chart permissions while changing three things: where the check-in happens, what the signal is made of, and what each role receives. This is my proposed direction, not something that shipped.",
+    ],
+  },
+  {
+    variant: "system-diagram",
+    views: [
+      {
+        key: "before",
+        tab: "Before",
+        status: "Check-Ins v1, as shipped",
+        capture: {
+          title: "Coach Bo in Develop",
+          body: "ICs answer three weekly questions in chat, but have to remember to open another product.",
+          tag: "Gap",
+        },
+        signal: {
+          title: "Sentiment analysis",
+          body: "Answers become mood, progress and readiness scores, each linked to its source answers. Red, yellow and green states can still read as verdicts.",
+          tag: "Gap",
+        },
+        delivery: [
+          {
+            role: "IC",
+            title: "Little comes back",
+            body: "The growth timeline was explored but not shipped.",
+            tag: "Gap",
+          },
+          {
+            role: "Manager",
+            title: "Dashboard in Develop",
+            body: "Scores week over week, plus 1:1 prep with strengths and motivators from pre-hire assessments.",
+          },
+          {
+            role: "C-suite",
+            title: "Emailed digest",
+            body: "A high-level read on how teams are doing, scoped to the teams that roll up to them.",
+          },
+        ],
+        loop: {
+          title: "Open loop",
+          body: "Every insight depends on ICs checking in, but most of the value flows up the org chart.",
+          tag: "Gap",
+        },
+        foundation: [
+          {
+            title: "HRIS org chart",
+            body: "Sets reporting lines and who can see each digest.",
+          },
+          {
+            title: "No SSO yet",
+            body: "Teams, Slack and calendar delivery stayed out of reach.",
+            tag: "Gap",
+          },
+        ],
+      },
+      {
+        key: "after",
+        tab: "After (proposed)",
+        status: "Proposed direction, not shipped",
+        capture: {
+          title: "Coach Bo where people work",
+          body: "ICs answer in Teams or Slack, with Develop as the fallback. It’s the same conversation in every channel.",
+          tag: "Changed",
+        },
+        signal: {
+          title: "Context layer",
+          body: "Answers become blockers, wins, projects, shout-outs and a four-week trend. Sentiment is one input, and every signal cites the answers behind it.",
+          tag: "Changed",
+        },
+        delivery: [
+          {
+            role: "IC",
+            title: "Career History",
+            body: "Each check-in adds projects and shout-outs to a record they own.",
+            tag: "New",
+          },
+          {
+            role: "Manager",
+            title: "1:1 prep in the calendar",
+            body: "Talking points come first in Outlook or Google Calendar, with trends and early flags in Develop.",
+            tag: "Changed",
+          },
+          {
+            role: "C-suite",
+            title: "Trend digest",
+            body: "Rolled-up team health and burnout trends, without individual check-ins.",
+            tag: "Changed",
+          },
+        ],
+        loop: {
+          title: "Closed loop",
+          body: "ICs get value every week, which supports the habit. Managers flag signals that look wrong, which improves the next read.",
+          tag: "New",
+        },
+        foundation: [
+          {
+            title: "HRIS org chart",
+            body: "Still sets reporting lines and permissions, with no manual setup.",
+          },
+          {
+            title: "SSO and shared identity",
+            body: "Links one person across channels. This comes first, since the channel and calendar work depend on it.",
+            tag: "New",
+          },
+        ],
+      },
+    ],
+    caption:
+      "A simplified product view of Check-Ins for ICs, managers and the C-suite. Moving into Teams would also mean an app review and a separate build per platform, so I’d sequence SSO and the IC record first.",
+  },
+  {
     id: "impact",
     variant: "default",
     eyebrow: "Impact",
@@ -379,7 +519,7 @@ export const CRITERIA_BLOCKS = [
       },
       {
         title: "Lead with talking points, not scores.",
-        body: "The dashboard’s red/yellow/green states pull managers toward reading verdicts, which is the trust problem the research flagged.",
+        body: "The dashboard’s red/yellow/green states pull managers toward reading verdicts, which is the trust problem the research flagged. In the interviews after launch, managers read mood and the written summaries and passed over the scores they couldn’t explain.",
       },
       {
         title: "Give ICs something back from the start.",

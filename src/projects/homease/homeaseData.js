@@ -13,6 +13,7 @@ export const HOMEASE = {
     alt: "The Homease wordmark beside the Ask screen of the iOS app",
     bleed: true,
     bg: "transparent",
+    radius: "0px",
     video: {
       src: "/images/homease/cover.mp4",
       left: "63.37%",
@@ -156,6 +157,12 @@ export const HOMEASE_BLOCKS = [
     label: { src: "/images/homease/label-matches.svg", alt: "Matches" },
     caption:
       "Each card leads with the source and how recently it was posted, then fit, price and commute. Swipe through every room on the card; open a listing for the household, roommate preferences and lease details.",
+  },
+  {
+    variant: "media",
+    autoplay: true,
+    bare: true,
+    src: "/images/homease/matches-cinematic.mp4",
   },
   {
     variant: "media",
