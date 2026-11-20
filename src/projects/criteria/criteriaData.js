@@ -217,7 +217,6 @@ export const CRITERIA_BLOCKS = [
     eyebrow: "Resolving the trust problem",
     body: [
       "The research gave the trust problem its answer: a score was only as useful as the reason behind it. So every signal explains itself. Each mood and progress score links back to the check-in answers it came from, and 1:1 prep leads with talking points drawn from those answers, not the number.",
-      "The red, yellow and green states stayed in v1, which is why leading with talking points is on my list of what I’d do differently.",
     ],
   },
   {
