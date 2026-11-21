@@ -181,9 +181,6 @@ export default function CardDeck({ items, label, tint }) {
               </span>
             ))}
           </div>
-          <p className="cs-carousel-count" aria-live={playing ? "off" : "polite"}>
-            {index + 1} / {n}
-          </p>
         </div>
       )}
     </section>
