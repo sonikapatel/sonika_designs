@@ -216,3 +216,9 @@
     padding: 16px;
   }
 }
+
+/* Role carousel controls: arrows, then a dot per role beside them, as on the decks. */
+.st-roles .cs-carousel-controls {
+  justify-content: flex-start;
+  gap: 20px;
+}

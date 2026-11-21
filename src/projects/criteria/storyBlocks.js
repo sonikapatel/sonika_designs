@@ -133,6 +133,12 @@ export function JobStories({ block }) {
               <Chevron />
             </button>
           </div>
+          {/* One dot per role, like the card decks; the tabs above carry the names. */}
+          <div className="cs-deck-dots" aria-hidden="true">
+            {roles.map((r, i) => (
+              <span key={r.role} className={i === index ? "is-active" : ""} />
+            ))}
+          </div>
         </div>
       </div>
     </div>
