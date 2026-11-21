@@ -297,10 +297,8 @@ export const CRITERIA_BLOCKS = [
     body: "Depending on their role, managers care about employees finishing their weekly projects and hitting specific metrics. I worked out how to bring role-specific variables, like ARR for Customer Success and Sales, into a meaningful coaching experience for employees across different kinds of organizations.",
   },
   {
-    variant: "media",
-    src: "/images/criteria/check-indata.png",
+    variant: "data-sources",
     alt: "The sources feeding into Check-Ins: HRIS and org data, personality profiles, integrations, team KPIs, weekly data and soft skills guidance",
-    bare: true,
   },
   {
     variant: "side-to-side",

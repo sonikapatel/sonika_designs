@@ -7,6 +7,7 @@ import OnboardingFlow from "./onboardingFlow";
 import Merchandising from "./merchandising";
 import SolutionConcepts from "./solutionConcepts";
 import SystemDiagram from "./systemDiagram";
+import DataSources from "./dataSources";
 import { JobStories, ChannelOptions, Reflections } from "./storyBlocks";
 
 const CUSTOM_BLOCKS = {
@@ -20,6 +21,7 @@ const CUSTOM_BLOCKS = {
   reflections: Reflections,
   merchandising: Merchandising,
   "system-diagram": SystemDiagram,
+  "data-sources": DataSources,
 };
 
 export default function CriteriaPage() {

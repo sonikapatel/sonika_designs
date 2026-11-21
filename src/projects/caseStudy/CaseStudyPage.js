@@ -318,7 +318,7 @@ function Block({ block, custom }) {
       return (
         <div className="cs-principles">
           {block.eyebrow && <p className="cs-eyebrow">{block.eyebrow}</p>}
-          <CardDeck items={block.items} label={block.eyebrow || "Principles"} />
+          <CardDeck items={block.items} label={block.eyebrow || "Principles"} numbered={false} />
         </div>
       );
 

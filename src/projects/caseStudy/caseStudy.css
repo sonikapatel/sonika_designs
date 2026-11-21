@@ -1222,13 +1222,14 @@
   max-width: 600px;
 }
 
+/* A card is as tall as its content. The height is set from the card in front
+   (CardDeck.js), so the deck grows and shrinks as the cards turn. */
 .cs-deck-card {
   grid-area: 1 / 1;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  min-height: 188px;
-  padding: 28px 32px 32px;
+  align-self: start;
+  box-sizing: border-box;
+  overflow: hidden;
+  transition: height 350ms var(--ease-out);
   background: #fff;
   border: 1px solid var(--cs-rule);
   border-radius: 12px;
@@ -1236,6 +1237,20 @@
   transform-origin: 50% 100%;
   cursor: pointer;
   will-change: transform;
+}
+
+.cs-deck-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 28px 32px 32px;
+  transition: opacity 200ms ease;
+}
+
+/* Cards behind the front one are cut to its height, so their text is hidden; only
+   their edges show. The card swinging off keeps its text until it lands. */
+.cs-deck-card[aria-hidden="true"]:not(.is-leaving) .cs-deck-inner {
+  opacity: 0;
 }
 
 .cs-deck-card[aria-hidden="false"] {
@@ -1311,8 +1326,7 @@
 }
 
 @media (max-width: 600px) {
-  .cs-deck-card {
-    min-height: 0;
+  .cs-deck-inner {
     padding: 24px;
   }
 }
