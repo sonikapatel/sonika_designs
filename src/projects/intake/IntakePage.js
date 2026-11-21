@@ -1,4 +1,5 @@
 import CaseStudyPage from "../caseStudy/CaseStudyPage";
+import CardDeck from "../caseStudy/CardDeck";
 import { INTAKE, INTAKE_NAV, INTAKE_BLOCKS } from "./intakeData";
 import "./intake.css";
 
@@ -15,14 +16,7 @@ function CardStack({ block }) {
           {text}
         </p>
       ))}
-      <ol className="in-card-list">
-        {block.cards.map((card) => (
-          <li key={card.title} className="in-card">
-            <p className="in-card-title">{card.title}</p>
-            <p className="in-card-body">{card.body}</p>
-          </li>
-        ))}
-      </ol>
+      <CardDeck items={block.cards} label={block.eyebrow} tint="#E3F7F7" />
     </div>
   );
 }

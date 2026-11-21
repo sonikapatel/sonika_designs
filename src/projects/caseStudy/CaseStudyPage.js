@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo, useRef, useCallback } from "react";
 import { Link } from "react-router-dom";
 import Carousel from "./Carousel";
+import CardDeck, { splitLead } from "./CardDeck";
 import "./caseStudy.css";
 
 /* ─────────────────────────────────────────────────────────────
@@ -225,22 +226,9 @@ function Block({ block, custom }) {
           <div className="cs-side-body">
             <Prose lead={block.lead} body={block.body} />
             {block.orderedList && (
-              <ol className="cs-ordered">
-                {block.orderedList.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ol>
+              <CardDeck items={block.orderedList.map(splitLead)} label={[].concat(block.eyebrow).join(" ")} />
             )}
-            {block.agenda && (
-              <ol className="cs-agenda">
-                {block.agenda.map((step) => (
-                  <li key={step.title}>
-                    <p className="cs-agenda-title">{step.title}</p>
-                    <p className="cs-agenda-body">{step.body}</p>
-                  </li>
-                ))}
-              </ol>
-            )}
+            {block.agenda && <CardDeck items={block.agenda} label={[].concat(block.eyebrow).join(" ")} />}
           </div>
         </div>
       );
@@ -249,11 +237,7 @@ function Block({ block, custom }) {
       return (
         <div className="cs-v-three">
           <p className="cs-eyebrow">{block.eyebrow}</p>
-          <div className="cs-three-cols">
-            {block.columns.map((col) => (
-              <p key={col}>{col}</p>
-            ))}
-          </div>
+          <CardDeck items={block.columns.map(splitLead)} label={block.eyebrow} />
         </div>
       );
 
@@ -334,14 +318,7 @@ function Block({ block, custom }) {
       return (
         <div className="cs-principles">
           {block.eyebrow && <p className="cs-eyebrow">{block.eyebrow}</p>}
-          <ol className="cs-principle-grid">
-            {block.items.map((item) => (
-              <li key={item.title} className="cs-principle">
-                <p className="cs-principle-title">{item.title}</p>
-                <p className="cs-principle-body">{item.body}</p>
-              </li>
-            ))}
-          </ol>
+          <CardDeck items={block.items} label={block.eyebrow || "Principles"} />
         </div>
       );
 
