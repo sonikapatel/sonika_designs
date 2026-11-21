@@ -1,4 +1,5 @@
 import CaseStudyPage from "../caseStudy/CaseStudyPage";
+import CardDeck from "../caseStudy/CardDeck";
 import { HOMEASE, HOMEASE_NAV, HOMEASE_BLOCKS } from "./homeaseData";
 import "./homease.css";
 
@@ -15,14 +16,7 @@ function CardStack({ block }) {
           {text}
         </p>
       ))}
-      <ol className="hm-card-list">
-        {block.cards.map((card) => (
-          <li key={card.title} className="hm-card">
-            <p className="hm-card-title">{card.title}</p>
-            <p className="hm-card-body">{card.body}</p>
-          </li>
-        ))}
-      </ol>
+      <CardDeck items={block.cards} label={block.eyebrow} tint="#F3E8E1" />
     </div>
   );
 }
