@@ -79,6 +79,7 @@ export const CRITERIA_BLOCKS = [
   {
     id: "principles",
     variant: "principles",
+    eyebrow: "Design principles",
     items: [
       {
         title: "Ground every signal",
