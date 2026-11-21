@@ -1,0 +1,70 @@
+/* The sources feeding Check-Ins (dataSources.js). An SVG on the still's own canvas, so
+   it scales with the column like the image it replaces. */
+
+.ds-figure {
+  margin: 0;
+}
+
+.ds-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.ds-line {
+  stroke: #d4d4d4;
+  stroke-width: 1.5;
+  vector-effect: non-scaling-stroke;
+}
+
+.ds-pill {
+  fill: #fff7f0;
+  stroke: #cbb99b;
+  stroke-width: 1.5;
+  vector-effect: non-scaling-stroke;
+}
+
+.ds-label {
+  font-size: 27px;
+  fill: #111;
+  text-anchor: middle;
+  dominant-baseline: central;
+}
+
+.ds-name {
+  font-size: 28px;
+  font-weight: 600;
+  fill: #111;
+  text-anchor: middle;
+}
+
+.ds-dot {
+  fill: #2bbfc4;
+}
+
+.ds-hub {
+  fill: #2bbfc4;
+}
+
+.ds-ring {
+  fill: none;
+  stroke: #2bbfc4;
+  stroke-width: 2;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: ds-ring 2.2s cubic-bezier(0.23, 1, 0.32, 1) infinite;
+}
+
+@keyframes ds-ring {
+  from { transform: scale(0.6); opacity: 0.7; }
+  to { transform: scale(3.2); opacity: 0; }
+}
+
+/* On a phone the canvas shrinks to a third, so the labels are set larger to stay
+   readable and the pills grow with them. */
+@media (max-width: 600px) {
+  .ds-label {
+    font-size: 30px;
+  }
+}

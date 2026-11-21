@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
+import CardDeck from "../caseStudy/CardDeck";
 import "./storyBlocks.css";
 
 /* Text layouts the Criteria story needs beyond the shared section variants: the job
@@ -138,33 +139,34 @@ export function JobStories({ block }) {
   );
 }
 
+/* The channels weighed for the weekly questions, as the same rotating deck the other
+   lists use: one option per card, with its decision and the two sides of the call. */
 export function ChannelOptions({ block }) {
+  const items = block.options.map((opt) => ({
+    title: opt.name,
+    content: (
+      <div className="st-option-card">
+        <span className={`st-decision st-decision--${opt.decision.toLowerCase()}`}>
+          {opt.decision}
+        </span>
+        {opt.serves && <p className="st-serves">For {opt.serves}</p>}
+        <dl className="st-meta">
+          <div>
+            <dt>Why it appealed</dt>
+            <dd>{opt.appeal}</dd>
+          </div>
+          <div>
+            <dt>What held it back</dt>
+            <dd>{opt.holdback}</dd>
+          </div>
+        </dl>
+      </div>
+    ),
+  }));
   return (
     <div className="st-wrap">
       {block.eyebrow && <p className="cs-eyebrow">{block.eyebrow}</p>}
-      <div className="st-options">
-        {block.options.map((opt) => (
-          <article key={opt.name} className="st-option">
-            <div className="st-option-head">
-              <p className="st-option-name">{opt.name}</p>
-              <span className={`st-decision st-decision--${opt.decision.toLowerCase()}`}>
-                {opt.decision}
-              </span>
-            </div>
-            {opt.serves && <p className="st-serves">For {opt.serves}</p>}
-            <dl className="st-meta">
-              <div>
-                <dt>Why it appealed</dt>
-                <dd>{opt.appeal}</dd>
-              </div>
-              <div>
-                <dt>What held it back</dt>
-                <dd>{opt.holdback}</dd>
-              </div>
-            </dl>
-          </article>
-        ))}
-      </div>
+      <CardDeck items={items} label={block.eyebrow || "Channel options"} />
       {block.caption && <p className="cs-media-caption">{block.caption}</p>}
     </div>
   );

@@ -121,19 +121,18 @@
   color: var(--cs-body);
 }
 
-.st-option-head {
+/* An option inside a rotating deck card: decision pill, then the two sides. */
+.st-option-card {
   display: flex;
-  justify-content: space-between;
+  flex: 1;
+  flex-direction: column;
   align-items: flex-start;
-  gap: 12px;
+  gap: 16px;
+  margin-top: 4px;
 }
 
-.st-option-name {
-  margin: 0;
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 1.35;
-  color: #111;
+.st-option-card .st-meta {
+  align-self: stretch;
 }
 
 .st-serves {

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
 
 /* Rotating card deck for every numbered or ordered list in the case studies
@@ -6,6 +6,10 @@ import { motion, useReducedMotion } from "motion/react";
    stack: the front card is readable, the next two peek out behind it, slightly
    turned. Every few seconds the front card swings off to the left and tucks in at
    the back, so the list is read one card at a time.
+
+   The deck is as tall as the card in front: each card's content is measured, the
+   front card hugs its own, and the cards behind take the same height so only their
+   edges peek out.
 
    Autoplay pauses while the pointer or focus is on the deck, while it is off
    screen, and for good once the reader uses the arrows. Reduced motion turns
@@ -41,7 +45,7 @@ export function splitLead(text) {
   return { title: m[1].trim(), body: body.charAt(0).toUpperCase() + body.slice(1) };
 }
 
-export default function CardDeck({ items, label, tint }) {
+export default function CardDeck({ items, label, tint, numbered = true }) {
   const n = items.length;
   const [index, setIndex] = useState(0);
   const [dir, setDir] = useState(1);
@@ -50,14 +54,41 @@ export default function CardDeck({ items, label, tint }) {
   const [stopped, setStopped] = useState(false);
   const reduceMotion = useReducedMotion();
   const root = useRef(null);
+  const inner = useRef([]);
+  const [heights, setHeights] = useState([]);
+
+  // Measure each card's content so the deck can hug whichever is in front.
+  useLayoutEffect(() => {
+    const el = root.current;
+    if (!el) return undefined;
+    const measure = () => {
+      const next = inner.current.slice(0, n).map((node) => (node ? node.offsetHeight : 0));
+      setHeights((prev) => (prev.length === next.length && prev.every((h, i) => h === next[i]) ? prev : next));
+    };
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [n, items]);
+
+  // The card swinging off the front, until its swing is done.
+  const [leavingCard, setLeavingCard] = useState(-1);
+  const leaveTimer = useRef(0);
 
   const go = useCallback(
     (step) => {
       setDir(step);
-      setIndex((i) => (i + step + n) % n);
+      setIndex((i) => {
+        if (step > 0) setLeavingCard(i);
+        return (i + step + n) % n;
+      });
+      clearTimeout(leaveTimer.current);
+      leaveTimer.current = setTimeout(() => setLeavingCard(-1), SWING.duration * 1000);
     },
     [n]
   );
+
+  useEffect(() => () => clearTimeout(leaveTimer.current), []);
 
   // Only rotate while the deck is on screen.
   useEffect(() => {
@@ -143,11 +174,19 @@ export default function CardDeck({ items, label, tint }) {
         {items.map((item, i) => {
           const { animate, transition } = pose(i);
           const front = i === index;
+          // The card swinging away keeps its own height and content until it lands
+          // at the back; the cards behind are blank edges the height of the front one.
+          const leaving = i === leavingCard && !front;
+          const h = heights[leaving ? i : index];
           return (
             <motion.li
               key={i}
-              className="cs-deck-card"
-              style={tint ? { background: tint, borderColor: "transparent" } : undefined}
+              className={`cs-deck-card${leaving ? " is-leaving" : ""}`}
+              style={{
+                ...(tint ? { background: tint, borderColor: "transparent" } : null),
+                // +2 for the card's border.
+                ...(h ? { height: h + 2 } : null),
+              }}
               initial={false}
               animate={animate}
               transition={transition}
@@ -156,9 +195,12 @@ export default function CardDeck({ items, label, tint }) {
               aria-hidden={!front}
               onClick={() => !front && manual(((i - index + n) % n) === 1 ? 1 : -1)}
             >
-              <p className="cs-deck-num">{String(i + 1).padStart(2, "0")}</p>
-              {item.title && <p className="cs-deck-title">{item.title}</p>}
-              <p className="cs-deck-body">{item.body}</p>
+              <div className="cs-deck-inner" ref={(node) => (inner.current[i] = node)}>
+                {numbered && <p className="cs-deck-num">{String(i + 1).padStart(2, "0")}</p>}
+                {item.title && <p className="cs-deck-title">{item.title}</p>}
+                {/* A card can bring its own content in place of a line of body copy. */}
+                {item.content || <p className="cs-deck-body">{item.body}</p>}
+              </div>
             </motion.li>
           );
         })}
