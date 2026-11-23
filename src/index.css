@@ -435,7 +435,7 @@ body.home-bg::before {
   display: block;
   text-decoration: none;
   color: inherit;
-  border-radius: 16px;
+  border-radius: 28px;
   transition: transform 160ms var(--ease-out);
 }
 
@@ -448,8 +448,37 @@ body.home-bg::before {
 .home-card-tile {
   position: relative;
   border: 1px solid #EBE8E4;
-  border-radius: 16px;
+  border-radius: 28px;
   overflow: hidden;
+}
+
+/* The project's logo in white, top left on the tile's colour, level with the screen's
+   left edge. Sized off the tile so it scales with the card. */
+.home-card-brand {
+  position: absolute;
+  top: 7%;
+  left: 8%;
+  right: 8%;
+  height: 7%;
+  display: flex;
+  align-items: center;
+  container-type: size;
+  pointer-events: none;
+}
+
+.home-card-brand img {
+  display: block;
+  height: 100%;
+  width: auto;
+}
+
+.home-card-brand span {
+  color: #fff;
+  font-size: 62cqh;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1;
+  white-space: nowrap;
 }
 
 .home-card-image {
@@ -1001,6 +1030,11 @@ code {
 
 .home-card-frame {
   position: absolute;
+}
+
+/* Cut-out panels on a colour ground get the window's shadow. */
+.home-card-frame--float .home-card-image {
+  filter: drop-shadow(0 18px 30px rgba(15, 20, 34, 0.25));
 }
 
 .home-card-frame .home-card-image {
