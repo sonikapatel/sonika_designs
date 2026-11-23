@@ -20,9 +20,10 @@ import "./onboardingFlow.css";
    4. Try it         the admin answers a check-in themselves
    5. Launch         their own answers come back as the manager's 1:1 brief, then launch
 
-   The panel on the right is the shipped "Onboarding Journey" side panel, with a
-   promise underneath that updates as the admin answers, so each step gives
-   something back. The org is a sample (Nucleus HQ, from the lo-fi directions);
+   It sits in the shipped setup dashboard: the nav rail, the "Hi Amy" greeting over
+   the page title with its progress ring, and the "Check-Ins Setup" panel on the
+   right, whose rows tick off as steps complete. Under the rows is a promise that
+   updates as the admin answers, so each step gives something back. The org is a sample (Nucleus HQ, from the lo-fi directions);
    the check-in answers are the same as the Coach Bo check-in further down. */
 
 const ORG = { name: "Nucleus HQ", people: 186, managers: 21 };
@@ -368,21 +369,58 @@ function LaunchStep({ team, launched, press, reduce }) {
 
 /* ── Side panel: the journey, and what the admin has earned so far ── */
 
+// The setup dashboard's progress ring.
+function Ring({ pct }) {
+  const R = 19;
+  const C = 2 * Math.PI * R;
+  return (
+    <span className="ob-ring">
+      <svg width="48" height="48" viewBox="0 0 48 48" aria-hidden="true">
+        <circle cx="24" cy="24" r={R} fill="none" stroke="#e3e5ee" strokeWidth="3.5" />
+        <circle
+          cx="24"
+          cy="24"
+          r={R}
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="3.5"
+          strokeLinecap="round"
+          strokeDasharray={C}
+          strokeDashoffset={C * (1 - pct / 100)}
+          transform="rotate(-90 24 24)"
+        />
+      </svg>
+      <span>{pct}%</span>
+    </span>
+  );
+}
+
 function Journey({ step, done, goal, team, reduce }) {
   const g = GOALS.find((x) => x.id === goal);
   const t = TEAMS.find((x) => x.id === team);
   return (
     <aside className="ob-side">
-      <p className="ob-side-title">Onboarding Journey</p>
+      <p className="ob-side-title">
+        <span className="ob-side-icon" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z" />
+            <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z" />
+            <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0" />
+            <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5" />
+          </svg>
+        </span>
+        Check-Ins Setup
+      </p>
+      {/* One row per step, as in the shipped panel: a dash until it is done. */}
       <ol className="ob-journey">
         {STEPS.map((s, i) => {
           const state = done[i] ? "done" : i === step ? "on" : "todo";
           return (
             <li key={s} className={`ob-j is-${state}`}>
-              <span className="ob-j-dot" aria-hidden="true">
-                {state === "done" ? "✓" : i + 1}
-              </span>
               {s}
+              <span className="ob-j-dot" aria-hidden="true">
+                {state === "done" ? "✓" : "—"}
+              </span>
             </li>
           );
         })}
@@ -518,6 +556,7 @@ export default function OnboardingFlow({ block }) {
   const seen = f.step > 2 ? LEVELS.map((l) => l.id) : LEVELS.slice(0, levelIndex + 1).map((l) => l.id);
   const done = [f.step > 0, f.step > 1, f.step > 2, f.step > 3, f.launched];
   const draft = f.type ? TRY[f.sent].reply.slice(0, typed) : "";
+  const progress = Math.round((done.filter(Boolean).length / STEPS.length) * 100);
 
   return (
     <figure className="ch cf ob">
@@ -535,9 +574,19 @@ export default function OnboardingFlow({ block }) {
             <Rail />
             <div className="ob-screen">
               <div className="ob-main">
+                {/* The shipped setup dashboard's header: a greeting over the page title,
+                    with a ring that fills as steps are completed. */}
                 <div className="ob-titlebar">
-                  <p className="ch-title">Set up Weekly Check-Ins</p>
-                  <span className="ob-sample">Sample org · {ORG.name}</span>
+                  <div>
+                    <p className="ob-hi">Hi Amy,</p>
+                    <p className="ch-title">
+                      {progress === 0 ? "Start setting up Check-Ins" : "Continue setting up Check-Ins"}
+                    </p>
+                  </div>
+                  <div className="ob-titlebar-end">
+                    <span className="ob-sample">Sample org · {ORG.name}</span>
+                    <Ring pct={progress} />
+                  </div>
                 </div>
 
                 <motion.div key={`${run}-${f.step}`} className="ob-card" {...fade(reduce)}>

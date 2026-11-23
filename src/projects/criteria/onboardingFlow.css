@@ -32,6 +32,45 @@
   gap: 12px;
 }
 
+.ob-hi {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ui-muted);
+  margin-bottom: 2px !important;
+}
+
+.ob-titlebar-end {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.ob-ring {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  color: var(--ui-navy);
+}
+
+.ob-ring svg {
+  position: absolute;
+  inset: 0;
+}
+
+.ob-ring circle {
+  transition: stroke-dashoffset 500ms var(--ease-out);
+}
+
+.ob-ring span {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--ui-ink);
+}
+
 .ob-sample {
   font-size: 11px;
   font-weight: 500;
@@ -319,9 +358,22 @@
 }
 
 .ob-side-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
   font-size: 13px;
   font-weight: 600;
   color: var(--ui-ink);
+}
+
+.ob-side-icon {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: #e3f4ea;
+  color: #1f9d5b;
 }
 
 .ob-journey {
@@ -330,38 +382,35 @@
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 14px;
 }
 
+/* A row per step with a rule between, as in the shipped Check-Ins Setup panel. */
 .ob-j {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 10px;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--ui-line);
   font-size: 13px;
+  font-weight: 500;
   color: var(--ui-muted);
+  transition: color 200ms ease;
+}
+
+.ob-j:last-child {
+  border-bottom: 0;
 }
 
 .ob-j-dot {
-  display: grid;
-  place-items: center;
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  border: 1px solid var(--ui-line);
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 600;
-  transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease;
+  color: var(--ui-faint);
 }
 
 .ob-j.is-on {
-  color: var(--cf-accent);
+  color: var(--ui-ink);
   font-weight: 600;
-}
-
-.ob-j.is-on .ob-j-dot {
-  background: var(--cf-accent);
-  border-color: var(--cf-accent);
-  color: #fff;
 }
 
 .ob-j.is-done {
@@ -369,9 +418,14 @@
 }
 
 .ob-j.is-done .ob-j-dot {
-  background: #ecf8f1;
-  border-color: #ecf8f1;
-  color: #1f9d5b;
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #1f9d5b;
+  color: #fff;
+  font-size: 11px;
 }
 
 .ob-promise {
@@ -398,7 +452,7 @@
 
 /* The 1100px screen is scaled down to the reading column, so this flow, which is
    mostly words, runs a size up from the board's UI scale to stay legible. */
-.ob-screen { padding: 28px; gap: 24px; grid-template-columns: 1fr 330px; }
+.ob-screen { padding: 26px 36px 28px; gap: 24px; grid-template-columns: 1fr 320px; background: #f4f5f9; }
 .ob .ch-title { font-size: 24px; }
 .ob-sample { font-size: 13px; padding: 5px 12px; }
 .ob-card { padding: 32px 36px; border-radius: 14px; }
@@ -423,11 +477,10 @@
 .ob-brief li span { font-size: 14px; }
 .ob .ob-skip { font-size: 15px; }
 .ob .ob-primary { font-size: 16px; padding: 12px 24px; }
-.ob-side { padding: 24px; gap: 20px; border-radius: 14px; }
-.ob-side-title { font-size: 16px; }
-.ob-journey { gap: 18px; }
-.ob-j { font-size: 16px; gap: 12px; }
-.ob-j-dot { width: 26px; height: 26px; font-size: 13px; }
+.ob-side { padding: 24px; gap: 14px; border-radius: 14px; box-shadow: 0 1px 3px rgba(16, 23, 41, 0.06); }
+.ob-card { box-shadow: 0 1px 3px rgba(16, 23, 41, 0.06); }
+.ob-side-title { font-size: 18px; }
+.ob-j { font-size: 15px; }
 .ob-promise { padding: 18px; gap: 8px; }
 .ob-promise-text { font-size: 16px; }
 

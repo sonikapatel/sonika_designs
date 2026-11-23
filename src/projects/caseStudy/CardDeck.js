@@ -45,7 +45,7 @@ export function splitLead(text) {
   return { title: m[1].trim(), body: body.charAt(0).toUpperCase() + body.slice(1) };
 }
 
-export default function CardDeck({ items, label, tint, numbered = true }) {
+export default function CardDeck({ items, label, tint }) {
   const n = items.length;
   const [index, setIndex] = useState(0);
   const [dir, setDir] = useState(1);
@@ -196,7 +196,6 @@ export default function CardDeck({ items, label, tint, numbered = true }) {
               onClick={() => !front && manual(((i - index + n) % n) === 1 ? 1 : -1)}
             >
               <div className="cs-deck-inner" ref={(node) => (inner.current[i] = node)}>
-                {numbered && <p className="cs-deck-num">{String(i + 1).padStart(2, "0")}</p>}
                 {item.title && <p className="cs-deck-title">{item.title}</p>}
                 {/* A card can bring its own content in place of a line of body copy. */}
                 {item.content || <p className="cs-deck-body">{item.body}</p>}
