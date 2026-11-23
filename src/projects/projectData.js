@@ -234,7 +234,7 @@ export const PROJECTS = [
       {
         type: "stats",
         eyebrow: "Impact",
-        body: 'The redesigned Check-Ins onboarding experience launched to 5% of SMB accounts, alongside a limited beta of Coaching v1. The work created a scalable onboarding foundation that enabled Criteria to expand Check-Ins to larger organizations. It leveraged existing design patterns while introducing a modern component library and flexible UX patterns that could support varying organizational hierarchies.',
+        body: 'The redesigned Check-Ins onboarding experience launched to 5% of mid-market accounts, alongside a limited beta of Coaching v1. The work created a scalable onboarding foundation that enabled Criteria to expand Check-Ins to larger organizations. It leveraged existing design patterns while introducing a modern component library and flexible UX patterns that could support varying organizational hierarchies.',
       }
     ],
   },

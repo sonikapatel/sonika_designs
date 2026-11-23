@@ -297,7 +297,7 @@ const CARDS = {
   Products: [
     {
       company: "Criteria",
-      description: "Personalized AI coaching for more effective management",
+      description: "AI weekly check-ins that give mid-market managers 1:1 prep and leaders early burnout signals",
       result: "+48% activation",
       industry: "HR Tech",
       bg: "#16112E",
