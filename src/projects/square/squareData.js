@@ -36,6 +36,7 @@ export const SQUARE_NAV = [
     group: "TERM LOANS",
     items: [
       { id: "term-loans", label: "Reducing Confusion" },
+      { id: "plaid-linking", label: "Plaid Linking" },
       { id: "explorations", label: "Explorations" },
       { id: "impact", label: "Impact" },
     ],
@@ -58,12 +59,6 @@ export const SQUARE_BLOCKS = [
     body: "I led a XFN workshop with research, engineering, and writers to ideate new ways for small businesses to be 1) educated about their loans and 2) get a loan that suits their business needs best.",
   },
   {
-    id: "workshop",
-    variant: "mad-libs",
-    eyebrow: "A mad libs workshop for lending",
-    body: "Each group filled in the same sentence with sticky notes: what a seller sees first, where they evaluate, how they choose a loan, and how we communicate clear choice. Three final concepts came out of it.",
-  },
-  {
     variant: "media",
     src: "/images/square/beforeloan.mov",
   },
@@ -74,16 +69,10 @@ export const SQUARE_BLOCKS = [
       "Sellers received different loans product experiences, with varying loan eligibility amounts and fees, based on their processing data, which became a confusing experience for sellers.",
   },
   {
-    variant: "media",
-    src: "/images/square/customizefinancing.mov",
-    caption:
-      "In this exploration I designed after the workshop, eligible sellers can see the differences in each loan and how it affects their business, before concluding on 1 to move forward with.",
-  },
-  {
-    variant: "media",
-    src: "/images/square/wizard.mov",
-    caption:
-      "Sellers can feel more sense of ownership by deliberately selecting elements that go into a loan offer in this Loan Selection Wizard.",
+    id: "workshop",
+    variant: "mad-libs",
+    eyebrow: "A mad libs workshop for lending",
+    body: "Each group filled in the same sentence with sticky notes: what a seller sees first, where they evaluate, how they choose a loan, and how we communicate clear choice. Three final concepts came out of it.",
   },
   {
     id: "outcomes",
@@ -99,30 +88,43 @@ export const SQUARE_BLOCKS = [
   },
   {
     variant: "media",
-    src: "/images/square/Pre-Terms.mov",
+    // Pre-Terms.mov with its black edges cropped off; the radius follows the phone
+    // screen's own corners so the black outside them is cut too.
+    src: "/images/square/Pre-Terms-cropped.mp4",
     framed: true,
+    radius: "11% / 4.4%",
     caption:
       "Sellers are confused about 1) Loan Eligibility 2) Consent to FICO and 3) What contributes to a higher loan offer due to a clustered original user experience.",
   },
   {
+    id: "plaid-linking",
+    variant: "default",
+    eyebrow: "How Plaid linking led to higher loan offers",
+    lead: "A loan offer was sized from a seller’s Square processing data alone.",
+    body: "Linking outside bank accounts through Plaid meant we could have a holistic picture of sellers’ finances and provide higher offers for their business. I explored various directions for sellers to get higher loan offers, without compromising on education and seller transparency.",
+  },
+  {
     id: "explorations",
-    variant: "media",
-    src: "/images/square/Banner Only-nomark.mp4",
-    framed: true,
-    caption: "Exploration 1: Banner concept after receiving initial loan offer.",
-  },
-  {
-    variant: "media",
-    src: "/images/square/FreeForm-nomark.mp4",
-    framed: true,
-    caption:
-      "Exploration 2: Freeform input — the experience holds users accountable for the number of bank accounts.",
-  },
-  {
-    variant: "media",
-    src: "/images/square/TextOnly-nomark.mp4",
-    framed: true,
-    caption: "Exploration 3: Copy to hold the seller accountable for maximum loan.",
+    variant: "carousel",
+    label: "Term Loans explorations",
+    slides: [
+      {
+        src: "/images/square/Banner Only-nomark.mp4",
+        alt: "Exploration 1: a banner after the initial loan offer",
+        caption: "Exploration 1: Banner concept after receiving initial loan offer.",
+      },
+      {
+        src: "/images/square/FreeForm-nomark.mp4",
+        alt: "Exploration 2: a freeform input for the number of bank accounts",
+        caption:
+          "Exploration 2: Freeform input — the experience holds users accountable for the number of bank accounts.",
+      },
+      {
+        src: "/images/square/TextOnly-nomark.mp4",
+        alt: "Exploration 3: copy that holds the seller accountable for the maximum loan",
+        caption: "Exploration 3: Copy to hold the seller accountable for maximum loan.",
+      },
+    ],
   },
   {
     variant: "media",

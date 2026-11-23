@@ -271,7 +271,12 @@ function Block({ block, custom }) {
             className={`cs-media-frame${block.bare ? " cs-media-frame--bare" : ""}${
               block.framed ? " cs-media-frame--framed" : ""
             }${block.label ? " cs-media-frame--labelled" : ""}`}
-            style={block.ground ? { background: block.ground } : undefined}
+            style={{
+              ...(block.ground ? { background: block.ground } : null),
+              // A framed recording with its own rounded corners (a phone screen): the
+              // frame takes the same radius so nothing square shows behind them.
+              ...(block.framed && block.radius ? { borderRadius: block.radius } : null),
+            }}
           >
             {/* Optional title set as an image (e.g. a licensed display face outlined to SVG),
                 pinned to the frame's top-left corner. */}
@@ -291,7 +296,14 @@ function Block({ block, custom }) {
                   style={block.radius ? { borderRadius: block.radius } : undefined}
                 />
               ) : (
-                <video src={block.src} controls playsInline muted preload="metadata" />
+                <video
+                  src={block.src}
+                  controls
+                  playsInline
+                  muted
+                  preload="metadata"
+                  style={block.radius ? { borderRadius: block.radius } : undefined}
+                />
               )
             ) : (
               <img src={block.src} alt={block.alt || ""} />
