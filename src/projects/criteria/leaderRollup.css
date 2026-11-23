@@ -56,7 +56,8 @@
   pointer-events: none;
 }
 
-/* A desktop browser window in the recording's proportions. */
+/* A desktop browser window in the recording's proportions. It keeps this desktop
+   layout at every width and scales down like a video would. */
 .lr-frame {
   display: grid;
   grid-template-columns: 4.6em minmax(0, 1fr);
@@ -298,49 +299,4 @@
 .lr-mood span {
   font-weight: 400;
   color: #4b5368;
-}
-
-/* On a phone the window would shrink past reading size, so it keeps a larger scale,
-   drops the rail and turns portrait; the page still scrolls by itself inside it. */
-@media (max-width: 720px) {
-  .lr-frame {
-    grid-template-columns: minmax(0, 1fr);
-    aspect-ratio: 4 / 5;
-    font-size: 2.9cqw;
-  }
-
-  .lr-rail {
-    display: none;
-  }
-
-  .lr-main {
-    padding: 2.2em 1.6em 2.2em;
-  }
-
-  .lr-title {
-    font-size: 2.1em;
-  }
-
-  .lr-pair,
-  .lr-metrics {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 1em;
-  }
-
-  .lr-team {
-    grid-template-columns: minmax(0, 1fr) auto;
-    gap: 0.6em 1.2em;
-  }
-
-  .lr-status {
-    justify-self: end;
-  }
-
-  .lr-bar {
-    order: 3;
-  }
-
-  .lr-mood {
-    order: 4;
-  }
 }
