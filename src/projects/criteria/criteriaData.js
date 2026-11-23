@@ -310,14 +310,29 @@ export const CRITERIA_BLOCKS = [
     label: "Options we evaluated · Meeting people where they work",
   },
   {
-    variant: "media",
-    src: "/images/criteria/dashboard.mov",
-    notes: [
-      "Managers get a high-level view of each employee’s mood, progress and readiness scores week over week, along with their engagement with Coach Bo.",
-      "1:1 prep guides surface what managers care about most, alongside each employee’s strengths and career motivators drawn from our pre-hire assessments.",
+    variant: "dashboard-variations",
+    variations: [
+      {
+        name: "Direct manager",
+        src: "/images/criteria/dashboard.mov",
+        notes: [
+          "Managers get a high-level view of each employee’s mood, progress and readiness scores week over week, along with their engagement with Coach Bo.",
+          "1:1 prep guides surface what managers care about most, alongside each employee’s strengths and career motivators drawn from our pre-hire assessments.",
+        ],
+        caption:
+          "A demo of the manager dashboard, built around what managers care about most when reviewing their direct reports. The red, yellow and green states come from the mood scores Coach Bo synthesizes.",
+      },
+      {
+        name: "Exec level",
+        alt: "The exec level dashboard in the manager dashboard’s visual treatment, scrolling by itself: Monday Executive Intelligence for the week of 11/10, with what leaders should know, suggested next steps, weekly participation 54%, organization mood 3.9 of 5, three early signals and four teams with their participation and mood.",
+        notes: [
+          "Leaders get weekly participation, organization mood and the early signals raised across the business, with each team’s participation and mood.",
+          "What leaders should know and the suggested next steps turn those signals into something to act on that week.",
+        ],
+        caption:
+          "The exec level dashboard, in the manager dashboard’s visual treatment and playing on a loop. It carries the illustrative Monday Executive Intelligence content from the report previews in the merchandising section.",
+      },
     ],
-    caption:
-      "A demo of the manager dashboard, built around what managers care about most when reviewing their direct reports. The red, yellow and green states come from the mood scores Coach Bo synthesizes.",
   },
   {
     id: "research",
