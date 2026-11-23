@@ -8,6 +8,7 @@ import Merchandising from "./merchandising";
 import SolutionConcepts from "./solutionConcepts";
 import SystemDiagram from "./systemDiagram";
 import DataSources from "./dataSources";
+import LeaderRollup from "./leaderRollup";
 import { JobStories, ChannelOptions, Reflections } from "./storyBlocks";
 
 const CUSTOM_BLOCKS = {
@@ -22,6 +23,7 @@ const CUSTOM_BLOCKS = {
   merchandising: Merchandising,
   "system-diagram": SystemDiagram,
   "data-sources": DataSources,
+  "leader-rollup": LeaderRollup,
 };
 
 export default function CriteriaPage() {

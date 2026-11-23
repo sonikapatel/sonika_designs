@@ -1,0 +1,313 @@
+/* Leader roll-up (leaderRollup.js). Sized in em off a container-relative font size so
+   the whole dashboard scales with its column: 1em is 10px when the frame is 800px wide. */
+
+.lr-block {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.lr {
+  container-type: inline-size;
+  width: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+}
+
+.lr-frame {
+  display: grid;
+  grid-template-columns: 4.6em minmax(0, 1fr);
+  font-size: 1.25cqw;
+  border-radius: 1em;
+  overflow: hidden;
+  background: #f1f4f6;
+  color: #12141c;
+  line-height: 1.4;
+}
+
+.lr-frame p {
+  margin: 0;
+}
+
+/* Nav rail */
+.lr-rail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2em;
+  padding: 2em 0;
+  background: #101728;
+  color: #8b93a8;
+}
+
+.lr-rail-item {
+  display: grid;
+  place-items: center;
+  width: 3.2em;
+  height: 3.2em;
+  border-radius: 0.7em;
+}
+
+.lr-rail-item.is-on {
+  background: #1c2540;
+  color: #fff;
+}
+
+.lr-rail-item svg {
+  width: 1.8em;
+  height: 1.8em;
+}
+
+/* Page */
+.lr-main {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4em;
+  padding: 2.8em 4.4em 3.4em;
+  min-width: 0;
+}
+
+.lr-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2em;
+}
+
+.lr-hi {
+  font-size: 1.3em;
+  color: #4b5368;
+}
+
+.lr-title {
+  margin-top: 0.2em !important;
+  font-size: 2.6em;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.lr-sample {
+  flex: none;
+  padding: 0.4em 0.9em;
+  border: 0.1em solid #d5d9e4;
+  border-radius: 99em;
+  background: #fff;
+  font-size: 1.1em;
+  color: #4b5368;
+}
+
+.lr-card {
+  padding: 1.8em 2em;
+  border: 0.1em solid #e3e6ee;
+  border-radius: 1.4em;
+  background: #fff;
+}
+
+.lr-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.4em;
+}
+
+.lr-label {
+  font-size: 1.25em;
+  color: #4b5368;
+}
+
+.lr-value {
+  margin: 0.25em 0 0.2em !important;
+  font-size: 3.2em;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  font-variant-numeric: tabular-nums;
+}
+
+.lr-value span {
+  font-size: 0.5em;
+  font-weight: 500;
+  color: #4b5368;
+}
+
+.lr-note {
+  font-size: 1.2em;
+  color: #4b5368;
+}
+
+.lr-note--good {
+  color: #1e7a4f;
+}
+
+.lr-note--warn {
+  color: #b4541a;
+}
+
+/* Teams */
+.lr-teams {
+  padding-bottom: 0.8em;
+}
+
+.lr-teams-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 2em;
+  padding-bottom: 1.2em;
+}
+
+.lr-card-title {
+  font-size: 1.6em;
+  font-weight: 700;
+}
+
+.lr-threshold {
+  font-size: 1.15em;
+  color: #4b5368;
+}
+
+.lr-team {
+  display: grid;
+  grid-template-columns: 17em minmax(0, 1fr) 4.6em 10em 11em;
+  align-items: center;
+  gap: 1.6em;
+  padding: 1.1em 0;
+  border-top: 0.1em solid #eef0f4;
+}
+
+.lr-name {
+  font-size: 1.35em;
+  font-weight: 700;
+}
+
+.lr-small {
+  font-size: 1.15em;
+  color: #4b5368;
+}
+
+.lr-bar {
+  height: 0.7em;
+  border-radius: 0.7em;
+  background: #eef0f4;
+  overflow: hidden;
+}
+
+.lr-fill {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  transform-origin: left center;
+}
+
+.lr-fill--good {
+  background: #1e7a4f;
+}
+
+.lr-fill--warn {
+  background: #d98a3d;
+}
+
+.lr-fill--risk {
+  background: #b3261e;
+}
+
+.lr-mood {
+  font-size: 1.5em;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.lr-mood span {
+  font-size: 0.75em;
+  font-weight: 500;
+  color: #4b5368;
+}
+
+.lr-rate {
+  font-size: 1.15em;
+  color: #4b5368;
+  font-variant-numeric: tabular-nums;
+}
+
+.lr-chip {
+  justify-self: end;
+  padding: 0.35em 0.9em;
+  border-radius: 99em;
+  font-size: 1.1em;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.lr-chip--good {
+  background: #e6f3ec;
+  color: #1e7a4f;
+}
+
+.lr-chip--warn {
+  background: #fbeede;
+  color: #9a4614;
+}
+
+.lr-chip--risk {
+  background: #fbe9e7;
+  color: #b3261e;
+}
+
+/* On a phone the frame would shrink past reading size, so it keeps a larger scale,
+   drops the rail and stacks each team's figures under its name. */
+@media (max-width: 720px) {
+  .lr-frame {
+    grid-template-columns: minmax(0, 1fr);
+    font-size: 2.6cqw;
+  }
+
+  .lr-rail {
+    display: none;
+  }
+
+  .lr-main {
+    padding: 2.2em 1.8em 2.4em;
+  }
+
+  .lr-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1em;
+  }
+
+  .lr-title {
+    font-size: 2.1em;
+  }
+
+  .lr-metrics {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1em;
+  }
+
+  .lr-teams-head {
+    flex-direction: column;
+    gap: 0.4em;
+  }
+
+  .lr-team {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 0.7em 1.2em;
+  }
+
+  .lr-bar {
+    grid-column: 1 / -1;
+    order: 3;
+  }
+
+  .lr-mood {
+    order: 1;
+    justify-self: end;
+  }
+
+  .lr-rate {
+    order: 4;
+  }
+
+  .lr-chip {
+    order: 5;
+  }
+}
