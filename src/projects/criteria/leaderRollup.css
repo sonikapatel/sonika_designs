@@ -71,7 +71,7 @@
    layout at every width and scales down like a video would. */
 .lr-frame {
   display: grid;
-  grid-template-columns: 4.6em minmax(0, 1fr);
+  grid-template-columns: 5% minmax(0, 1fr);
   aspect-ratio: 16 / 9;
   font-size: 1.35cqw;
   border-radius: 1em;
@@ -85,33 +85,53 @@
   margin: 0;
 }
 
-/* Nav rail */
+/* Side nav, to the recording's proportions: 5% of the window wide. */
 .lr-rail {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1.2em;
-  padding: 2em 0;
-  background: #101728;
-  color: #8b93a8;
+  padding: 1.1em 0;
+  background: #0e1422;
+  color: #8f95a3;
+}
+
+.lr-mark {
+  width: 1.7em;
+  height: 1.8em;
+}
+
+.lr-expand {
+  display: grid;
+  place-items: center;
+  width: 1.7em;
+  height: 1.7em;
+  margin: 0.55em 0 1.9em;
+  border: 0.1em solid #232b3d;
+  border-radius: 0.45em;
+}
+
+.lr-expand svg {
+  width: 0.9em;
+  height: 0.9em;
 }
 
 .lr-rail-item {
   display: grid;
   place-items: center;
-  width: 3.2em;
-  height: 3.2em;
-  border-radius: 0.7em;
+  width: 2.8em;
+  height: 3em;
+  margin-bottom: 0.25em;
+  border-radius: 0.6em;
 }
 
 .lr-rail-item.is-on {
-  background: #1c2540;
+  background: #111a36;
   color: #fff;
 }
 
 .lr-rail-item svg {
-  width: 1.8em;
-  height: 1.8em;
+  width: 1.15em;
+  height: 1.15em;
 }
 
 /* The window the page scrolls behind. */

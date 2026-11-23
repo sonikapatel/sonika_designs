@@ -42,24 +42,52 @@ const EASE_IN_OUT = [0.77, 0, 0.175, 1];
 const LOOP = 11;
 const BEATS = [0, 0.27, 0.41, 0.86, 1];
 
+// The side nav, as in the direct manager recording: the Criteria mark, the expand
+// control, then dashboard (current), analytics, files, people, chat and settings.
 const RAIL = [
-  "M3 3h6v6H3zM11 3h6v6h-6zM3 11h6v6H3zM11 11h6v6h-6z",
-  "M3 17V3M3 17h14M7 14V9M11 14V6M15 14v-4",
-  "M2.5 5.5h5l1.5 2h8.5v8.5h-15z",
-  "M7 9a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5ZM2.5 16c0-2.5 2-4 4.5-4s4.5 1.5 4.5 4M13.5 9a2 2 0 1 0 0-4M14 12c2 .3 3.5 1.7 3.5 4",
-  "M3 4.5h14v9H8l-3.5 3v-3H3z",
+  { d: "M3 3h6v6H3zM11 3h6v6h-6zM3 11h6v6H3zM11 11h6v6h-6z" },
+  { d: "M3 17V3M3 17h14M7 14V9M11 14V6M15 14v-4" },
+  { d: "M2.5 5.5h5l1.5 2h8.5v8.5h-15z" },
+  {
+    d: "M7 9a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5ZM2.5 16c0-2.5 2-4 4.5-4s4.5 1.5 4.5 4M13.5 9a2 2 0 1 0 0-4M14 12c2 .3 3.5 1.7 3.5 4",
+  },
+  { d: "M3 4.5h14v9H8l-3.5 3v-3H3z" },
+  {
+    box: 24,
+    d: "M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2zM12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z",
+  },
 ];
 
 const ICONS = {
   know: "M10 17.5a7.5 7.5 0 1 0 0-15 7.5 7.5 0 0 0 0 15ZM10 13.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7ZM10 10.2a.2.2 0 1 0 0-.4.2.2 0 0 0 0 .4Z",
   steps: "M10 2.5l1.6 4.4 4.4 1.6-4.4 1.6L10 14.5l-1.6-4.4L4 8.5l4.4-1.6ZM15.5 13.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7Z",
-  teams: RAIL[3],
+  teams: RAIL[3].d,
 };
 
-function Glyph({ d }) {
+function Glyph({ d, box = 20 }) {
   return (
-    <svg viewBox="0 0 20 20" aria-hidden="true">
-      <path d={d} fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinejoin="round" strokeLinecap="round" />
+    <svg viewBox={`0 0 ${box} ${box}`} aria-hidden="true">
+      <path
+        d={d}
+        fill="none"
+        stroke="currentColor"
+        strokeWidth={(1.4 * box) / 20}
+        strokeLinejoin="round"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
+// The Criteria mark from the recording's nav: three strokes in teal, orange and grey.
+function Mark() {
+  return (
+    <svg className="lr-mark" viewBox="-1 -1 25 27" aria-hidden="true">
+      <g fill="none" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M19.4 8.4 12.5 13.75 21.9 24" stroke="#9aa0ab" />
+        <path d="M3.75 5.3 9.4 10 19.4.6" stroke="#2bb5c0" />
+        <path d="M.6 18.75 6.25 13.75 11.6 17.8" stroke="#f0921e" />
+      </g>
     </svg>
   );
 }
@@ -101,9 +129,13 @@ function ExecDashboard({ alt }) {
     <div className="lr" role="img" aria-label={alt}>
       <div className="lr-frame">
         <div className="lr-rail">
-          {RAIL.map((d, i) => (
-            <span className={`lr-rail-item${i === 0 ? " is-on" : ""}`} key={d}>
-              <Glyph d={d} />
+          <Mark />
+          <span className="lr-expand">
+            <Glyph d="M5 5.5 9.5 10 5 14.5M10.5 5.5 15 10l-4.5 4.5" />
+          </span>
+          {RAIL.map((item, i) => (
+            <span className={`lr-rail-item${i === 0 ? " is-on" : ""}`} key={item.d}>
+              <Glyph d={item.d} box={item.box} />
             </span>
           ))}
         </div>
