@@ -1257,13 +1257,6 @@
   cursor: default;
 }
 
-.cs-deck-num {
-  margin: 0 0 8px;
-  font-size: 13px;
-  font-variant-numeric: tabular-nums;
-  color: var(--cs-body);
-}
-
 .cs-deck-title {
   margin: 0;
   font-size: 19px;
