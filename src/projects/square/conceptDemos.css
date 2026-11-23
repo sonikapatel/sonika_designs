@@ -1,0 +1,531 @@
+/* Concept prototypes (conceptDemos.js). Everything is sized in em off a
+   container-relative font size, so each page scales with its tile: 1em is 10px
+   when the tile is 640px wide. */
+
+.cd {
+  container-type: inline-size;
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+  pointer-events: none;
+}
+
+/* The browser window: 16:10, 64em by 40em. Pages are taller and scroll inside it. */
+.cd-window {
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+  height: 40em;
+  font-size: 1.5625cqw;
+  background: #fff;
+  color: #1a1a1a;
+  border-radius: 0.6em;
+}
+
+/* A page of the prototype. Only the change of page is animated. */
+.cd-page {
+  position: absolute;
+  inset: 0;
+  background: #fff;
+  opacity: 0;
+  transform: translateX(2.5em);
+  transition: opacity 240ms ease, transform 240ms ease;
+}
+
+.cd-page.is-on {
+  opacity: 1;
+  transform: none;
+  transition: opacity 420ms cubic-bezier(0.23, 1, 0.32, 1), transform 420ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.cd-scroll {
+  min-height: 40em;
+  box-sizing: border-box;
+  will-change: transform;
+}
+
+.cd-window p {
+  margin: 0;
+}
+
+.cd-label {
+  display: block;
+  font-size: 1.1em;
+  color: #1a1a1a;
+  opacity: 0.85;
+}
+
+.cd-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: flex-start;
+  padding: 0.85em 1.2em;
+  border-radius: 0.5em;
+  background: #006aff;
+  color: #fff;
+  font-size: 1.2em;
+  font-weight: 500;
+  transition: transform 160ms cubic-bezier(0.23, 1, 0.32, 1), box-shadow 160ms ease;
+}
+
+.cd-btn--sm {
+  padding: 0.6em 0.9em;
+  font-size: 1.1em;
+}
+
+.cd-btn.is-pressed {
+  transform: scale(0.95);
+  box-shadow: 0 0 0 0.35em rgba(0, 106, 255, 0.18);
+}
+
+/* Slider */
+.cd-slider {
+  position: relative;
+  height: 0.3em;
+  margin: 1.4em 0.9em 1.4em 0;
+}
+
+.cd-track,
+.cd-fill {
+  position: absolute;
+  inset: 0;
+  border-radius: 0.3em;
+}
+
+.cd-track {
+  background: #d9d9d9;
+}
+
+.cd-fill {
+  background: #006aff;
+  transform-origin: left center;
+}
+
+.cd-thumb {
+  position: absolute;
+  top: 50%;
+  width: 1.7em;
+  height: 1.7em;
+  box-sizing: border-box;
+  border: 0.2em solid #006aff;
+  border-radius: 50%;
+  background: #fff;
+  transform: translate(-50%, -50%);
+  transition: transform 160ms cubic-bezier(0.23, 1, 0.32, 1), box-shadow 160ms ease;
+}
+
+.cd-amount {
+  font-size: 3.4em;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── 01 Business Financing options ── */
+
+.cd-options {
+  padding: 4em 9em 4em;
+}
+
+.cd-h {
+  font-size: 2.1em;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+
+.cd-sub {
+  margin-top: 0.8em !important;
+  font-size: 1.25em;
+  line-height: 1.45;
+}
+
+.cd-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2em;
+  margin-top: 2.6em;
+}
+
+.cd-col {
+  display: flex;
+  flex-direction: column;
+  gap: 1.9em;
+}
+
+.cd-art,
+.cd-kind {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.cd-art {
+  aspect-ratio: 280 / 180;
+  object-fit: cover;
+  object-position: top;
+  border-radius: 0.4em;
+}
+
+.cd-kind {
+  margin-top: -0.6em;
+}
+
+.cd-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7em;
+}
+
+.cd-value {
+  font-size: 1.3em;
+  line-height: 1.35;
+}
+
+.cd-big {
+  font-size: 2.4em;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+/* The loan offer page, full width over the options: dashboard nav, a back pill,
+   then one centred card holding the offer and its details. */
+.cd-offer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 5em;
+  background: linear-gradient(#fff 12em, #f5f5f5 20em);
+}
+
+.cd-nav,
+.cd-subnav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  align-self: stretch;
+  box-sizing: border-box;
+}
+
+.cd-nav {
+  height: 4.6em;
+  padding: 0 1.6em;
+  border-top: 0.4em solid #3d8bff;
+  border-bottom: 0.1em solid #ececec;
+}
+
+.cd-nav-side {
+  display: flex;
+  align-items: center;
+  gap: 0.8em;
+  flex: 1;
+  font-size: 1.1em;
+  font-weight: 500;
+}
+
+.cd-nav-side--end {
+  justify-content: flex-end;
+}
+
+.cd-burger {
+  width: 1.5em;
+  height: 0.18em;
+  background: #1a1a1a;
+  box-shadow: 0 -0.45em 0 #1a1a1a, 0 0.45em 0 #1a1a1a;
+}
+
+.cd-logo {
+  width: 1.9em;
+  height: 1.9em;
+  box-sizing: border-box;
+  border: 0.45em solid #1a1a1a;
+  border-radius: 0.4em;
+  background: #fff;
+  box-shadow: inset 0 0 0 0.22em #fff, inset 0 0 0 1em #1a1a1a;
+}
+
+.cd-subnav {
+  padding: 1.2em 7em 0;
+}
+
+.cd-pill {
+  padding: 0.8em 1.1em;
+  border-radius: 0.5em;
+  background: #f2f2f2;
+  font-size: 1.15em;
+  font-weight: 500;
+}
+
+.cd-mission {
+  color: #006aff;
+  font-size: 1.05em;
+}
+
+.cd-offer-h {
+  margin: 3.4em 0 0.7em !important;
+  text-align: center;
+  font-size: 2.4em;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+}
+
+.cd-offer-card {
+  display: flex;
+  flex-direction: column;
+  width: 36em;
+  box-sizing: border-box;
+  margin-top: 4.6em;
+  padding: 3.6em 3.2em 3.2em;
+  border-radius: 0.8em;
+  background: #fff;
+}
+
+.cd-offer-amount {
+  text-align: center;
+  font-size: 4.4em;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+  margin: 0 0 0.7em !important;
+}
+
+.cd-offer .cd-slider {
+  margin: 0 0.9em 1.1em 0;
+}
+
+.cd-offer .cd-range {
+  font-size: 1.05em;
+  color: #b3b3b3;
+}
+
+.cd-offer-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4em;
+  margin: 3.2em 0;
+}
+
+.cd-offer .cd-detail {
+  font-size: 1.3em;
+}
+
+.cd-offer-btn {
+  align-self: stretch;
+  padding: 1em;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── 02 Loan Recommendation Wizard ── */
+
+.cd-progress {
+  position: absolute;
+  inset: 0 0 auto;
+  z-index: 1;
+  height: 0.5em;
+  background: #e9e9e9;
+}
+
+.cd-progress span {
+  position: absolute;
+  inset: 0;
+  background: #006aff;
+  transform-origin: left center;
+  transition: transform 600ms cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.cd-step {
+  display: flex;
+  flex-direction: column;
+  padding: 5em 16em 5em;
+}
+
+.cd-step--recs {
+  padding: 5em 13em 4em;
+}
+
+.cd-q {
+  font-size: 1.9em;
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  margin-bottom: 0.7em !important;
+}
+
+.cd-step .cd-slider {
+  margin-bottom: 2.6em;
+}
+
+.cd-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3em;
+  width: 15em;
+  box-sizing: border-box;
+  padding: 0.8em 1em;
+  margin-bottom: 2.6em;
+  border: 0.1em solid #dcdcdc;
+  border-radius: 0.4em;
+}
+
+.cd-field-value {
+  font-size: 1.2em;
+}
+
+.cd-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8em;
+  margin-bottom: 2.2em;
+}
+
+.cd-chip {
+  padding: 0.7em 0.9em;
+  border: 0.1em solid #006aff;
+  border-radius: 0.4em;
+  color: #006aff;
+  font-size: 1.1em;
+}
+
+.cd-chip.is-on {
+  background: #d6e6ff;
+}
+
+.cd-tags {
+  display: flex;
+  gap: 0.6em;
+  margin: 0.4em 0 2em;
+}
+
+.cd-tags span {
+  padding: 0.7em 0.9em;
+  border: 0.1em solid #dcdcdc;
+  border-radius: 0.4em;
+  font-size: 1.1em;
+  font-weight: 500;
+}
+
+.cd-rec {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4em;
+  padding: 1.6em;
+  margin-bottom: 1.2em;
+  border-radius: 0.5em;
+  box-shadow: 0 0 0 0.1em #ececec, 0 0.2em 0.8em rgba(0, 0, 0, 0.06);
+}
+
+.cd-rec-head,
+.cd-rec-foot,
+.cd-product-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cd-rec-name {
+  font-size: 1.35em;
+  font-weight: 600;
+}
+
+.cd-badge {
+  padding: 0.35em 0.8em;
+  border-radius: 99em;
+  background: #e5f0ff;
+  color: #006aff;
+  font-size: 0.95em;
+}
+
+.cd-rec-cells {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1em;
+  padding-bottom: 1.4em;
+  border-bottom: 0.1em solid #ececec;
+}
+
+.cd-rec-cells > span,
+.cd-rec-foot > span:first-child {
+  font-size: 1.1em;
+  line-height: 1.5;
+}
+
+.cd-rec .cd-label {
+  font-size: 1em;
+  font-weight: 500;
+}
+
+/* ── 03 Real-time Loan offer comparison ── */
+
+.cd-compare {
+  padding: 4.4em 4.4em 5em;
+}
+
+.cd-title {
+  max-width: 11em;
+  font-size: 3em;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin-bottom: 1.4em !important;
+}
+
+.cd-compare-grid {
+  display: grid;
+  grid-template-columns: 1.42fr 1fr;
+  gap: 1.2em;
+}
+
+.cd-products {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2em;
+}
+
+.cd-product,
+.cd-details {
+  padding: 2em;
+  background: #f5f5f5;
+  border-radius: 0.2em;
+}
+
+.cd-product .cd-amount {
+  margin: 0.6em 0 0.15em;
+}
+
+.cd-compare .cd-fill {
+  background: #1a1a1a;
+}
+
+.cd-range {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.95em;
+}
+
+.cd-details {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5em;
+}
+
+.cd-detail {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 1.2em;
+  font-variant-numeric: tabular-nums;
+}
+
+.cd-link {
+  color: #006aff;
+  border-bottom: 0.08em dotted #006aff;
+}
+
+.cd-rule {
+  height: 0.1em;
+  margin: 0.6em 0;
+  background: #e2e2e2;
+}
