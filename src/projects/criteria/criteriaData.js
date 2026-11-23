@@ -25,6 +25,8 @@ export const CRITERIA_NAV = [
     items: [
       { id: "overview", label: "Overview" },
       { id: "context", label: "Context" },
+      { id: "criteria-context", label: "Criteria Company Context" },
+      { id: "strategy", label: "Product Strategy" },
       { id: "principles", label: "Design Principles" },
       { id: "roles", label: "Who We Designed For" },
       { id: "coach-bo", label: "Coach Bo" },
@@ -43,6 +45,7 @@ export const CRITERIA_NAV = [
       { id: "merchandising", label: "In-Product Merchandising" },
       { id: "system", label: "System Before + After" },
       { id: "edge-cases", label: "Overview + Edge Cases" },
+      { id: "heuristic-audit", label: "Heuristic Audit" },
       { id: "impact", label: "Impact" },
     ],
   },
@@ -76,6 +79,82 @@ export const CRITERIA_BLOCKS = [
     src: "/images/criteria/og_check-ins.png",
     alt: "The elements that go into the Check-Ins experience",
     bare: true,
+  },
+  {
+    id: "criteria-context",
+    variant: "side-to-side",
+    eyebrow: "Criteria company context",
+    body: [
+      "Criteria Corp is known for pre-hire assessments that measure cognitive aptitude, personality and skills. Develop is its post-hire suite, and TEAMscan, inside Develop, is a five-minute anonymous survey that teams retake about once a quarter to see how well they work together across 17 dimensions of team effectiveness.",
+      "Weekly Check-Ins fills the space between them. TEAMscan reads how a team works together each quarter; Check-Ins listens every week, and pre-hire assessments bring each employee’s strengths and motivators into the conversation. Together they cover the employee lifecycle: hire, listen, develop.",
+    ],
+  },
+  {
+    id: "strategy",
+    variant: "side-to-side",
+    eyebrow: "Product strategy (proposed)",
+    lead: "The strategy I’d take Check-Ins forward with focuses on mid-market companies, where a CHRO buys and managers use it every week.",
+    agenda: [
+      {
+        title: "For",
+        body: "CHROs at mid-market companies of 200 to 2,000 people, whose small People teams can’t see what’s happening across a growing layer of managers.",
+      },
+      {
+        title: "Who struggle with",
+        body: "Hearing about burnout and flight risk too late, in a yearly survey or an exit interview, while managers don’t know what to do in between and employees see no point in giving feedback.",
+      },
+      {
+        title: "Check-Ins is",
+        body: "A conversational check-in agent for continuous engagement and retention insight, linked to manager 1:1s.",
+      },
+      {
+        title: "That",
+        body: "Turns short weekly conversations into early signals and action. Employees get a 1:1 agenda they shape, personal insight and growth incentives. Managers get individual signals and talking points. Senior leaders and the CHRO see team and company-wide risk.",
+      },
+      {
+        title: "Unlike",
+        body: "Yearly and pulse surveys that give a score without the why, and 1:1 tools cut off from engagement data. TEAMscan is a complement, not an alternative: Check-Ins shows where and who; TEAMscan and Develop help fix it at the team level.",
+      },
+      {
+        title: "Because",
+        body: "Only Criteria owns the full loop: hire with assessments, listen with Check-Ins and 1:1s, develop with TEAMscan and Develop, backed by validated workforce science.",
+      },
+      {
+        title: "Prove it by",
+        body: "Testing the riskiest assumption: employees keep answering honestly each week when their manager sees individual signals, because they get value back. A six to eight week pilot with two or three mid-market design partners, with summaries written by hand.",
+      },
+      {
+        title: "Measured by",
+        body: "The share of at-risk signals that get a documented manager action within seven days. Leading signs: a week-12 response rate of 60% or more and 1:1s that use the check-in agenda. Lagging: less regretted attrition, renewals and expansion into Develop.",
+      },
+    ],
+  },
+  {
+    variant: "side-to-side",
+    eyebrow: "1:1s, incentives and guardrails",
+    body: "The check-in becomes the 1:1 agenda: the employee picks the topics, the manager gets suggested talking points, and action items carry into the next check-in. Incentives reward showing up, never what someone says, starting with what employees get back: a private month in review, visible follow-through, and growth content from Develop.",
+    agenda: [
+      {
+        title: "Employees see what their manager sees",
+        body: "Every signal about an employee is visible to them, in the same words, and they choose what goes on the 1:1 agenda.",
+      },
+      {
+        title: "Support prompts, not scores",
+        body: "Managers see “check in about workload”, never “burnout risk: 82%”.",
+      },
+      {
+        title: "Groups of five or more",
+        body: "Rolled-up views for senior leaders need at least five people, so no one can be singled out.",
+      },
+      {
+        title: "Reward participation, never content",
+        body: "No incentive depends on sentiment, disclosure or a score improving, and there are no individual leaderboards.",
+      },
+      {
+        title: "One privacy story",
+        body: "The same promise about who sees what across Check-Ins, TEAMscan and Develop.",
+      },
+    ],
   },
   {
     id: "principles",
@@ -562,6 +641,46 @@ export const CRITERIA_BLOCKS = [
       {
         title: "Low participation lowers confidence",
         body: "When fewer than half a team checks in, the digest shows participation next to mood and marks the read as low confidence.",
+      },
+    ],
+  },
+  {
+    id: "heuristic-audit",
+    variant: "side-to-side",
+    eyebrow: "Heuristic audit of the prototypes",
+    lead: "I audited each prototype against Nielsen’s ten usability heuristics, rating severity from 0 to 4, where 4 must be fixed before release.",
+    agenda: [
+      {
+        title: "Manager dashboard · Severity 3",
+        body: "Red, yellow and green states, “Mood score: 2” and “Needs support” read as verdicts (match the real world), and progress, readiness and burnout are never defined (help and documentation). Lead with talking points, and give each score a one-line definition and its source answers.",
+      },
+      {
+        title: "Promotion readiness · Severity 3",
+        body: "“On par for a promotion in Q1 2026” is inferred from sentiment (error prevention). Remove it, or show the evidence behind it.",
+      },
+      {
+        title: "Coach Bo check-in · Severity 3",
+        body: "Employees can’t review or edit the summary before it’s shared with their manager (user control and freedom). Add a review step before sharing.",
+      },
+      {
+        title: "Executive digest · Severity 3",
+        body: "Mood for a small team can point to individuals (error prevention), and it shows even when few people checked in (visibility of system status). Roll up groups under five and mark low-participation reads as low confidence.",
+      },
+      {
+        title: "Onboarding setup · Severity 3",
+        body: "The HRIS import only shows success, with no partial sync or missing-manager state (error recovery), and Continue is disabled without saying why. Flag people who couldn’t be placed and explain what’s missing inline.",
+      },
+      {
+        title: "Skipped check-ins · Severity 2",
+        body: "“Skipped check-ins, 3 weeks” gives the manager no next step (error recovery). Suggest an action, and pause the count for PTO and leave.",
+      },
+      {
+        title: "Merchandising and Career History · Severity 2",
+        body: "“Book demo” sends at once with no confirmation, and a project Coach Bo logs can’t be edited or removed (user control and freedom). Confirm before sending and let employees edit their record.",
+      },
+      {
+        title: "Unsourced claim · Severity 1",
+        body: "The “20X more engagement” quote has no source (match the real world). Attribute it or soften it.",
       },
     ],
   },
