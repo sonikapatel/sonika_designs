@@ -28,6 +28,7 @@ export const SQUARE_NAV = [
     items: [
       { id: "overview", label: "Overview" },
       { id: "flexibility", label: "Loan Flexibility" },
+      { id: "workshop", label: "Workshop" },
       { id: "outcomes", label: "Outcomes" },
     ],
   },
@@ -55,6 +56,12 @@ export const SQUARE_BLOCKS = [
     eyebrow: "How might we allow more flexibility for small businesses to receive Term and Flex loans?",
     lead: "Sellers are confused about their loans.",
     body: "I led a XFN workshop with research, engineering, and writers to ideate new ways for small businesses to be 1) educated about their loans and 2) get a loan that suits their business needs best.",
+  },
+  {
+    id: "workshop",
+    variant: "mad-libs",
+    eyebrow: "A mad libs workshop for lending",
+    body: "Each group filled in the same sentence with sticky notes: what a seller sees first, where they evaluate, how they choose a loan, and how we communicate clear choice. Three final concepts came out of it.",
   },
   {
     variant: "media",
