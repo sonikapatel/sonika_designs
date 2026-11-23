@@ -272,64 +272,116 @@
   color: #1e7a4f;
 }
 
-/* Teams */
-.lr-reports {
-  margin-top: 1.2em;
+/* Overview cards: one per team, in the format the direct manager dashboard gives each
+   employee. Four across, as in the recording. */
+.lr-people {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.4em;
+  margin-top: 1.4em;
 }
 
-.lr-team {
-  display: grid;
-  grid-template-columns: 21em 9em minmax(0, 1fr) 9em;
+.lr-person {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1em;
+  padding: 1.4em 0 0;
+  border: 0.1em solid #e3e6ee;
+  border-radius: 1.1em;
+  overflow: hidden;
+  --lr-tone: #1e7a4f;
+}
+
+.lr-person--warn {
+  --lr-tone: #b4541a;
+}
+
+.lr-person--risk {
+  --lr-tone: #b3261e;
+}
+
+.lr-person > :not(.lr-spark) {
+  margin-left: 1.4em !important;
+  margin-right: 1.4em !important;
+}
+
+.lr-person-head {
+  display: flex;
   align-items: center;
-  gap: 1.6em;
-  padding: 0.95em 0;
-  border-top: 0.1em solid #eef0f4;
+  gap: 0.9em;
+}
+
+.lr-avatar {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 3.4em;
+  height: 3.4em;
+  border-radius: 50%;
+  background: #f1f4f6;
+  color: #4b5368;
+}
+
+.lr-avatar svg {
+  width: 1.8em;
+  height: 1.8em;
+}
+
+.lr-person .lr-name {
+  font-size: 1.45em;
+  line-height: 1.25;
+}
+
+.lr-person .lr-small {
+  font-size: 1.25em;
 }
 
 .lr-status {
-  font-size: 1.2em;
-  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.45em;
+  font-size: 1.25em;
 }
 
-.lr-status--good {
-  color: #1e7a4f;
+.lr-status svg {
+  width: 1.25em;
+  height: 1.25em;
+  fill: none;
+  stroke: var(--lr-tone);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
-.lr-status--warn {
-  color: #9a4614;
-}
-
-.lr-bar {
-  height: 0.7em;
-  border-radius: 0.7em;
-  background: #eef0f4;
-  overflow: hidden;
-}
-
-.lr-fill {
-  display: block;
-  height: 100%;
-  border-radius: inherit;
-  transform-origin: left center;
-}
-
-.lr-fill--good {
-  background: #1e7a4f;
-}
-
-.lr-fill--warn {
-  background: #b4541a;
-}
-
-.lr-mood {
-  justify-self: end;
-  font-size: 1.3em;
-  font-weight: 600;
-  font-variant-numeric: tabular-nums;
-  white-space: nowrap;
-}
-
-.lr-mood span {
-  font-weight: 400;
+.lr-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2em 1.2em;
+  font-size: 1.25em;
   color: #4b5368;
+  font-variant-numeric: tabular-nums;
+}
+
+.lr-stats strong {
+  margin-left: 0.3em;
+  font-weight: 600;
+  color: #12141c;
+}
+
+.lr-spark {
+  display: block;
+  width: 100%;
+  height: 3.2em;
+}
+
+.lr-spark-line {
+  fill: none;
+  stroke: var(--lr-tone);
+  stroke-width: 1.6;
+  vector-effect: non-scaling-stroke;
+}
+
+.lr-spark-area {
+  fill: var(--lr-tone);
+  opacity: 0.07;
 }
