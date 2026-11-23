@@ -23,9 +23,12 @@ const SIGNALS = [
   ["Momentum", "Product’s participation reached 92%, the highest of any department this quarter."],
 ];
 
+// Each step sits under the teams it concerns, as the signals above name them: the Beta
+// launch dependencies block Sales, Product and Customer Success; the support load is
+// Customer Success's. Marketing has no step in the report, so it has none here.
 const NEXT_STEPS = [
-  "Name one owner for Beta launch dependencies this week.",
-  "Ask Customer Success leaders where support load can be shared.",
+  ["Sales, Product and Customer Success", "Name one owner for Beta launch dependencies this week."],
+  ["Customer Success", "Ask Customer Success leaders where support load can be shared."],
 ];
 
 const TEAMS = [
@@ -217,10 +220,11 @@ function ExecDashboard({ alt }) {
               </div>
               <div className="lr-card">
                 <CardTitle icon="steps">Suggested next steps</CardTitle>
-                {NEXT_STEPS.map((step) => (
-                  <p className="lr-text lr-step" key={step}>
-                    {step}
-                  </p>
+                {NEXT_STEPS.map(([teams, step]) => (
+                  <div className="lr-signal" key={step}>
+                    <p className="lr-name">{teams}</p>
+                    <p className="lr-text">{step}</p>
+                  </div>
                 ))}
               </div>
             </div>

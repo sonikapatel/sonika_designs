@@ -325,7 +325,7 @@ export const CRITERIA_BLOCKS = [
       },
       {
         name: "Exec level",
-        alt: "The exec level dashboard in the manager dashboard’s visual treatment, scrolling by itself: Monday Executive Intelligence for the week of 11/10, with what you should know, suggested next steps, weekly participation 54%, organization mood 3.9 of 5, three early signals and four teams with their participation and mood.",
+        alt: "The exec level dashboard in the manager dashboard’s visual treatment, scrolling by itself: Monday Executive Intelligence for the week of 11/10, with what you should know, suggested next steps grouped by team, weekly participation 54%, organization mood 3.9 of 5, three early signals and four teams with their participation and mood.",
         notes: [
           "Leaders get weekly participation, organization mood and the early signals raised across the business, with each team’s participation and mood.",
           "What you should know and the suggested next steps turn those signals into something to act on that week.",
