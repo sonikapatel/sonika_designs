@@ -1,10 +1,11 @@
-import React, { useRef } from "react";
-import { motion, useInView, useReducedMotion } from "motion/react";
+import React, { useState } from "react";
+import { motion, useReducedMotion } from "motion/react";
 import "./leaderRollup.css";
 
-/* A second option for the dashboard: the roll-up a leader of several teams would open,
+/* The dashboard in two variations, switched by tabs: the manager dashboard recording,
+   then a second option, the roll-up a leader of several teams would open. The roll-up is
    drawn in the manager dashboard's own shell (nav rail, greeting, white cards on the
-   grey ground). It answers the post-launch interviews: the value grew with distance
+   grey ground) and set in Figtree, the face the recording uses. It answers the post-launch interviews: the value grew with distance
    from the team, a dip needed telling apart from a pattern, and one leader wanted to
    set the threshold that flags a team. The teams and numbers are the sample ones the
    "Across your teams" report in merchPreview.js already uses; the trend labels and the
@@ -44,94 +45,127 @@ function RailIcon({ d, on }) {
   );
 }
 
-export default function LeaderRollup({ block }) {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "0px 0px -15% 0px" });
+function Rollup({ alt }) {
   const still = useReducedMotion();
-  const shown = inView || still;
 
+  // Plays each time the variation is opened.
   const rise = (i) =>
     still
       ? { initial: false }
       : {
           initial: { opacity: 0, y: 10 },
-          animate: shown ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 },
-          transition: { duration: 0.45, ease: EASE_OUT, delay: 0.1 + i * 0.07 },
+          animate: { opacity: 1, y: 0 },
+          transition: { duration: 0.45, ease: EASE_OUT, delay: 0.05 + i * 0.07 },
         };
 
   return (
-    <div className="lr-block" ref={ref}>
-      {(block.eyebrow || block.body) && (
-        <div className="cs-v-default">
-          {block.eyebrow && <p className="cs-eyebrow">{block.eyebrow}</p>}
-          {block.body && <p className="cs-prose">{block.body}</p>}
+    <div className="lr" role="img" aria-label={alt}>
+      <div className="lr-frame">
+        <div className="lr-rail">
+          {RAIL.map((d, i) => (
+            <RailIcon key={d} d={d} on={i === 0} />
+          ))}
         </div>
-      )}
 
-      <div className="lr" role="img" aria-label={block.alt}>
-        <div className="lr-frame">
-          <div className="lr-rail">
-            {RAIL.map((d, i) => (
-              <RailIcon key={d} d={d} on={i === 0} />
+        <div className="lr-main">
+          <div className="lr-head">
+            <div>
+              <p className="lr-hi">Good morning, Amy.</p>
+              <p className="lr-title">Here’s how your teams are performing.</p>
+            </div>
+            <span className="lr-sample">Sample data</span>
+          </div>
+
+          <div className="lr-metrics">
+            {METRICS.map((m, i) => (
+              <motion.div className="lr-card" key={m.label} {...rise(i)}>
+                <p className="lr-label">{m.label}</p>
+                <p className="lr-value">
+                  {m.value}
+                  {m.unit && <span>{m.unit}</span>}
+                </p>
+                <p className={`lr-note lr-note--${m.tone}`}>{m.note}</p>
+              </motion.div>
             ))}
           </div>
 
-          <div className="lr-main">
-            <div className="lr-head">
-              <div>
-                <p className="lr-hi">Good morning, Amy.</p>
-                <p className="lr-title">Here’s how your teams are performing.</p>
-              </div>
-              <span className="lr-sample">Sample data</span>
+          <motion.div className="lr-card lr-teams" {...rise(3)}>
+            <div className="lr-teams-head">
+              <p className="lr-card-title">Teams, lowest mood first</p>
+              <p className="lr-threshold">Flag a team when mood stays under 3.8 for 3 weeks</p>
             </div>
 
-            <div className="lr-metrics">
-              {METRICS.map((m, i) => (
-                <motion.div className="lr-card" key={m.label} {...rise(i)}>
-                  <p className="lr-label">{m.label}</p>
-                  <p className="lr-value">
-                    {m.value}
-                    {m.unit && <span>{m.unit}</span>}
-                  </p>
-                  <p className={`lr-note lr-note--${m.tone}`}>{m.note}</p>
-                </motion.div>
-              ))}
-            </div>
-
-            <motion.div className="lr-card lr-teams" {...rise(3)}>
-              <div className="lr-teams-head">
-                <p className="lr-card-title">Teams, lowest mood first</p>
-                <p className="lr-threshold">Flag a team when mood stays under 3.8 for 3 weeks</p>
-              </div>
-
-              {TEAMS.map((t, i) => (
-                <div className="lr-team" key={t.area}>
-                  <div>
-                    <p className="lr-name">{t.area}</p>
-                    <p className="lr-small">{t.team}</p>
-                  </div>
-                  <div className="lr-bar">
-                    <motion.span
-                      className={`lr-fill lr-fill--${t.tone}`}
-                      initial={still ? false : { scaleX: 0 }}
-                      animate={shown ? { scaleX: t.mood / 5 } : { scaleX: 0 }}
-                      transition={{ duration: 0.7, ease: EASE_OUT, delay: 0.45 + i * 0.08 }}
-                    />
-                  </div>
-                  <p className="lr-mood">
-                    {t.mood.toFixed(1)}
-                    <span>/5</span>
-                  </p>
-                  <p className="lr-rate">{t.rate} checked in</p>
-                  <span className={`lr-chip lr-chip--${t.tone}`}>{t.trend}</span>
+            {TEAMS.map((t, i) => (
+              <div className="lr-team" key={t.area}>
+                <div>
+                  <p className="lr-name">{t.area}</p>
+                  <p className="lr-small">{t.team}</p>
                 </div>
-              ))}
-            </motion.div>
-          </div>
+                <div className="lr-bar">
+                  <motion.span
+                    className={`lr-fill lr-fill--${t.tone}`}
+                    initial={still ? false : { scaleX: 0 }}
+                    animate={{ scaleX: t.mood / 5 }}
+                    transition={{ duration: 0.7, ease: EASE_OUT, delay: 0.4 + i * 0.08 }}
+                  />
+                </div>
+                <p className="lr-mood">
+                  {t.mood.toFixed(1)}
+                  <span>/5</span>
+                </p>
+                <p className="lr-rate">{t.rate} checked in</p>
+                <span className={`lr-chip lr-chip--${t.tone}`}>{t.trend}</span>
+              </div>
+            ))}
+          </motion.div>
         </div>
       </div>
+    </div>
+  );
+}
 
-      {block.caption && <p className="cs-media-caption">{block.caption}</p>}
+export default function DashboardVariations({ block }) {
+  const [index, setIndex] = useState(0);
+  const variation = block.variations[index];
+
+  return (
+    <div className="lr-block">
+      <div className="lr-tabs" role="tablist" aria-label="Dashboard variations">
+        {block.variations.map((v, i) => (
+          <button
+            key={v.name}
+            type="button"
+            role="tab"
+            aria-selected={i === index}
+            className={`lr-tab${i === index ? " is-active" : ""}`}
+            onClick={() => setIndex(i)}
+          >
+            <span className="lr-tab-n">{`0${i + 1}`}</span>
+            {v.name}
+          </button>
+        ))}
+      </div>
+
+      <figure className="cs-media" role="tabpanel" key={variation.name}>
+        {variation.body && <p className="cs-prose lr-body">{variation.body}</p>}
+        <div className={`cs-media-frame${variation.src ? "" : " lr-media-frame"}`}>
+          {variation.src ? (
+            <video src={variation.src} controls playsInline muted preload="metadata" />
+          ) : (
+            <Rollup alt={variation.alt} />
+          )}
+          {variation.notes && (
+            <div className="cs-media-notes">
+              {variation.notes.map((note) => (
+                <p key={note} className="cs-media-note">
+                  {note}
+                </p>
+              ))}
+            </div>
+          )}
+        </div>
+        {variation.caption && <figcaption className="cs-media-caption">{variation.caption}</figcaption>}
+      </figure>
     </div>
   );
 }
