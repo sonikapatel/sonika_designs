@@ -216,3 +216,22 @@ export function Reflections({ block }) {
     </div>
   );
 }
+
+/* Project facts (role, team, timeline, status, scope) laid out as columns under one
+   eyebrow, so a skimming reader gets the whole picture in one row instead of a
+   rotating deck. Items with `wide: true` span two columns. */
+export function AtAGlance({ block }) {
+  return (
+    <div className="cs-glance">
+      {block.eyebrow && <p className="cs-eyebrow">{block.eyebrow}</p>}
+      <dl className="cs-glance-grid">
+        {block.items.map((item) => (
+          <div key={item.title} className={`cs-glance-item${item.wide ? " is-wide" : ""}`}>
+            <dt className="cs-glance-label">{item.title}</dt>
+            <dd className="cs-glance-value">{item.body}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  );
+}

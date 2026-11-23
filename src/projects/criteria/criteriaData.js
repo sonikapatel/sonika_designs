@@ -1,19 +1,28 @@
-/* Content for the Criteria case study, rendered through the shared sidebar layout in
-   src/projects/caseStudy. Prose blocks declare one of the Figma `Sections` variants,
-   videos/stills use the shared `media` container, and anything else (job stories,
-   channel options, carousels, card sort) is registered in CriteriaPage.js. */
+/* DRAFT (branch criteria-esg-draft): the Criteria case study re-ordered to follow the
+   ESG Labs case study structure (davidhall.io/esg), told from the approved Weekly
+   Check-ins MVP strategy. Complex blocks (job stories, channel options, dashboards,
+   system diagram, merchandising, flows, reflections) are reused unchanged from
+   criteriaDataV1.js, the copy that was live before this draft.
+   Facts are drawn from the v1 case study; nothing here is new data. */
+
+import { CRITERIA_BLOCKS as V1, CARD_SORT } from "./criteriaDataV1";
+
+export { CARD_SORT };
+
+const pick = (variant) => {
+  const block = V1.find((b) => b.variant === variant);
+  if (!block) throw new Error(`criteriaData: no v1 block with variant "${variant}"`);
+  return block;
+};
 
 export const CRITERIA = {
   slug: "criteria",
   company: "Criteria",
-  title: "Criteria",
-  subtitle: "Enabling managers to have insight into their team performance",
-  /* Same gate as the criteria entry in projectData.js. */
+  title: "Weekly Check-Ins",
+  subtitle: "Designing Criteria’s first AI check-in product, from a limited launch to a mid-market bet",
   hero: {
     image: "/images/banner_images/Criteria_Header.png",
     alt: "Weekly Check-Ins career history and 1:1 preparation views",
-    /* The header art is a full-frame photo composition rather than a transparent
-       mockup, so it fills the card instead of floating on a padded ground. */
     bleed: true,
     bg: "#16112E",
   },
@@ -21,58 +30,84 @@ export const CRITERIA = {
 
 export const CRITERIA_NAV = [
   {
-    group: "WEEKLY CHECK-INS",
+    group: "THE BET",
     items: [
       { id: "overview", label: "Overview" },
-      { id: "context", label: "Context" },
-      { id: "criteria-context", label: "Criteria Company Context" },
-      { id: "strategy", label: "Product Strategy" },
-      { id: "principles", label: "Design Principles" },
-      { id: "roles", label: "Who We Designed For" },
-      { id: "coach-bo", label: "Coach Bo" },
-      { id: "designing-for-trust", label: "Designing for Trust" },
-      { id: "ai-uncertainty", label: "Designing for AI Uncertainty" },
+      { id: "problem", label: "The Problem" },
+      { id: "goals", label: "Goals" },
+      { id: "buyer", label: "Selling to the CHRO" },
     ],
   },
   {
-    group: "BUILDING THE EXPERIENCE",
+    group: "BUILDING IT",
     items: [
-      { id: "onboarding", label: "Onboarding + Admin Setup" },
-      { id: "research-to-product", label: "From Research to Experience" },
       { id: "research", label: "Research" },
-      { id: "ic-incentive", label: "Giving ICs a Reason" },
+      { id: "findings", label: "Findings" },
+      { id: "v1-to-mvp", label: "From v1 to the Bet" },
+      { id: "coach-bo", label: "Coach Bo + AI" },
+      { id: "tradeoffs", label: "Trade-offs" },
+      { id: "guardrails", label: "Guardrails" },
       { id: "design-system", label: "Design System" },
-      { id: "merchandising", label: "In-Product Merchandising" },
-      { id: "system", label: "System Before + After" },
-      { id: "edge-cases", label: "Overview + Edge Cases" },
-      { id: "heuristic-audit", label: "Heuristic Audit" },
-      { id: "impact", label: "Impact" },
+      { id: "solution", label: "The MVP" },
+    ],
+  },
+  {
+    group: "WHAT WE KNOW",
+    items: [
+      { id: "outcomes", label: "What We Know" },
+      { id: "learnings", label: "Learnings" },
     ],
   },
 ];
 
 export const CRITERIA_BLOCKS = [
+  /* ── Hero: intro, at-a-glance card, stat row ───────────────────────────── */
   {
     id: "overview",
     variant: "default",
     eyebrow: "Overview",
     body: [
+      "Criteria knew its customers from pre-hire assessments, and TEAMscan told them how their teams were doing each quarter. Customers kept asking for something more frequent. With a PM and an engineer, I designed Weekly Check-Ins, where an AI coach named Coach Bo turns a short weekly conversation into 1:1 prep for managers and early signals for leaders.",
       [
-        { text: "Weekly Check-Ins " },
-        { text: "launched to 5% of mid-market accounts", bold: true },
-        { text: ", and " },
-        { text: "28% of existing Develop users checked out its in-product merchandising", bold: true },
-        { text: " during the four-week rollout. I led design end to end, partnering with a PM and an engineer over six months." },
+        { text: "The first version (v1) reached " },
+        { text: "5% of mid-market accounts", bold: true },
+        { text: ". What we learned from it became the bet I’d take forward: a check-in agent for mid-market CHROs, built around the manager 1:1." },
       ],
-      "Managers lacked visibility into how their teams were doing week over week. Criteria’s post-hire suite, Develop, gives managers real-time, personalized coaching at scale. I designed the core experience for a new company bet: an AI-powered coaching product that surfaces relevant insights and recommends actions directly within a manager’s workflow. The product expanded Criteria’s talent management offering beyond pre-hire assessments, creating an experience that supports managers across the employee lifecycle.",
-      "Weekly feedback only works if checking in is easy for employees and insights reach managers when they can act on them. So the real design question was where Check-Ins should meet each person: inside the tools they already use, like Teams, Slack, email and calendar, or inside Develop.",
     ],
   },
   {
-    id: "context",
+    variant: "at-a-glance",
+    eyebrow: "At a glance",
+    items: [
+      { title: "Role", body: "Product design lead, end to end" },
+      { title: "Team", body: "Me, a PM and an engineer, inside Criteria’s Develop suite" },
+      { title: "Timeline", body: "6 months" },
+      {
+        title: "Status",
+        body: "The first version launched to 5% of mid-market accounts. The MVP strategy below is proposed, and its pilot hasn’t run.",
+      },
+      {
+        title: "I owned", wide: true,
+        body: "Coach Bo’s conversation design, 1:1 prep and dashboards, admin onboarding, in-product merchandising, the design system and the product strategy",
+      },
+      {
+        title: "I influenced", wide: true,
+        body: "The prompts, which engineering built from my conversation flow, and the sentiment analysis behind the scores",
+      },
+    ],
+  },
+
+  /* ── 01 The problem ────────────────────────────────────────────────────── */
+  {
+    id: "problem",
     variant: "side-to-side",
-    eyebrow: "Context",
-    body: "TEAMScan is a product we previously launched to help organizations understand how their teams are performing through quarterly check-ins. HR admins configure TEAMScan for their organization, enabling them to collect quarterly pulses of feedback and gain insight into team health and performance. Since customers consistently sought more frequent feedback, I partnered with a PM and engineer to lead the design of Weekly Check-Ins — an experience built to address the core need and turn recurring employee feedback into actionable insights for managers. ",
+    eyebrow: "Hearing about burnout too late",
+    body: "Mid-market People teams find out about burnout and flight risk after it’s too late to act. A People leader in our post-launch interviews said Check-Ins “opens up a blindspot” across the business.",
+    agenda: [
+      { title: "Too late", body: "People teams learn about burnout and flight risk from a yearly survey or an exit interview." },
+      { title: "Nothing in between", body: "Managers don’t know what to do between surveys, and the score never says why." },
+      { title: "No reason to answer", body: "Employees see little point in giving feedback that only flows up." },
+    ],
   },
   {
     variant: "media",
@@ -80,384 +115,190 @@ export const CRITERIA_BLOCKS = [
     alt: "The elements that go into the Check-Ins experience",
     bare: true,
   },
+
+  /* ── 02 Goals ──────────────────────────────────────────────────────────── */
   {
-    id: "criteria-context",
+    id: "goals",
     variant: "side-to-side",
-    eyebrow: "Criteria company context",
-    body: [
-      "Criteria Corp is known for pre-hire assessments that measure cognitive aptitude, personality and skills. Develop is its post-hire suite, and TEAMscan, inside Develop, is a five-minute anonymous survey that teams retake about once a quarter to see how well they work together across 17 dimensions of team effectiveness.",
-      "Weekly Check-Ins fills the space between them. TEAMscan reads how a team works together each quarter; Check-Ins listens every week, and pre-hire assessments bring each employee’s strengths and motivators into the conversation. Together they cover the employee lifecycle: hire, listen, develop.",
-    ],
-  },
-  {
-    id: "strategy",
-    variant: "side-to-side",
-    eyebrow: "Product strategy (proposed)",
-    lead: "The strategy I’d take Check-Ins forward with focuses on mid-market companies, where a CHRO buys and managers use it every week.",
+    eyebrow: "Goals and how we’d know",
+    body: "I set these goals for the MVP pilot to tell whether the bet works. They’re proposed: the pilot hasn’t run yet.",
     agenda: [
       {
-        title: "For",
-        body: "CHROs at mid-market companies of 200 to 2,000 people, whose small People teams can’t see what’s happening across a growing layer of managers.",
+        title: "North star: managers act on early signals",
+        body: "The share of at-risk signals that get a documented manager action, in a 1:1 or otherwise, within seven days.",
       },
       {
-        title: "Who struggle with",
-        body: "Hearing about burnout and flight risk too late, in a yearly survey or an exit interview, while managers don’t know what to do in between and employees see no point in giving feedback.",
+        title: "Employees keep checking in",
+        body: "A week-12 IC response rate of 60% or more.",
       },
       {
-        title: "Check-Ins is",
-        body: "A conversational check-in agent for continuous engagement and retention insight, linked to manager 1:1s.",
+        title: "Employees stay candid",
+        body: "Answers stay honest over time, even though managers see individual signals.",
       },
       {
-        title: "That",
-        body: "Turns short weekly conversations into early signals and action. Employees get a 1:1 agenda they shape, personal insight and growth incentives. Managers get individual signals and talking points. Senior leaders and the CHRO see team and company-wide risk.",
+        title: "The 1:1 runs on the check-in",
+        body: "The share of 1:1s that use the check-in agenda.",
       },
       {
-        title: "Unlike",
-        body: "Yearly and pulse surveys that give a score without the why, and 1:1 tools cut off from engagement data. TEAMscan is a complement, not an alternative: Check-Ins shows where and who; TEAMscan and Develop help fix it at the team level.",
+        title: "ICs get value back",
+        body: "70% or more of ICs say “this helps me.”",
       },
       {
-        title: "Because",
-        body: "Only Criteria owns the full loop: hire with assessments, listen with Check-Ins and 1:1s, develop with TEAMscan and Develop, backed by validated workforce science.",
+        title: "The business case",
+        body: "Lagging signs: less regretted attrition against the baseline, renewals and expansion into Develop and TEAMscan.",
+      },
+    ],
+  },
+
+  /* ── 04 Why the CHRO ───────────────────────────────────────────────────── */
+  {
+    id: "buyer",
+    variant: "side-to-side",
+    eyebrow: "Selling to the CHRO",
+    body: "The buyer is the CHRO at a mid-market company of 200 to 2,000 people, whose small People team can’t see across a growing layer of managers. They need to learn where burnout is building before the yearly survey. But the product only works if three other people use it every week: the employee who checks in, the manager who preps the 1:1, and the leader who reads the digest.",
+    agenda: [
+      { title: "Early signal", body: "Where risk is building, not who to blame." },
+      { title: "Manager action", body: "The 1:1 is where something changes." },
+      { title: "Participation", body: "Employees have to get value back, or the signal dries up." },
+    ],
+  },
+  pick("job-stories"),
+
+  /* ── 05 Research ───────────────────────────────────────────────────────── */
+  {
+    id: "research",
+    variant: "side-to-side",
+    eyebrow: "What we learned, before and after v1",
+    agenda: [
+      {
+        title: "Before v1: card sort",
+        body: "Ten managers across functions and levels ranked what they need in a 1:1 with a direct report.",
       },
       {
-        title: "Prove it by",
-        body: "Testing the riskiest assumption: employees keep answering honestly each week when their manager sees individual signals, because they get value back. A six to eight week pilot with two or three mid-market design partners, with summaries written by hand.",
+        title: "After v1: interviews",
+        body: "Once Check-Ins was in use inside Criteria, I interviewed four managers and leaders and one IC in People, Customer Success and Account Management. It was a preliminary round.",
       },
-      {
-        title: "Measured by",
-        body: "The share of at-risk signals that get a documented manager action within seven days. Leading signs: a week-12 response rate of 60% or more and 1:1s that use the check-in agenda. Lagging: less regretted attrition, renewals and expansion into Develop.",
-      },
+    ],
+  },
+  pick("card-sort"),
+
+  /* ── 06 Findings ───────────────────────────────────────────────────────── */
+  {
+    id: "findings",
+    variant: "side-to-side",
+    eyebrow: "What managers and ICs told us",
+    lead: "The last finding is the riskiest assumption behind the whole product.",
+    body: "Every insight depends on employees answering honestly each week, and v1 gave them almost nothing in return.",
+    orderedList: [
+      "Context over scores. Blockers and wins ranked highest, so 1:1 prep opens with them, before any score.",
+      "Trend over a single week. A four-week trend mattered more than a single week, so the dashboard shows mood, progress and readiness over time.",
+      "A score is a reason to ask. Three of four managers treated a dip as a cue to talk, and three of four set aside at least one score as unclear.",
+      "Value grows with distance. A manager of ten already knew who was unhappy; a People leader didn’t.",
+      "ICs got little back. The IC we interviewed reread every summary to check what their manager would see, and one manager said they wouldn’t use a tool unless it reminded them to.",
+    ],
+  },
+
+  /* ── 07 From v1 to the MVP bet ─────────────────────────────────────────── */
+  {
+    id: "v1-to-mvp",
+    variant: "side-to-side",
+    eyebrow: "From v1 to the MVP bet",
+    orderedList: [
+      "Demand. TEAMscan customers asked for more frequent feedback.",
+      "Card sort. Ten managers ranked what they need in a 1:1.",
+      "First build. I designed Coach Bo in Develop, 1:1 prep, the exec digest and admin onboarding.",
+      "Rollout. Check-Ins reached 5% of mid-market accounts, and 28% of Develop users opened the merchandising.",
+      "Post-launch interviews. I spoke with four managers and leaders and one IC.",
+      "Proposed: MVP strategy. A check-in agent for mid-market CHROs, built around the 1:1.",
+      "Proposed: pilot. A 6–8 week pilot with two or three mid-market design partners.",
     ],
   },
   {
     variant: "side-to-side",
-    eyebrow: "1:1s, incentives and guardrails",
-    body: "The check-in becomes the 1:1 agenda: the employee picks the topics, the manager gets suggested talking points, and action items carry into the next check-in. Incentives reward showing up, never what someone says, starting with what employees get back: a private month in review, visible follow-through, and growth content from Develop.",
-    agenda: [
-      {
-        title: "Employees see what their manager sees",
-        body: "Every signal about an employee is visible to them, in the same words, and they choose what goes on the 1:1 agenda.",
-      },
-      {
-        title: "Support prompts, not scores",
-        body: "Managers see “check in about workload”, never “burnout risk: 82%”.",
-      },
-      {
-        title: "Groups of five or more",
-        body: "Rolled-up views for senior leaders need at least five people, so no one can be singled out.",
-      },
-      {
-        title: "Reward participation, never content",
-        body: "No incentive depends on sentiment, disclosure or a score improving, and there are no individual leaderboards.",
-      },
-      {
-        title: "One privacy story",
-        body: "The same promise about who sees what across Check-Ins, TEAMscan and Develop.",
-      },
-    ],
+    eyebrow: "The bet (proposed)",
+    body: "The bet is a conversational check-in agent for continuous engagement and retention insight, linked to manager 1:1s and built for CHROs at mid-market companies of 200 to 2,000 people. Their small People teams can’t see what’s happening across a growing layer of managers, so they hear about burnout and flight risk too late, in a yearly survey or an exit interview, while managers don’t know what to do in between and employees see no point in giving feedback. Unlike yearly and pulse surveys, which give a score without the why, Check-Ins shows where risk is building and who needs support. TEAMscan and Develop then help fix it at the team level, so TEAMscan is a complement, not an alternative. And only Criteria owns the full loop: hire with assessments, listen with Check-Ins and 1:1s, develop with TEAMscan and Develop, backed by validated workforce science.",
   },
-  {
-    id: "principles",
-    variant: "principles",
-    eyebrow: "Design principles",
-    items: [
-      {
-        title: "Ground every signal",
-        body: "Scores inform a conversation; they never replace it.",
-      },
-      {
-        title: "Meet managers in their workflow",
-        body: "Insights surface where coaching already happens: check-ins and 1:1 prep.",
-      },
-      {
-        title: "Make setup legible at scale",
-        body: "Admins of 200+ person orgs should understand the impact of each step before they commit.",
-      },
-      {
-        title: "Coach, don’t judge",
-        body: "Language and visuals frame data as support for growth, not evaluation.",
-      },
-    ],
-  },
-  {
-    id: "roles",
-    variant: "job-stories",
-    eyebrow: "Who we designed for",
-    body: "Four roles touch a single weekly check-in, and each needs it at a different moment. I wrote each need as a job story: the situation first, then what the person wants and why. The situation is what decides the channel.",
-    stories: [
-      {
-        role: "Individual contributor",
-        when: "I wrap up my week",
-        want: "to say what I did and what’s blocking me in a couple of minutes",
-        so: "I get support before my 1:1 without writing a status report",
-      },
-      {
-        role: "Individual contributor",
-        when: "I look back on my time at a company",
-        want: "to see my projects and growth in one place and credit the people who helped",
-        so: "my check-ins build a record that works for me",
-      },
-      {
-        role: "People manager",
-        when: "I’m preparing for a 1:1",
-        want: "to know what to talk about and why",
-        so: "I can coach with confidence instead of decoding a mood score",
-      },
-      {
-        role: "People manager",
-        when: "someone on my team starts to struggle",
-        want: "to notice early",
-        so: "I can step in before it affects their work",
-      },
-      {
-        role: "HR admin",
-        when: "I roll out Check-Ins to a 200+ person organization",
-        want: "to understand what each setup step does and who it affects",
-        so: "I can launch without misconfiguring reports",
-      },
-      {
-        role: "VP / C-suite",
-        when: "I review the organization",
-        want: "a high-level read on how teams are doing and where burnout may be building",
-        so: "I can act where it matters without reading every check-in",
-      },
-    ],
-  },
+  pick("system-diagram"),
+
+  /* ── 08 Coach Bo + AI uncertainty ──────────────────────────────────────── */
   {
     id: "coach-bo",
     variant: "side-to-side",
-    eyebrow: "Coach Bo",
-    body: [
-      "Coach Bo is an AI coach that runs the weekly check-in as a conversation, asking “How was last week?”, “What did you accomplish this week?” and “What are you looking to accomplish next?”",
-      "Check-Ins then uses sentiment analysis to turn those answers into reports for each role, from organizational health down to the mood and progress of a manager’s direct reports.",
+    eyebrow: "Designing Coach Bo for AI uncertainty",
+    lead: "Coach Bo’s reads could be wrong, so the design never asked managers to take them on faith.",
+    body: "Sentiment scores didn’t always reflect how someone was really doing, and for a manager deciding how to coach, a wrong signal could undermine the whole product.",
+    agenda: [
+      {
+        title: "Design the conversation, not just the screen",
+        body: "I designed three weekly questions, their order and a follow-up asking who helped, so every answer had a job downstream.",
+      },
+      {
+        title: "Show where every score came from",
+        body: "Each mood and progress score links back to the check-in answers behind it.",
+      },
+      {
+        title: "Lead with what was said",
+        body: "1:1 prep opens with blockers and wins from the employee’s own answers, so a bad score can’t set the agenda.",
+      },
+      {
+        title: "Let managers correct the read (proposed)",
+        body: "Managers can flag a signal that looks wrong, and the flag improves the next read. Not shipped.",
+      },
     ],
   },
   {
     variant: "media",
     src: "/images/criteria/check_in_chat.mov",
-    notes: [
-      "An intuitive chat interface that helps employees think through their work, recognize patterns, and understand performance.",
-      "How might we apply information from Coach Bo conversational experience to incentivize employees to complete weekly check-ins?",
-    ],
-    caption:
-      "All roles are required to check-in with their managers weekly. I iterated and prototyped visual styles for an intelligent chat interface that matched our design system for Check-Ins.",
+    caption: "Coach Bo’s weekly check-in. Shipped in v1, inside Develop.",
   },
+  pick("data-sources"),
+
+  /* ── 09 Trade-offs ─────────────────────────────────────────────────────── */
   {
+    id: "tradeoffs",
     variant: "side-to-side",
-    eyebrow: "Where Coach Bo asks the questions",
-    body: "Teams was where employees already were, but a plugin meant an app review, a second build and SSO we didn’t have yet. We evaluated three channels for the weekly questions and launched Coach Bo inside Develop first, which kept the conversation and sentiment pipeline in one place we controlled.",
+    eyebrow: "Trade-offs: where Coach Bo lives",
+    body: "Employees spent their days in Teams and Slack, but a plugin meant an app review, a second build and SSO we didn’t have yet. Engineering wanted one pipeline we controlled; I wanted answering to take as little effort as possible. We launched inside Develop and sent leaders an email digest, the one cheap way to reach outside the product.",
   },
+  pick("channel-options"),
+  pick("solution-concepts"),
+
+  /* ── 10 Guardrails ─────────────────────────────────────────────────────── */
   {
-    variant: "channel-options",
-    options: [
-      {
-        name: "Weekly Coach Bo in Develop",
-        decision: "Shipped",
-        appeal: "Full control of the chat experience and sentiment pipeline; drives engagement in Develop",
-        holdback: "Employees have to remember to open another product",
-      },
-      {
-        name: "Teams / Slack plugin",
-        decision: "Deferred",
-        appeal: "Meets employees where they already talk; the least effort to answer",
-        holdback: "Teams app review, a separate build per platform, and no SSO to link a chat account to Criteria",
-      },
-      {
-        name: "Reply-by-email check-in",
-        decision: "Explored",
-        appeal: "Works for everyone with nothing to install; easy to roll out",
-        holdback: "Free-text replies lose the conversational follow-ups that make Coach Bo useful",
-      },
-    ],
-  },
-  {
-    id: "designing-for-trust",
+    id: "guardrails",
     variant: "side-to-side",
-    eyebrow: "Designing for trust in coaching signals",
-    body: [
-      "One of the most important challenges surfaced during the first iteration: the sentiment-analysis scores did not always accurately reflect employee performance. For a manager deciding how to coach a direct report, an inaccurate signal can quickly undermine confidence in the entire experience.",
-      "Rather than treating sentiment scores as objective answers, I focused on helping managers understand the signals, interpret them in context, and confidently decide when to act. Trust became a core design principle for Check-Ins: every coaching signal needed to feel grounded enough to inform a conversation, not simply present a score. The goal was to move managers from “What does this score mean?” to “What should I do with this information?”",
-      "I led a generative research study alongside a card sorting exercise with managers across domains and levels of leadership, to understand which information managers prioritize in 1:1s with their direct reports.",
-    ],
-  },
-  {
-    variant: "card-sort",
-  },
-  {
-    variant: "side-to-side",
-    eyebrow: "What managers prioritized",
-    body: "Across 10 managers, the sort pointed the same way: managers wanted the context behind how someone was doing more than a measure of it. Each finding shaped what 1:1 prep shows first.",
-    orderedList: [
-      "Current blockers and this week’s wins ranked highest, so 1:1 prep opens with them, before any score.",
-      "A trend over the past four weeks mattered more than a single week, so the dashboard shows mood, progress and readiness over time.",
-      "Strengths and motivators were wanted but rarely at hand, so prep guides pull them in from each employee’s pre-hire assessments.",
-    ],
-  },
-  {
-    variant: "side-to-side",
-    eyebrow: "Resolving the trust problem",
-    body: [
-      "The research gave the trust problem its answer: a score was only as useful as the reason behind it. So every signal explains itself. Each mood and progress score links back to the check-in answers it came from, and 1:1 prep leads with talking points drawn from those answers, not the number.",
-    ],
-  },
-  {
-    id: "ai-uncertainty",
-    variant: "side-to-side",
-    eyebrow: "Designing for AI uncertainty",
-    lead: "Coach Bo’s reads could be wrong, so the design never asked managers to take them on faith.",
+    eyebrow: "Guardrails and trust patterns",
+    body: "Each guardrail is marked with where v1 stood. Parts of v1 break them, and the strategy fixes that.",
     agenda: [
       {
-        title: "Design the conversation, not just the screen",
-        body: "I designed Coach Bo’s conversation flow: the three weekly questions, their order, and a follow-up asking who helped, so every answer had a job downstream. Engineering turned that flow into the prompts.",
+        title: "Employees see what their manager sees",
+        body: "v1: partial. Scores link to the answers, but there’s no review step before sharing. MVP: proposed.",
       },
       {
-        title: "Show where every score came from",
-        body: "Each mood and progress score links back to the check-in answers behind it, so a manager can check the AI’s read against what the employee actually said.",
+        title: "Support prompts, not scores",
+        body: "v1: not yet. It shows red, yellow and green states and promotion readiness. MVP: managers see “check in about workload,” never “burnout risk: 82%.”",
       },
       {
-        title: "Lead with what was said, not the score",
-        body: "1:1 prep opens with blockers and wins from the employee’s own answers, so an inaccurate score can’t set the agenda for the conversation.",
+        title: "Groups of five or more",
+        body: "v1: no minimum, so mood for a small team could point to individuals. MVP: rolled-up views need at least five people.",
       },
       {
-        title: "Let managers correct the read (proposed)",
-        body: "In the v2 direction I proposed, managers can flag a signal that looks wrong, and that flag improves the next read. This was not shipped.",
+        title: "Reward participation, never content",
+        body: "Not in v1. MVP: no incentive depends on sentiment or scores, and there are no leaderboards.",
+      },
+      {
+        title: "One privacy story",
+        body: "Not in v1. MVP: the same promise about who sees what across Check-Ins, TEAMscan and Develop.",
       },
     ],
   },
-  {
-    id: "onboarding",
-    variant: "side-to-side",
-    eyebrow: "Onboarding + Admin Setup",
-    lead: "HR admins needed to know what each setup step did, and who it affected, before rolling out to their whole organization.",
-    body: "Onboarding a 200+ person organization to Weekly Check-Ins was confusing for HR admins: the original setup had no clear mental model or hierarchy. Before launch, I designed a system so admins at organizations of any size could onboard their employees with confidence. I explored lo-fidelity directions that built trust at scale while showing admins the impact of each high-intent step.",
-  },
-  {
-    variant: "carousel",
-    label: "Lo-fidelity onboarding directions",
-    slides: [
-      {
-        src: "/images/criteria/onboarding-direction-1.png",
-        alt: "Accordion-style onboarding checklist",
-        caption: "An accordion-style checklist that expands each step in place.",
-      },
-      {
-        src: "/images/criteria/LoFidelity2.png",
-        alt: "Single-step wizard with a persistent side panel",
-        caption:
-          "A single-step wizard with a persistent side panel dedicated to explaining the trust and data implications of the step.",
-      },
-      {
-        src: "/images/criteria/onboarding-direction-3.png",
-        alt: "Lo-fidelity onboarding skeleton",
-        caption:
-          "An early lo-fidelity skeleton pass, focused purely on step structure and pacing — content and education framing came later.",
-      },
-    ],
-  },
-  {
-    variant: "media",
-    src: "/images/criteria/onboarding-sept4.mov",
-    caption:
-      "A working demo of onboarding setup with different states for in-progress and complete steps, using the visual identity across products and the design system I created in Figma, translated to Typescript components.",
-  },
-  {
-    variant: "side-to-side",
-    eyebrow: "What I’d change next: show value sooner (proposed)",
-    body: "The shipped setup asked admins for effort at every step and gave value back only at launch. Applying research on AI product onboarding, I’d open with one question about the admin’s goal and shape the rest around it, bring the org in from the HRIS instead of typing it, start with a pilot team, and let the admin answer a check-in themselves so the first 1:1 brief they see is built from their own words. This direction was not built.",
-  },
-  {
-    variant: "onboarding-flow",
-    caption:
-      "A video prototype of the proposed onboarding, playing with a sample org. The admin picks a goal and the side panel promises what Check-Ins will do for them, imports the org, picks a pilot team and sees the first question Bo will ask it, then sees the insight each level of the org gets from the same check-ins: an employee’s Career History, a manager’s 1:1 prep, and a leader’s weekly digest of org and team health, burnout trends and wins. Finally they answer a check-in themselves and launch.",
-  },
-  {
-    id: "research-to-product",
-    variant: "side-to-side",
-    eyebrow: "From research to experience",
-    body: "Depending on their role, managers care about employees finishing their weekly projects and hitting specific metrics. I worked out how to bring role-specific variables, like ARR for Customer Success and Sales, into a meaningful coaching experience for employees across different kinds of organizations.",
-  },
-  {
-    variant: "data-sources",
-    alt: "The sources feeding into Check-Ins: HRIS and org data, personality profiles, integrations, team KPIs, weekly data and soft skills guidance",
-  },
-  {
-    variant: "side-to-side",
-    eyebrow: "Where insights reach managers and leaders",
-    body: "Managers prepared for 1:1s in their calendar and inbox, but meeting them there meant building on the Outlook and Google Calendar APIs and an SSO foundation we didn’t have yet. Develop, a new bet for the company, also needed people engaging inside the product. So I started with the dashboard in Develop and reached beyond it only where that was cheap: leaders received the insights as an emailed digest.",
-  },
-  {
-    variant: "solution-concepts",
-    label: "Options we evaluated · Meeting people where they work",
-  },
-  {
-    variant: "dashboard-variations",
-    variations: [
-      {
-        name: "Direct manager",
-        src: "/images/criteria/dashboard.mov",
-        alt: "A recording of the manager dashboard: Your focus and Your mantra above the check-in overview, which switches from a card for each of eight reports to the team’s completion, mood and progress.",
-        notes: [
-          "Managers get a high-level view of each employee’s mood, progress and readiness scores week over week, along with their engagement with Coach Bo.",
-          "1:1 prep guides surface what managers care about most, alongside each employee’s strengths and career motivators drawn from our pre-hire assessments.",
-        ],
-        caption:
-          "A demo of the manager dashboard, built around what managers care about most when reviewing their direct reports. The red, yellow and green states come from the mood scores Coach Bo synthesizes.",
-      },
-      {
-        name: "Exec level",
-        alt: "The exec level dashboard in the manager dashboard’s visual treatment, scrolling by itself: Monday Executive Intelligence for the week of 11/10, with what you should know, suggested next steps grouped by team, weekly participation 54%, organization mood 3.9 of 5, three early signals and four teams with their participation and mood.",
-        notes: [
-          "Leaders get weekly participation, organization mood and the early signals raised across the business, with each team’s participation and mood.",
-          "What you should know and the suggested next steps turn those signals into something to act on that week.",
-        ],
-        caption:
-          "The exec level dashboard, in the manager dashboard’s visual treatment and playing on a loop. It carries the illustrative Monday Executive Intelligence content from the report previews in the merchandising section.",
-      },
-    ],
-  },
-  {
-    id: "research",
-    variant: "side-to-side",
-    eyebrow: "Research: what managers said after launch",
-    body: "Once Check-Ins was in use inside Criteria, I interviewed four managers and leaders and one individual contributor across People, Customer Success and Account Management. It was a preliminary round, separate from the card sort, and it showed where the dashboard held up and where it didn’t.",
-    orderedList: [
-      "Mood and the overall score were the signals managers read. Three of the four set aside at least one of progress, readiness, burnout or turnover risk as unclear, less relevant or too loosely defined.",
-      "A score sent them to ask, not to conclude. Three of the four treated a dip as a reason to talk to the person, and wanted the trend to tell a bad week from a pattern.",
-      "The value grew with distance from the team. A manager of a ten-person team already knew who was unhappy, while a People leader said Check-Ins “opens up a blindspot” across the business.",
-      "People checked in when their manager answered. One team held 100% participation, and their manager put part of that down to replying to what they wrote.",
-    ],
-  },
-  {
-    variant: "side-to-side",
-    eyebrow: "Permissioning the executive digest",
-    body: "The digest went by email to managers and the C-suite. Access was inherited from the HRIS org chart, from the bottom up: a leader’s digest covers every team that rolls up to them, with no admin setting it up by hand. That turned an access-control problem into something HR admins already maintain.",
-  },
-  {
-    id: "ic-incentive",
-    variant: "side-to-side",
-    eyebrow: "Giving ICs a reason to check in",
-    body: [
-      "Every insight a manager or leader sees depends on employees checking in each week, but the first version gave ICs almost nothing back. Most of the value flowed up the org chart.",
-      "The interviews after launch pointed the same way. The individual contributor I spoke with reread each summary Coach Bo wrote to check what was being reported to their manager, and one manager said flatly: “I’m not going to use something unless it’s going to remind me to use it.”",
-      "To close that loop, I explored a personal growth timeline. It turns each check-in into part of an IC’s own record, and lets them credit the teammates who helped. It was explored but not shipped.",
-      "The timeline is fed by the check-in itself. Whatever an IC tells Coach Bo they finished becomes a project on their Career History, with the teammate they credited and links to the work, so there is no second place to log it.",
-    ],
-    orderedList: [
-      "Every project logged through Coach Bo, laid out across their tenure",
-      "Their progression over time, as a record they own",
-      "Shout-outs to the colleagues who were pivotal to a project",
-    ],
-  },
-  {
-    variant: "check-in-flow",
-    caption:
-      "From check-in to Career History. Answer Coach Bo’s weekly check-in, where one follow-up asks who helped so they get a shout-out, then follow the project Bo logs onto Friday of the Career History board. Each completed project links straight to its outputs, so contributors can point to their work in conversations about growth.",
-  },
+
+  /* ── 11 Design system ──────────────────────────────────────────────────── */
   {
     id: "design-system",
     variant: "header",
-    eyebrow: "Building a scalable AI-native design system",
-    body: "I leveraged the existing color palette from Prehire to establish semantic tokens for Check-Ins, creating a cohesive visual language that carried seamlessly from Figma into production code.",
+    eyebrow: "Design system",
+    body: "I built semantic tokens for Check-Ins on Prehire’s existing palette, so one visual language ran from Figma into TypeScript components.",
   },
   {
     variant: "media",
@@ -465,274 +306,71 @@ export const CRITERIA_BLOCKS = [
     alt: "The Check-Ins design system documentation site",
     bare: true,
   },
-  {
-    id: "merchandising",
-    variant: "side-to-side",
-    eyebrow: "Merchandising Check-Ins in the product",
-    body: [
-      "Shipping Check-Ins to customers meant more than turning it on. Because it rolled out to accounts already using Develop, the product itself had to explain what Check-Ins was and why it mattered, right where managers already worked. I designed an in-app merchandising banner for the manager’s analytics dashboard that framed Check-Ins as management superpowers: AI-powered weekly conversations that give managers actionable insights and early warnings about their team.",
-      "The banner opens a three-step walkthrough (How It Works, Why You Need It and What You Can Expect) that answers a manager’s questions in the order they ask them. Each step pairs a short value proposition with a quote from someone already using Check-Ins, set in its own container so the proof reads apart from the pitch. The last step ends on one clear path, Contact us, so curiosity could turn into a conversation without leaving the product.",
-    ],
-  },
-  {
-    variant: "merchandising",
-    caption:
-      "Exploring ways of showcasing inactive products, so Check-Ins could introduce itself inside a dashboard managers already use before their account turned it on. An interactive rebuild of the merchandising screens on the manager dashboard. Click Learn more to explore the merchandising experience, which 28% of existing Develop users checked out during the four-week rollout.",
-  },
-  {
-    id: "system",
-    variant: "side-to-side",
-    eyebrow: "The system, before and after",
-    body: [
-      "Check-Ins v1 worked as one pipeline: a chat in Develop became scores, and those scores flowed up to managers and leaders. The constraints above made that the right way to launch, but ICs carried the system and got little back.",
-      "Looking at it as a whole, I’d propose keeping Coach Bo and the org-chart permissions while changing three things: where the check-in happens, what the signal is made of, and what each role receives. This is my proposed direction, not something that shipped.",
-    ],
-  },
-  {
-    variant: "system-diagram",
-    views: [
-      {
-        key: "before",
-        tab: "Before",
-        status: "Check-Ins v1, as shipped",
-        capture: {
-          title: "Coach Bo in Develop",
-          body: "ICs answer three weekly questions in chat, but have to remember to open another product.",
-          tag: "Gap",
-        },
-        signal: {
-          title: "Sentiment analysis",
-          body: "Answers become mood, progress and readiness scores, each linked to its source answers. Red, yellow and green states can still read as verdicts.",
-          tag: "Gap",
-        },
-        delivery: [
-          {
-            role: "IC",
-            title: "Little comes back",
-            body: "The growth timeline was explored but not shipped.",
-            tag: "Gap",
-          },
-          {
-            role: "Manager",
-            title: "Dashboard in Develop",
-            body: "Scores week over week, plus 1:1 prep with strengths and motivators from pre-hire assessments.",
-          },
-          {
-            role: "C-suite",
-            title: "Emailed digest",
-            body: "A high-level read on how teams are doing, scoped to the teams that roll up to them.",
-          },
-        ],
-        loop: {
-          title: "Open loop",
-          body: "Every insight depends on ICs checking in, but most of the value flows up the org chart.",
-          tag: "Gap",
-        },
-        foundation: [
-          {
-            title: "HRIS org chart",
-            body: "Sets reporting lines and who can see each digest.",
-          },
-          {
-            title: "No SSO yet",
-            body: "Teams, Slack and calendar delivery stayed out of reach.",
-            tag: "Gap",
-          },
-        ],
-      },
-      {
-        key: "after",
-        tab: "After (proposed)",
-        status: "Proposed direction, not shipped",
-        capture: {
-          title: "Coach Bo where people work",
-          body: "ICs answer in Teams or Slack, with Develop as the fallback. It’s the same conversation in every channel.",
-          tag: "Changed",
-        },
-        signal: {
-          title: "Context layer",
-          body: "Answers become blockers, wins, projects, shout-outs and a four-week trend. Sentiment is one input, and every signal cites the answers behind it.",
-          tag: "Changed",
-        },
-        delivery: [
-          {
-            role: "IC",
-            title: "Career History",
-            body: "Each check-in adds projects and shout-outs to a record they own.",
-            tag: "New",
-          },
-          {
-            role: "Manager",
-            title: "1:1 prep in the calendar",
-            body: "Talking points come first in Outlook or Google Calendar, with trends and early flags in Develop.",
-            tag: "Changed",
-          },
-          {
-            role: "C-suite",
-            title: "Trend digest",
-            body: "Rolled-up team health and burnout trends, without individual check-ins.",
-            tag: "Changed",
-          },
-        ],
-        loop: {
-          title: "Closed loop",
-          body: "ICs get value every week, which supports the habit. Managers flag signals that look wrong, which improves the next read.",
-          tag: "New",
-        },
-        foundation: [
-          {
-            title: "HRIS org chart",
-            body: "Still sets reporting lines and permissions, with no manual setup.",
-          },
-          {
-            title: "SSO and shared identity",
-            body: "Links one person across channels. This comes first, since the channel and calendar work depend on it.",
-            tag: "New",
-          },
-        ],
-      },
-    ],
-    caption:
-      "A simplified product view of Check-Ins for ICs, managers and the C-suite. Moving into Teams would also mean an app review and a separate build per platform, so I’d sequence SSO and the IC record first.",
-  },
-  {
-    id: "edge-cases",
-    variant: "side-to-side",
-    eyebrow: "Product overview",
-    body: [
-      "Weekly Check-Ins is an AI coaching product inside Criteria Develop, built for mid-market companies of 200 to 2,000 people. At that size a CHRO leads a small People team that can’t see what’s happening across a growing layer of managers, and finds out about burnout and flight risk too late.",
-      "Each week Coach Bo asks employees three questions in a short conversation, and Check-Ins turns the answers into what each role needs: 1:1 prep for managers and a weekly digest of team health, burnout trends and wins for leaders and the CHRO. A personal Career History for individual contributors is the proposed next step.",
-      "Access follows the HRIS org chart, so each person sees only the teams that roll up to them, with no one in HR setting it up by hand. Pre-hire assessments bring each employee’s strengths and motivators into 1:1 prep, and TEAMscan stays the quarterly read on how a team works together.",
-    ],
-  },
-  {
-    variant: "side-to-side",
-    eyebrow: "Edge cases for mid-market customers",
-    lead: "Mid-market companies of 200 to 2,000 people grow, re-org and hire in waves, with a People team of a few people, so every state has to hold up when the data is missing, thin or changing.",
-    agenda: [
-      {
-        title: "No check-in is not a good week",
-        body: "A missed week shows as “No check-in” with the date of the last one, never as a neutral score. Streaks pause for PTO and leave pulled from the HRIS.",
-      },
-      {
-        title: "Hiring waves have no baseline",
-        body: "When a company hires dozens of people in a quarter, new hires show “Building baseline” for their first four check-ins, so one week can’t read as a pattern.",
-      },
-      {
-        title: "Managers of managers see patterns",
-        body: "Direct managers see their own reports. Skip-level managers, department heads and the CHRO see rolled-up patterns, and any view under five people rolls up to the next level.",
-      },
-      {
-        title: "Not everyone works in Develop",
-        body: "Hourly, field and frontline employees without a Develop login get the check-in by email or text link, at the end of their own week and time zone.",
-      },
-      {
-        title: "Employees see what their manager sees",
-        body: "Before a summary is shared, the employee can review and edit it, so the manager never sees a read the employee hasn’t.",
-      },
-      {
-        title: "Some answers need a person, not a score",
-        body: "If someone describes distress, Coach Bo shares support resources right away and follows the company’s escalation policy, instead of waiting for Monday’s prep.",
-      },
-      {
-        title: "The org chart changes mid-cycle",
-        body: "After a re-org or manager change, history stays with the employee and a new manager sees check-ins from their start date. People synced without a manager are flagged in setup, not dropped.",
-      },
-      {
-        title: "Low participation lowers confidence",
-        body: "When fewer than half a team checks in, the digest shows participation next to mood and marks the read as low confidence.",
-      },
-    ],
-  },
-  {
-    id: "heuristic-audit",
-    variant: "side-to-side",
-    eyebrow: "Heuristic audit of the prototypes",
-    lead: "I audited each prototype against Nielsen’s ten usability heuristics, rating severity from 0 to 4, where 4 must be fixed before release.",
-    agenda: [
-      {
-        title: "Manager dashboard · Severity 3",
-        body: "Red, yellow and green states, “Mood score: 2” and “Needs support” read as verdicts (match the real world), and progress, readiness and burnout are never defined (help and documentation). Lead with talking points, and give each score a one-line definition and its source answers.",
-      },
-      {
-        title: "Promotion readiness · Severity 3",
-        body: "“On par for a promotion in Q1 2026” is inferred from sentiment (error prevention). Remove it, or show the evidence behind it.",
-      },
-      {
-        title: "Coach Bo check-in · Severity 3",
-        body: "Employees can’t review or edit the summary before it’s shared with their manager (user control and freedom). Add a review step before sharing.",
-      },
-      {
-        title: "Executive digest · Severity 3",
-        body: "Mood for a small team can point to individuals (error prevention), and it shows even when few people checked in (visibility of system status). Roll up groups under five and mark low-participation reads as low confidence.",
-      },
-      {
-        title: "Onboarding setup · Severity 3",
-        body: "The HRIS import only shows success, with no partial sync or missing-manager state (error recovery), and Continue is disabled without saying why. Flag people who couldn’t be placed and explain what’s missing inline.",
-      },
-      {
-        title: "Skipped check-ins · Severity 2",
-        body: "“Skipped check-ins, 3 weeks” gives the manager no next step (error recovery). Suggest an action, and pause the count for PTO and leave.",
-      },
-      {
-        title: "Merchandising and Career History · Severity 2",
-        body: "“Book demo” sends at once with no confirmation, and a project Coach Bo logs can’t be edited or removed (user control and freedom). Confirm before sending and let employees edit their record.",
-      },
-      {
-        title: "Unsourced claim · Severity 1",
-        body: "The “20X more engagement” quote has no source (match the real world). Attribute it or soften it.",
-      },
-    ],
-  },
-  {
-    id: "impact",
-    variant: "default",
-    eyebrow: "Impact",
-    body: [
-      [{ text: "The redesigned Check-Ins onboarding experience " }, { text: "launched to 5% of mid-market accounts", bold: true }, { text: ", alongside a limited beta of Coaching v1: the weekly Coach Bo chat and the manager dashboard with 1:1 prep. The executive intelligence digest went out by email to managers and the C-suite, and the Check-Ins design system carried from Figma into TypeScript components. In-product merchandising " }, { text: "was checked out by 28% of existing Develop users", bold: true }, { text: " during the four-week rollout." }],
-      [{ text: "The work created a scalable onboarding foundation that enabled Criteria to expand Check-Ins to larger organizations.", bold: true }, { text: " I left before the remaining post-launch numbers were available." }],
-    ],
-  },
-  {
-    variant: "reflections",
-    eyebrow: "What I’d do differently",
-    items: [
-      {
-        title: "Plan the integration path from day one.",
-        body: "Teams, Outlook and Google Calendar were where people worked, and building the identity and SSO foundation earlier would have let chat and 1:1 prep move there sooner.",
-      },
-      {
-        title: "Lead with talking points, not scores.",
-        body: "The dashboard’s red/yellow/green states pull managers toward reading verdicts, which is the trust problem the research flagged. In the interviews after launch, managers read mood and the written summaries and passed over the scores they couldn’t explain.",
-      },
-      {
-        title: "Give ICs something back from the start.",
-        body: "The whole system runs on IC participation, so the growth timeline belonged in v1.",
-      },
-      {
-        title: "Channel is a design decision, not a delivery detail.",
-        body: "Who gets value, when and where shapes whether a weekly habit forms at all.",
-      },
-    ],
-  },
-];
 
-/* Card-sort exercise run with managers. Coordinates are px within a
-   frameWidth x frameHeight canvas; the component positions them as percentages. */
-export const CARD_SORT = {
-  frameWidth: 1048,
-  frameHeight: 393,
-  noteSize: 128,
-  intervalMs: 2400,
-  notes: [
-    { label: "Strengths Observed", start: { x: 377, y: 82 }, end: { x: 554, y: 74 } },
-    { label: "Overall Motivators", start: { x: 84, y: 166 }, end: { x: 618, y: 183 } },
-    { label: "Goals Tracking", start: { x: 201, y: 63 }, end: { x: 163, y: 98 } },
-    { label: "Energy Levels", start: { x: 505, y: 188 }, end: { x: 363, y: 92 } },
-    { label: "Next Week's goals", start: { x: 265, y: 167 }, end: { x: 68, y: 169 } },
-    { label: "Current Blockers", start: { x: 524, y: 56 }, end: { x: 259, y: 145 } },
-    { label: "Over past 4 weeks", start: { x: 789, y: 63 }, end: { x: 436, y: 156 } },
-    { label: "Growth and Development", start: { x: 642, y: 120 }, end: { x: 873, y: 113 } },
-    { label: "Wins and Achievements - current week", start: { x: 760, y: 209 }, end: { x: 724, y: 109 } },
-  ],
-};
+  /* ── 12 The MVP ────────────────────────────────────────────────────────── */
+  {
+    id: "solution",
+    variant: "side-to-side",
+    eyebrow: "The MVP: check-in → 1:1 → signal",
+    agenda: [
+      {
+        title: "Employee",
+        body: "Shipped: the weekly Coach Bo check-in. Proposed: a review step before sharing, a choice of 1:1 topics, a private month in review and Career History.",
+      },
+      {
+        title: "Manager",
+        body: "Shipped: the dashboard, with 1:1 prep and each employee’s strengths and motivators from pre-hire assessments. Proposed: a shared 1:1 agenda, suggested talking points and action items carried into the next check-in.",
+      },
+      {
+        title: "Leader and CHRO",
+        body: "Shipped: the emailed exec digest, scoped through the HRIS org chart. Proposed: a trend digest with no individual check-ins.",
+      },
+      {
+        title: "HR admin",
+        body: "Shipped: onboarding setup. Proposed: goal-first onboarding with a pilot team.",
+      },
+      {
+        title: "Out of the MVP",
+        body: "A full 1:1 suite, monetary rewards, enterprise controls, SMB self-serve and per-employee flight-risk scores.",
+      },
+    ],
+  },
+  pick("dashboard-variations"),
+  {
+    variant: "media",
+    src: "/images/criteria/onboarding-sept4.mov",
+    caption: "Shipped: admin onboarding setup, with in-progress and complete states.",
+  },
+  pick("onboarding-flow"),
+  pick("check-in-flow"),
+  pick("merchandising"),
+
+  /* ── 13 Outcomes ───────────────────────────────────────────────────────── */
+  {
+    id: "outcomes",
+    variant: "side-to-side",
+    eyebrow: "What we know so far",
+    body: "Here’s what v1 showed, matched to the goal each signal points toward and labeled by type. The goals themselves aren’t measured: the pilot hasn’t run, and I left before more post-launch numbers came in.",
+    agenda: [
+      {
+        title: "The business case · Measured in v1",
+        body: "The first version launched to 5% of mid-market accounts, and 28% of existing Develop users opened the merchandising in four weeks.",
+      },
+      {
+        title: "Employees keep checking in · Qualitative, one team",
+        body: "One team held 100% participation; their manager credited replying to what people wrote.",
+      },
+      {
+        title: "Managers act on early signals · Qualitative, n=4",
+        body: "Three of four managers used a dip as a reason to talk to the person.",
+      },
+      {
+        title: "MVP targets · Not measured",
+        body: "The MVP pilot hasn’t run. This is the honest gap.",
+      },
+    ],
+  },
+
+  /* ── 14 Learnings ──────────────────────────────────────────────────────── */
+  { ...pick("reflections"), id: "learnings" },
+];
