@@ -49,6 +49,17 @@
   padding: 16px;
 }
 
+/* The recording fills the frame exactly as the drawn dashboard does. */
+.cs-media .lr-media-frame > .lr-video {
+  display: block;
+  width: 100%;
+  max-width: none;
+  max-height: none;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: clamp(4px, 1.2vw, 10px);
+}
+
 .lr {
   container-type: inline-size;
   width: 100%;
@@ -60,9 +71,11 @@
    layout at every width and scales down like a video would. */
 .lr-frame {
   display: grid;
-  grid-template-columns: 4.6em minmax(0, 1fr);
+  grid-template-columns: 5% minmax(0, 1fr);
   aspect-ratio: 16 / 9;
-  font-size: 1.35cqw;
+  /* 1em is 0.85% of the window, which puts every size at the recording's scale: its
+     title is 2.2% of the window wide, its body text 1.1%. */
+  font-size: 0.85cqw;
   border-radius: 1em;
   overflow: hidden;
   background: #f1f4f6;
@@ -74,33 +87,53 @@
   margin: 0;
 }
 
-/* Nav rail */
+/* Side nav, to the recording's proportions: 5% of the window wide. */
 .lr-rail {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1.2em;
   padding: 2em 0;
-  background: #101728;
-  color: #8b93a8;
+  background: #0e1422;
+  color: #8f95a3;
+}
+
+.lr-mark {
+  width: 2.4em;
+  height: 2.6em;
+}
+
+.lr-expand {
+  display: grid;
+  place-items: center;
+  width: 2.7em;
+  height: 2.7em;
+  margin: 0.9em 0 2.9em;
+  border: 0.12em solid #232b3d;
+  border-radius: 0.7em;
+}
+
+.lr-expand svg {
+  width: 1.4em;
+  height: 1.4em;
 }
 
 .lr-rail-item {
   display: grid;
   place-items: center;
-  width: 3.2em;
-  height: 3.2em;
-  border-radius: 0.7em;
+  width: 4.4em;
+  height: 4.7em;
+  margin-bottom: 0.4em;
+  border-radius: 1em;
 }
 
 .lr-rail-item.is-on {
-  background: #1c2540;
+  background: #111a36;
   color: #fff;
 }
 
 .lr-rail-item svg {
-  width: 1.8em;
-  height: 1.8em;
+  width: 1.85em;
+  height: 1.85em;
 }
 
 /* The window the page scrolls behind. */
@@ -119,7 +152,7 @@
   display: flex;
   flex-direction: column;
   gap: 1.4em;
-  padding: 2.8em 5em 3.2em;
+  padding: 2.8em 6.9em 3.2em;
   will-change: transform;
 }
 
