@@ -42,6 +42,7 @@ export const CRITERIA_NAV = [
       { id: "design-system", label: "Design System" },
       { id: "merchandising", label: "In-Product Merchandising" },
       { id: "system", label: "System Before + After" },
+      { id: "edge-cases", label: "Overview + Edge Cases" },
       { id: "impact", label: "Impact" },
     ],
   },
@@ -55,7 +56,7 @@ export const CRITERIA_BLOCKS = [
     body: [
       [
         { text: "Weekly Check-Ins " },
-        { text: "launched to 5% of SMB accounts", bold: true },
+        { text: "launched to 5% of mid-market accounts", bold: true },
         { text: ", and " },
         { text: "28% of existing Develop users checked out its in-product merchandising", bold: true },
         { text: " during the four-week rollout. I led design end to end, partnering with a PM and an engineer over six months." },
@@ -516,11 +517,60 @@ export const CRITERIA_BLOCKS = [
       "A simplified product view of Check-Ins for ICs, managers and the C-suite. Moving into Teams would also mean an app review and a separate build per platform, so I’d sequence SSO and the IC record first.",
   },
   {
+    id: "edge-cases",
+    variant: "side-to-side",
+    eyebrow: "Product overview",
+    body: [
+      "Weekly Check-Ins is an AI coaching product inside Criteria Develop, built for mid-market companies of 200 to 2,000 people. At that size a CHRO leads a small People team that can’t see what’s happening across a growing layer of managers, and finds out about burnout and flight risk too late.",
+      "Each week Coach Bo asks employees three questions in a short conversation, and Check-Ins turns the answers into what each role needs: 1:1 prep for managers and a weekly digest of team health, burnout trends and wins for leaders and the CHRO. A personal Career History for individual contributors is the proposed next step.",
+      "Access follows the HRIS org chart, so each person sees only the teams that roll up to them, with no one in HR setting it up by hand. Pre-hire assessments bring each employee’s strengths and motivators into 1:1 prep, and TEAMscan stays the quarterly read on how a team works together.",
+    ],
+  },
+  {
+    variant: "side-to-side",
+    eyebrow: "Edge cases for mid-market customers",
+    lead: "Mid-market companies of 200 to 2,000 people grow, re-org and hire in waves, with a People team of a few people, so every state has to hold up when the data is missing, thin or changing.",
+    agenda: [
+      {
+        title: "No check-in is not a good week",
+        body: "A missed week shows as “No check-in” with the date of the last one, never as a neutral score. Streaks pause for PTO and leave pulled from the HRIS.",
+      },
+      {
+        title: "Hiring waves have no baseline",
+        body: "When a company hires dozens of people in a quarter, new hires show “Building baseline” for their first four check-ins, so one week can’t read as a pattern.",
+      },
+      {
+        title: "Managers of managers see patterns",
+        body: "Direct managers see their own reports. Skip-level managers, department heads and the CHRO see rolled-up patterns, and any view under five people rolls up to the next level.",
+      },
+      {
+        title: "Not everyone works in Develop",
+        body: "Hourly, field and frontline employees without a Develop login get the check-in by email or text link, at the end of their own week and time zone.",
+      },
+      {
+        title: "Employees see what their manager sees",
+        body: "Before a summary is shared, the employee can review and edit it, so the manager never sees a read the employee hasn’t.",
+      },
+      {
+        title: "Some answers need a person, not a score",
+        body: "If someone describes distress, Coach Bo shares support resources right away and follows the company’s escalation policy, instead of waiting for Monday’s prep.",
+      },
+      {
+        title: "The org chart changes mid-cycle",
+        body: "After a re-org or manager change, history stays with the employee and a new manager sees check-ins from their start date. People synced without a manager are flagged in setup, not dropped.",
+      },
+      {
+        title: "Low participation lowers confidence",
+        body: "When fewer than half a team checks in, the digest shows participation next to mood and marks the read as low confidence.",
+      },
+    ],
+  },
+  {
     id: "impact",
     variant: "default",
     eyebrow: "Impact",
     body: [
-      [{ text: "The redesigned Check-Ins onboarding experience " }, { text: "launched to 5% of SMB accounts", bold: true }, { text: ", alongside a limited beta of Coaching v1: the weekly Coach Bo chat and the manager dashboard with 1:1 prep. The executive intelligence digest went out by email to managers and the C-suite, and the Check-Ins design system carried from Figma into TypeScript components. In-product merchandising " }, { text: "was checked out by 28% of existing Develop users", bold: true }, { text: " during the four-week rollout." }],
+      [{ text: "The redesigned Check-Ins onboarding experience " }, { text: "launched to 5% of mid-market accounts", bold: true }, { text: ", alongside a limited beta of Coaching v1: the weekly Coach Bo chat and the manager dashboard with 1:1 prep. The executive intelligence digest went out by email to managers and the C-suite, and the Check-Ins design system carried from Figma into TypeScript components. In-product merchandising " }, { text: "was checked out by 28% of existing Develop users", bold: true }, { text: " during the four-week rollout." }],
       [{ text: "The work created a scalable onboarding foundation that enabled Criteria to expand Check-Ins to larger organizations.", bold: true }, { text: " I left before the remaining post-launch numbers were available." }],
     ],
   },
