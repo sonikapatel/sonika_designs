@@ -313,7 +313,7 @@ export const CRITERIA_BLOCKS = [
     variant: "dashboard-variations",
     variations: [
       {
-        name: "Manager dashboard",
+        name: "Direct manager",
         src: "/images/criteria/dashboard.mov",
         notes: [
           "Managers get a high-level view of each employee’s mood, progress and readiness scores week over week, along with their engagement with Coach Bo.",
@@ -323,11 +323,14 @@ export const CRITERIA_BLOCKS = [
           "A demo of the manager dashboard, built around what managers care about most when reviewing their direct reports. The red, yellow and green states come from the mood scores Coach Bo synthesizes.",
       },
       {
-        name: "Leader roll-up",
-        body: "The manager dashboard is built for someone close to their team. In the interviews after launch, the value grew with distance: a People leader said Check-Ins “opens up a blindspot” across the business. So a second viable direction is the view a leader of several teams opens. It ranks teams by mood, tells a dip this week from a slide over several, and lets the leader set the threshold that flags a team. This is a concept and was not shipped.",
-        alt: "A leader dashboard in the manager dashboard’s layout, with sample data: check-in completion 80%, average mood 4.0 of 5 and two teams to watch, above a list of four teams ranked by mood. Customer Success is down three weeks, Sales dipped this week, Marketing and Product are rising.",
+        name: "Exec level",
+        alt: "The exec level dashboard in the manager dashboard’s visual treatment, scrolling by itself: Monday Executive Intelligence for the week of 11/10, with what leaders should know, suggested next steps, weekly participation 54%, organization mood 3.9 of 5, three early signals and four teams with their participation and mood.",
+        notes: [
+          "Leaders get weekly participation, organization mood and the early signals raised across the business, with each team’s participation and mood.",
+          "What leaders should know and the suggested next steps turn those signals into something to act on that week.",
+        ],
         caption:
-          "A concept for the leader view, drawn in the manager dashboard’s layout with sample teams. Each team shows its mood, how many checked in and whether a dip is new or a pattern.",
+          "The exec level dashboard, in the manager dashboard’s visual treatment and playing on a loop. It carries the illustrative Monday Executive Intelligence content from the report previews in the merchandising section.",
       },
     ],
   },
