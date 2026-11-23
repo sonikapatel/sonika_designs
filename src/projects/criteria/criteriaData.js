@@ -315,6 +315,7 @@ export const CRITERIA_BLOCKS = [
       {
         name: "Direct manager",
         src: "/images/criteria/dashboard.mov",
+        alt: "A recording of the manager dashboard: Your focus and Your mantra above the check-in overview, which switches from a card for each of eight reports to the team’s completion, mood and progress.",
         notes: [
           "Managers get a high-level view of each employee’s mood, progress and readiness scores week over week, along with their engagement with Coach Bo.",
           "1:1 prep guides surface what managers care about most, alongside each employee’s strengths and career motivators drawn from our pre-hire assessments.",
@@ -324,10 +325,10 @@ export const CRITERIA_BLOCKS = [
       },
       {
         name: "Exec level",
-        alt: "The exec level dashboard in the manager dashboard’s visual treatment, scrolling by itself: Monday Executive Intelligence for the week of 11/10, with what leaders should know, suggested next steps, weekly participation 54%, organization mood 3.9 of 5, three early signals and four teams with their participation and mood.",
+        alt: "The exec level dashboard in the manager dashboard’s visual treatment, scrolling by itself: Monday Executive Intelligence for the week of 11/10, with what you should know, suggested next steps, weekly participation 54%, organization mood 3.9 of 5, three early signals and four teams with their participation and mood.",
         notes: [
           "Leaders get weekly participation, organization mood and the early signals raised across the business, with each team’s participation and mood.",
-          "What leaders should know and the suggested next steps turn those signals into something to act on that week.",
+          "What you should know and the suggested next steps turn those signals into something to act on that week.",
         ],
         caption:
           "The exec level dashboard, in the manager dashboard’s visual treatment and playing on a loop. It carries the illustrative Monday Executive Intelligence content from the report previews in the merchandising section.",

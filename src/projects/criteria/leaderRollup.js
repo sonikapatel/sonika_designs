@@ -7,7 +7,8 @@ import "./leaderRollup.css";
    treatment (nav rail, greeting-style header, icon-titled white cards on the grey ground,
    set in Figtree) and plays by itself like a recording: the page scrolls down through
    its cards and back on a loop. Its content is the Monday Executive Intelligence and
-   senior manager reports from the report previews (merchPreview.js), word for word.
+   senior manager reports from the report previews (merchPreview.js), word for word, apart
+   from the "What you should know" card title.
    Reduced motion shows the page still, and scrollable. */
 
 const METRICS = [
@@ -125,7 +126,7 @@ function ExecDashboard({ alt }) {
 
             <div className="lr-pair">
               <div className="lr-card">
-                <CardTitle icon="know">What leaders should know</CardTitle>
+                <CardTitle icon="know">What you should know</CardTitle>
                 {SIGNALS.map(([title, text]) => (
                   <div className="lr-signal" key={title}>
                     <p className="lr-name">{title}</p>
@@ -218,9 +219,20 @@ export default function DashboardVariations({ block }) {
       </div>
 
       <figure className="cs-media" role="tabpanel" key={variation.name}>
-        <div className={`cs-media-frame${variation.src ? "" : " lr-media-frame"}`}>
+        {/* Both levels share one format: the same slim inset, a 16:9 desktop frame, and
+            playback that starts by itself and loops, with no player controls. */}
+        <div className="cs-media-frame lr-media-frame">
           {variation.src ? (
-            <video src={variation.src} controls playsInline muted preload="metadata" />
+            <video
+              className="lr-video"
+              src={variation.src}
+              aria-label={variation.alt}
+              autoPlay
+              loop
+              muted
+              playsInline
+              preload="auto"
+            />
           ) : (
             <ExecDashboard alt={variation.alt} />
           )}

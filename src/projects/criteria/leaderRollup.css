@@ -49,6 +49,17 @@
   padding: 16px;
 }
 
+/* The recording fills the frame exactly as the drawn dashboard does. */
+.cs-media .lr-media-frame > .lr-video {
+  display: block;
+  width: 100%;
+  max-width: none;
+  max-height: none;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: clamp(4px, 1.2vw, 10px);
+}
+
 .lr {
   container-type: inline-size;
   width: 100%;
