@@ -35,7 +35,6 @@ const TEAMS = [
   { team: "Michael Scott’s Team", area: "Marketing", rate: "64%", mood: 4.1, trend: "up" },
 ];
 
-const EASE_OUT = [0.23, 1, 0.32, 1];
 const EASE_IN_OUT = [0.77, 0, 0.175, 1];
 
 // The loop, in seconds: rest at the top, scroll down, rest at the bottom, scroll back.
@@ -100,6 +99,56 @@ function CardTitle({ icon, children }) {
       </span>
       {children}
     </p>
+  );
+}
+
+// The trend line along the foot of a card: it only says which way the trend points.
+const TREND_LINES = {
+  up: "0,17 33,14 66,14 100,8",
+  down: "0,8 33,9 66,16 100,14",
+};
+
+/* One card in the check-in overview, in the format the direct manager dashboard gives
+   each employee: who it is, an optional status, its figures, and a trend line along
+   the foot.
+   Here it holds a team; given a person, a role and a sentiment score it is that card. */
+function OverviewCard({ name, detail, status, tone, stats, trend }) {
+  const line = TREND_LINES[trend];
+  return (
+    <div className={`lr-person lr-person--${tone}`}>
+      <div className="lr-person-head">
+        <span className="lr-avatar">
+          <Glyph d={ICONS.teams} />
+        </span>
+        <div>
+          <p className="lr-name">{name}</p>
+          <p className="lr-small">{detail}</p>
+        </div>
+      </div>
+      {status && (
+        <p className="lr-status">
+          <svg viewBox="0 0 20 20" aria-hidden="true">
+            {tone === "good" ? (
+              <path d="M10 17.5a7.5 7.5 0 1 0 0-15 7.5 7.5 0 0 0 0 15ZM6.8 10.2l2.2 2.2 4.2-4.6" />
+            ) : (
+              <path d="M10 3 2.5 16.5h15ZM10 8.5v3.5M10 14.3v.2" />
+            )}
+          </svg>
+          {status}
+        </p>
+      )}
+      <p className="lr-stats">
+        {stats.map(([label, value]) => (
+          <span key={label}>
+            {label} <strong>{value}</strong>
+          </span>
+        ))}
+      </p>
+      <svg className="lr-spark" viewBox="0 0 100 24" preserveAspectRatio="none" aria-hidden="true">
+        <polygon className="lr-spark-area" points={`0,24 ${line} 100,24`} />
+        <polyline className="lr-spark-line" points={line} />
+      </svg>
+    </div>
   );
 }
 
@@ -192,34 +241,20 @@ function ExecDashboard({ alt }) {
                 ))}
               </div>
 
-              <div className="lr-reports">
-                {TEAMS.map((t, i) => {
-                  const tone = t.trend === "up" ? "good" : "warn";
-                  return (
-                    <div className="lr-team" key={t.team}>
-                      <div>
-                        <p className="lr-name">{t.team}</p>
-                        <p className="lr-small">
-                          {t.area} · {t.rate} participation
-                        </p>
-                      </div>
-                      <p className={`lr-status lr-status--${tone}`}>
-                        {t.trend === "up" ? "↑ Rising" : "↓ Dipping"}
-                      </p>
-                      <div className="lr-bar">
-                        <motion.span
-                          className={`lr-fill lr-fill--${tone}`}
-                          initial={still ? false : { scaleX: 0 }}
-                          animate={{ scaleX: t.mood / 5 }}
-                          transition={{ duration: 0.7, ease: EASE_OUT, delay: 0.3 + i * 0.06 }}
-                        />
-                      </div>
-                      <p className="lr-mood">
-                        <span>Mood</span> {t.mood.toFixed(1)}/5
-                      </p>
-                    </div>
-                  );
-                })}
+              <div className="lr-people">
+                {TEAMS.map((t) => (
+                  <OverviewCard
+                    key={t.team}
+                    name={t.team}
+                    detail={t.area}
+                    tone={t.trend === "up" ? "good" : "warn"}
+                    trend={t.trend}
+                    stats={[
+                      ["Mood", `${t.mood.toFixed(1)}/5`],
+                      ["Participation", t.rate],
+                    ]}
+                  />
+                ))}
               </div>
             </div>
           </motion.div>
