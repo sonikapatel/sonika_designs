@@ -222,3 +222,61 @@
   justify-content: flex-start;
   gap: 20px;
 }
+
+/* ── At a glance: project facts in columns ── */
+
+.cs-glance {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.cs-glance-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  column-gap: 32px;
+  row-gap: 28px;
+  margin: 0;
+}
+
+.cs-glance-item {
+  min-width: 0;
+  padding-top: 12px;
+  border-top: 1px solid var(--cs-rule);
+}
+
+.cs-glance-item.is-wide {
+  grid-column: span 2;
+}
+
+.cs-glance-label {
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--cs-body);
+  margin: 0;
+}
+
+.cs-glance-value {
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--cs-accent);
+  margin: 6px 0 0;
+}
+
+@media (max-width: 767px) {
+  .cs-glance-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 20px;
+    row-gap: 20px;
+  }
+}
+
+@media (max-width: 420px) {
+  .cs-glance-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cs-glance-item.is-wide {
+    grid-column: auto;
+  }
+}

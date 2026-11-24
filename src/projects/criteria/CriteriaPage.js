@@ -9,7 +9,7 @@ import SolutionConcepts from "./solutionConcepts";
 import SystemDiagram from "./systemDiagram";
 import DataSources from "./dataSources";
 import DashboardVariations from "./leaderRollup";
-import { JobStories, ChannelOptions, Reflections } from "./storyBlocks";
+import { JobStories, ChannelOptions, Reflections, AtAGlance } from "./storyBlocks";
 
 const CUSTOM_BLOCKS = {
   "card-sort": PostItScramble,
@@ -20,6 +20,7 @@ const CUSTOM_BLOCKS = {
   "job-stories": JobStories,
   "channel-options": ChannelOptions,
   reflections: Reflections,
+  "at-a-glance": AtAGlance,
   merchandising: Merchandising,
   "system-diagram": SystemDiagram,
   "data-sources": DataSources,
