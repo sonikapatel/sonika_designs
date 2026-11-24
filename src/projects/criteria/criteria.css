@@ -556,3 +556,84 @@
   flex: 1;
   min-height: 0;
 }
+
+/* ── Black media grounds ──
+   On this case study every ground behind a recording, carousel slide or diagram is
+   black instead of the shared light grey. Anything that sits directly on a ground is
+   relit to stay readable; the screens inside keep their own colours. */
+
+.cs-page[data-project="criteria"] {
+  --cr-ground: #000;
+  --cr-on-ground: #fff;
+  --cr-on-ground-muted: #b5b5b5;
+}
+
+.cs-page[data-project="criteria"] .cs-media-frame:not(.cs-media-frame--bare):not(.cs-media-frame--framed),
+.cs-page[data-project="criteria"] .cs-carousel-slide,
+.cs-page[data-project="criteria"] .sd-panel {
+  background: var(--cr-ground);
+}
+
+.cs-page[data-project="criteria"] .cs-carousel-slide {
+  border-color: var(--cr-ground);
+}
+
+/* Solution concepts: label, count and dots */
+.cs-page[data-project="criteria"] .sc-frame-label {
+  color: var(--cr-on-ground);
+}
+
+.cs-page[data-project="criteria"] .sc-frame-count {
+  color: var(--cr-on-ground-muted);
+}
+
+.cs-page[data-project="criteria"] .sc-dot-btn {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.cs-page[data-project="criteria"] .sc-dot-btn.is-active {
+  background: var(--cr-on-ground);
+}
+
+/* Check-in flow: step bar and replay */
+.cs-page[data-project="criteria"] .cf-steps {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.cs-page[data-project="criteria"] .cf .cf-step:not(.is-on),
+.cs-page[data-project="criteria"] .cf .cf-replay {
+  color: #d0d0d0;
+}
+
+.cs-page[data-project="criteria"] .cf-step:not(.is-on) .cf-num {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.cs-page[data-project="criteria"] .cf-arrow {
+  color: var(--cr-on-ground-muted);
+}
+
+.cs-page[data-project="criteria"] .cf .cf-step:focus-visible,
+.cs-page[data-project="criteria"] .cf .cf-replay:focus-visible {
+  outline-color: var(--cr-on-ground);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .cs-page[data-project="criteria"] .cf .cf-replay:hover {
+    color: var(--cr-on-ground);
+  }
+}
+
+/* System diagram: status, row labels, connectors and the foundation rule */
+.cs-page[data-project="criteria"] .sd-status {
+  color: var(--cr-on-ground);
+}
+
+.cs-page[data-project="criteria"] .sd-label,
+.cs-page[data-project="criteria"] .sd-row--connector {
+  color: var(--cr-on-ground-muted);
+}
+
+.cs-page[data-project="criteria"] .sd-foundation {
+  border-top-color: #4a4a4a;
+}
