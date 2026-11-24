@@ -487,7 +487,7 @@ export default function CaseStudyPage({ meta, nav, blocks, custom }) {
   }
 
   return (
-    <div className="cs-page">
+    <div className="cs-page" data-project={meta.slug}>
       {!unlocked && (
         <PasswordModal onUnlock={handleUnlock} projectName={meta.company} />
       )}
